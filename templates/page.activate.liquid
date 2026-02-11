@@ -17,7 +17,7 @@
   <form id="activateForm" style="max-width:360px;margin:0 auto;">
     <div style="text-align:left;margin-bottom:12px;">
       <label for="pinInput" style="font-size:12px;opacity:.7;display:block;margin-bottom:6px;">Activation PIN</label>
-      <input id="pinInput" type="password" inputmode="numeric" maxlength="6"
+      <input id="pinInput" type="password" inputmode="numeric" maxlength="6" placeholder="Enter your 6-digit PIN"
              style="width:100%;padding:12px;border:1px solid #111;border-radius:0px;">
     </div>
 
@@ -109,7 +109,10 @@
         }
         return;
       }
-      msg.textContent = "Activated. Check your email for account invite if needed.";
+      msg.textContent = "Activated. Redirecting to My IRIS…";
+      setTimeout(function () {
+        window.location.assign("/pages/my-iris");
+      }, 800);
     } catch (err) {
       msg.textContent = "Activation failed. Please try again.";
     }
