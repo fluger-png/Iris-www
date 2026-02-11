@@ -131,7 +131,7 @@
         function labelFromId(id) {
           if (!id) return '';
           var clean = id.replace(/^IRIS-?/i, '').trim();
-          return 'Iris № ' + clean;
+          return 'IRIS # ' + clean;
         }
 
         fetch('/apps/iris/my-iris?email=' + encodeURIComponent(email), {
