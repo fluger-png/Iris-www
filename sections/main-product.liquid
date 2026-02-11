@@ -262,7 +262,8 @@
                     </span>
                   </label>
                   <div class="price-per-item__container">
-                    <quantity-input class="quantity" data-url="{{ product.url }}" data-section="{{ section.id }}">
+                    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                      <quantity-input class="quantity" data-url="{{ product.url }}" data-section="{{ section.id }}">
                       <button class="quantity__button" name="minus" type="button">
                         <span class="visually-hidden">
                           {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
@@ -295,7 +296,11 @@
                           {{- 'icon-plus.svg' | inline_asset_content -}}
                         </span>
                       </button>
-                    </quantity-input>
+                      </quantity-input>
+                      {%- if template.suffix == 'iris' or template contains 'product.iris' -%}
+                        <span style="font-size:12px;opacity:.7;white-space:nowrap;">Max 10 IRIS</span>
+                      {%- endif -%}
+                    </div>
                     {%- liquid
                       assign volume_pricing_array = product.selected_or_first_available_variant.quantity_price_breaks | sort: 'quantity' | reverse
                       assign current_qty_for_volume_pricing = cart_qty | plus: product.selected_or_first_available_variant.quantity_rule.min
