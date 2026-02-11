@@ -1,0 +1,49 @@
+{% layout 'theme' %}
+
+<div class="page-width" style="max-width:700px;margin:0 auto;padding:40px 16px;text-align:center;">
+
+  <h1>Activate your IRIS</h1>
+
+  <p>
+    You are about to activate your IRIS artwork.<br>
+    Activation confirms you scanned the NFC tag.
+  </p>
+
+  <div style="margin:20px 0;padding:16px;border:1px solid #eee;border-radius:14px;">
+    <div style="font-size:12px;opacity:.7;">IRIS ID</div>
+    <div id="irisId" style="font-size:22px;font-weight:600;">—</div>
+  </div>
+
+  <a id="activateBtn"
+     target="_blank"
+     style="display:inline-block;padding:14px 22px;border-radius:0px;border:1px solid #111;text-decoration:none;">
+     Activate my IRIS
+  </a>
+
+  <p style="margin-top:20px;font-size:14px;opacity:.8;">
+    After activation, your artwork may appear in the IRIS Seen Collection (no personal data).
+  </p>
+
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  let iris = params.get("iris");
+
+  function normalize(v){
+    if(!v) return "";
+    if(/^IRIS-\d{4}$/i.test(v)) return v.toUpperCase();
+    const d=(v.match(/\d+/)||[""])[0];
+    return "IRIS-"+d.padStart(4,"0").slice(-4);
+  }
+
+  const irisId = normalize(iris);
+
+  document.getElementById("irisId").textContent = irisId || "Unknown";
+
+  // ВСТАВЬ СВОЮ PREFILL ССЫЛКУ
+  const formBase = "https://docs.google.com/forms/d/e/1FAIpQLSdwZC2jsruqjV1fm1J2bKMIfvvcsJIDtF3sbk3ScKE1XMHzlQ/viewform?usp=pp_url&entry.84962773=";
+
+  document.getElementById("activateBtn").href =
+    irisId ? formBase + encodeURIComponent(irisId) : formBase;
+</script>

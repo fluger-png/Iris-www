@@ -1,0 +1,194 @@
+{% layout 'theme' %}
+
+<div class="page-width" style="max-width:1100px;margin:0 auto;padding:28px 16px;">
+  <h1 style="margin:0 0 14px;">My IRIS</h1>
+
+  {% if customer == nil %}
+    <p style="margin:0 0 12px;">Please sign in to view your IRIS.</p>
+    <a href="/account"
+       style="display:inline-block;padding:10px 14px;border:1px solid #111;border-radius:12px;text-decoration:none;">
+      Sign in
+    </a>
+  {% else %}
+    <style>
+      .iris-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 28px 24px;
+        margin-top: 18px;
+      }
+      .iris-card {
+        text-align: center;
+      }
+      .iris-thumb {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background: #ddd;
+        display: block;
+        border-radius: 0;
+        border: 1px solid #e5e5e5;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .iris-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .iris-label {
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .iris-sub {
+        font-size: 12px;
+        opacity: .6;
+      }
+      .iris-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 24px;
+      }
+      .iris-modal__inner {
+        max-width: 90vw;
+        max-height: 90vh;
+        background: #111;
+        padding: 12px;
+      }
+      .iris-modal__inner img {
+        max-width: 86vw;
+        max-height: 86vh;
+        display: block;
+      }
+      .iris-modal__close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: #fff;
+        border: none;
+        padding: 8px 10px;
+        cursor: pointer;
+      }
+    </style>
+
+    <div id="iris-app" data-email="{{ customer.email | escape }}">
+      <p id="iris-loading" style="margin:0 0 12px;">Loading your IRIS…</p>
+
+      <div id="iris-empty" hidden>
+        <p style="margin:0 0 12px;">No IRIS activated yet</p>
+        <a href="/pages/activate"
+           style="display:inline-block;padding:10px 14px;border:1px solid #111;border-radius:0px;text-decoration:none;">
+          Activate my IRIS
+        </a>
+      </div>
+
+      <div id="iris-grid" class="iris-grid"></div>
+
+      <p id="iris-error" hidden style="margin:14px 0 0;font-size:14px;color:#b00020;">
+        Could not load IRIS right now. Please try again.
+      </p>
+
+      <noscript>
+        <p style="margin:12px 0;">Please enable JavaScript to view your IRIS.</p>
+      </noscript>
+    </div>
+
+    <div id="iris-modal" class="iris-modal" aria-hidden="true">
+      <button class="iris-modal__close" type="button">Close</button>
+      <div class="iris-modal__inner">
+        <img id="iris-modal-img" src="" alt="IRIS image">
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var app = document.getElementById('iris-app');
+        if (!app) return;
+
+        var email = app.getAttribute('data-email');
+        var loading = document.getElementById('iris-loading');
+        var empty = document.getElementById('iris-empty');
+        var grid = document.getElementById('iris-grid');
+        var error = document.getElementById('iris-error');
+
+        var modal = document.getElementById('iris-modal');
+        var modalImg = document.getElementById('iris-modal-img');
+        var modalClose = modal.querySelector('.iris-modal__close');
+
+        function openModal(src) {
+          modalImg.src = src;
+          modal.style.display = 'flex';
+          modal.setAttribute('aria-hidden', 'false');
+        }
+        function closeModal() {
+          modalImg.src = '';
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden', 'true');
+        }
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') closeModal();
+        });
+
+        function labelFromId(id) {
+          if (!id) return '';
+          var clean = id.replace(/^IRIS-?/i, '').trim();
+          return 'Iris № ' + clean;
+        }
+
+        fetch('/apps/iris/my-iris?email=' + encodeURIComponent(email), {
+          headers: { 'Accept': 'application/json' }
+        })
+          .then(function (res) {
+            if (!res.ok) throw new Error('bad_status');
+            return res.json();
+          })
+          .then(function (data) {
+            if (loading) loading.hidden = true;
+
+            var items = (data && data.items) ? data.items : [];
+            if (!items.length) {
+              empty.hidden = false;
+              return;
+            }
+
+            var html = items.map(function (item) {
+              var img = item.image_url
+                ? '<img src="' + item.image_url + '" alt="' + item.iris_id + '">'
+                : '';
+              var thumb = '<div class="iris-thumb" data-full="' + (item.image_url || '') + '">' + img + '</div>';
+              return (
+                '<div class="iris-card">' +
+                  thumb +
+                  '<div class="iris-label">' + labelFromId(item.iris_id) + '</div>' +
+                '</div>'
+              );
+            }).join('');
+
+            grid.innerHTML = html;
+
+            grid.querySelectorAll('.iris-thumb').forEach(function (el) {
+              var full = el.getAttribute('data-full');
+              if (!full) return;
+              el.addEventListener('click', function () {
+                openModal(full);
+              });
+            });
+          })
+          .catch(function () {
+            if (loading) loading.hidden = true;
+            error.hidden = false;
+          });
+      })();
+    </script>
+  {% endif %}
+</div>
