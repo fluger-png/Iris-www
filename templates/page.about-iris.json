@@ -11,13 +11,178 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "image_banner_mVpcUD": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_UfazL9": {
+          "type": "heading",
+          "settings": {
+            "heading": "What is IRIS?",
+            "heading_size": "h1"
+          }
+        },
+        "text_kU6Hha": {
+          "type": "text",
+          "settings": {
+            "text": "IRIS is a collection of 10,000 physical artworks — each one singular, each one sealed, each one waiting.",
+            "text_style": "body"
+          }
+        },
+        "buttons_fDbFzA": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+            "button_label_1": "Button label",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "Button label",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_UfazL9",
+        "text_kU6Hha",
+        "buttons_fDbFzA"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/52cb9c40-79f0-4709-87a3-9df52e976e91.png",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": true,
+        "color_scheme": "",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "multirow_eLfCan": {
+      "type": "multirow",
+      "blocks": {
+        "row_LgGUpR": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/test2.png",
+            "caption": "",
+            "heading": "Row",
+            "text": "<p>At first glance, it is simple: a hand-drawn eye, 0.4 grams of real gold, and an embedded NFC chip. But IRIS is not merely an object. It is a system built around a moment — the moment when possession becomes ownership.</p><p>When you purchase an IRIS, nothing is revealed.<br/>You do not choose the artwork.<br/>You do not see its rarity.<br/>You do not know its place within the collection.<br/></p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "row_tgQeb7": {
+          "type": "row",
+          "settings": {
+            "caption": "",
+            "heading": "It arrives quietly.",
+            "text": "<p>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. Irreversibly. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens — not as a promise of value, but as a record of fact.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "row_WdjPN8": {
+          "type": "row",
+          "settings": {
+            "caption": "Caption",
+            "heading": "Row",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "button_label": "Button label",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "row_LgGUpR",
+        "row_tgQeb7",
+        "row_WdjPN8"
+      ],
+      "name": "t:sections.multirow.presets.name",
+      "settings": {
+        "image_height": "medium",
+        "desktop_image_width": "medium",
+        "image_layout": "alternate-left",
+        "heading_size": "h1",
+        "text_style": "body",
+        "button_style": "secondary",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "row_color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_cQkDWQ": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_DWkYqd": {
+          "type": "column",
+          "settings": {
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_miJAip": {
+          "type": "column",
+          "settings": {
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_tAXWNy": {
+          "type": "column",
+          "settings": {
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_DWkYqd",
+        "column_miJAip",
+        "column_tAXWNy"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Multicolumn",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "Button label",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "image_banner_mVpcUD",
+    "multirow_eLfCan",
+    "multicolumn_cQkDWQ"
   ]
 }
