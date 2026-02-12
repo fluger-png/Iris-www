@@ -1,6 +1,634 @@
+{% doc %}
+  @prompt
+    A magazine-style editorial layout
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-magazine-layout-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px;
+  }
+
+  .ai-magazine-layout__container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-magazine-layout__featured-{{ ai_gen_id }} {
+    grid-column: span 8;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-magazine-layout__featured-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    aspect-ratio: 3 / 2;
+  }
+
+  .ai-magazine-layout__featured-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 3 / 2;
+    position: relative;
+  }
+
+  .ai-magazine-layout__featured-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-magazine-layout__featured-content-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: {{ block.settings.content_padding }}px;
+    background: linear-gradient(to top, rgba(0, 0, 0, {{ block.settings.overlay_opacity }}), transparent);
+    color: {{ block.settings.featured_text_color }};
+  }
+
+  .ai-magazine-layout__category-{{ ai_gen_id }} {
+    font-size: {{ block.settings.category_font_size }}px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .ai-magazine-layout__featured-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.featured_title_size }}px;
+    line-height: 1.2;
+    margin: 0 0 12px 0;
+    font-weight: 700;
+  }
+
+  .ai-magazine-layout__featured-excerpt-{{ ai_gen_id }} {
+    font-size: {{ block.settings.excerpt_font_size }}px;
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+    opacity: 0.9;
+  }
+
+  .ai-magazine-layout__meta-{{ ai_gen_id }} {
+    font-size: {{ block.settings.meta_font_size }}px;
+    opacity: 0.8;
+  }
+
+  .ai-magazine-layout__sidebar-{{ ai_gen_id }} {
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-magazine-layout__article-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    padding-bottom: {{ block.settings.grid_gap }}px;
+    border-bottom: 1px solid {{ block.settings.divider_color }};
+  }
+
+  .ai-magazine-layout__article-{{ ai_gen_id }}:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .ai-magazine-layout__article-image-{{ ai_gen_id }} {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .ai-magazine-layout__article-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-magazine-layout__article-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-magazine-layout__article-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-magazine-layout__article-content-{{ ai_gen_id }} {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ai-magazine-layout__article-category-{{ ai_gen_id }} {
+    font-size: {{ block.settings.sidebar_category_size }}px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    color: {{ block.settings.category_color }};
+    font-weight: 600;
+  }
+
+  .ai-magazine-layout__article-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.sidebar_title_size }}px;
+    line-height: 1.3;
+    margin: 0 0 8px 0;
+    color: {{ block.settings.text_color }};
+    font-weight: 600;
+  }
+
+  .ai-magazine-layout__article-meta-{{ ai_gen_id }} {
+    font-size: {{ block.settings.sidebar_meta_size }}px;
+    color: {{ block.settings.meta_color }};
+  }
+
+  .ai-magazine-layout__link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .ai-magazine-layout__link-{{ ai_gen_id }}:hover .ai-magazine-layout__featured-title-{{ ai_gen_id }},
+  .ai-magazine-layout__link-{{ ai_gen_id }}:hover .ai-magazine-layout__article-title-{{ ai_gen_id }} {
+    opacity: 0.8;
+  }
+
+  .ai-magazine-layout__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-magazine-layout__featured-{{ ai_gen_id }} {
+      grid-column: span 12;
+    }
+
+    .ai-magazine-layout__sidebar-{{ ai_gen_id }} {
+      grid-column: span 12;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-magazine-layout-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding | times: 0.5 }}px;
+    }
+
+    .ai-magazine-layout__featured-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.featured_title_size | times: 0.7 }}px;
+    }
+
+    .ai-magazine-layout__article-image-{{ ai_gen_id }} {
+      width: 80px;
+      height: 80px;
+    }
+
+    .ai-magazine-layout__article-{{ ai_gen_id }} {
+      gap: 12px;
+    }
+  }
+{% endstyle %}
+
+<magazine-editorial-{{ ai_gen_id }}
+  class="ai-magazine-layout-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-magazine-layout__container-{{ ai_gen_id }}">
+    <div class="ai-magazine-layout__featured-{{ ai_gen_id }}">
+      {% if block.settings.featured_article != blank %}
+        <a
+          href="{{ block.settings.featured_article.url }}"
+          class="ai-magazine-layout__link-{{ ai_gen_id }}"
+        >
+          {% if block.settings.featured_article.image %}
+            <img
+              src="{{ block.settings.featured_article.image | image_url: width: 1200 }}"
+              alt="{{ block.settings.featured_article.image.alt | escape }}"
+              class="ai-magazine-layout__featured-image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="{{ block.settings.featured_article.image.width }}"
+              height="{{ block.settings.featured_article.image.height }}"
+            >
+          {% else %}
+            <div class="ai-magazine-layout__featured-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+
+          <div class="ai-magazine-layout__featured-content-{{ ai_gen_id }}">
+            {% if block.settings.show_category and block.settings.featured_article.tags.size > 0 %}
+              <div class="ai-magazine-layout__category-{{ ai_gen_id }}">
+                {{ block.settings.featured_article.tags.first }}
+              </div>
+            {% endif %}
+
+            <h2 class="ai-magazine-layout__featured-title-{{ ai_gen_id }}">
+              {{ block.settings.featured_article.title }}
+            </h2>
+
+            {% if block.settings.show_excerpt and block.settings.featured_article.excerpt != blank %}
+              <div class="ai-magazine-layout__featured-excerpt-{{ ai_gen_id }}">
+                {{ block.settings.featured_article.excerpt | strip_html | truncate: 150 }}
+              </div>
+            {% endif %}
+
+            {% if block.settings.show_date or block.settings.show_author %}
+              <div class="ai-magazine-layout__meta-{{ ai_gen_id }}">
+                {% if block.settings.show_author and block.settings.featured_article.author != blank %}
+                  {{ block.settings.featured_article.author }}
+                {% endif %}
+                {% if block.settings.show_author and block.settings.show_date %}
+                  •
+                {% endif %}
+                {% if block.settings.show_date %}
+                  {{ block.settings.featured_article.published_at | date: '%B %d, %Y' }}
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </a>
+      {% else %}
+        <div class="ai-magazine-layout__featured-placeholder-{{ ai_gen_id }}">
+          {{ 'hero-apparel-1' | placeholder_svg_tag }}
+          <div class="ai-magazine-layout__empty-state-{{ ai_gen_id }}">
+            Select a featured article
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-magazine-layout__sidebar-{{ ai_gen_id }}">
+      {% for i in (1..3) %}
+        {% liquid
+          assign article_key = 'sidebar_article_' | append: i
+          assign article = block.settings[article_key]
+        %}
+
+        {% if article != blank %}
+          <article class="ai-magazine-layout__article-{{ ai_gen_id }}">
+            <div class="ai-magazine-layout__article-image-{{ ai_gen_id }}">
+              <a
+                href="{{ article.url }}"
+                class="ai-magazine-layout__link-{{ ai_gen_id }}"
+              >
+                {% if article.image %}
+                  <img
+                    src="{{ article.image | image_url: width: 240 }}"
+                    alt="{{ article.image.alt | escape }}"
+                    loading="lazy"
+                    width="240"
+                    height="240"
+                  >
+                {% else %}
+                  <div class="ai-magazine-layout__article-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </a>
+            </div>
+
+            <div class="ai-magazine-layout__article-content-{{ ai_gen_id }}">
+              {% if block.settings.show_category and article.tags.size > 0 %}
+                <div class="ai-magazine-layout__article-category-{{ ai_gen_id }}">
+                  {{ article.tags.first }}
+                </div>
+              {% endif %}
+
+              <h3 class="ai-magazine-layout__article-title-{{ ai_gen_id }}">
+                <a
+                  href="{{ article.url }}"
+                  class="ai-magazine-layout__link-{{ ai_gen_id }}"
+                >
+                  {{ article.title }}
+                </a>
+              </h3>
+
+              {% if block.settings.show_date or block.settings.show_author %}
+                <div class="ai-magazine-layout__article-meta-{{ ai_gen_id }}">
+                  {% if block.settings.show_author and article.author != blank %}
+                    {{ article.author }}
+                  {% endif %}
+                  {% if block.settings.show_author and block.settings.show_date %}
+                    •
+                  {% endif %}
+                  {% if block.settings.show_date %}
+                    {{ article.published_at | date: '%b %d, %Y' }}
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </article>
+        {% else %}
+          <article class="ai-magazine-layout__article-{{ ai_gen_id }}">
+            <div class="ai-magazine-layout__article-image-{{ ai_gen_id }}">
+              <div class="ai-magazine-layout__article-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            </div>
+            <div class="ai-magazine-layout__article-content-{{ ai_gen_id }}">
+              <div class="ai-magazine-layout__article-category-{{ ai_gen_id }}">Category</div>
+              <h3 class="ai-magazine-layout__article-title-{{ ai_gen_id }}">
+                Select article {{ i }}
+              </h3>
+              <div class="ai-magazine-layout__article-meta-{{ ai_gen_id }}">
+                Author • Date
+              </div>
+            </div>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</magazine-editorial-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class MagazineEditorial{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.adjustOverlay();
+      }
+
+      adjustOverlay() {
+        const featuredContent = this.querySelector('.ai-magazine-layout__featured-content-{{ ai_gen_id }}');
+        if (featuredContent) {
+          featuredContent.style.transition = 'padding 0.3s ease';
+        }
+      }
+    }
+
+    customElements.define('magazine-editorial-{{ ai_gen_id }}', MagazineEditorial{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Magazine editorial layout",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Featured article"
+    },
+    {
+      "type": "article",
+      "id": "featured_article",
+      "label": "Featured article"
+    },
+    {
+      "type": "range",
+      "id": "featured_title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "featured_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Overlay opacity",
+      "default": 0.7
+    },
+    {
+      "type": "header",
+      "content": "Sidebar articles"
+    },
+    {
+      "type": "article",
+      "id": "sidebar_article_1",
+      "label": "Article 1"
+    },
+    {
+      "type": "article",
+      "id": "sidebar_article_2",
+      "label": "Article 2"
+    },
+    {
+      "type": "article",
+      "id": "sidebar_article_3",
+      "label": "Article 3"
+    },
+    {
+      "type": "range",
+      "id": "sidebar_title_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Display options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category",
+      "label": "Show category",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show excerpt",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "category_color",
+      "label": "Category",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "meta_color",
+      "label": "Meta text",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Content padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "category_font_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Category size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "excerpt_font_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Excerpt size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "meta_font_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Meta size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "sidebar_category_size",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Sidebar category size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "sidebar_meta_size",
+      "min": 11,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Sidebar meta size",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Magazine editorial layout"
+    }
+  ]
+}
 {% endschema %}
