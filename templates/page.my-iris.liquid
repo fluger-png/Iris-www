@@ -17,9 +17,6 @@
       .iris-collection {
         margin-top: 18px;
       }
-      .iris-card-click {
-        cursor: pointer;
-      }
       .iris-placeholder {
         background: #e5e7eb;
         width: 100%;
@@ -28,36 +25,6 @@
       .iris-card-label {
         text-align: center;
         font-weight: 600;
-      }
-      .iris-modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,.8);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        padding: 24px;
-      }
-      .iris-modal__inner {
-        max-width: 90vw;
-        max-height: 90vh;
-        background: #111;
-        padding: 12px;
-      }
-      .iris-modal__inner img {
-        max-width: 86vw;
-        max-height: 86vh;
-        display: block;
-      }
-      .iris-modal__close {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        background: #fff;
-        border: none;
-        padding: 8px 10px;
-        cursor: pointer;
       }
     </style>
 
@@ -84,13 +51,6 @@
       </noscript>
     </div>
 
-    <div id="iris-modal" class="iris-modal" aria-hidden="true">
-      <button class="iris-modal__close" type="button">Close</button>
-      <div class="iris-modal__inner">
-        <img id="iris-modal-img" src="" alt="IRIS image">
-      </div>
-    </div>
-
     <script>
       (function () {
         var app = document.getElementById('iris-app');
@@ -101,28 +61,6 @@
         var empty = document.getElementById('iris-empty');
         var grid = document.getElementById('iris-grid');
         var error = document.getElementById('iris-error');
-
-        var modal = document.getElementById('iris-modal');
-        var modalImg = document.getElementById('iris-modal-img');
-        var modalClose = modal.querySelector('.iris-modal__close');
-
-        function openModal(src) {
-          modalImg.src = src;
-          modal.style.display = 'flex';
-          modal.setAttribute('aria-hidden', 'false');
-        }
-        function closeModal() {
-          modalImg.src = '';
-          modal.style.display = 'none';
-          modal.setAttribute('aria-hidden', 'true');
-        }
-        modalClose.addEventListener('click', closeModal);
-        modal.addEventListener('click', function (e) {
-          if (e.target === modal) closeModal();
-        });
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape') closeModal();
-        });
 
         function labelFromId(id) {
           if (!id) return '';
@@ -151,21 +89,25 @@
               var img = full
                 ? '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">'
                 : '<div class="iris-placeholder"></div>';
-
+              var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
               return (
                 '<li class="grid__item">' +
                   '<div class="card-wrapper product-card-wrapper underline-links-hover">' +
                     '<div class="card card--standard card--media">' +
-                      '<div class="card__inner ratio iris-card-click" data-full="' + full + '" style="--ratio-percent: 100%;">' +
-                        '<div class="card__media">' +
-                          '<div class="media media--transparent media--hover-effect">' +
-                            img +
+                      '<a class="full-unstyled-link" href="' + href + '">' +
+                        '<div class="card__inner ratio" style="--ratio-percent: 100%;">' +
+                          '<div class="card__media">' +
+                            '<div class="media media--transparent media--hover-effect">' +
+                              img +
+                            '</div>' +
                           '</div>' +
                         '</div>' +
-                      '</div>' +
+                      '</a>' +
                       '<div class="card__content">' +
                         '<div class="card__information">' +
-                          '<h3 class="card__heading h5 iris-card-label">' + labelFromId(item.iris_id) + '</h3>' +
+                          '<h3 class="card__heading h5 iris-card-label">' +
+                            '<a class="full-unstyled-link" href="' + href + '">' + labelFromId(item.iris_id) + '</a>' +
+                          '</h3>' +
                         '</div>' +
                       '</div>' +
                     '</div>' +
@@ -175,14 +117,6 @@
             }).join('');
 
             grid.innerHTML = html;
-
-            grid.querySelectorAll('.iris-card-click').forEach(function (el) {
-              var full = el.getAttribute('data-full');
-              if (!full) return;
-              el.addEventListener('click', function () {
-                openModal(full);
-              });
-            });
           })
           .catch(function () {
             if (loading) loading.hidden = true;
