@@ -49,6 +49,7 @@
 </div>
 
 <script>
+  var isLoggedIn = {{ customer != nil | json }};
   const params = new URLSearchParams(window.location.search);
   let iris = params.get("iris");
 
@@ -109,9 +110,13 @@
         }
         return;
       }
-      msg.textContent = "Activated. Redirecting to My IRIS…";
+      msg.textContent = "Activated. Redirecting…";
       setTimeout(function () {
-        window.location.assign("/pages/my-iris");
+        if (isLoggedIn) {
+          window.location.assign("/pages/my-iris");
+        } else {
+          window.location.assign("/account/login?return_url=/pages/my-iris");
+        }
       }, 800);
     } catch (err) {
       msg.textContent = "Activation failed. Please try again.";
