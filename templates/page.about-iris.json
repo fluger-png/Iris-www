@@ -73,10 +73,10 @@
         "row_LgGUpR": {
           "type": "row",
           "settings": {
-            "image": "shopify://shop_images/test2.png",
+            "image": "shopify://shop_images/sample-about.png",
             "caption": "",
-            "heading": "Row",
-            "text": "<p>At first glance, it is simple: a hand-drawn eye, 0.4 grams of real gold, and an embedded NFC chip. But IRIS is not merely an object. It is a system built around a moment — the moment when possession becomes ownership.</p><p>When you purchase an IRIS, nothing is revealed.<br/>You do not choose the artwork.<br/>You do not see its rarity.<br/>You do not know its place within the collection.<br/></p>",
+            "heading": "At first glance",
+            "text": "<p>It is simple: a hand-drawn eye, 0.4 grams of real gold, and an embedded NFC chip. But IRIS is not merely an object. It is a system built around a moment — the moment when possession becomes ownership.</p><p>When you purchase an IRIS, nothing is revealed.<br/>You do not choose the artwork.<br/>You do not see its rarity.<br/>You do not know its place within the collection.<br/></p>",
             "button_label": "",
             "button_link": ""
           }
@@ -84,6 +84,7 @@
         "row_tgQeb7": {
           "type": "row",
           "settings": {
+            "image": "shopify://shop_images/about-banner.png",
             "caption": "",
             "heading": "It arrives quietly.",
             "text": "<p>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. Irreversibly. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens — not as a promise of value, but as a record of fact.</p>",
@@ -109,11 +110,11 @@
       ],
       "name": "t:sections.multirow.presets.name",
       "settings": {
-        "image_height": "medium",
+        "image_height": "adapt",
         "desktop_image_width": "medium",
-        "image_layout": "alternate-left",
+        "image_layout": "alternate-right",
         "heading_size": "h1",
-        "text_style": "body",
+        "text_style": "subtitle",
         "button_style": "secondary",
         "desktop_content_position": "middle",
         "desktop_content_alignment": "left",
