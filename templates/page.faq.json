@@ -9,8 +9,121 @@
  */
 {
   "sections": {
+    "collapsible_content_WMxwd4": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_yUGXpy": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is IRIS?",
+            "icon": "check_mark",
+            "row_content": "<p>IRIS is a collectible physical artwork.<br/>Each piece includes an original eye drawing and a fixed amount of physical gold.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_gYjEPP": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I see the artwork before purchasing?",
+            "icon": "check_mark",
+            "row_content": "<p>No.<br/>All IRIS works are intentionally unrevealed until ownership.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_EkhVBB": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Why is the image hidden?",
+            "icon": "check_mark",
+            "row_content": "<p>Because IRIS is built around perception, not selection. Ownership precedes visibility.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_aB7WbC": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What does the gold represent?",
+            "icon": "check_mark",
+            "row_content": "<p>Each work contains a fixed amount of physical gold (0.4g).<br/>It is a material element of the artwork, not a financial instrument.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_8BYdkM": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is IRIS an investment?",
+            "icon": "check_mark",
+            "row_content": "<p>No.<br/>IRIS works are collectible artworks.<br/>Any resale value is determined solely by the secondary market.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_dabByz": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Does IRIS guarantee future value or liquidity?",
+            "icon": "check_mark",
+            "row_content": "<p>No.<br/>Displayed reference prices are for informational purposes only and do not represent a guaranteed resale value.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_cgXFhE": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I resell my IRIS work?",
+            "icon": "check_mark",
+            "row_content": "<p>Owners may choose to resell their works through peer-to-peer marketplaces when available.<br/>IRIS does not buy back or set resale prices.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_dprBVx": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How does rarity work?",
+            "icon": "check_mark",
+            "row_content": "<p>Some works are more common than others.<br/>Rarity is revealed only after purchase and is part of the artwork’s identity. </p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_VzhDrC": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I access information about my piece?",
+            "icon": "check_mark",
+            "row_content": "<p>Each IRIS work contains an NFC chip.<br/>When activated, it provides access to the artwork’s digital record and reference information.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_yUGXpy",
+        "collapsible_row_gYjEPP",
+        "collapsible_row_EkhVBB",
+        "collapsible_row_aB7WbC",
+        "collapsible_row_8BYdkM",
+        "collapsible_row_dabByz",
+        "collapsible_row_cgXFhE",
+        "collapsible_row_dprBVx",
+        "collapsible_row_VzhDrC"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "Collapsible content",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "",
+        "color_scheme": "",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
@@ -18,6 +131,7 @@
     }
   },
   "order": [
+    "collapsible_content_WMxwd4",
     "main"
   ]
 }
