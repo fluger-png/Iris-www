@@ -75,8 +75,8 @@
           "settings": {
             "image": "shopify://shop_images/sample2-about.png",
             "caption": "",
-            "heading": "At first glance",
-            "text": "<p>It is simple: a hand-drawn eye, 0.4 grams of real gold, and an embedded NFC chip. But IRIS is not merely an object. It is a system built around a moment — the moment when possession becomes ownership.</p><p>When you purchase an IRIS, nothing is revealed.<br/>You do not choose the artwork.<br/>You do not see its rarity.<br/>You do not know its place within the collection.<br/></p>",
+            "heading": "It arrives quietly.",
+            "text": "<p>At first glance, it is simple: a hand-drawn eye, 0.4 grams of real gold, and an embedded NFC chip. But IRIS is not merely an object. It is a system built around a moment — the moment when possession becomes ownership.</p><p>When you purchase an IRIS, nothing is revealed.<br/>You do not choose the artwork.<br/>You do not see its rarity.<br/>You do not know its place within the collection.<br/></p>",
             "button_label": "",
             "button_link": ""
           }
@@ -102,12 +102,23 @@
             "button_label": "",
             "button_link": ""
           }
+        },
+        "row_kpaNE8": {
+          "type": "row",
+          "settings": {
+            "caption": "",
+            "heading": "The gold inside each IRIS is not symbolic currency. It is a physical matter. A tangible weight. A reminder that this is not a purely digital construct, nor a speculative instrument. It is an artwork grounded in material reality.",
+            "text": "",
+            "button_label": "Button label",
+            "button_link": ""
+          }
         }
       },
       "block_order": [
         "row_LgGUpR",
         "row_tgQeb7",
-        "row_WdjPN8"
+        "row_WdjPN8",
+        "row_kpaNE8"
       ],
       "name": "t:sections.multirow.presets.name",
       "settings": {
