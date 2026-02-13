@@ -9,6 +9,35 @@
  */
 {
   "sections": {
+    "image_banner_PUFzmH": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_Dbp6TA": {
+          "type": "heading",
+          "settings": {
+            "heading": "FAQ",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Dbp6TA"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/faq-banner.png",
+        "image_overlay_opacity": 0,
+        "image_height": "small",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": true,
+        "color_scheme": "",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
     "collapsible_content_WMxwd4": {
       "type": "collapsible-content",
       "blocks": {
@@ -128,40 +157,11 @@
         "padding_top": 28,
         "padding_bottom": 28
       }
-    },
-    "image_banner_PUFzmH": {
-      "type": "image-banner",
-      "blocks": {
-        "heading_Dbp6TA": {
-          "type": "heading",
-          "settings": {
-            "heading": "FAQ",
-            "heading_size": "h1"
-          }
-        }
-      },
-      "block_order": [
-        "heading_Dbp6TA"
-      ],
-      "name": "t:sections.image-banner.presets.name",
-      "settings": {
-        "image": "shopify://shop_images/faq-banner.png",
-        "image_overlay_opacity": 0,
-        "image_height": "small",
-        "image_behavior": "none",
-        "desktop_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": true,
-        "color_scheme": "",
-        "stack_images_on_mobile": true,
-        "mobile_content_alignment": "center",
-        "show_text_below": true
-      }
     }
   },
   "order": [
+    "image_banner_PUFzmH",
     "collapsible_content_WMxwd4",
-    "main",
-    "image_banner_PUFzmH"
+    "main"
   ]
 }
