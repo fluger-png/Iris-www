@@ -107,9 +107,9 @@
           "type": "row",
           "settings": {
             "caption": "",
-            "heading": "The gold inside each IRIS is not symbolic currency. It is a physical matter. A tangible weight. A reminder that this is not a purely digital construct, nor a speculative instrument. It is an artwork grounded in material reality.",
-            "text": "",
-            "button_label": "Button label",
+            "heading": "The gold inside each IRIS is not symbolic currency.",
+            "text": "<p>It is physical matter. A tangible weight. A reminder that this is not a purely digital construct, nor a speculative instrument. It is an artwork grounded in material reality.</p>",
+            "button_label": "",
             "button_link": ""
           }
         }
