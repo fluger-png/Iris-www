@@ -16,7 +16,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "What is IRIS?",
-            "icon": "check_mark",
+            "icon": "chat_bubble",
             "row_content": "<p>IRIS is a collectible physical artwork.<br/>Each piece includes an original eye drawing and a fixed amount of physical gold.</p>",
             "page": ""
           }
@@ -25,7 +25,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "Can I see the artwork before purchasing?",
-            "icon": "check_mark",
+            "icon": "chat_bubble",
             "row_content": "<p>No.<br/>All IRIS works are intentionally unrevealed until ownership.</p>",
             "page": ""
           }
@@ -34,7 +34,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "Why is the image hidden?",
-            "icon": "check_mark",
+            "icon": "chat_bubble",
             "row_content": "<p>Because IRIS is built around perception, not selection. Ownership precedes visibility.</p>",
             "page": ""
           }
@@ -43,7 +43,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "What does the gold represent?",
-            "icon": "check_mark",
+            "icon": "chat_bubble",
             "row_content": "<p>Each work contains a fixed amount of physical gold (0.4g).<br/>It is a material element of the artwork, not a financial instrument.</p>",
             "page": ""
           }
@@ -52,7 +52,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "Is IRIS an investment?",
-            "icon": "check_mark",
+            "icon": "chat_bubble",
             "row_content": "<p>No.<br/>IRIS works are collectible artworks.<br/>Any resale value is determined solely by the secondary market.</p>",
             "page": ""
           }
@@ -61,7 +61,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "Does IRIS guarantee future value or liquidity?",
-            "icon": "check_mark",
+            "icon": "chat_bubble",
             "row_content": "<p>No.<br/>Displayed reference prices are for informational purposes only and do not represent a guaranteed resale value.</p>",
             "page": ""
           }
@@ -70,7 +70,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "Can I resell my IRIS work?",
-            "icon": "check_mark",
+            "icon": "chat_bubble",
             "row_content": "<p>Owners may choose to resell their works through peer-to-peer marketplaces when available.<br/>IRIS does not buy back or set resale prices.</p>",
             "page": ""
           }
@@ -79,7 +79,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "How does rarity work?",
-            "icon": "check_mark",
+            "icon": "chat_bubble",
             "row_content": "<p>Some works are more common than others.<br/>Rarity is revealed only after purchase and is part of the artwork’s identity. </p>",
             "page": ""
           }
@@ -88,7 +88,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "How do I access information about my piece?",
-            "icon": "check_mark",
+            "icon": "chat_bubble",
             "row_content": "<p>Each IRIS work contains an NFC chip.<br/>When activated, it provides access to the artwork’s digital record and reference information.</p>",
             "page": ""
           }
