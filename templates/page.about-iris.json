@@ -116,7 +116,7 @@
         "heading_size": "h1",
         "text_style": "subtitle",
         "button_style": "secondary",
-        "desktop_content_position": "top",
+        "desktop_content_position": "middle",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "center",
         "section_color_scheme": "",
