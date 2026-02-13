@@ -182,8 +182,8 @@
             "button_label": "Reveal My IRIS",
             "button_link": "shopify://products/iris-the-unseen-edition",
             "button_style_secondary": false,
-            "button_label_2": "",
-            "button_link_2": "",
+            "button_label_2": "Reveal My IRIS",
+            "button_link_2": "shopify://products/iris-the-unseen-edition",
             "button_style_secondary_2": false
           }
         }
