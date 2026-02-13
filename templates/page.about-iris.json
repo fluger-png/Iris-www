@@ -73,7 +73,7 @@
         "row_LgGUpR": {
           "type": "row",
           "settings": {
-            "image": "shopify://shop_images/sample-about.png",
+            "image": "shopify://shop_images/sample2-about.png",
             "caption": "",
             "heading": "At first glance",
             "text": "<p>It is simple: a hand-drawn eye, 0.4 grams of real gold, and an embedded NFC chip. But IRIS is not merely an object. It is a system built around a moment — the moment when possession becomes ownership.</p><p>When you purchase an IRIS, nothing is revealed.<br/>You do not choose the artwork.<br/>You do not see its rarity.<br/>You do not know its place within the collection.<br/></p>",
@@ -84,7 +84,7 @@
         "row_tgQeb7": {
           "type": "row",
           "settings": {
-            "image": "shopify://shop_images/sample2-about.png",
+            "image": "shopify://shop_images/nfc.png",
             "caption": "",
             "heading": "It arrives quietly.",
             "text": "<p>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. Irreversibly. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens — not as a promise of value, but as a record of fact.</p>",
@@ -95,7 +95,7 @@
         "row_WdjPN8": {
           "type": "row",
           "settings": {
-            "image": "shopify://shop_images/nfc.png",
+            "image": "shopify://shop_images/sample-about.png",
             "caption": "",
             "heading": "IRIS does not treat ownership as a transaction. It treats it as an event.",
             "text": "<p>Each artwork carries a locked rarity, assigned before any sale. The structure is committed in advance and sealed. Nothing can be reshuffled. Nothing can be manually altered. The system is designed so that trust is not required — only verification.</p>",
@@ -125,66 +125,11 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
-    },
-    "multicolumn_cQkDWQ": {
-      "type": "multicolumn",
-      "blocks": {
-        "column_DWkYqd": {
-          "type": "column",
-          "settings": {
-            "title": "Nothing can be reshuffled.",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_miJAip": {
-          "type": "column",
-          "settings": {
-            "title": "Nothing can be manually altered.",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_tAXWNy": {
-          "type": "column",
-          "settings": {
-            "title": "The system is designed so that trust is not required — only verification.",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column_DWkYqd",
-        "column_miJAip",
-        "column_tAXWNy"
-      ],
-      "name": "t:sections.multicolumn.presets.name",
-      "settings": {
-        "title": "Each artwork carries a locked rarity, assigned before any sale. The structure is committed in advance and sealed.",
-        "heading_size": "h1",
-        "image_width": "full",
-        "image_ratio": "adapt",
-        "button_label": "Button label",
-        "button_link": "",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "primary",
-        "color_scheme": "",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
     "main",
     "image_banner_mVpcUD",
-    "multirow_eLfCan",
-    "multicolumn_cQkDWQ"
+    "multirow_eLfCan"
   ]
 }
