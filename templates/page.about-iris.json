@@ -87,7 +87,7 @@
             "image": "shopify://shop_images/sample2-about.png",
             "caption": "",
             "heading": "It arrives quietly.",
-            "text": "<p>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. Irreversibly. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens — not as a promise of value, but as a record of fact.</p><p>IRIS does not treat ownership as a transaction. It treats it as an event.</p>",
+            "text": "<p>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. Irreversibly. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens — not as a promise of value, but as a record of fact.</p>",
             "button_label": "",
             "button_link": ""
           }
@@ -95,9 +95,9 @@
         "row_WdjPN8": {
           "type": "row",
           "settings": {
-            "caption": "Caption",
-            "heading": "Row",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "caption": "",
+            "heading": "IRIS does not treat ownership as a transaction. It treats it as an event.",
+            "text": "",
             "button_label": "Button label",
             "button_link": ""
           }
