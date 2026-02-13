@@ -95,10 +95,11 @@
         "row_WdjPN8": {
           "type": "row",
           "settings": {
+            "image": "shopify://shop_images/nfc.png",
             "caption": "",
             "heading": "IRIS does not treat ownership as a transaction. It treats it as an event.",
             "text": "",
-            "button_label": "Button label",
+            "button_label": "",
             "button_link": ""
           }
         }
@@ -131,8 +132,8 @@
         "column_DWkYqd": {
           "type": "column",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "title": "Nothing can be reshuffled.",
+            "text": "",
             "link_label": "",
             "link": ""
           }
@@ -140,8 +141,8 @@
         "column_miJAip": {
           "type": "column",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "title": "Nothing can be manually altered.",
+            "text": "",
             "link_label": "",
             "link": ""
           }
@@ -149,8 +150,8 @@
         "column_tAXWNy": {
           "type": "column",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "title": "The system is designed so that trust is not required — only verification.",
+            "text": "",
             "link_label": "",
             "link": ""
           }
@@ -163,14 +164,14 @@
       ],
       "name": "t:sections.multicolumn.presets.name",
       "settings": {
-        "title": "Multicolumn",
+        "title": "Each artwork carries a locked rarity, assigned before any sale. The structure is committed in advance and sealed.",
         "heading_size": "h1",
         "image_width": "full",
         "image_ratio": "adapt",
         "button_label": "Button label",
         "button_link": "",
         "columns_desktop": 3,
-        "column_alignment": "left",
+        "column_alignment": "center",
         "background_style": "primary",
         "color_scheme": "",
         "columns_mobile": "1",
