@@ -137,11 +137,55 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "rich_text_4qGwb9": {
+      "type": "rich-text",
+      "blocks": {
+        "text_hFRL6g": {
+          "type": "text",
+          "settings": {
+            "text": "<p>In a world where digital ownership is often abstract, IRIS returns to something elemental:</p>"
+          }
+        },
+        "heading_aAPRbU": {
+          "type": "heading",
+          "settings": {
+            "heading": "You hold it. You activate it. It becomes yours.",
+            "heading_size": "h1"
+          }
+        },
+        "button_hatLqL": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "text_hFRL6g",
+        "heading_aAPRbU",
+        "button_hatLqL"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
     "main",
     "image_banner_mVpcUD",
-    "multirow_eLfCan"
+    "multirow_eLfCan",
+    "rich_text_4qGwb9"
   ]
 }
