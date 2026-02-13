@@ -76,7 +76,7 @@
             "image": "shopify://shop_images/sample2-about.png",
             "caption": "",
             "heading": "It arrives quietly.",
-            "text": "<p>At first glance, it is simple: a hand-drawn eye, 0.4 grams of real gold, and an embedded NFC chip. But IRIS is not merely an object. It is a system built around a moment — the moment when possession becomes ownership.</p><p>When you purchase an IRIS, nothing is revealed.<br/>You do not choose the artwork.<br/>You do not see its rarity.<br/>You do not know its place within the collection.<br/></p>",
+            "text": "<h2>At first glance, it is simple: a hand-drawn eye, 0.4 grams of real gold, and an embedded NFC chip. But IRIS is not merely an object. It is a system built around a moment — the moment when possession becomes ownership.</h2><h2>When you purchase an IRIS, nothing is revealed.<br/>You do not choose the artwork.<br/>You do not see its rarity.<br/>You do not know its place within the collection.<br/></h2>",
             "button_label": "",
             "button_link": ""
           }
