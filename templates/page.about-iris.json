@@ -87,7 +87,7 @@
             "image": "shopify://shop_images/nfc.png",
             "caption": "",
             "heading": "IRIS does not treat ownership as a transaction. It treats it as an event.",
-            "text": "<p>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. Irreversibly. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens — not as a promise of value, but as a record of fact.</p>",
+            "text": "<h2>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. Irreversibly. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens — not as a promise of value, but as a record of fact.</h2>",
             "button_label": "",
             "button_link": ""
           }
@@ -98,7 +98,7 @@
             "image": "shopify://shop_images/sample-about.png",
             "caption": "",
             "heading": "Each artwork carries a locked rarity, assigned before any sale. The structure is committed in advance and sealed.",
-            "text": "<p>Nothing can be reshuffled. Nothing can be manually altered. The system is designed so that trust is not required — only verification.</p><p></p>",
+            "text": "<h2>Nothing can be reshuffled. Nothing can be manually altered. The system is designed so that trust is not required — only verification.</h2><p></p>",
             "button_label": "",
             "button_link": ""
           }
