@@ -89,9 +89,9 @@
         "collapsible_row_dabByz": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Does IRIS guarantee future value or liquidity?",
+            "heading": "How is rarity determined?",
             "icon": "chat_bubble",
-            "row_content": "<p>No.<br/>Displayed reference prices are for informational purposes only and do not represent a guaranteed resale value.</p>",
+            "row_content": "<p>Rarity is assigned before any artwork is sold.</p><p>The structure of the collection consists of:</p><ul><li>5,000 black impressions</li><li>3,000 color impressions on white paper</li><li>1,500 white impressions on black paper</li><li>400 color impressions on colored paper</li><li>100 original works</li></ul><p>Rarity cannot be modified after release.</p>",
             "page": ""
           }
         },
