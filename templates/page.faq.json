@@ -53,9 +53,9 @@
         "collapsible_row_gYjEPP": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Can I see the artwork before purchasing?",
+            "heading": "Do I choose my artwork?",
             "icon": "chat_bubble",
-            "row_content": "<p>No.<br/>All IRIS works are intentionally unrevealed until ownership.</p>",
+            "row_content": "<p>No.</p><p>When purchasing an IRIS, you do not select a specific piece.<br/>The artwork remains unrevealed until activation.</p>",
             "page": ""
           }
         },
