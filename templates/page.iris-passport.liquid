@@ -17,7 +17,10 @@
         <div class="rte" style="font-size:14px;line-height:1.6;">
           <div><strong>Status:</strong> <span id="iris-passport-status">-</span></div>
           <div><strong>Activated:</strong> <span id="iris-passport-activated">-</span></div>
-          <div><strong>Rarity:</strong> <span id="iris-passport-rarity">-</span></div>
+          <div><strong>Rarity:</strong> <span id="iris-passport-rarity">Hidden until activated</span></div>
+          <div id="iris-passport-proof" style="margin-top:10px;" hidden>
+            <a id="iris-passport-proof-link" href="#" target="_blank" rel="noreferrer">Verify rarity proof</a>
+          </div>
         </div>
         <div style="margin-top:18px;">
           <a href="/pages/iris-archive" class="button">Back to Archive</a>
@@ -33,6 +36,7 @@
   (function () {
     var params = new URLSearchParams(window.location.search);
     var irisId = params.get('iris_id');
+    var token = params.get('token');
     var error = document.getElementById('iris-passport-error');
     var title = document.getElementById('iris-passport-title');
     var statusEl = document.getElementById('iris-passport-status');
@@ -50,7 +54,10 @@
       return 'IRIS # ' + clean;
     }
 
-    fetch('/apps/iris/iris/' + encodeURIComponent(irisId), { headers: { 'Accept': 'application/json' } })
+    var url = '/apps/iris/iris/' + encodeURIComponent(irisId);
+    if (token) url += '?token=' + encodeURIComponent(token);
+
+    fetch(url, { headers: { 'Accept': 'application/json' } })
       .then(function (res) {
         if (!res.ok) throw new Error('not_found');
         return res.json();
@@ -59,11 +66,15 @@
         title.textContent = labelFromId(data.iris_id);
         statusEl.textContent = data.status || '-';
         activatedEl.textContent = data.activated_at ? new Date(data.activated_at).toLocaleDateString() : '-';
-        rarityEl.textContent = data.rarity_code || '-';
+        rarityEl.textContent = data.rarity_code || 'Hidden until activated';
         if (data.image_url) {
           img.src = data.image_url;
           img.alt = data.iris_id;
           img.style.display = 'block';
+        }
+        if (data.proof_url) {
+          document.getElementById('iris-passport-proof').hidden = false;
+          document.getElementById('iris-passport-proof-link').href = data.proof_url;
         }
       })
       .catch(function () {
