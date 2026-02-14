@@ -76,7 +76,7 @@
             "image": "shopify://shop_images/sample2-about.png",
             "caption": "",
             "heading": "How it works",
-            "text": "<h2>At first glance, it is simple: a unique eye artwork, 0.4 grams of real gold, and an embedded NFC chip. But IRIS is not just an object. It is a system built around a moment — when your ownership is registered and sealed. When you purchase an IRIS, nothing is revealed. </h2><h2>-You do not choose the artwork. </h2><h2>-You do not see its rarity. </h2><h2>-You do not know its place within the collection.</h2>",
+            "text": "<h2>IRIS is a system built around a moment — when your ownership is registered and sealed. When you purchase an IRIS, nothing is revealed. </h2><h2>-You do not choose the artwork. </h2><h2>-You do not see its rarity. </h2><h2>-You do not know its place within the collection.</h2>",
             "button_label": "",
             "button_link": ""
           }
@@ -86,8 +86,8 @@
           "settings": {
             "image": "shopify://shop_images/nfc.png",
             "caption": "",
-            "heading": "IRIS does not treat ownership as a transaction. It treats it as an event.",
-            "text": "<h2>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. Irreversibly. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens — not as a promise of value, but as a record of fact.</h2>",
+            "heading": "",
+            "text": "<h2>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens — not as a promise of value, but as a record of fact.</h2>",
             "button_label": "",
             "button_link": ""
           }
