@@ -80,9 +80,9 @@
         "collapsible_row_8BYdkM": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Is IRIS an investment?",
+            "heading": "What is the digital passport?",
             "icon": "chat_bubble",
-            "row_content": "<p>No.<br/>IRIS works are collectible artworks.<br/>Any resale value is determined solely by the secondary market.</p>",
+            "row_content": "<p>The digital passport is a permanent record of the artwork.</p><p>It includes:</p><ul><li>Artwork ID</li><li>Rarity</li><li>Activation date</li><li>Ownership history</li></ul><p>The passport records facts.<br/>It does not assign value.</p>",
             "page": ""
           }
         },
