@@ -57,7 +57,7 @@
         "image": "shopify://shop_images/home-banner.png",
         "image_overlay_opacity": 40,
         "image_height": "medium",
-        "image_behavior": "ambient",
+        "image_behavior": "zoom-in",
         "desktop_content_position": "middle-center",
         "desktop_content_alignment": "center",
         "show_text_box": true,
