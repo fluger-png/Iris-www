@@ -98,9 +98,9 @@
         "collapsible_row_cgXFhE": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Can I resell my IRIS work?",
+            "heading": "Can rarity be changed?",
             "icon": "chat_bubble",
-            "row_content": "<p>Owners may choose to resell their works through peer-to-peer marketplaces when available.<br/>IRIS does not buy back or set resale prices.</p>",
+            "row_content": "<p>No.</p><p>Rarity is locked before distribution and cannot be adjusted afterward.</p>",
             "page": ""
           }
         },
