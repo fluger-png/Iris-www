@@ -73,7 +73,7 @@
           "settings": {
             "heading": "What is NFC activation?",
             "icon": "chat_bubble",
-            "row_content": "<p>Each IRIS contains an embedded NFC chip. After receiving your artwork, you scan the chip with your phone.<br/>You will be directed to the activation page.</p><p>Once activated:</p><ul><li>Ownership is registered<br/></li><li>The artwork is revealed<br/></li><li>The digital passport becomes accessible</li></ul><p>Activation is irreversible.</p>",
+            "row_content": "<p>Each IRIS contains an embedded NFC chip. After receiving your artwork, you scan the chip with your phone. You will be directed to the activation page.</p><p>Once activated:</p><ul><li>Ownership is registered<br/></li><li>The artwork is revealed<br/></li><li>The digital passport becomes accessible</li></ul><p>Activation is irreversible.</p>",
             "page": ""
           }
         },
