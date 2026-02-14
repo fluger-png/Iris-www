@@ -64,7 +64,7 @@
           "settings": {
             "heading": "When is the artwork revealed?",
             "icon": "chat_bubble",
-            "row_content": "<p>The artwork reveals itself only after:</p><ol><li>Physical delivery</li><li>NFC activation<br/></li></ol><p>Activation is required to view your specific artwork and its rarity.</p>",
+            "row_content": "<p>The artwork reveals itself only after:</p><ol><li>Physical delivery</li><li>NFC activation</li></ol><p>Activation is required to view your specific artwork and its rarity.</p>",
             "page": ""
           }
         },
