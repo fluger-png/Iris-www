@@ -62,9 +62,9 @@
         "collapsible_row_EkhVBB": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Why is the image hidden?",
+            "heading": "When is the artwork revealed?",
             "icon": "chat_bubble",
-            "row_content": "<p>Because IRIS is built around perception, not selection. Ownership precedes visibility.</p>",
+            "row_content": "<p>The artwork reveals itself only after:</p><ol><li>Physical delivery</li><li>NFC activation<br/></li></ol><p>Activation is required to view your specific artwork and its rarity.</p>",
             "page": ""
           }
         },
