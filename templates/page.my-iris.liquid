@@ -14,18 +14,9 @@
     </a>
   {% else %}
     <style>
-      .iris-collection {
-        margin-top: 18px;
-      }
-      .iris-placeholder {
-        background: #e5e7eb;
-        width: 100%;
-        height: 100%;
-      }
-      .iris-card-label {
-        text-align: center;
-        font-weight: 600;
-      }
+      .iris-collection { margin-top: 18px; }
+      .iris-placeholder { background: #e5e7eb; width: 100%; height: 100%; }
+      .iris-card-label { text-align: center; font-weight: 600; }
     </style>
 
     <div id="iris-app" data-email="{{ customer.email | escape }}">
@@ -89,7 +80,7 @@
               var img = full
                 ? '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">'
                 : '<div class="iris-placeholder"></div>';
-              var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
+              var href = item.passport_url || ('/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id));
               return (
                 '<li class="grid__item">' +
                   '<div class="card-wrapper product-card-wrapper underline-links-hover">' +
