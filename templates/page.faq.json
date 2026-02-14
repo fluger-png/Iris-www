@@ -116,9 +116,9 @@
         "collapsible_row_VzhDrC": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "How do I access information about my piece?",
+            "heading": "Can I transfer ownership?",
             "icon": "chat_bubble",
-            "row_content": "<p>Each IRIS work contains an NFC chip.<br/>When activated, it provides access to the artwork’s digital record and reference information.</p>",
+            "row_content": "<p>Ownership transfer functionality may be introduced in the future.<br/><br/>Currently, ownership is recorded upon activation and remains tied to the activated account.</p>",
             "page": ""
           }
         }
