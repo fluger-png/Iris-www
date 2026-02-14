@@ -130,6 +130,15 @@
             "row_content": "<p>Until activation:</p><ul><li>The artwork remains unrevealed</li><li>Ownership is not registered</li></ul><p>Activation is required to complete the ownership process.</p>",
             "page": ""
           }
+        },
+        "collapsible_row_7YiqR7": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is the gold symbolic?",
+            "icon": "chat_bubble",
+            "row_content": "<p>No.</p><p>Each IRIS physically contains 0.4 grams of real gold.</p><p>The gold is a material element of the artwork.</p>",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -142,7 +151,8 @@
         "collapsible_row_cgXFhE",
         "collapsible_row_dprBVx",
         "collapsible_row_VzhDrC",
-        "collapsible_row_K3XAdD"
+        "collapsible_row_K3XAdD",
+        "collapsible_row_7YiqR7"
       ],
       "name": "t:sections.collapsible_content.presets.name",
       "settings": {
