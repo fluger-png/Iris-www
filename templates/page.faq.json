@@ -107,9 +107,9 @@
         "collapsible_row_dprBVx": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "How does rarity work?",
+            "heading": "Is IRIS an NFT?",
             "icon": "chat_bubble",
-            "row_content": "<p>Some works are more common than others.<br/>Rarity is revealed only after purchase and is part of the artwork’s identity. </p>",
+            "row_content": "<p>No.</p><p>IRIS is a physical artwork.<br/>Ownership is established through NFC activation, not blockchain tokens.</p><p>No cryptocurrency or digital wallet is required.</p>",
             "page": ""
           }
         },
