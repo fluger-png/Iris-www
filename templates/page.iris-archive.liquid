@@ -6,6 +6,23 @@
 <div class="page-width" style="max-width:1100px;margin:0 auto;padding:28px 16px;">
   <h1 class="title title--primary" style="margin:0 0 14px;">IRIS Archive</h1>
 
+  <div class="iris-archive-filters" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;">
+    <button class="button button--secondary iris-filter is-active" data-rarity="all" type="button">All</button>
+    <button class="button button--secondary iris-filter" data-rarity="Common" type="button">Common</button>
+    <button class="button button--secondary iris-filter" data-rarity="Uncommon" type="button">Uncommon</button>
+    <button class="button button--secondary iris-filter" data-rarity="Rare" type="button">Rare</button>
+    <button class="button button--secondary iris-filter" data-rarity="Ultra Rare" type="button">Ultra Rare</button>
+    <button class="button button--secondary iris-filter" data-rarity="Artist Edition" type="button">Artist Edition</button>
+  </div>
+
+  <style>
+    .iris-archive-filters .iris-filter.is-active {
+      background: #5E81F4;
+      color: #fff;
+      border-color: #5E81F4;
+    }
+  </style>
+
   <div id="iris-archive" class="collection">
     <div class="loading-overlay gradient" id="iris-archive-loading"></div>
     <ul
@@ -29,8 +46,10 @@
     var empty = document.getElementById('iris-archive-empty');
     var error = document.getElementById('iris-archive-error');
     var loading = document.getElementById('iris-archive-loading');
+    var filterButtons = document.querySelectorAll('.iris-filter');
     var cursor = null;
     var done = false;
+    var rarity = 'all';
 
     function labelFromId(id) {
       if (!id) return '';
@@ -77,7 +96,9 @@
     function loadNext() {
       if (done) return;
       if (loading) loading.hidden = false;
-      var url = '/apps/iris/seen-archive?limit=24' + (cursor ? '&cursor=' + encodeURIComponent(cursor) : '');
+      var url = '/apps/iris/seen-archive?limit=24';
+      if (cursor) url += '&cursor=' + encodeURIComponent(cursor);
+      if (rarity && rarity !== 'all') url += '&rarity=' + encodeURIComponent(rarity);
       fetch(url, { headers: { 'Accept': 'application/json' } })
         .then(function (res) {
           if (!res.ok) throw new Error('bad_status');
@@ -105,6 +126,25 @@
           if (loading) loading.hidden = true;
         });
     }
+
+    function resetAndLoad(newRarity) {
+      rarity = newRarity || 'all';
+      cursor = null;
+      done = false;
+      grid.innerHTML = '';
+      empty.hidden = true;
+      error.hidden = true;
+      loadBtn.hidden = false;
+      loadNext();
+    }
+
+    filterButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        filterButtons.forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        resetAndLoad(btn.getAttribute('data-rarity') || 'all');
+      });
+    });
 
     loadBtn.addEventListener('click', loadNext);
     loadNext();
