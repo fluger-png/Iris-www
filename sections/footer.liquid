@@ -264,7 +264,7 @@
             <div class="footer__social-row">
               {%- render 'social-icons', class: 'footer__list-social' -%}
               {%- if section.settings.show_gold_price -%}
-                <div class="footer__gold" data-gold-price data-gold-key="{{ section.settings.goldapi_key | escape }}">
+                <div class="footer__gold" data-gold-price>
                   <span class="footer__gold-label">Gold (USD/g):</span>
                   <span class="footer__gold-value">—</span>
                 </div>
@@ -352,17 +352,11 @@
     var el = document.querySelector('[data-gold-price]');
     if (!el) return;
     var valueEl = el.querySelector('.footer__gold-value');
-    var key = el.getAttribute('data-gold-key') || '';
     var cacheKey = 'iris_goldapi_usd_g';
-    var ttl = 10 * 60 * 1000;
+    var ttl = 8 * 60 * 60 * 1000;
 
     function setValue(text) {
       if (valueEl) valueEl.textContent = text;
-    }
-
-    if (!key) {
-      el.remove();
-      return;
     }
 
     function readCache() {
@@ -391,21 +385,13 @@
         return;
       }
 
-      fetch('https://www.goldapi.io/api/XAU/USD', {
-        headers: {
-          'x-access-token': key,
-          'Content-Type': 'application/json'
-        }
-      })
+      fetch('/apps/iris/gold-price', { headers: { 'Accept': 'application/json' } })
         .then(function (res) {
           if (!res.ok) throw new Error('bad_status');
           return res.json();
         })
         .then(function (data) {
-          var perGram = data.price_gram_24k;
-          if (!perGram && data.price) {
-            perGram = data.price / 31.1034768;
-          }
+          var perGram = data.price_usd_g;
           if (!perGram) throw new Error('missing_price');
           var formatted = '$' + Number(perGram).toFixed(2);
           setValue(formatted);
@@ -570,12 +556,6 @@
       "id": "show_gold_price",
       "default": true,
       "label": "Show gold price"
-    },
-    {
-      "type": "text",
-      "id": "goldapi_key",
-      "label": "GoldAPI key",
-      "default": ""
     },
     {
       "type": "checkbox",
