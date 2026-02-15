@@ -5,6 +5,24 @@
 {{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 
+<style>
+  .footer__social-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .footer__gold {
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: inherit;
+  }
+  .footer__gold-label { opacity: 0.7; }
+  .footer__gold-value { font-weight: 600; }
+</style>
+
 {%- style -%}
   .footer {
     margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
@@ -243,7 +261,15 @@
           {%- endif -%}
 
           {%- if section.settings.show_social and has_social_icons -%}
-            {%- render 'social-icons', class: 'footer__list-social' -%}
+            <div class="footer__social-row">
+              {%- render 'social-icons', class: 'footer__list-social' -%}
+              {%- if section.settings.show_gold_price -%}
+                <div class="footer__gold" data-gold-price data-gold-key="{{ section.settings.goldapi_key | escape }}">
+                  <span class="footer__gold-label">Gold (USD/g):</span>
+                  <span class="footer__gold-value">—</span>
+                </div>
+              {%- endif -%}
+            </div>
           {%- endif -%}
         </div>
       </div>
@@ -320,6 +346,80 @@
     </div>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var el = document.querySelector('[data-gold-price]');
+    if (!el) return;
+    var valueEl = el.querySelector('.footer__gold-value');
+    var key = el.getAttribute('data-gold-key') || '';
+    var cacheKey = 'iris_goldapi_usd_g';
+    var ttl = 10 * 60 * 1000;
+
+    function setValue(text) {
+      if (valueEl) valueEl.textContent = text;
+    }
+
+    if (!key) {
+      el.remove();
+      return;
+    }
+
+    function readCache() {
+      try {
+        var raw = localStorage.getItem(cacheKey);
+        if (!raw) return null;
+        var parsed = JSON.parse(raw);
+        if (!parsed || !parsed.value || !parsed.ts) return null;
+        if (Date.now() - parsed.ts > ttl) return null;
+        return parsed.value;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function writeCache(value) {
+      try {
+        localStorage.setItem(cacheKey, JSON.stringify({ value: value, ts: Date.now() }));
+      } catch (e) {}
+    }
+
+    function fetchPrice() {
+      var cached = readCache();
+      if (cached) {
+        setValue(cached);
+        return;
+      }
+
+      fetch('https://www.goldapi.io/api/XAU/USD', {
+        headers: {
+          'x-access-token': key,
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('bad_status');
+          return res.json();
+        })
+        .then(function (data) {
+          var perGram = data.price_gram_24k;
+          if (!perGram && data.price) {
+            perGram = data.price / 31.1034768;
+          }
+          if (!perGram) throw new Error('missing_price');
+          var formatted = '$' + Number(perGram).toFixed(2);
+          setValue(formatted);
+          writeCache(formatted);
+        })
+        .catch(function () {
+          setValue('—');
+        });
+    }
+
+    fetchPrice();
+    setInterval(fetchPrice, ttl);
+  })();
+</script>
 
 {% schema %}
 {
@@ -464,6 +564,18 @@
       "default": true,
       "label": "t:sections.footer.settings.show_social.label",
       "info": "t:sections.footer.settings.show_social.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gold_price",
+      "default": true,
+      "label": "Show gold price"
+    },
+    {
+      "type": "text",
+      "id": "goldapi_key",
+      "label": "GoldAPI key",
+      "default": ""
     },
     {
       "type": "checkbox",
