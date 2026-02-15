@@ -6,20 +6,26 @@
 <div class="page-width" style="max-width:1100px;margin:0 auto;padding:28px 16px;">
   <h1 class="title title--primary" style="margin:0 0 14px;">IRIS Archive</h1>
 
-  <div class="iris-archive-filters" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;">
-    <button class="button button--secondary iris-filter is-active" data-rarity="all" type="button">All</button>
-    <button class="button button--secondary iris-filter" data-rarity="Common" type="button">Common</button>
-    <button class="button button--secondary iris-filter" data-rarity="Uncommon" type="button">Uncommon</button>
-    <button class="button button--secondary iris-filter" data-rarity="Rare" type="button">Rare</button>
-    <button class="button button--secondary iris-filter" data-rarity="Ultra Rare" type="button">Ultra Rare</button>
-    <button class="button button--secondary iris-filter" data-rarity="Artist Edition" type="button">Artist Edition</button>
+  <div class="iris-archive-filters" style="display:flex;flex-wrap:wrap;gap:14px;margin:0 0 18px;">
+    <a class="iris-filter is-active" data-rarity="all" href="#">All</a>
+    <a class="iris-filter" data-rarity="Common" href="#">Common</a>
+    <a class="iris-filter" data-rarity="Uncommon" href="#">Uncommon</a>
+    <a class="iris-filter" data-rarity="Rare" href="#">Rare</a>
+    <a class="iris-filter" data-rarity="Ultra Rare" href="#">Ultra Rare</a>
+    <a class="iris-filter" data-rarity="Artist Edition" href="#">Artist Edition</a>
   </div>
 
   <style>
+    .iris-archive-filters .iris-filter {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+      text-decoration: none;
+    }
     .iris-archive-filters .iris-filter.is-active {
-      background: #5E81F4;
-      color: #fff;
-      border-color: #5E81F4;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
     }
   </style>
 
@@ -139,7 +145,8 @@
     }
 
     filterButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
         filterButtons.forEach(function (b) { b.classList.remove('is-active'); });
         btn.classList.add('is-active');
         resetAndLoad(btn.getAttribute('data-rarity') || 'all');
