@@ -56,7 +56,6 @@
 
     var url = '/apps/iris/iris/' + encodeURIComponent(irisId);
     if (token) url += '?token=' + encodeURIComponent(token);
-
     fetch(url, { headers: { 'Accept': 'application/json' } })
       .then(function (res) {
         if (!res.ok) throw new Error('not_found');
