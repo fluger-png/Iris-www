@@ -57,6 +57,8 @@
     var done = false;
     var rarity = 'all';
 
+    if (loadBtn) loadBtn.hidden = true;
+
     function labelFromId(id) {
       if (!id) return '';
       var clean = id.replace(/^IRIS-?/i, '').trim();
@@ -123,6 +125,8 @@
           if (!cursor) {
             done = true;
             loadBtn.hidden = true;
+          } else {
+            loadBtn.hidden = false;
           }
         })
         .catch(function () {
