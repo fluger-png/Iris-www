@@ -1,1 +1,187 @@
-{"sections":{"image_banner_PUFzmH":{"type":"image-banner","blocks":{"heading_Dbp6TA":{"type":"heading","settings":{"heading":"FAQ","heading_size":"h1"}}},"block_order":["heading_Dbp6TA"],"name":"t:sections.image-banner.presets.name","settings":{"image":"shopify:\/\/shop_images\/faq-banner_cc53e7b7-e1d3-491a-b2a2-3b250664d555.png","image_overlay_opacity":0,"image_height":"small","image_behavior":"none","desktop_content_position":"middle-center","desktop_content_alignment":"center","show_text_box":true,"color_scheme":"","stack_images_on_mobile":true,"mobile_content_alignment":"center","show_text_below":true}},"collapsible_content_WMxwd4":{"type":"collapsible-content","blocks":{"collapsible_row_yUGXpy":{"type":"collapsible_row","settings":{"heading":"What is IRIS?","icon":"chat_bubble","row_content":"<p>RIS is a collection of 10,000 physical artworks.<br\/>Each piece contains an individual eye artwork, 0.4 g of real gold, and an embedded NFC chip.<\/p><p>Each artwork is unique.<\/p>","page":""}},"collapsible_row_gYjEPP":{"type":"collapsible_row","settings":{"heading":"Do I choose my artwork?","icon":"chat_bubble","row_content":"<p>No.<\/p><p>When purchasing an IRIS, you do not select a specific piece.<br\/>The artwork remains unrevealed until activation.<\/p>","page":""}},"collapsible_row_EkhVBB":{"type":"collapsible_row","settings":{"heading":"When is the artwork revealed?","icon":"chat_bubble","row_content":"<p>The artwork reveals itself only after:<\/p><ol><li>Physical delivery<\/li><li>NFC activation<\/li><\/ol><p>Activation is required to view your specific artwork and its rarity.<\/p>","page":""}},"collapsible_row_aB7WbC":{"type":"collapsible_row","settings":{"heading":"What is NFC activation?","icon":"chat_bubble","row_content":"<p>Each IRIS contains an embedded NFC chip. After receiving your artwork, you scan the chip with your phone. You will be directed to the activation page.<\/p><p>Once activated:<\/p><ul><li>Ownership is registered<br\/><\/li><li>The artwork is revealed<br\/><\/li><li>The digital passport becomes accessible<\/li><\/ul><p>Activation is irreversible.<\/p>","page":""}},"collapsible_row_8BYdkM":{"type":"collapsible_row","settings":{"heading":"What is the digital passport?","icon":"chat_bubble","row_content":"<p>The digital passport is a permanent record of the artwork.<\/p><p>It includes:<\/p><ul><li>Artwork ID<\/li><li>Rarity<\/li><li>Activation date<\/li><li>Ownership history<\/li><\/ul><p>The passport records facts.<br\/>It does not assign value.<\/p>","page":""}},"collapsible_row_dabByz":{"type":"collapsible_row","settings":{"heading":"How is rarity determined?","icon":"chat_bubble","row_content":"<p>Rarity is assigned before any artwork is sold.<\/p><p>The structure of the collection consists of:<\/p><ul><li>5,000 black impressions<\/li><li>3,000 color impressions on white paper<\/li><li>1,500 white impressions on black paper<\/li><li>400 color impressions on colored paper<\/li><li>100 original works<\/li><\/ul><p>Rarity cannot be modified after release.<\/p>","page":""}},"collapsible_row_cgXFhE":{"type":"collapsible_row","settings":{"heading":"Can rarity be changed?","icon":"chat_bubble","row_content":"<p>No.<\/p><p>Rarity is locked before distribution and cannot be adjusted afterward.<\/p>","page":""}},"collapsible_row_dprBVx":{"type":"collapsible_row","settings":{"heading":"Is IRIS an NFT?","icon":"chat_bubble","row_content":"<p>No.<\/p><p>IRIS is a physical artwork.<br\/>Ownership is established through NFC activation, not blockchain tokens.<\/p><p>No cryptocurrency or digital wallet is required.<\/p>","page":""}},"collapsible_row_VzhDrC":{"type":"collapsible_row","settings":{"heading":"Can I transfer ownership?","icon":"chat_bubble","row_content":"<p>Ownership transfer functionality may be introduced in the future.<br\/><br\/>Currently, ownership is recorded upon activation and remains tied to the activated account.<\/p>","page":""}},"collapsible_row_K3XAdD":{"type":"collapsible_row","settings":{"heading":"What happens if I do not activate my IRIS?","icon":"chat_bubble","row_content":"<p>Until activation:<\/p><ul><li>The artwork remains unrevealed<\/li><li>Ownership is not registered<\/li><\/ul><p>Activation is required to complete the ownership process.<\/p>","page":""}},"collapsible_row_7YiqR7":{"type":"collapsible_row","settings":{"heading":"Is the gold symbolic?","icon":"chat_bubble","row_content":"<p>No.<\/p><p>Each IRIS physically contains 0.4 grams of 24k gold embedded within the artwork.<br\/><br\/>The gold is a material element of the piece.<\/p>","page":""}}},"block_order":["collapsible_row_yUGXpy","collapsible_row_gYjEPP","collapsible_row_EkhVBB","collapsible_row_aB7WbC","collapsible_row_8BYdkM","collapsible_row_dabByz","collapsible_row_cgXFhE","collapsible_row_dprBVx","collapsible_row_VzhDrC","collapsible_row_K3XAdD","collapsible_row_7YiqR7"],"name":"t:sections.collapsible_content.presets.name","settings":{"caption":"","heading":"","heading_size":"h1","heading_alignment":"center","layout":"none","container_color_scheme":"","color_scheme":"","open_first_collapsible_row":false,"image_ratio":"adapt","desktop_layout":"image_second","padding_top":36,"padding_bottom":36}},"main":{"type":"main-page","disabled":true,"settings":{"padding_top":28,"padding_bottom":28}}},"order":["image_banner_PUFzmH","collapsible_content_WMxwd4","main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_banner_PUFzmH": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_Dbp6TA": {
+          "type": "heading",
+          "settings": {
+            "heading": "FAQ",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Dbp6TA"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/faq-banner_cc53e7b7-e1d3-491a-b2a2-3b250664d555.png",
+        "image_overlay_opacity": 0,
+        "image_height": "small",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": true,
+        "color_scheme": "",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "collapsible_content_WMxwd4": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_yUGXpy": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is IRIS?",
+            "icon": "chat_bubble",
+            "row_content": "<p>IRIS is a collection of 10,000 physical artworks.<br/>Each piece contains an individual eye artwork, 0.4 g of real gold, and an embedded NFC chip.</p><p>Each artwork is unique.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_gYjEPP": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do I choose my artwork?",
+            "icon": "chat_bubble",
+            "row_content": "<p>No.</p><p>When purchasing an IRIS, you do not select a specific piece.<br/>The artwork remains unrevealed until activation.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_EkhVBB": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "When is the artwork revealed?",
+            "icon": "chat_bubble",
+            "row_content": "<p>The artwork reveals itself only after:</p><ol><li>Physical delivery</li><li>NFC activation</li></ol><p>Activation is required to view your specific artwork and its rarity.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_aB7WbC": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is NFC activation?",
+            "icon": "chat_bubble",
+            "row_content": "<p>Each IRIS contains an embedded NFC chip. After receiving your artwork, you scan the chip with your phone. You will be directed to the activation page.</p><p>Once activated:</p><ul><li>Ownership is registered<br/></li><li>The artwork is revealed<br/></li><li>The digital passport becomes accessible</li></ul><p>Activation is irreversible.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_8BYdkM": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is the digital passport?",
+            "icon": "chat_bubble",
+            "row_content": "<p>The digital passport is a permanent record of the artwork.</p><p>It includes:</p><ul><li>Artwork ID</li><li>Rarity</li><li>Activation date</li><li>Ownership history</li></ul><p>The passport records facts.<br/>It does not assign value.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_dabByz": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How is rarity determined?",
+            "icon": "chat_bubble",
+            "row_content": "<p>Rarity is assigned before any artwork is sold.</p><p>The structure of the collection consists of:</p><ul><li>5,000 black impressions</li><li>3,000 color impressions on white paper</li><li>1,500 white impressions on black paper</li><li>400 color impressions on colored paper</li><li>100 original works</li></ul><p>Rarity cannot be modified after release.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_cgXFhE": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can rarity be changed?",
+            "icon": "chat_bubble",
+            "row_content": "<p>No.</p><p>Rarity is locked before distribution and cannot be adjusted afterward.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_dprBVx": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is IRIS an NFT?",
+            "icon": "chat_bubble",
+            "row_content": "<p>No.</p><p>IRIS is a physical artwork.<br/>Ownership is established through NFC activation, not blockchain tokens.</p><p>No cryptocurrency or digital wallet is required.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_VzhDrC": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I transfer ownership?",
+            "icon": "chat_bubble",
+            "row_content": "<p>Ownership transfer functionality may be introduced in the future.<br/><br/>Currently, ownership is recorded upon activation and remains tied to the activated account.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_K3XAdD": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What happens if I do not activate my IRIS?",
+            "icon": "chat_bubble",
+            "row_content": "<p>Until activation:</p><ul><li>The artwork remains unrevealed</li><li>Ownership is not registered</li></ul><p>Activation is required to complete the ownership process.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_7YiqR7": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is the gold symbolic?",
+            "icon": "chat_bubble",
+            "row_content": "<p>No.</p><p>Each IRIS physically contains 0.4 grams of 24k gold embedded within the artwork.<br/><br/>The gold is a material element of the piece.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_yUGXpy",
+        "collapsible_row_gYjEPP",
+        "collapsible_row_EkhVBB",
+        "collapsible_row_aB7WbC",
+        "collapsible_row_8BYdkM",
+        "collapsible_row_dabByz",
+        "collapsible_row_cgXFhE",
+        "collapsible_row_dprBVx",
+        "collapsible_row_VzhDrC",
+        "collapsible_row_K3XAdD",
+        "collapsible_row_7YiqR7"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "",
+        "color_scheme": "",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "image_banner_PUFzmH",
+    "collapsible_content_WMxwd4",
+    "main"
+  ]
+}
