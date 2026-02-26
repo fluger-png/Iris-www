@@ -36,7 +36,7 @@
 
     <div class="center collection__view-all" {% if section.settings.show_view_more == false %}style="display:none;"{% endif %}>
       <a
-        href="{{ section.settings.view_more_link }}"
+        href="{{ section.settings.view_more_link | default: '/pages/iris-archive' }}"
         class="{% if section.settings.view_more_style == 'link' %}link underlined-link{% elsif section.settings.view_more_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
       >
         {{ section.settings.view_more_label }}
@@ -196,8 +196,7 @@
     {
       "type": "url",
       "id": "view_more_link",
-      "label": "View more link",
-      "default": "shopify://pages/iris-archive"
+      "label": "View more link"
     },
     {
       "type": "select",
