@@ -9,16 +9,24 @@
     Activation confirms you scanned the NFC tag.
   </p>
 
-  <div style="margin:20px 0;padding:16px;border:1px solid #eee;border-radius:14px;">
+  <div style="margin:20px auto 10px;max-width:400px;">
+    {% if settings.logo %}
+      <img src="{{ settings.logo | image_url: width: 800 }}" alt="IRIS" style="width:400px;height:400px;object-fit:contain;background:#f3f4f6;border:1px solid #eee;border-radius:12px;">
+    {% else %}
+      <div style="width:400px;height:400px;background:#f3f4f6;border:1px solid #eee;border-radius:12px;"></div>
+    {% endif %}
+  </div>
+
+  <div style="margin:10px 0 20px;padding:16px;border:1px solid #eee;border-radius:14px;">
     <div style="font-size:12px;opacity:.7;">IRIS ID</div>
     <div id="irisId" style="font-size:22px;font-weight:600;">—</div>
   </div>
 
   <form id="activateForm" style="max-width:360px;margin:0 auto;">
-    <div style="text-align:left;margin-bottom:12px;">
+    <div style="text-align:center;margin-bottom:12px;">
       <label for="pinInput" style="font-size:12px;opacity:.7;display:block;margin-bottom:6px;">Activation PIN</label>
-      <input id="pinInput" type="password" inputmode="numeric" maxlength="6" placeholder="Enter your 6-digit PIN"
-             style="width:100%;padding:12px;border:1px solid #111;border-radius:0px;">
+      <input id="pinInput" type="password" inputmode="numeric" maxlength="6" placeholder="******"
+             style="width:160px;height:60px;font-size:20px;text-align:center;color:#333;border:1px solid #111;border-radius:0px;">
     </div>
 
     {% if customer %}
@@ -34,8 +42,7 @@
       </div>
     {% endif %}
 
-    <button id="activateBtn" type="submit"
-      style="display:inline-block;padding:14px 22px;border-radius:0px;border:1px solid #111;text-decoration:none;background:#111;color:#fff;">
+    <button id="activateBtn" type="submit" class="button button--primary">
       Activate my IRIS
     </button>
   </form>
@@ -52,10 +59,16 @@
   var isLoggedIn = {{ customer != nil | json }};
   const params = new URLSearchParams(window.location.search);
   let iris = params.get("iris");
+  let token = "";
 
   function normalize(v){
     if(!v) return "";
     if(/^IRIS-\d{4}$/i.test(v)) return v.toUpperCase();
+    var match = v.match(/^(IRIS-\d{4})-(.+)$/i);
+    if (match) {
+      token = match[2];
+      return match[1].toUpperCase();
+    }
     const d=(v.match(/\d+/)||[""])[0];
     return "IRIS-"+d.padStart(4,"0").slice(-4);
   }
@@ -74,12 +87,17 @@
     form.querySelector("button").disabled = true;
   }
 
+  pinInput.addEventListener("input", function () {
+    pinInput.style.color = pinInput.value ? "#000" : "#333";
+  });
+
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     msg.textContent = "";
 
     const pin = pinInput.value.trim();
     const email = emailInput.value.trim().toLowerCase();
+    pinInput.style.color = pin ? "#000" : "#333";
     if (!pin || pin.length < 6) {
       msg.textContent = "Please enter your 6-digit PIN.";
       return;
@@ -93,12 +111,14 @@
       const res = await fetch("/apps/iris/activate-verify", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({ iris_id: irisId, pin, email })
+        body: JSON.stringify({ iris_id: token ? (irisId + "-" + token) : irisId, pin, email, token })
       });
       const data = await res.json();
       if (!res.ok) {
         if (data.error === "invalid_pin") {
           msg.textContent = "Invalid PIN. Please try again.";
+        } else if (data.error === "invalid_activation_link") {
+          msg.textContent = "Invalid activation link. Please contact support.";
         } else if (data.error === "too_many_attempts") {
           msg.textContent = "Too many attempts. Please wait and try again.";
         } else if (data.error === "already_activated") {
