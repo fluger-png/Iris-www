@@ -17,6 +17,7 @@
         <div class="rte" style="font-size:14px;line-height:1.6;">
           <div><strong>Status:</strong> <span id="iris-passport-status">-</span></div>
           <div><strong>Activated:</strong> <span id="iris-passport-activated">-</span></div>
+          <div><strong>Weight (g):</strong> <span id="iris-passport-weight">-</span></div>
           <div><strong>Rarity:</strong> <span id="iris-passport-rarity">Hidden until activated</span></div>
           <div id="iris-passport-proof" style="margin-top:10px;" hidden>
             <a id="iris-passport-proof-link" href="#" target="_blank" rel="noreferrer">Verify rarity proof</a>
@@ -41,6 +42,7 @@
     var title = document.getElementById('iris-passport-title');
     var statusEl = document.getElementById('iris-passport-status');
     var activatedEl = document.getElementById('iris-passport-activated');
+    var weightEl = document.getElementById('iris-passport-weight');
     var rarityEl = document.getElementById('iris-passport-rarity');
     var img = document.getElementById('iris-passport-img');
 
@@ -65,6 +67,9 @@
         title.textContent = labelFromId(data.iris_id);
         statusEl.textContent = data.status || '-';
         activatedEl.textContent = data.activated_at ? new Date(data.activated_at).toLocaleDateString() : '-';
+        if (weightEl) {
+          weightEl.textContent = (data.weight_grams != null && data.weight_grams !== '') ? Number(data.weight_grams).toFixed(2) : '-';
+        }
         rarityEl.textContent = data.rarity_code || 'Hidden until activated';
         if (data.image_url) {
           img.src = data.image_url;
