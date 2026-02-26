@@ -9,22 +9,21 @@
     Activation confirms you scanned the NFC tag.
   </p>
 
-  <div style="margin:20px auto 10px;max-width:400px;">
+  <div style="margin:20px auto 40px;max-width:400px;">
     {% if settings.logo %}
-      <img src="{{ settings.logo | image_url: width: 800 }}" alt="IRIS" style="width:400px;height:400px;object-fit:contain;background:#f3f4f6;border:1px solid #eee;border-radius:12px;">
+      <img src="{{ settings.logo | image_url: width: 800 }}" alt="IRIS" style="width:400px;height:400px;object-fit:contain;background:#f3f4f6;border:1px solid #eee;border-radius:0px;">
     {% else %}
-      <div style="width:400px;height:400px;background:#f3f4f6;border:1px solid #eee;border-radius:12px;"></div>
+      <div style="width:400px;height:400px;background:#f3f4f6;border:1px solid #eee;border-radius:0px;"></div>
     {% endif %}
   </div>
 
-  <div style="margin:10px 0 20px;padding:16px;border:1px solid #eee;border-radius:14px;">
-    <div style="font-size:12px;opacity:.7;">IRIS ID</div>
+  <div style="margin:10px 0 40px;padding:0;border:0;border-radius:0px;">
     <div id="irisId" style="font-size:22px;font-weight:600;">—</div>
   </div>
 
-  <form id="activateForm" style="max-width:360px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:12px;">
-      <label for="pinInput" style="font-size:12px;opacity:.7;display:block;margin-bottom:6px;">Activation PIN</label>
+  <form id="activateForm" style="max-width:360px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:40px;">
+    <div style="text-align:center;">
+      <label for="pinInput" style="font-size:12px;opacity:.7;display:block;margin-bottom:10px;">Activation PIN</label>
       <input id="pinInput" type="password" inputmode="numeric" maxlength="6" placeholder="******"
              style="width:160px;height:60px;font-size:20px;text-align:center;color:#333;border:1px solid #111;border-radius:0px;">
     </div>
@@ -35,14 +34,14 @@
         Activating as {{ customer.email }}
       </p>
     {% else %}
-      <div style="text-align:left;margin-bottom:12px;">
-        <label for="emailInput" style="font-size:12px;opacity:.7;display:block;margin-bottom:6px;">Email</label>
+      <div style="text-align:center;">
+        <label for="emailInput" style="font-size:12px;opacity:.7;display:block;margin-bottom:10px;">Email</label>
         <input id="emailInput" type="email"
-               style="width:100%;padding:12px;border:1px solid #111;border-radius:0px;">
+               style="width:160px;height:60px;font-size:20px;text-align:center;color:#333;border:1px solid #111;border-radius:0px;">
       </div>
     {% endif %}
 
-    <button id="activateBtn" type="submit" class="button button--primary">
+    <button id="activateBtn" type="submit" class="button button--primary" style="height:60px;display:inline-flex;align-items:center;justify-content:center;">
       Activate my IRIS
     </button>
   </form>
@@ -59,6 +58,7 @@
   var isLoggedIn = {{ customer != nil | json }};
   const params = new URLSearchParams(window.location.search);
   let iris = params.get("iris");
+  let tokenParam = params.get("token");
   let token = "";
 
   function normalize(v){
@@ -82,7 +82,23 @@
   const emailInput = document.getElementById("emailInput");
   const msg = document.getElementById("activateMsg");
 
-  if (!irisId) {
+  async function hydrateFromToken(tok) {
+    try {
+      const res = await fetch("/apps/iris/activation-info?token=" + encodeURIComponent(tok), { headers: { "Accept": "application/json" } });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data && data.iris_id) {
+        document.getElementById("irisId").textContent = data.iris_id;
+      }
+    } catch (e) {}
+  }
+
+  if (!irisId && tokenParam) {
+    token = tokenParam;
+    hydrateFromToken(tokenParam);
+  }
+
+  if (!irisId && !tokenParam) {
     msg.textContent = "Missing IRIS ID in the link.";
     form.querySelector("button").disabled = true;
   }
@@ -111,7 +127,7 @@
       const res = await fetch("/apps/iris/activate-verify", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({ iris_id: token ? (irisId + "-" + token) : irisId, pin, email, token })
+        body: JSON.stringify({ iris_id: token ? (irisId + "-" + token) : irisId, pin, email, token: token || tokenParam })
       });
       const data = await res.json();
       if (!res.ok) {
