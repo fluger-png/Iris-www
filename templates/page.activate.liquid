@@ -9,19 +9,19 @@
     Activation confirms you scanned the NFC tag.
   </p>
 
-  <div style="margin:20px auto 40px;max-width:400px;">
+  <div style="margin:20px auto 20px;max-width:400px;">
     {% if settings.logo %}
-      <img src="{{ settings.logo | image_url: width: 800 }}" alt="IRIS" style="width:400px;height:400px;object-fit:contain;background:#f3f4f6;border:1px solid #eee;border-radius:0px;">
+      <img id="irisPreview" src="{{ settings.logo | image_url: width: 800 }}" alt="IRIS" style="width:400px;height:400px;object-fit:contain;background:#f3f4f6;border:1px solid #eee;border-radius:0px;">
     {% else %}
-      <div style="width:400px;height:400px;background:#f3f4f6;border:1px solid #eee;border-radius:0px;"></div>
+      <img id="irisPreview" src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244" alt="IRIS" style="width:400px;height:400px;object-fit:contain;background:#f3f4f6;border:1px solid #eee;border-radius:0px;">
     {% endif %}
   </div>
 
-  <div style="margin:10px 0 40px;padding:0;border:0;border-radius:0px;">
+  <div style="margin:10px 0 20px;padding:0;border:0;border-radius:0px;">
     <div id="irisId" style="font-size:22px;font-weight:600;">—</div>
   </div>
 
-  <form id="activateForm" style="max-width:360px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:40px;">
+  <form id="activateForm" style="max-width:420px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px;">
     <div style="text-align:center;">
       <label for="pinInput" style="font-size:12px;opacity:.7;display:block;margin-bottom:10px;">Activation PIN</label>
       <input id="pinInput" type="password" inputmode="numeric" maxlength="6" placeholder="******"
@@ -37,7 +37,7 @@
       <div style="text-align:center;">
         <label for="emailInput" style="font-size:12px;opacity:.7;display:block;margin-bottom:10px;">Email</label>
         <input id="emailInput" type="email"
-               style="width:160px;height:60px;font-size:20px;text-align:center;color:#333;border:1px solid #111;border-radius:0px;">
+               style="width:320px;height:60px;font-size:20px;text-align:center;color:#333;border:1px solid #111;border-radius:0px;">
       </div>
     {% endif %}
 
@@ -89,6 +89,10 @@
       const data = await res.json();
       if (data && data.iris_id) {
         document.getElementById("irisId").textContent = data.iris_id;
+      }
+      if (data && data.image_url) {
+        var img = document.getElementById("irisPreview");
+        if (img) img.src = data.image_url;
       }
     } catch (e) {}
   }
