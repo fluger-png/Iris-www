@@ -57,6 +57,7 @@
     var done = false;
     var rarity = 'all';
     var pageSize = 20;
+    var fetchLimit = pageSize + 1;
 
     if (loadBtn) loadBtn.hidden = true;
 
@@ -105,7 +106,7 @@
     function loadNext() {
       if (done) return;
       if (loading) loading.hidden = false;
-      var url = '/apps/iris/seen-archive?limit=' + pageSize;
+      var url = '/apps/iris/seen-archive?limit=' + fetchLimit;
       if (cursor) url += '&cursor=' + encodeURIComponent(cursor);
       if (rarity && rarity !== 'all') url += '&rarity=' + encodeURIComponent(rarity);
       fetch(url, { headers: { 'Accept': 'application/json' } })
@@ -121,13 +122,16 @@
             loadBtn.hidden = true;
             return;
           }
-          renderItems(items);
-          cursor = data.nextCursor;
-          if (!cursor || items.length < pageSize) {
+          var showMore = items.length > pageSize;
+          if (showMore) {
+            renderItems(items.slice(0, pageSize));
+            cursor = data.nextCursor;
+            loadBtn.hidden = false;
+          } else {
+            renderItems(items);
+            cursor = null;
             done = true;
             loadBtn.hidden = true;
-          } else {
-            loadBtn.hidden = false;
           }
         })
         .catch(function () {
@@ -145,7 +149,7 @@
       grid.innerHTML = '';
       empty.hidden = true;
       error.hidden = true;
-      loadBtn.hidden = false;
+      loadBtn.hidden = true;
       loadNext();
     }
 
