@@ -95,7 +95,7 @@
         "columns_mobile": "2",
         "show_view_more": true,
         "view_more_label": "View more",
-        "view_more_link": "/pages/iris-archive",
+        "view_more_link": "shopify://pages/iris-archive",
         "view_more_style": "link",
         "full_width": false,
         "color_scheme": "scheme-1",
