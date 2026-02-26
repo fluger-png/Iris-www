@@ -56,6 +56,7 @@
     var cursor = null;
     var done = false;
     var rarity = 'all';
+    var pageSize = 20;
 
     if (loadBtn) loadBtn.hidden = true;
 
@@ -104,7 +105,7 @@
     function loadNext() {
       if (done) return;
       if (loading) loading.hidden = false;
-      var url = '/apps/iris/seen-archive?limit=24';
+      var url = '/apps/iris/seen-archive?limit=' + pageSize;
       if (cursor) url += '&cursor=' + encodeURIComponent(cursor);
       if (rarity && rarity !== 'all') url += '&rarity=' + encodeURIComponent(rarity);
       fetch(url, { headers: { 'Accept': 'application/json' } })
@@ -122,7 +123,7 @@
           }
           renderItems(items);
           cursor = data.nextCursor;
-          if (!cursor) {
+          if (!cursor || items.length < pageSize) {
             done = true;
             loadBtn.hidden = true;
           } else {
