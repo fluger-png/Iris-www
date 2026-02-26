@@ -59,7 +59,10 @@
     var pageSize = 20;
     var fetchLimit = pageSize + 1;
 
-    if (loadBtn) loadBtn.hidden = true;
+    if (loadBtn) {
+      loadBtn.hidden = true;
+      loadBtn.style.display = "none";
+    }
 
     function labelFromId(id) {
       if (!id) return '';
@@ -120,6 +123,7 @@
             empty.hidden = false;
             done = true;
             loadBtn.hidden = true;
+            loadBtn.style.display = "none";
             return;
           }
           var showMore = items.length > pageSize;
@@ -127,11 +131,13 @@
             renderItems(items.slice(0, pageSize));
             cursor = data.nextCursor;
             loadBtn.hidden = false;
+            loadBtn.style.display = "";
           } else {
             renderItems(items);
             cursor = null;
             done = true;
             loadBtn.hidden = true;
+            loadBtn.style.display = "none";
           }
         })
         .catch(function () {
