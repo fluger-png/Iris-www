@@ -95,12 +95,7 @@
         var img = '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">';
 
         var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
-        var isActivated = !!item.activated_at;
         var meta = '';
-        if (isActivated) {
-          var dateLine = 'Activated: ' + formatDate(item.activated_at);
-          meta = '<div class="iris-archive-meta">' + dateLine + '</div>';
-        }
 
         return (
           '<li class="grid__item">' +
