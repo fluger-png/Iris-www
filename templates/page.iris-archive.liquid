@@ -98,15 +98,8 @@
         var isActivated = !!item.activated_at;
         var meta = '';
         if (isActivated) {
-          var rows = [];
-          if (item.rarity_code) {
-            rows.push('<div>Rarity: ' + item.rarity_code + '</div>');
-          }
-          if (item.weight_grams !== null && item.weight_grams !== undefined) {
-            rows.push('<div>Gold: ' + item.weight_grams + ' g</div>');
-          }
-          rows.push('<div>Activated: ' + formatDate(item.activated_at) + '</div>');
-          meta = rows.length ? '<div class="iris-archive-meta">' + rows.join('') + '</div>' : '';
+          var dateLine = 'Activated: ' + formatDate(item.activated_at);
+          meta = '<div class="iris-archive-meta">' + dateLine + '</div>';
         }
 
         return (
