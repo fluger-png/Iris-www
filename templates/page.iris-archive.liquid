@@ -8,6 +8,7 @@
 
   <div class="iris-archive-filters" style="display:flex;flex-wrap:wrap;gap:14px;margin:0 0 18px;">
     <a class="iris-filter is-active" data-rarity="all" href="#">All</a>
+    <a class="iris-filter" data-rarity="Activated" href="#">Activated</a>
     <a class="iris-filter" data-rarity="Common" href="#">Common</a>
     <a class="iris-filter" data-rarity="Uncommon" href="#">Uncommon</a>
     <a class="iris-filter" data-rarity="Rare" href="#">Rare</a>
@@ -26,6 +27,13 @@
       text-decoration: underline;
       text-decoration-thickness: 2px;
       text-underline-offset: 4px;
+    }
+    .iris-archive-meta {
+      margin-top: 6px;
+      font-size: 12px;
+      line-height: 1.4;
+      opacity: 0.75;
+      text-align: center;
     }
   </style>
 
@@ -71,12 +79,35 @@
       return 'IRIS # ' + clean;
     }
 
+    function formatDate(value) {
+      if (!value) return '';
+      var d = new Date(value);
+      if (isNaN(d.getTime())) return '';
+      var mm = String(d.getMonth() + 1).padStart(2, '0');
+      var dd = String(d.getDate()).padStart(2, '0');
+      var yy = String(d.getFullYear()).slice(-2);
+      return mm + '.' + dd + '.' + yy;
+    }
+
     function renderItems(items) {
       var html = items.map(function (item) {
         var full = item.image_url || defaultImage;
         var img = '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">';
 
         var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
+        var isActivated = !!item.activated_at;
+        var meta = '';
+        if (isActivated) {
+          var rows = [];
+          if (item.rarity_code) {
+            rows.push('<div>Rarity: ' + item.rarity_code + '</div>');
+          }
+          if (item.weight_grams !== null && item.weight_grams !== undefined) {
+            rows.push('<div>Gold: ' + item.weight_grams + ' g</div>');
+          }
+          rows.push('<div>Activated: ' + formatDate(item.activated_at) + '</div>');
+          meta = rows.length ? '<div class="iris-archive-meta">' + rows.join('') + '</div>' : '';
+        }
 
         return (
           '<li class="grid__item">' +
@@ -94,6 +125,7 @@
                 '<div class="card__content">' +
                   '<div class="card__information">' +
                     '<h3 class="card__heading h5" style="text-align:center;font-weight:600;">' + labelFromId(item.iris_id) + '</h3>' +
+                    meta +
                   '</div>' +
                 '</div>' +
               '</div>' +
