@@ -58,6 +58,7 @@
     var rarity = 'all';
     var pageSize = 20;
     var fetchLimit = pageSize + 1;
+    var defaultImage = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244';
 
     if (loadBtn) {
       loadBtn.hidden = true;
@@ -72,10 +73,8 @@
 
     function renderItems(items) {
       var html = items.map(function (item) {
-        var full = item.image_url || '';
-        var img = full
-          ? '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">'
-          : '<div style="background:#e5e7eb;width:100%;height:100%;"></div>';
+        var full = item.image_url || defaultImage;
+        var img = '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">';
 
         var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
 
