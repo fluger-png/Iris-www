@@ -1,4 +1,6 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -30,10 +32,6 @@
   <div>
     <div>
 
-<a href="/pages/my-iris" style="display:inline-block;margin-bottom:24px;padding:10px 14px;border:1px solid #111;border-radius:0px;text-decoration:none;">
-  My Activated IRIS
-</a>
-
       <div id="my-iris-preview" style="margin:6px 0 28px;">
         <h2 style="margin:0 0 12px;">MY IRIS</h2>
         <div class="collection">
@@ -43,7 +41,7 @@
           ></ul>
         </div>
         <div style="text-align:center;margin-top:12px;">
-          <a id="my-iris-view-more" href="/pages/my-iris" class="button" style="display:none;">View more</a>
+          <a id="my-iris-view-more" href="/pages/my-iris" class="button" style="display:none;align-items:center;justify-content:center;min-height:44px;">View more</a>
         </div>
       </div>
 
