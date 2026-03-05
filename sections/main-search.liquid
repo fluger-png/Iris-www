@@ -145,6 +145,17 @@
         {%- endif -%}
       {%- endif -%}
     </div>
+
+    <div id="iris-search-block" class="page-width" hidden>
+      <h2 class="h3" style="margin:0 0 12px;">IRIS Result</h2>
+      <div class="collection">
+        <ul
+          id="iris-search-grid"
+          class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop"
+        ></ul>
+      </div>
+    </div>
+
     {%- if search.performed -%}
       {%- if section.settings.enable_sorting
         and section.settings.filter_type == 'vertical'
@@ -329,6 +340,74 @@
     {%- endif -%}
   </div>
 {% endpaginate %}
+
+<script>
+  (function () {
+    var term = "{{ search.terms | escape }}";
+    if (!term) return;
+
+    function normalizeToIrisId(value) {
+      var t = value.trim().toUpperCase();
+      if (!t) return null;
+      if (t.startsWith("IRIS")) {
+        var digits = t.replace(/[^0-9]/g, "");
+        if (!digits) return null;
+        var padded = digits.padStart(4, "0");
+        return "IRIS-" + padded;
+      }
+      if (/^\d+$/.test(t)) {
+        var paddedOnly = t.padStart(4, "0");
+        return "IRIS-" + paddedOnly;
+      }
+      return null;
+    }
+
+    var irisId = normalizeToIrisId(term);
+    if (!irisId) return;
+
+    var block = document.getElementById("iris-search-block");
+    var grid = document.getElementById("iris-search-grid");
+    if (!block || !grid) return;
+
+    var defaultImage = "https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244";
+
+    fetch("/apps/iris/iris/" + encodeURIComponent(irisId), { headers: { "Accept": "application/json" } })
+      .then(function (res) {
+        if (!res.ok) throw new Error("not_found");
+        return res.json();
+      })
+      .then(function (data) {
+        var full = data.image_url || defaultImage;
+        var href = "/pages/iris-passport?iris_id=" + encodeURIComponent(data.iris_id);
+        var html =
+          '<li class="grid__item">' +
+            '<div class="card-wrapper product-card-wrapper underline-links-hover">' +
+              '<div class="card card--standard card--media">' +
+                '<div class="card__inner ratio" style="--ratio-percent: 100%;">' +
+                  '<a class="full-unstyled-link" href="' + href + '">' +
+                    '<div class="card__media">' +
+                      '<div class="media media--transparent media--hover-effect">' +
+                        '<img src="' + full + '" alt="' + data.iris_id + '" loading="lazy">' +
+                      '</div>' +
+                    '</div>' +
+                  '</a>' +
+                '</div>' +
+                '<div class="card__content">' +
+                  '<div class="card__information">' +
+                    '<h3 class="card__heading h5" style="text-align:center;font-weight:600;">IRIS # ' +
+                      data.iris_id.replace(/^IRIS-?/i, "") +
+                    '</h3>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</li>';
+        grid.innerHTML = html;
+        block.hidden = false;
+      })
+      .catch(function () {});
+  })();
+</script>
 {% if section.settings.image_shape == 'arch' %}
   {{ 'mask-arch.svg' | inline_asset_content }}
 {%- endif -%}
