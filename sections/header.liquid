@@ -287,6 +287,20 @@
         </a>
       {%- endif -%}
 
+      {%- if customer -%}
+        <a
+          href="/pages/my-iris"
+          class="header__icon link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+          aria-label="My IRIS"
+        >
+          <img
+            src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244"
+            alt="My IRIS"
+            style="width:20px;height:20px;object-fit:cover;border-radius:2px;"
+          >
+        </a>
+      {%- endif -%}
+
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when '@app' -%}
