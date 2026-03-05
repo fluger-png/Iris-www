@@ -1,9 +1,28 @@
 {% layout 'theme' %}
 
 <style>
+  .iris-activate-wrap {
+    padding-top: calc(40px + var(--header-height, 0px));
+  }
+  .iris-activate-image-wrap {
+    max-width: 400px;
+    width: 100%;
+    margin: 20px auto;
+  }
+  .iris-activate-image {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    background: #f3f4f6;
+    border: 1px solid #eee;
+    border-radius: 0;
+  }
   @media screen and (max-width: 749px) {
     .iris-activate-wrap {
-      padding-top: calc(40px + var(--header-height, 0px));
+      padding-top: calc(24px + var(--header-height, 64px));
     }
   }
 </style>
@@ -17,8 +36,8 @@
     Activation confirms you scanned the NFC tag.
   </p>
 
-  <div style="margin:20px auto 20px;max-width:400px;">
-    <img id="irisPreview" src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244" alt="IRIS" style="width:400px;height:400px;object-fit:contain;background:#f3f4f6;border:1px solid #eee;border-radius:0px;">
+  <div class="iris-activate-image-wrap">
+    <img id="irisPreview" class="iris-activate-image" src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244" alt="IRIS">
   </div>
 
   <div style="margin:10px 0 20px;padding:0;border:0;border-radius:0px;">
