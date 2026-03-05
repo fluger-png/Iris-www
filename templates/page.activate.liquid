@@ -29,9 +29,9 @@
 
 <div class="page-width iris-activate-wrap" style="max-width:700px;margin:0 auto;padding:40px 16px;text-align:center;">
 
-  <h1>Activate your IRIS</h1>
+  <h1 id="activateTitle">Activate your IRIS</h1>
 
-  <p>
+  <p id="activateIntro">
     You are about to activate your IRIS artwork.<br>
     Activation confirms you scanned the NFC tag.
   </p>
@@ -71,7 +71,7 @@
 
   <div id="alreadyActivated" hidden style="margin:20px 0 0;font-size:14px;line-height:1.6;">
     <div style="font-weight:600;margin-bottom:6px;">
-      This IRIS was activated on <span id="activatedDate">—</span>
+      Activated on: <span id="activatedDate">—</span>
     </div>
     <div>Rarity: <span id="activatedRarity">—</span></div>
     <div>Gold weight: <span id="activatedWeight">—</span> g</div>
@@ -79,7 +79,7 @@
 
   <p id="activateMsg" style="margin-top:16px;font-size:14px;"></p>
 
-  <p style="margin-top:20px;font-size:14px;opacity:.8;">
+  <p id="activateFooter" style="margin-top:20px;font-size:14px;opacity:.8;">
     After activation, your artwork may appear in the IRIS Seen Collection (no personal data).
   </p>
 
@@ -173,6 +173,9 @@
     var dateEl = document.getElementById("activatedDate");
     var rarityEl = document.getElementById("activatedRarity");
     var weightEl = document.getElementById("activatedWeight");
+    var titleEl = document.getElementById("activateTitle");
+    var introEl = document.getElementById("activateIntro");
+    var footerEl = document.getElementById("activateFooter");
     if (formEl) formEl.style.display = "none";
     if (box) box.hidden = false;
     if (dateEl) dateEl.textContent = formatActivationDate(data.activated_at);
@@ -181,6 +184,11 @@
       var w = data.weight_grams;
       weightEl.textContent = w == null ? "—" : Number(w).toFixed(2);
     }
+    if (titleEl) {
+      titleEl.textContent = (data.iris_id || irisId || "IRIS") + " is Activated";
+    }
+    if (introEl) introEl.style.display = "none";
+    if (footerEl) footerEl.style.display = "none";
   }
 
   pinInput.addEventListener("input", function () {
