@@ -69,6 +69,14 @@
     </button>
   </form>
 
+  <div id="alreadyActivated" hidden style="margin:20px 0 0;font-size:14px;line-height:1.6;">
+    <div style="font-weight:600;margin-bottom:6px;">
+      This IRIS was activated on <span id="activatedDate">—</span>
+    </div>
+    <div>Rarity: <span id="activatedRarity">—</span></div>
+    <div>Gold weight: <span id="activatedWeight">—</span> g</div>
+  </div>
+
   <p id="activateMsg" style="margin-top:16px;font-size:14px;"></p>
 
   <p style="margin-top:20px;font-size:14px;opacity:.8;">
@@ -117,6 +125,24 @@
         var img = document.getElementById("irisPreview");
         if (img) img.src = data.image_url;
       }
+      if (data && data.status === "activated") {
+        showActivated(data);
+      }
+    } catch (e) {}
+  }
+
+  async function hydrateFromIrisId(id) {
+    try {
+      const res = await fetch("/apps/iris/iris/" + encodeURIComponent(id), { headers: { "Accept": "application/json" } });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data && data.image_url) {
+        var img = document.getElementById("irisPreview");
+        if (img) img.src = data.image_url;
+      }
+      if (data && data.status === "activated") {
+        showActivated(data);
+      }
     } catch (e) {}
   }
 
@@ -125,9 +151,36 @@
     hydrateFromToken(tokenParam);
   }
 
+  if (irisId) {
+    hydrateFromIrisId(irisId);
+  }
+
   if (!irisId && !tokenParam) {
     msg.textContent = "Missing IRIS ID in the link.";
     form.querySelector("button").disabled = true;
+  }
+
+  function formatActivationDate(value) {
+    if (!value) return "—";
+    var d = new Date(value);
+    if (isNaN(d.getTime())) return "—";
+    return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  }
+
+  function showActivated(data) {
+    var formEl = document.getElementById("activateForm");
+    var box = document.getElementById("alreadyActivated");
+    var dateEl = document.getElementById("activatedDate");
+    var rarityEl = document.getElementById("activatedRarity");
+    var weightEl = document.getElementById("activatedWeight");
+    if (formEl) formEl.style.display = "none";
+    if (box) box.hidden = false;
+    if (dateEl) dateEl.textContent = formatActivationDate(data.activated_at);
+    if (rarityEl) rarityEl.textContent = data.rarity_code || "—";
+    if (weightEl) {
+      var w = data.weight_grams;
+      weightEl.textContent = w == null ? "—" : Number(w).toFixed(2);
+    }
   }
 
   pinInput.addEventListener("input", function () {
