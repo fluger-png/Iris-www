@@ -34,6 +34,78 @@
   My Activated IRIS
 </a>
 
+      <div id="my-iris-preview" style="margin:6px 0 28px;">
+        <h2 style="margin:0 0 12px;">MY IRIS</h2>
+        <div class="collection">
+          <ul
+            id="my-iris-grid"
+            class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop"
+          ></ul>
+        </div>
+        <div style="text-align:center;margin-top:12px;">
+          <a id="my-iris-view-more" href="/pages/my-iris" class="button" style="display:none;">View more</a>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var grid = document.getElementById('my-iris-grid');
+          var moreBtn = document.getElementById('my-iris-view-more');
+          if (!grid) return;
+
+          var email = "{{ customer.email | escape }}";
+          if (!email) return;
+
+          var defaultImage = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244';
+
+          function labelFromId(id) {
+            if (!id) return '';
+            var clean = id.replace(/^IRIS-?/i, '').trim();
+            return 'IRIS # ' + clean;
+          }
+
+          function render(items) {
+            var html = items.map(function (item) {
+              var full = item.image_url || defaultImage;
+              var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
+              return (
+                '<li class="grid__item">' +
+                  '<div class="card-wrapper product-card-wrapper underline-links-hover">' +
+                    '<div class="card card--standard card--media">' +
+                      '<div class="card__inner ratio" style="--ratio-percent: 100%;">' +
+                        '<a class="full-unstyled-link" href="' + href + '">' +
+                          '<div class="card__media">' +
+                            '<div class="media media--transparent media--hover-effect">' +
+                              '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">' +
+                            '</div>' +
+                          '</div>' +
+                        '</a>' +
+                      '</div>' +
+                      '<div class="card__content">' +
+                        '<div class="card__information">' +
+                          '<h3 class="card__heading h5" style="text-align:center;font-weight:600;">' + labelFromId(item.iris_id) + '</h3>' +
+                        '</div>' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>' +
+                '</li>'
+              );
+            }).join('');
+            grid.innerHTML = html;
+          }
+
+          fetch('/apps/iris/my-iris?email=' + encodeURIComponent(email), { headers: { 'Accept': 'application/json' } })
+            .then(function (res) { return res.ok ? res.json() : null; })
+            .then(function (data) {
+              if (!data || !data.items || !data.items.length) return;
+              var items = data.items;
+              var hasMore = items.length > 4;
+              render(items.slice(0, 4));
+              if (hasMore && moreBtn) moreBtn.style.display = 'inline-block';
+            });
+        })();
+      </script>
+
 
 
       <h2>{{ 'customer.orders.title' | t }}</h2>
