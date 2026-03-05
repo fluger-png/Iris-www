@@ -1,6 +1,14 @@
 {% layout 'theme' %}
 
-<div class="page-width" style="max-width:700px;margin:0 auto;padding:40px 16px;text-align:center;">
+<style>
+  @media screen and (max-width: 749px) {
+    .iris-activate-wrap {
+      padding-top: calc(40px + var(--header-height, 0px));
+    }
+  }
+</style>
+
+<div class="page-width iris-activate-wrap" style="max-width:700px;margin:0 auto;padding:40px 16px;text-align:center;">
 
   <h1>Activate your IRIS</h1>
 
