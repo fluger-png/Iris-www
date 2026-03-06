@@ -1,6 +1,8 @@
 {% layout 'theme' %}
 
 {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
 
 <div class="page-width" style="max-width:1000px;margin:0 auto;padding:28px 16px;">
   <h1 class="title title--primary" style="margin:0 0 14px;">IRIS Passport</h1>
@@ -8,14 +10,13 @@
   <div id="iris-passport" class="product grid grid--1-col grid--2-col-tablet" style="gap:24px;">
     <div class="grid__item">
       <div class="media media--transparent" style="aspect-ratio:1/1;border:1px solid #eee;background:#f3f4f6;max-width:500px;width:100%;">
-        <img id="iris-passport-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;">
+        <img id="iris-passport-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;cursor:pointer;">
       </div>
     </div>
     <div class="grid__item">
       <div class="product__info-container">
         <h2 id="iris-passport-title" class="h1" style="margin:0 0 10px;">IRIS #</h2>
         <div class="rte" style="font-size:14px;line-height:1.6;">
-          <div><strong>Status:</strong> <span id="iris-passport-status">Pending</span></div>
           <div id="iris-passport-activated-row"><strong>Activated:</strong> <span id="iris-passport-activated">-</span></div>
           <div id="iris-passport-weight-row"><strong>Weight (g):</strong> <span id="iris-passport-weight">-</span></div>
           <div><strong>Rarity:</strong> <span id="iris-passport-rarity">Hidden until activated</span></div>
@@ -31,6 +32,35 @@
   </div>
 
   <p id="iris-passport-error" hidden style="margin-top:18px;color:#b00020;"></p>
+
+  <div style="margin-top:48px;">
+    <h2 class="title h2" style="margin:0 0 16px;">Revealed Archive</h2>
+    <div class="collection">
+      <ul
+        id="iris-passport-archive-grid"
+        class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop"
+      ></ul>
+    </div>
+    <div style="text-align:center;margin:18px 0 0;">
+      <a href="/pages/iris-archive" class="button">View more</a>
+    </div>
+  </div>
+</div>
+
+<div
+  id="iris-passport-modal"
+  style="position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:24px;z-index:1000;"
+>
+  <div style="background:#fff;max-width:1000px;width:100%;position:relative;">
+    <button
+      type="button"
+      id="iris-passport-modal-close"
+      style="position:absolute;top:8px;right:8px;background:#111;color:#fff;border:none;border-radius:4px;padding:6px 10px;cursor:pointer;"
+    >
+      Close
+    </button>
+    <img id="iris-passport-modal-img" src="" alt="" style="width:100%;height:auto;display:block;">
+  </div>
 </div>
 
 <script>
@@ -47,6 +77,9 @@
     var weightRow = document.getElementById('iris-passport-weight-row');
     var rarityEl = document.getElementById('iris-passport-rarity');
     var img = document.getElementById('iris-passport-img');
+    var modal = document.getElementById('iris-passport-modal');
+    var modalImg = document.getElementById('iris-passport-modal-img');
+    var modalClose = document.getElementById('iris-passport-modal-close');
     var defaultImage = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244';
 
     if (!irisId) {
@@ -109,5 +142,60 @@
       .catch(function () {
         setPending();
       });
+
+    if (img && modal && modalImg) {
+      img.addEventListener('click', function () {
+        modalImg.src = img.src;
+        modal.style.display = 'flex';
+      });
+    }
+    if (modal && modalClose) {
+      modalClose.addEventListener('click', function () {
+        modal.style.display = 'none';
+      });
+    }
+    if (modal) {
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    }
+
+    function renderArchive(items) {
+      var grid = document.getElementById('iris-passport-archive-grid');
+      if (!grid) return;
+      var html = items.map(function (item) {
+        var full = item.image_url || defaultImage;
+        var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
+        return (
+          '<li class="grid__item">' +
+            '<div class="card-wrapper product-card-wrapper underline-links-hover">' +
+              '<div class="card card--standard card--media">' +
+                '<div class="card__inner ratio" style="--ratio-percent: 100%;">' +
+                  '<a class="full-unstyled-link" href="' + href + '">' +
+                    '<div class="card__media">' +
+                      '<div class="media media--transparent media--hover-effect">' +
+                        '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">' +
+                      '</div>' +
+                    '</div>' +
+                  '</a>' +
+                '</div>' +
+                '<div class="card__content">' +
+                  '<div class="card__information">' +
+                    '<h3 class="card__heading h5" style="text-align:center;font-weight:600;">' + labelFromId(item.iris_id) + '</h3>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</li>'
+        );
+      }).join('');
+      grid.innerHTML = html;
+    }
+
+    fetch('/apps/iris/seen-archive?limit=4', { headers: { 'Accept': 'application/json' } })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) { if (data && data.items) renderArchive(data.items); });
   })();
 </script>
