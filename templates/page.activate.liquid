@@ -35,12 +35,15 @@
     You are about to activate your IRIS artwork.<br>
     Activation confirms you scanned the NFC tag.
   </p>
+  <p id="activatedNotice" hidden style="margin:8px 0 20px;font-size:14px;opacity:.85;">
+    This IRIS artwork is already registered to its owner.
+  </p>
 
   <div class="iris-activate-image-wrap">
     <img id="irisPreview" class="iris-activate-image" src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244" alt="IRIS">
   </div>
 
-  <div style="margin:10px 0 20px;padding:0;border:0;border-radius:0px;">
+  <div id="irisIdBlock" style="margin:10px 0 20px;padding:0;border:0;border-radius:0px;">
     <div id="irisId" style="font-size:22px;font-weight:600;">—</div>
   </div>
 
@@ -69,12 +72,19 @@
     </button>
   </form>
 
-  <div id="alreadyActivated" hidden style="margin:20px 0 0;font-size:14px;line-height:1.6;">
-    <div style="font-weight:600;margin-bottom:6px;">
-      Activated on: <span id="activatedDate">—</span>
+  <div id="alreadyActivated" hidden style="margin:20px 0 0;font-size:14px;line-height:1.6;text-align:center;">
+    <div style="margin:14px 0;">
+      <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.6;">Activated</div>
+      <div id="activatedDate" style="font-weight:600;">—</div>
     </div>
-    <div>Rarity: <span id="activatedRarity">—</span></div>
-    <div>Gold weight: <span id="activatedWeight">—</span> g</div>
+    <div style="margin:14px 0;">
+      <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.6;">Rarity</div>
+      <div id="activatedRarity" style="font-weight:600;">—</div>
+    </div>
+    <div style="margin:14px 0;">
+      <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.6;">Gold</div>
+      <div><span id="activatedWeight" style="font-weight:600;">—</span> g</div>
+    </div>
   </div>
 
   <p id="activateMsg" style="margin-top:16px;font-size:14px;"></p>
@@ -175,7 +185,9 @@
     var weightEl = document.getElementById("activatedWeight");
     var titleEl = document.getElementById("activateTitle");
     var introEl = document.getElementById("activateIntro");
+    var noticeEl = document.getElementById("activatedNotice");
     var footerEl = document.getElementById("activateFooter");
+    var irisIdBlock = document.getElementById("irisIdBlock");
     if (formEl) formEl.style.display = "none";
     if (box) box.hidden = false;
     if (dateEl) dateEl.textContent = formatActivationDate(data.activated_at);
@@ -185,10 +197,12 @@
       weightEl.textContent = w == null ? "—" : Number(w).toFixed(2);
     }
     if (titleEl) {
-      titleEl.textContent = (data.iris_id || irisId || "IRIS") + " is Activated";
+      titleEl.textContent = (data.iris_id || irisId || "IRIS") + " Activated";
     }
     if (introEl) introEl.style.display = "none";
+    if (noticeEl) noticeEl.hidden = false;
     if (footerEl) footerEl.style.display = "none";
+    if (irisIdBlock) irisIdBlock.style.display = "none";
   }
 
   pinInput.addEventListener("input", function () {
