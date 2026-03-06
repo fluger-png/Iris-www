@@ -70,7 +70,6 @@
     var token = params.get('token');
     var error = document.getElementById('iris-passport-error');
     var title = document.getElementById('iris-passport-title');
-    var statusEl = document.getElementById('iris-passport-status');
     var activatedEl = document.getElementById('iris-passport-activated');
     var activatedRow = document.getElementById('iris-passport-activated-row');
     var weightEl = document.getElementById('iris-passport-weight');
@@ -97,7 +96,6 @@
 
     function setPending() {
       title.textContent = labelFromId(irisId);
-      statusEl.textContent = 'Pending';
       if (activatedRow) activatedRow.style.display = 'none';
       if (weightRow) weightRow.style.display = 'none';
       rarityEl.textContent = 'Hidden until activated';
@@ -117,7 +115,6 @@
       .then(function (data) {
         if (error) error.hidden = true;
         title.textContent = labelFromId(data.iris_id);
-        statusEl.textContent = data.status === 'activated' ? 'Activated' : 'Pending';
         if (data.activated_at) {
           if (activatedRow) activatedRow.style.display = '';
           activatedEl.textContent = new Date(data.activated_at).toLocaleDateString();
