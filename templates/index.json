@@ -47,7 +47,7 @@
         "button"
       ],
       "settings": {
-        "image_2": "shopify://shop_images/about-banner_4e6df56d-05e9-4a4b-89dd-7911700be0c8.png",
+        "image": "shopify://shop_images/Iris-home-banner-desktop.png",
         "image_overlay_opacity": 0,
         "image_height": "medium",
         "image_behavior": "none",
