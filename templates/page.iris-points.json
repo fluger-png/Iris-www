@@ -269,9 +269,9 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
+        "image": "shopify://shop_images/IRIS-Points-Banner-product.png",
         "height": "adapt",
-        "desktop_image_width": "medium",
+        "desktop_image_width": "large",
         "layout": "text_first",
         "image_behavior": "none",
         "content_layout": "overlap",
