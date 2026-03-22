@@ -167,11 +167,51 @@
         "padding_bottom": 36
       }
     },
+    "image_with_text_Qt9Ui9": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_Whr3PA": {
+          "type": "heading",
+          "settings": {
+            "heading": "Why it works",
+            "heading_size": "h1"
+          }
+        },
+        "text_JcEe8G": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>As an IRIS Point, your role is simple:</h2><h2>• You present IRIS within your space<br/><br/>• You introduce the concept to your clients<br/><br/>• You guide them to receive their own IRIS</h2><h2>All acquisitions are completed directly through the IRIS platform.<br/><br/>You do not hold inventory, manage orders, or handle logistics.</h2>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Whr3PA",
+        "text_JcEe8G"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "multirow_eLfCan": {
       "type": "multirow",
       "blocks": {
         "row_LgGUpR": {
           "type": "row",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
             "caption": "",
@@ -280,6 +320,7 @@
     "image_banner_mVpcUD",
     "rich_text_pRBLVg",
     "image_with_text_7PrWjE",
+    "image_with_text_Qt9Ui9",
     "multirow_eLfCan",
     "rich_text_4qGwb9",
     "contact_form_UBh7Lj"
