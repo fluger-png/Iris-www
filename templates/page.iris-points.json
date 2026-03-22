@@ -26,7 +26,7 @@
             "image": "shopify://shop_images/IRIS-Points-Banner-storefront.png",
             "image_overlay_opacity": 0,
             "heading": "IRIS Points",
-            "heading_size": "h1",
+            "heading_size": "h0",
             "subheading": "IRIS is not sold everywhere. It is discovered in selected spaces.",
             "button_label": "",
             "link": "",
