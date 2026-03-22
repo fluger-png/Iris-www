@@ -152,9 +152,9 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "image": "shopify://shop_images/4380d30f-16f9-474a-ba01-f112dd04f272.png",
+        "image": "shopify://shop_images/IRIS-Points-Banner-stand.png",
         "height": "adapt",
-        "desktop_image_width": "medium",
+        "desktop_image_width": "large",
         "layout": "text_first",
         "image_behavior": "none",
         "content_layout": "overlap",
@@ -191,7 +191,7 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "image": "shopify://shop_images/1bbbfcb7-2294-4649-9e0c-4cc2bfde5ec2.png",
+        "image": "shopify://shop_images/IRIS-Points-Banner-intro.png",
         "height": "adapt",
         "desktop_image_width": "large",
         "layout": "text_first",
