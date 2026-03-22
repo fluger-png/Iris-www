@@ -128,16 +128,55 @@
         "padding_bottom": 52
       }
     },
+    "image_with_text_7PrWjE": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_eXGgdz": {
+          "type": "heading",
+          "settings": {
+            "heading": "How it works",
+            "heading_size": "h1"
+          }
+        },
+        "text_AXcMWg": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>As an IRIS Point, your role is simple:</h2><h2>• You present IRIS within your space<br/><br/>• You introduce the concept to your clients<br/><br/>• You guide them to receive their own IRIS</h2><h2>All acquisitions are completed directly through the IRIS platform.<br/><br/>You do not hold inventory, manage orders, or handle logistics.</h2>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_eXGgdz",
+        "text_AXcMWg"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
+        "height": "adapt",
+        "desktop_image_width": "large",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "multirow_eLfCan": {
       "type": "multirow",
       "blocks": {
         "row_LgGUpR": {
           "type": "row",
           "settings": {
-            "image": "shopify://shop_images/banner-squere_e9eef4bf-da04-460c-89ea-ed1efda4bae4.png",
+            "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
             "caption": "",
             "heading": "How it works",
-            "text": "<h2>As an IRIS Point, your role is simple:</h2><h2>• You present IRIS within your space<br/><br/>• You introduce the concept to your clients<br/><br/>• You guide them to receive their own IRIS</h2><h2>All acquisitions are completed directly through the IRIS platform.<br/><br/>You do not hold inventory, manage orders, or handle logistics.</h2><h2>Ownership is established only by the final recipient through NFC activation after delivery.</h2>",
+            "text": "<h2>As an IRIS Point, your role is simple:</h2><h2>• You present IRIS within your space<br/><br/>• You introduce the concept to your clients<br/><br/>• You guide them to receive their own IRIS</h2><h2>All acquisitions are completed directly through the IRIS platform.<br/><br/>You do not hold inventory, manage orders, or handle logistics.</h2>",
             "button_label": "",
             "button_link": ""
           }
@@ -145,7 +184,7 @@
         "row_tgQeb7": {
           "type": "row",
           "settings": {
-            "image": "shopify://shop_images/Activation-banner_8cf6ba08-9aee-4bce-9eb9-388b430853a9.png",
+            "image": "shopify://shop_images/IRIS-Points-Banner_c13da8fa-53f8-49f7-996e-f6c4231bc399.png",
             "caption": "",
             "heading": "Why it works",
             "text": "<h2>IRIS is not a product in the traditional sense.<br/>It requires context, conversation, and trust.<br/><br/>In the right space, it becomes a moment —<br/>something discovered, not sold.</h2>",
@@ -156,7 +195,7 @@
         "row_WdjPN8": {
           "type": "row",
           "settings": {
-            "image": "shopify://shop_images/sample-about_1d41e41a-86c4-4b9c-9e9a-1982b4b15ba8.png",
+            "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
             "caption": "",
             "heading": "For selected spaces",
             "text": "<h2>We collaborate with:</h2><h2>• galleries<br/>• concept stores<br/>• private studios<br/>• cultural and aesthetic spaces</h2><h2>We are not looking for scale.<br/>We are looking for alignment.</h2>",
@@ -240,6 +279,7 @@
     "slideshow_7QzTbx",
     "image_banner_mVpcUD",
     "rich_text_pRBLVg",
+    "image_with_text_7PrWjE",
     "multirow_eLfCan",
     "rich_text_4qGwb9",
     "contact_form_UBh7Lj"
