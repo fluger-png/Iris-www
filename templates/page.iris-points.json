@@ -27,7 +27,7 @@
             "image_overlay_opacity": 0,
             "heading": "IRIS Points",
             "heading_size": "h1",
-            "subheading": "Tell your brand's story through images",
+            "subheading": "IRIS is not sold everywhere. It is discovered in selected spaces.",
             "button_label": "",
             "link": "",
             "button_style_secondary": false,
@@ -35,7 +35,7 @@
             "box_align": "middle-center",
             "text_alignment": "center",
             "text_alignment_mobile": "center",
-            "color_scheme": ""
+            "color_scheme": "scheme-4"
           }
         }
       },
