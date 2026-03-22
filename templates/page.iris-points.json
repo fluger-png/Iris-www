@@ -217,10 +217,10 @@
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
-        "color_scheme": "",
+        "color_scheme": "scheme-4",
         "full_width": true,
         "padding_top": 100,
-        "padding_bottom": 52
+        "padding_bottom": 8
       }
     },
     "contact_form_UBh7Lj": {
