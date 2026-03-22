@@ -245,6 +245,45 @@
         "padding_bottom": 36
       }
     },
+    "image_with_text_NENrtk": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_UdK7iV": {
+          "type": "heading",
+          "settings": {
+            "heading": "Partner participation",
+            "heading_size": "h1"
+          }
+        },
+        "text_iTb6MJ": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Each IRIS Point:<br/><br/>• receives a commission on every referred acquisition<br/>• is recognized as part of the IRIS network<br/>• gains early access to future developments</h2>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_UdK7iV",
+        "text_iTb6MJ"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "multirow_eLfCan": {
       "type": "multirow",
       "blocks": {
@@ -363,6 +402,7 @@
     "image_with_text_7PrWjE",
     "image_with_text_Qt9Ui9",
     "image_with_text_BaYfj3",
+    "image_with_text_NENrtk",
     "multirow_eLfCan",
     "rich_text_4qGwb9",
     "contact_form_UBh7Lj"
