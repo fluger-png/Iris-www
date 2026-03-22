@@ -70,17 +70,10 @@
     "rich_text_pRBLVg": {
       "type": "rich-text",
       "blocks": {
-        "heading_VnMQmj": {
-          "type": "heading",
-          "settings": {
-            "heading": "IRIS is a collection of 10,000 unique artworks. Each piece contains 24K gold and remains unseen until it is received and activated by its owner.",
-            "heading_size": "h1"
-          }
-        },
         "text_9mG3G9": {
           "type": "text",
           "settings": {
-            "text": "<h2></h2><h2>The artwork is not chosen.<br/>It reveals itself only after the moment of ownership.</h2><h2>—</h2><h2>We collaborate with a small number of spaces where IRIS can be experienced, understood, and introduced with care.</h2><h2>These are not points of sale.<br/>They are points of encounter.</h2>"
+            "text": "<h2>IRIS is a collection of 10,000 unique artworks. Each piece contains 24K gold and remains unseen until it is received and activated by its owner.</h2><h2>—</h2><h2></h2><h2>The artwork is not chosen.<br/>It reveals itself only after the moment of ownership.</h2><h2>—</h2><h2>We collaborate with a small number of spaces where IRIS can be experienced, understood, and introduced with care.</h2><h2>These are not points of sale.<br/>They are points of encounter.</h2>"
           }
         },
         "button_DMmYNH": {
@@ -96,7 +89,6 @@
         }
       },
       "block_order": [
-        "heading_VnMQmj",
         "text_9mG3G9",
         "button_DMmYNH"
       ],
