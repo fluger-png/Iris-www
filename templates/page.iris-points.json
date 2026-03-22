@@ -206,6 +206,45 @@
         "padding_bottom": 36
       }
     },
+    "image_with_text_BaYfj3": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_DWtVtx": {
+          "type": "heading",
+          "settings": {
+            "heading": "For selected spaces",
+            "heading_size": "h1"
+          }
+        },
+        "text_rDrGdV": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>We collaborate with:</h2><h2>• galleries<br/>• concept stores<br/>• private studios<br/>• cultural and aesthetic spaces</h2><h2>We are not looking for scale.<br/>We are looking for alignment.</h2>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_DWtVtx",
+        "text_rDrGdV"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "multirow_eLfCan": {
       "type": "multirow",
       "blocks": {
@@ -223,6 +262,7 @@
         },
         "row_tgQeb7": {
           "type": "row",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/IRIS-Points-Banner_c13da8fa-53f8-49f7-996e-f6c4231bc399.png",
             "caption": "",
@@ -234,6 +274,7 @@
         },
         "row_WdjPN8": {
           "type": "row",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
             "caption": "",
@@ -321,6 +362,7 @@
     "rich_text_pRBLVg",
     "image_with_text_7PrWjE",
     "image_with_text_Qt9Ui9",
+    "image_with_text_BaYfj3",
     "multirow_eLfCan",
     "rich_text_4qGwb9",
     "contact_form_UBh7Lj"
