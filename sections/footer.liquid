@@ -331,6 +331,9 @@
         <small class="copyright__content">{{ powered_by_link }}</small>
         {%- if section.settings.show_policy -%}
           <ul class="policies list-unstyled">
+            <li>
+              <small class="copyright__content"><a href="/pages/iris-points">Partnership</a></small>
+            </li>
             {%- for policy in shop.policies -%}
               {%- if policy != blank -%}
                 <li>
