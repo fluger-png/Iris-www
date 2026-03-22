@@ -167,7 +167,7 @@
         "heading_aAPRbU": {
           "type": "heading",
           "settings": {
-            "heading": "Apply",
+            "heading": "If you feel IRIS belongs in your space, we would be glad to connect.",
             "heading_size": "h1"
           }
         }
@@ -189,7 +189,7 @@
       "type": "contact-form",
       "name": "t:sections.contact-form.presets.name",
       "settings": {
-        "heading": "If you feel IRIS belongs in your space, we would be glad to connect.",
+        "heading": "Apply",
         "heading_size": "h2",
         "color_scheme": "scheme-4",
         "padding_top": 100,
