@@ -232,7 +232,7 @@
       "settings": {
         "image": "shopify://shop_images/IRIS-Points-Banner-spaces_a626156a-7c01-48dd-8764-f64808e4d67a.png",
         "height": "adapt",
-        "desktop_image_width": "large",
+        "desktop_image_width": "medium",
         "layout": "text_first",
         "image_behavior": "none",
         "content_layout": "overlap",
