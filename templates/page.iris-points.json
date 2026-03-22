@@ -23,7 +23,7 @@
         "slide_xcXwLG": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
+            "image": "shopify://shop_images/IRIS-Points-Banner-storefront.png",
             "image_overlay_opacity": 0,
             "heading": "IRIS Points",
             "heading_size": "h1",
@@ -35,7 +35,7 @@
             "box_align": "middle-center",
             "text_alignment": "center",
             "text_alignment_mobile": "center",
-            "color_scheme": "scheme-4"
+            "color_scheme": "scheme-1"
           }
         }
       },
@@ -191,7 +191,7 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "image": "shopify://shop_images/IRIS-Points-Banner_27fa6dce-13e8-4d50-add6-7fa68ea3beb9.png",
+        "image": "shopify://shop_images/banner-squere_e9eef4bf-da04-460c-89ea-ed1efda4bae4.png",
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "text_first",
