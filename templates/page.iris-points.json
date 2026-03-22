@@ -153,7 +153,7 @@
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/IRIS-Points-Banner-stand.png",
-        "height": "adapt",
+        "height": "medium",
         "desktop_image_width": "large",
         "layout": "text_first",
         "image_behavior": "none",
