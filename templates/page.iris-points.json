@@ -164,35 +164,16 @@
     "rich_text_4qGwb9": {
       "type": "rich-text",
       "blocks": {
-        "text_hFRL6g": {
-          "type": "text",
-          "settings": {
-            "text": "<h2>In a world where digital ownership is often abstract, IRIS returns to something elemental:</h2>"
-          }
-        },
         "heading_aAPRbU": {
           "type": "heading",
           "settings": {
-            "heading": "You hold it. You activate it. It becomes yours.",
+            "heading": "Apply",
             "heading_size": "h1"
-          }
-        },
-        "button_hatLqL": {
-          "type": "button",
-          "settings": {
-            "button_label": "Reveal My IRIS",
-            "button_link": "shopify://products/iris-the-unseen-edition",
-            "button_style_secondary": false,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
           }
         }
       },
       "block_order": [
-        "text_hFRL6g",
-        "heading_aAPRbU",
-        "button_hatLqL"
+        "heading_aAPRbU"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
@@ -203,6 +184,17 @@
         "padding_top": 40,
         "padding_bottom": 52
       }
+    },
+    "contact_form_UBh7Lj": {
+      "type": "contact-form",
+      "name": "t:sections.contact-form.presets.name",
+      "settings": {
+        "heading": "If you feel IRIS belongs in your space, we would be glad to connect.",
+        "heading_size": "h1",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -210,6 +202,7 @@
     "image_banner_mVpcUD",
     "rich_text_pRBLVg",
     "multirow_eLfCan",
-    "rich_text_4qGwb9"
+    "rich_text_4qGwb9",
+    "contact_form_UBh7Lj"
   ]
 }
