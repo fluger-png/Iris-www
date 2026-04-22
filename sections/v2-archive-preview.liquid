@@ -39,6 +39,12 @@
     line-height: 1.08;
     letter-spacing: 0.03em;
     font-weight: 400;
+    color: var(--v2-text) !important;
+  }
+
+  .v2-archive-preview__title-{{ section.id }},
+  .v2-archive-preview__title-{{ section.id }} * {
+    color: var(--v2-text) !important;
   }
 
   .v2-archive-preview__title-{{ section.id }} em {
@@ -69,14 +75,16 @@
     text-decoration: none;
     overflow: hidden;
     aspect-ratio: 1 / 1;
+    border: 1px solid var(--v2-border);
   }
 
   .v2-archive-preview__card-{{ section.id }} img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
     transition: transform 0.45s ease;
+    background: #2a2a2a;
   }
 
   .v2-archive-preview__card-{{ section.id }}:hover img {
@@ -96,6 +104,19 @@
     align-items: end;
     background: linear-gradient(180deg, rgba(8,8,8,0.05) 25%, rgba(8,8,8,0.78) 100%);
     padding: 2rem;
+  }
+
+  .v2-archive-preview__card-{{ section.id }}:not(:first-child) .v2-archive-preview__overlay-{{ section.id }} {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .v2-archive-preview__card-{{ section.id }}:not(:first-child):hover .v2-archive-preview__overlay-{{ section.id }} {
+    opacity: 1;
+  }
+
+  .v2-archive-preview__card-{{ section.id }}:first-child img {
+    opacity: 0.28;
   }
 
   .v2-archive-preview__label-{{ section.id }} {
@@ -259,7 +280,7 @@
             '<div class="v2-archive-preview__overlay-{{ section.id }}">' +
               '<div class="v2-archive-preview__label-{{ section.id }}">' +
                 '<div class="v2-archive-preview__iris-{{ section.id }}">' + item.iris_id + '</div>' +
-                '<div class="v2-archive-preview__meta-{{ section.id }}">Revealed in the archive</div>' +
+                '<div class="v2-archive-preview__meta-{{ section.id }}">Revealed · Unique</div>' +
               '</div>' +
             '</div>' +
           '</a>'
@@ -300,22 +321,22 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "A living archive of <em>revealed IRIS</em>"
+      "default": "What others have <em>received</em>"
     },
     {
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>Every activated IRIS enters the archive as part of the visible history of the edition. Browse the works that have already been claimed and revealed.</p>"
+      "default": "<p>Every activated IRIS enters the visible history of the edition. Browse the works that have already been claimed and revealed.</p>"
     },
     {
       "type": "range",
       "id": "items_to_show",
       "min": 2,
-      "max": 8,
+      "max": 12,
       "step": 1,
       "label": "Items to show",
-      "default": 4
+      "default": 8
     },
     {
       "type": "text",

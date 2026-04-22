@@ -37,6 +37,22 @@
         "item_5": "<strong>IRIS Passport</strong> reveals the full object"
       }
     },
+    "v2_edition_stats_Y2t9Lp": {
+      "type": "v2-edition-stats",
+      "settings": {
+        "value_1": "10,000",
+        "label_1": "Total Editions",
+        "value_2": "35",
+        "label_2": "Revealed",
+        "value_3": "AU",
+        "label_3": "Gold In Every Piece",
+        "value_4": "0",
+        "label_4": "Duplicates Ever",
+        "scarcity_label": "Editions Revealed",
+        "scarcity_value": "35 of 10,000",
+        "progress_percent": 1
+      }
+    },
     "v2_product_story_gGv9Mk": {
       "type": "v2-product-story",
       "settings": {
@@ -49,7 +65,7 @@
         "feature_2": "Each IRIS is linked to a unique digital passport.",
         "feature_3": "Rarity is pre-committed and publicly verifiable.",
         "feature_4": "The final reveal happens only after activation.",
-        "price": "$199",
+        "price": "$120",
         "price_note": "Current release price",
         "button_label": "Shop the Edition",
         "button_link": "shopify://products/iris-the-unseen-edition"
@@ -59,9 +75,9 @@
       "type": "v2-archive-preview",
       "settings": {
         "eyebrow": "Revealed Archive",
-        "heading": "A living archive of <em>revealed IRIS</em>",
-        "description": "<p>Every activated IRIS enters the archive as part of the visible history of the edition. Browse the works that have already been claimed and revealed.</p>",
-        "items_to_show": 4,
+        "heading": "What others have <em>received</em>",
+        "description": "<p>Every activated IRIS enters the visible history of the edition. Browse the works that have already been claimed and revealed.</p>",
+        "items_to_show": 8,
         "button_label": "Explore the Archive",
         "button_link": "shopify://pages/iris-archive"
       }
@@ -315,6 +331,7 @@
   "order": [
     "v2_home_hero_wdKTMG",
     "v2_proof_bar_WjM3xD",
+    "v2_edition_stats_Y2t9Lp",
     "v2_product_story_gGv9Mk",
     "v2_archive_preview_P4Kx3h",
     "image_banner",
