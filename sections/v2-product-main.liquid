@@ -45,9 +45,9 @@
 
   .v2-product-main__art-{{ section.id }} {
     position: relative;
-    background: #2b2b2b;
-    border: 1px solid var(--v2-product-border);
-    padding: 1.8%;
+    background: transparent;
+    border: 0;
+    padding: 0;
     aspect-ratio: 1 / 1;
   }
 
@@ -89,8 +89,8 @@
   }
 
   .v2-product-main__art-image-{{ section.id }} {
-    width: 76%;
-    height: 76%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     display: block;
   }
@@ -130,7 +130,7 @@
     color: var(--v2-product-text-mid);
     font-family: var(--font-heading-family);
     font-style: italic;
-    font-size: clamp(1.5rem, 1.8vw, 2rem);
+    font-size: clamp(1.65rem, 1.98vw, 2.2rem);
     line-height: 1.35;
   }
 
@@ -143,8 +143,8 @@
 
   .v2-product-main__description-{{ section.id }} {
     color: var(--v2-product-text-mid);
-    font-size: 1.36rem;
-    line-height: 1.72;
+    font-size: 1.5rem;
+    line-height: 1.8;
     max-width: 66rem;
   }
 
@@ -165,14 +165,14 @@
     color: var(--v2-product-text);
     text-transform: uppercase;
     letter-spacing: 0.28rem;
-    font-size: 0.8rem;
+    font-size: 0.88rem;
   }
 
   .v2-product-main__callout-copy-{{ section.id }} {
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.18rem;
-    font-size: 0.77rem;
+    font-size: 0.85rem;
     line-height: 1.75;
   }
 
@@ -189,7 +189,7 @@
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.28rem;
-    font-size: 0.8rem;
+    font-size: 0.88rem;
   }
 
   .v2-product-main__progress-row-{{ section.id }} strong {
@@ -228,7 +228,7 @@
     margin: 0;
     color: var(--v2-product-text);
     font-family: var(--font-heading-family);
-    font-size: clamp(3.7rem, 4.7vw, 5.3rem);
+    font-size: clamp(4.1rem, 5.17vw, 5.85rem);
     line-height: 0.92;
     font-weight: 400;
   }
@@ -238,14 +238,14 @@
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.26rem;
-    font-size: 0.74rem;
+    font-size: 0.81rem;
   }
 
   .v2-product-main__price-side-{{ section.id }} {
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.18rem;
-    font-size: 0.74rem;
+    font-size: 0.81rem;
     line-height: 1.8;
     text-align: right;
   }
@@ -261,7 +261,7 @@
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.24rem;
-    font-size: 0.76rem;
+    font-size: 0.84rem;
     white-space: nowrap;
   }
 
@@ -272,7 +272,7 @@
     border: 1px solid var(--v2-product-border);
     background: rgba(255, 255, 255, 0.02);
     color: var(--v2-product-text);
-    font-size: 1.44rem;
+    font-size: 1.58rem;
     text-align: center;
   }
 
@@ -285,7 +285,7 @@
   .v2-product-main__installments-{{ section.id }} {
     margin-top: 1.6rem;
     color: var(--v2-product-text-soft);
-    font-size: 1.08rem;
+    font-size: 1.19rem;
     line-height: 1.7;
   }
 
@@ -307,7 +307,7 @@
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.18rem;
-    font-size: 0.74rem;
+    font-size: 0.81rem;
     display: inline-flex;
     align-items: center;
     gap: 0.9rem;
@@ -338,7 +338,7 @@
     border: 1px solid var(--v2-product-border);
     text-transform: uppercase;
     letter-spacing: 0.34rem;
-    font-size: 0.96rem;
+    font-size: 1.06rem;
     text-decoration: none;
     transition: all 0.24s ease;
   }
@@ -435,7 +435,7 @@
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.22rem;
-    font-size: 0.72rem;
+    font-size: 0.79rem;
     line-height: 1.6;
   }
 
@@ -501,7 +501,7 @@
   .v2-product-main__faq-answer-{{ section.id }} {
     padding: 0 0 2.6rem;
     color: var(--v2-product-text-mid);
-    font-size: 1.2rem;
+    font-size: 1.32rem;
     line-height: 1.8;
   }
 
@@ -559,7 +559,7 @@
     }
 
     .v2-product-main__description-{{ section.id }} {
-      font-size: 1.55rem;
+      font-size: 1.65rem;
       line-height: 1.78;
     }
 
@@ -594,7 +594,7 @@
     .v2-product-main__button-secondary-{{ section.id }} {
       min-height: 6.4rem;
       letter-spacing: 0.24rem;
-      font-size: 1.05rem;
+      font-size: 1.14rem;
     }
 
     .v2-product-main__quantity-row-{{ section.id }} {
@@ -620,7 +620,7 @@
     }
 
     .v2-product-main__faq-answer-{{ section.id }} {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
     }
   }
 {%- endstyle -%}
@@ -667,8 +667,7 @@
         {%- endif -%}
 
         <h1 class="v2-product-main__title-{{ section.id }}">
-          {{ section.settings.title_line_1 }} <em>{{ section.settings.title_accent }}</em><br>
-          {{ section.settings.title_line_2 }}
+          {{ section.settings.title_line_1 }} <em>{{ section.settings.title_accent }}</em> {{ section.settings.title_line_2 }}
         </h1>
 
         {%- if section.settings.subtitle != blank -%}
