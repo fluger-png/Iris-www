@@ -13,18 +13,17 @@
       "type": "v2-home-hero",
       "settings": {
         "eyebrow": "IRIS NYC",
-        "heading": "A new form of <em>collectible art</em>",
+        "heading": "A new form of <em>Collectible Art</em>",
         "description": "<p>Each IRIS is assigned in mystery, revealed through ownership, and anchored by physical gold. The object becomes fully known only when it becomes yours.</p>",
-        "primary_label": "Acquire IRIS",
+        "primary_label": "Reveal My IRIS",
         "primary_link": "shopify://products/iris-the-unseen-edition",
         "secondary_label": "View Revealed Archive",
         "secondary_link": "shopify://pages/iris-archive",
-        "meta_text": "Current release <strong>$199</strong> &nbsp;&nbsp; 10,000 total works",
+        "meta_text": "Current release <strong>$120</strong>    10,000 total works",
         "visual_eyebrow": "Edition Preview",
         "visual_title": "The unseen edition",
         "image_1": "shopify://shop_images/Iris-home-banner-desktop_94ebe10c-e699-4f72-9236-f570ae4ac31e.png",
-        "image_2": "shopify://shop_images/test2.png",
-        "image_3": ""
+        "image_2": "shopify://shop_images/Activation-banner_8cf6ba08-9aee-4bce-9eb9-388b430853a9.png"
       }
     },
     "v2_proof_bar_WjM3xD": {
@@ -56,7 +55,7 @@
     "v2_product_story_gGv9Mk": {
       "type": "v2-product-story",
       "settings": {
-        "image": "shopify://shop_images/test2.png",
+        "image": "shopify://shop_images/product-1.png",
         "badge": "Physical work · NFC linked",
         "eyebrow": "The Object",
         "heading": "A physical artwork revealed through <em>ownership</em>",
@@ -102,8 +101,8 @@
       "type": "v2-closing-cta",
       "settings": {
         "eyebrow": "AU · 79 · 196.967",
-        "quote": "<p>Gold does not decay. It does not change. It simply persists — through every moment it has passed through, every hand it has touched. Every IRIS carries this inside it.</p>",
-        "footer_text": "A trace of permanence in every piece · New York"
+        "quote": "<p>“The most beautiful thing we can experience is the mysterious.”<br/>— Albert Einstein.</p>",
+        "footer_text": "A trace of 24k Gold in every piece · New York"
       }
     },
     "image_banner": {
@@ -258,49 +257,6 @@
         "padding_bottom": 36
       }
     },
-    "rich_text_rgHUJM": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_dMp93n": {
-          "type": "heading",
-          "settings": {
-            "heading": "<strong>IRIS is a collection of physical artworks revealed through chance.</strong>",
-            "heading_size": "h1"
-          }
-        },
-        "text_8epk7V": {
-          "type": "text",
-          "settings": {
-            "text": "<h3>Each piece exists before it is seen, chosen at random, and revealed only after purchase.<br/>No previews. No duplicates. Only the moment of discovery.</h3><h3>Each work is revealed only after it becomes yours. Inside every piece is a trace of physical gold — not as value, but as permanence.</h3>"
-          }
-        },
-        "button_GLgQPH": {
-          "type": "button",
-          "settings": {
-            "button_label": "Learn More",
-            "button_link": "shopify://pages/about",
-            "button_style_secondary": false,
-            "button_label_2": "Reveal My IRIS",
-            "button_link_2": "shopify://products/iris-the-unseen-edition",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_dMp93n",
-        "text_8epk7V",
-        "button_GLgQPH"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
-    },
     "image_banner_UpkC7E": {
       "type": "image-banner",
       "blocks": {
@@ -363,7 +319,6 @@
     "image_banner",
     "featured_collection",
     "featured_product_PnNbRF",
-    "rich_text_rgHUJM",
     "image_banner_UpkC7E"
   ]
 }
