@@ -41,7 +41,7 @@
         "a {font-size: 14px !important;}"
       ],
       "settings": {
-        "logo_position": "middle-center",
+        "logo_position": "middle-left",
         "mobile_logo_position": "center",
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
