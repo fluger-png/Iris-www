@@ -190,10 +190,14 @@
     margin-top: 8rem;
     background: var(--v2-surface-2);
     border-top: 1px solid var(--v2-border);
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
   }
 
   .v2-passport-archive__wrap {
-    padding: 9rem 0 0;
+    max-width: 136rem;
+    margin: 0 auto;
+    padding: 9rem 8rem 0;
   }
 
   .v2-passport-archive__head {
@@ -374,6 +378,10 @@
       gap: 3.2rem;
     }
 
+    .v2-passport-archive__wrap {
+      padding: 7.2rem 3.2rem 0;
+    }
+
     .v2-passport-archive__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -408,7 +416,7 @@
     }
 
     .v2-passport-archive__wrap {
-      padding-top: 7rem;
+      padding: 7rem 2rem 0;
     }
 
     .v2-passport-archive__description {
@@ -462,7 +470,6 @@
 
         <div class="v2-passport-actions">
           <a href="/pages/iris-archive" class="v2-passport-button v2-passport-button--ghost">Back to Archive</a>
-          <a id="iris-passport-proof-link" href="#" target="_blank" rel="noreferrer" class="v2-passport-button" hidden>Verify rarity proof</a>
         </div>
       </div>
     </div>
@@ -515,7 +522,6 @@
     var modal = document.getElementById('iris-passport-modal');
     var modalImg = document.getElementById('iris-passport-modal-img');
     var modalClose = document.getElementById('iris-passport-modal-close');
-    var proofLink = document.getElementById('iris-passport-proof-link');
     var defaultImage = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244';
 
     if (!irisId) {
@@ -546,7 +552,6 @@
       rarityEl.textContent = 'Hidden until activated';
       img.src = defaultImage;
       img.alt = irisId;
-      if (proofLink) proofLink.hidden = true;
     }
 
     setPending();
@@ -576,10 +581,6 @@
         rarityEl.textContent = data.rarity_code || 'Hidden until activated';
         img.src = data.image_url || defaultImage;
         img.alt = data.iris_id || irisId;
-        if (data.proof_url && proofLink) {
-          proofLink.hidden = false;
-          proofLink.href = data.proof_url;
-        }
       })
       .catch(function () {
         setPending();
