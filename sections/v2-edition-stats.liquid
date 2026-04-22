@@ -67,7 +67,7 @@
 
   .v2-edition-stats__track-{{ section.id }} {
     position: relative;
-    height: 1px;
+    height: 2px;
     background: rgba(255, 255, 255, 0.08);
   }
 
@@ -78,17 +78,19 @@
     bottom: 0;
     width: {{ section.settings.progress_percent }}%;
     background: linear-gradient(90deg, var(--v2-gold-dim), var(--v2-gold));
+    box-shadow: 0 0 12px rgba(201, 168, 76, 0.28);
   }
 
   .v2-edition-stats__marker-{{ section.id }} {
     position: absolute;
     left: 0;
     top: 50%;
-    width: 0.6rem;
-    height: 0.6rem;
+    width: 0.8rem;
+    height: 0.8rem;
     border-radius: 50%;
     background: var(--v2-gold);
     transform: translateY(-50%);
+    box-shadow: 0 0 14px rgba(201, 168, 76, 0.45);
   }
 
   @media screen and (max-width: 989px) {
@@ -204,7 +206,7 @@
 
         if (revealedFill) {
           var percent = Math.max(0, Math.min(100, (totalCount / totalEditions) * 100));
-          var visiblePercent = totalCount > 0 ? Math.max(percent, 1.5) : 0;
+          var visiblePercent = totalCount > 0 ? Math.max(percent, 3) : 0;
           revealedFill.style.width = visiblePercent + '%';
         }
       })
