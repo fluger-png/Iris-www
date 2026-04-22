@@ -83,6 +83,11 @@
     color: var(--iris-footer-text) !important;
   }
 
+  .footer .field {
+    display: flex;
+    align-items: center;
+  }
+
   .footer .field__input {
     color: #a8a093 !important;
     -webkit-text-fill-color: #a8a093 !important;
@@ -91,6 +96,14 @@
 
   .footer .field__label {
     color: #b2aa9f !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    line-height: 1 !important;
+  }
+
+  .footer .field__input:not(:placeholder-shown) ~ .field__label,
+  .footer .field__input:focus ~ .field__label {
+    display: none !important;
   }
 
   .footer .field__input::placeholder {
