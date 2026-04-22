@@ -1,0 +1,283 @@
+{%- style -%}
+  .v2-product-details-{{ section.id }} {
+    --v2-product-gold: #c9a84c;
+    --v2-product-gold-dim: #7a6330;
+    --v2-product-border: rgba(201, 168, 76, 0.16);
+    --v2-product-text: #ede8df;
+    --v2-product-text-mid: #a89f90;
+    background: #000;
+    color: var(--v2-product-text);
+    border-top: 1px solid var(--v2-product-border);
+    border-bottom: 1px solid var(--v2-product-border);
+  }
+
+  .v2-product-details__wrap-{{ section.id }} {
+    max-width: 136rem;
+    margin: 0 auto;
+    padding: 5rem 4rem 10rem;
+  }
+
+  .v2-product-details__facts-{{ section.id }} {
+    border: 1px solid var(--v2-product-border);
+    background: #0d0d0d;
+  }
+
+  .v2-product-details__fact-{{ section.id }} {
+    display: grid;
+    grid-template-columns: 10rem minmax(0, 1fr);
+    gap: 2.8rem;
+    align-items: center;
+    padding: 3rem 4rem;
+    border-bottom: 1px solid var(--v2-product-border);
+  }
+
+  .v2-product-details__fact-{{ section.id }}:last-child {
+    border-bottom: 0;
+  }
+
+  .v2-product-details__icon-{{ section.id }} {
+    width: 6.8rem;
+    height: 6.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--v2-product-border);
+    color: var(--v2-product-gold);
+  }
+
+  .v2-product-details__icon-{{ section.id }} svg {
+    width: 2.8rem;
+    height: 2.8rem;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .v2-product-details__fact-title-{{ section.id }} {
+    margin: 0 0 0.8rem;
+    color: var(--v2-product-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.8rem, 3.6vw, 4.3rem);
+    line-height: 1.08;
+    font-weight: 400;
+  }
+
+  .v2-product-details__fact-meta-{{ section.id }} {
+    color: var(--v2-product-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.26rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .v2-product-details__faq-{{ section.id }} {
+    margin-top: 8rem;
+    border-top: 1px solid var(--v2-product-border);
+  }
+
+  .v2-product-details__faq-item-{{ section.id }} {
+    border-bottom: 1px solid var(--v2-product-border);
+  }
+
+  .v2-product-details__faq-item-{{ section.id }} summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 3.4rem 0;
+  }
+
+  .v2-product-details__faq-item-{{ section.id }} summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .v2-product-details__faq-question-{{ section.id }} {
+    color: var(--v2-product-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.9rem, 3.8vw, 4.8rem);
+    line-height: 1.1;
+    font-weight: 400;
+  }
+
+  .v2-product-details__faq-toggle-{{ section.id }} {
+    position: relative;
+    width: 3.2rem;
+    height: 3.2rem;
+    flex: 0 0 auto;
+  }
+
+  .v2-product-details__faq-toggle-{{ section.id }}::before,
+  .v2-product-details__faq-toggle-{{ section.id }}::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2.4rem;
+    height: 1.5px;
+    background: var(--v2-product-gold);
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .v2-product-details__faq-toggle-{{ section.id }}::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .v2-product-details__faq-item-{{ section.id }}[open] .v2-product-details__faq-toggle-{{ section.id }}::after {
+    opacity: 0;
+  }
+
+  .v2-product-details__faq-answer-{{ section.id }} {
+    padding: 0 0 3rem;
+    color: var(--v2-product-text-mid);
+    font-size: 1.8rem;
+    line-height: 1.9;
+    max-width: 88rem;
+  }
+
+  .v2-product-details__faq-answer-{{ section.id }} p {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .v2-product-details__wrap-{{ section.id }} {
+      padding: 4rem 3.2rem 8rem;
+    }
+
+    .v2-product-details__fact-{{ section.id }} {
+      grid-template-columns: 7rem minmax(0, 1fr);
+      gap: 2rem;
+      padding: 2.4rem 2.6rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .v2-product-details__wrap-{{ section.id }} {
+      padding: 3rem 2rem 6rem;
+    }
+
+    .v2-product-details__fact-{{ section.id }} {
+      grid-template-columns: 1fr;
+      gap: 1.6rem;
+    }
+
+    .v2-product-details__icon-{{ section.id }} {
+      width: 6rem;
+      height: 6rem;
+    }
+
+    .v2-product-details__fact-meta-{{ section.id }} {
+      letter-spacing: 0.18rem;
+      font-size: 0.95rem;
+    }
+
+    .v2-product-details__faq-{{ section.id }} {
+      margin-top: 5rem;
+    }
+
+    .v2-product-details__faq-item-{{ section.id }} summary {
+      padding: 2.6rem 0;
+    }
+
+    .v2-product-details__faq-question-{{ section.id }} {
+      font-size: 2.4rem;
+    }
+
+    .v2-product-details__faq-answer-{{ section.id }} {
+      font-size: 1.6rem;
+      line-height: 1.8;
+      padding-bottom: 2.4rem;
+    }
+  }
+{%- endstyle -%}
+
+{% capture fact_icon_1 %}
+  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="12" height="16" rx="1"></rect><line x1="9" y1="8" x2="15" y2="8"></line><line x1="9" y1="12" x2="15" y2="12"></line><line x1="9" y1="16" x2="13" y2="16"></line></svg>
+{% endcapture %}
+{% capture fact_icon_2 %}
+  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 7v5l3 2"></path></svg>
+{% endcapture %}
+{% capture fact_icon_3 %}
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6l7-3z"></path></svg>
+{% endcapture %}
+{% capture fact_icon_4 %}
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-4.35 6-10a6 6 0 10-12 0c0 5.65 6 10 6 10z"></path><circle cx="12" cy="11" r="2.5"></circle></svg>
+{% endcapture %}
+
+<section class="v2-product-details-{{ section.id }}">
+  <div class="v2-product-details__wrap-{{ section.id }}">
+    <div class="v2-product-details__facts-{{ section.id }}">
+      {%- for index in (1..4) -%}
+        {%- assign title_key = 'fact_title_' | append: index -%}
+        {%- assign meta_key = 'fact_meta_' | append: index -%}
+        {%- assign title_value = section.settings[title_key] -%}
+        {%- assign meta_value = section.settings[meta_key] -%}
+        <div class="v2-product-details__fact-{{ section.id }}">
+          <div class="v2-product-details__icon-{{ section.id }}">
+            {%- case index -%}
+              {%- when 1 -%}{{ fact_icon_1 }}
+              {%- when 2 -%}{{ fact_icon_2 }}
+              {%- when 3 -%}{{ fact_icon_3 }}
+              {%- when 4 -%}{{ fact_icon_4 }}
+            {%- endcase -%}
+          </div>
+          <div>
+            <h2 class="v2-product-details__fact-title-{{ section.id }}">{{ title_value }}</h2>
+            <div class="v2-product-details__fact-meta-{{ section.id }}">{{ meta_value }}</div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="v2-product-details__faq-{{ section.id }}">
+      {%- for index in (1..4) -%}
+        {%- assign question_key = 'faq_question_' | append: index -%}
+        {%- assign answer_key = 'faq_answer_' | append: index -%}
+        {%- assign question_value = section.settings[question_key] -%}
+        {%- assign answer_value = section.settings[answer_key] -%}
+        {%- if question_value != blank -%}
+          <details class="v2-product-details__faq-item-{{ section.id }}">
+            <summary>
+              <span class="v2-product-details__faq-question-{{ section.id }}">{{ question_value }}</span>
+              <span class="v2-product-details__faq-toggle-{{ section.id }}" aria-hidden="true"></span>
+            </summary>
+            <div class="v2-product-details__faq-answer-{{ section.id }}">{{ answer_value }}</div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "V2 Product Details",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "fact_title_1", "label": "Fact 1 title", "default": "Unique 4-digit ID" },
+    { "type": "text", "id": "fact_meta_1", "label": "Fact 1 meta", "default": "Stamped by hand · No two alike" },
+    { "type": "text", "id": "fact_title_2", "label": "Fact 2 title", "default": "Physical Gold — Au 79" },
+    { "type": "text", "id": "fact_meta_2", "label": "Fact 2 meta", "default": "Embedded in every piece · Permanence" },
+    { "type": "text", "id": "fact_title_3", "label": "Fact 3 title", "default": "Ownership Certificate" },
+    { "type": "text", "id": "fact_meta_3", "label": "Fact 3 meta", "default": "Register in the public archive" },
+    { "type": "text", "id": "fact_title_4", "label": "Fact 4 title", "default": "Worldwide Shipping" },
+    { "type": "text", "id": "fact_meta_4", "label": "Fact 4 meta", "default": "Tracked · Protective packaging" },
+    { "type": "text", "id": "faq_question_1", "label": "FAQ 1 question", "default": "How does the reveal work?" },
+    { "type": "richtext", "id": "faq_answer_1", "label": "FAQ 1 answer", "default": "<p>Your IRIS is assigned at random when you purchase. Once you receive the work, scan the NFC tag and activate it to reveal the exact edition in your passport.</p>" },
+    { "type": "text", "id": "faq_question_2", "label": "FAQ 2 question", "default": "What is the physical gold?" },
+    { "type": "richtext", "id": "faq_answer_2", "label": "FAQ 2 answer", "default": "<p>Each IRIS contains 24K physical gold embedded into the original work. The final gold content is disclosed after activation and also appears in the IRIS passport.</p>" },
+    { "type": "text", "id": "faq_question_3", "label": "FAQ 3 question", "default": "Can I return or exchange my piece?" },
+    { "type": "richtext", "id": "faq_answer_3", "label": "FAQ 3 answer", "default": "<p>No. Each IRIS is unique and assigned at random. Because the artwork is sealed to the collector at purchase, all sales are final.</p>" },
+    { "type": "text", "id": "faq_question_4", "label": "FAQ 4 question", "default": "Shipping & delivery" },
+    { "type": "richtext", "id": "faq_answer_4", "label": "FAQ 4 answer", "default": "<p>Orders are packed securely and shipped with tracking. Delivery timelines may vary by destination, but most orders arrive within 5–10 business days.</p>" }
+  ],
+  "presets": [
+    { "name": "V2 Product Details" }
+  ]
+}
+{% endschema %}

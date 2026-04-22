@@ -1,0 +1,675 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_price = current_variant.price | default: product.price
+  assign product_price_display = product_price | money_without_trailing_zeros
+  assign display_media = section.settings.display_image
+  if display_media == blank
+    assign display_media = product.featured_media
+  endif
+-%}
+
+{%- style -%}
+  .v2-product-main-{{ section.id }} {
+    --v2-product-gold: #c9a84c;
+    --v2-product-gold-dim: #7a6330;
+    --v2-product-border: rgba(201, 168, 76, 0.16);
+    --v2-product-text: #ede8df;
+    --v2-product-text-mid: #a89f90;
+    --v2-product-text-soft: rgba(237, 232, 223, 0.62);
+    --v2-product-surface: #101010;
+    --v2-product-surface-2: #171717;
+    background: #000;
+    color: var(--v2-product-text);
+    border-top: 1px solid var(--v2-product-border);
+  }
+
+  .v2-product-main__wrap-{{ section.id }} {
+    max-width: 144rem;
+    margin: 0 auto;
+    padding: 9.6rem 4rem 8rem;
+  }
+
+  .v2-product-main__grid-{{ section.id }} {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 0.88fr);
+    gap: 8rem;
+    align-items: start;
+  }
+
+  .v2-product-main__visual-shell-{{ section.id }} {
+    position: sticky;
+    top: 11rem;
+  }
+
+  .v2-product-main__art-{{ section.id }} {
+    position: relative;
+    background: #2b2b2b;
+    border: 1px solid var(--v2-product-border);
+    padding: 8%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .v2-product-main__art-inner-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #f6f2eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  }
+
+  .v2-product-main__art-badge-{{ section.id }},
+  .v2-product-main__art-badge-bottom-{{ section.id }} {
+    position: absolute;
+    z-index: 2;
+    min-height: 4.6rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(12, 12, 12, 0.92);
+    border: 1px solid var(--v2-product-border);
+    color: var(--v2-product-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.26rem;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .v2-product-main__art-badge-{{ section.id }} {
+    top: 4rem;
+    left: 3rem;
+  }
+
+  .v2-product-main__art-badge-bottom-{{ section.id }} {
+    right: 3rem;
+    bottom: 3rem;
+    color: var(--v2-product-text-mid);
+  }
+
+  .v2-product-main__art-image-{{ section.id }} {
+    width: 76%;
+    height: 76%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .v2-product-main__art-placeholder-{{ section.id }} {
+    width: 76%;
+    height: 76%;
+    background: #0d0d0d;
+  }
+
+  .v2-product-main__eyebrow-{{ section.id }} {
+    margin: 0 0 2rem;
+    color: var(--v2-product-gold-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.42rem;
+    font-size: 1.05rem;
+  }
+
+  .v2-product-main__title-{{ section.id }} {
+    margin: 0;
+    color: var(--v2-product-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(4.8rem, 7vw, 9rem);
+    line-height: 0.96;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .v2-product-main__title-{{ section.id }} em {
+    color: var(--v2-product-gold);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .v2-product-main__subtitle-{{ section.id }} {
+    margin: 2.2rem 0 0;
+    color: var(--v2-product-text-mid);
+    font-family: var(--font-heading-family);
+    font-style: italic;
+    font-size: clamp(2.2rem, 2.6vw, 3rem);
+    line-height: 1.35;
+  }
+
+  .v2-product-main__divider-{{ section.id }} {
+    width: 6rem;
+    height: 1px;
+    background: var(--v2-product-gold);
+    margin: 4rem 0 4.2rem;
+  }
+
+  .v2-product-main__description-{{ section.id }} {
+    color: var(--v2-product-text-mid);
+    font-size: 1.9rem;
+    line-height: 1.95;
+    max-width: 66rem;
+  }
+
+  .v2-product-main__description-{{ section.id }} p {
+    margin: 0 0 1.8rem;
+  }
+
+  .v2-product-main__callout-{{ section.id }} {
+    margin-top: 3.8rem;
+    padding: 2.7rem 3rem;
+    border: 1px solid var(--v2-product-border);
+    border-left: 3px solid var(--v2-product-gold);
+    background: rgba(201, 168, 76, 0.02);
+  }
+
+  .v2-product-main__callout-title-{{ section.id }} {
+    margin: 0 0 1.1rem;
+    color: var(--v2-product-text);
+    text-transform: uppercase;
+    letter-spacing: 0.28rem;
+    font-size: 1.15rem;
+  }
+
+  .v2-product-main__callout-copy-{{ section.id }} {
+    color: var(--v2-product-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.18rem;
+    font-size: 1.05rem;
+    line-height: 2;
+  }
+
+  .v2-product-main__progress-{{ section.id }} {
+    margin-top: 4rem;
+  }
+
+  .v2-product-main__progress-row-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+    margin-bottom: 1.4rem;
+    color: var(--v2-product-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.28rem;
+    font-size: 1rem;
+  }
+
+  .v2-product-main__progress-row-{{ section.id }} strong {
+    color: var(--v2-product-gold);
+    font-weight: 400;
+  }
+
+  .v2-product-main__progress-bar-{{ section.id }} {
+    position: relative;
+    height: 1px;
+    background: rgba(237, 232, 223, 0.12);
+    overflow: visible;
+  }
+
+  .v2-product-main__progress-fill-{{ section.id }} {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 1px;
+    min-width: 3px;
+    width: 0;
+    background: var(--v2-product-gold);
+  }
+
+  .v2-product-main__price-card-{{ section.id }} {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 2rem 3rem;
+    margin-top: 4rem;
+    padding: 3.2rem 3rem 2.8rem;
+    border: 1px solid var(--v2-product-border);
+    background: rgba(255, 255, 255, 0.01);
+  }
+
+  .v2-product-main__price-value-{{ section.id }} {
+    margin: 0;
+    color: var(--v2-product-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(5.6rem, 7vw, 8rem);
+    line-height: 0.92;
+    font-weight: 400;
+  }
+
+  .v2-product-main__price-label-{{ section.id }} {
+    margin-top: 1rem;
+    color: var(--v2-product-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.26rem;
+    font-size: 1rem;
+  }
+
+  .v2-product-main__price-side-{{ section.id }} {
+    color: var(--v2-product-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.18rem;
+    font-size: 1rem;
+    line-height: 1.95;
+    text-align: right;
+  }
+
+  .v2-product-main__feature-list-{{ section.id }} {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.8rem 3rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .v2-product-main__feature-item-{{ section.id }} {
+    color: var(--v2-product-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.18rem;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .v2-product-main__feature-item-{{ section.id }}::before {
+    content: '';
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: var(--v2-product-gold);
+    flex: 0 0 auto;
+  }
+
+  .v2-product-main__actions-{{ section.id }} {
+    margin-top: 3rem;
+    display: grid;
+    gap: 1.4rem;
+  }
+
+  .v2-product-main__button-{{ section.id }},
+  .v2-product-main__button-secondary-{{ section.id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 7.2rem;
+    width: 100%;
+    border: 1px solid var(--v2-product-border);
+    text-transform: uppercase;
+    letter-spacing: 0.34rem;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.24s ease;
+  }
+
+  .v2-product-main__button-{{ section.id }} {
+    background: var(--v2-product-gold);
+    color: #0f0f0f;
+    border-color: transparent;
+    cursor: pointer;
+  }
+
+  .v2-product-main__button-{{ section.id }}:hover {
+    background: #d3b35b;
+  }
+
+  .v2-product-main__button-{{ section.id }}[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .v2-product-main__button-secondary-{{ section.id }} {
+    background: transparent;
+    color: var(--v2-product-gold);
+  }
+
+  .v2-product-main__button-secondary-{{ section.id }}:hover {
+    background: rgba(201, 168, 76, 0.06);
+    border-color: rgba(201, 168, 76, 0.42);
+  }
+
+  .v2-product-main__error-{{ section.id }} {
+    margin: 0;
+    color: #de7b7b;
+    font-size: 1.4rem;
+    line-height: 1.6;
+  }
+
+  .v2-product-main__error-{{ section.id }}[hidden] {
+    display: none;
+  }
+
+  @media screen and (max-width: 1199px) {
+    .v2-product-main__grid-{{ section.id }} {
+      gap: 5rem;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .v2-product-main__wrap-{{ section.id }} {
+      padding: 8rem 3.2rem 7rem;
+    }
+
+    .v2-product-main__grid-{{ section.id }} {
+      grid-template-columns: 1fr;
+      gap: 4.4rem;
+    }
+
+    .v2-product-main__visual-shell-{{ section.id }} {
+      position: static;
+    }
+
+    .v2-product-main__price-card-{{ section.id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .v2-product-main__price-side-{{ section.id }} {
+      text-align: left;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .v2-product-main__wrap-{{ section.id }} {
+      padding: 6.5rem 2rem 6rem;
+    }
+
+    .v2-product-main__eyebrow-{{ section.id }} {
+      letter-spacing: 0.28rem;
+      font-size: 0.95rem;
+    }
+
+    .v2-product-main__subtitle-{{ section.id }} {
+      font-size: 2rem;
+    }
+
+    .v2-product-main__description-{{ section.id }} {
+      font-size: 1.65rem;
+      line-height: 1.85;
+    }
+
+    .v2-product-main__art-badge-{{ section.id }},
+    .v2-product-main__art-badge-bottom-{{ section.id }} {
+      min-height: 4rem;
+      padding: 0.8rem 1.4rem;
+      letter-spacing: 0.18rem;
+      font-size: 0.85rem;
+    }
+
+    .v2-product-main__art-badge-{{ section.id }} {
+      top: 1.6rem;
+      left: 1.6rem;
+    }
+
+    .v2-product-main__art-badge-bottom-{{ section.id }} {
+      right: 1.6rem;
+      bottom: 1.6rem;
+    }
+
+    .v2-product-main__callout-{{ section.id }},
+    .v2-product-main__price-card-{{ section.id }} {
+      padding-inline: 2rem;
+    }
+
+    .v2-product-main__feature-list-{{ section.id }} {
+      gap: 1.4rem 1.8rem;
+    }
+
+    .v2-product-main__button-{{ section.id }},
+    .v2-product-main__button-secondary-{{ section.id }} {
+      min-height: 6.4rem;
+      letter-spacing: 0.24rem;
+      font-size: 1.05rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="v2-product-main-{{ section.id }}">
+  <div class="v2-product-main__wrap-{{ section.id }}">
+    <div class="v2-product-main__grid-{{ section.id }}">
+      <div class="v2-product-main__visual-shell-{{ section.id }}">
+        <div class="v2-product-main__art-{{ section.id }}">
+          {%- if section.settings.top_badge != blank -%}
+            <div class="v2-product-main__art-badge-{{ section.id }}">{{ section.settings.top_badge }}</div>
+          {%- endif -%}
+
+          <div class="v2-product-main__art-inner-{{ section.id }}">
+            {%- if display_media != blank -%}
+              {{
+                display_media
+                | image_url: width: 1600
+                | image_tag:
+                  class: 'v2-product-main__art-image-' | append: section.id,
+                  loading: 'lazy',
+                  alt: product.title
+              }}
+            {%- else -%}
+              <div class="v2-product-main__art-placeholder-{{ section.id }}"></div>
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.bottom_badge != blank -%}
+            <div class="v2-product-main__art-badge-bottom-{{ section.id }}">{{ section.settings.bottom_badge }}</div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="v2-product-main__eyebrow-{{ section.id }}">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        <h1 class="v2-product-main__title-{{ section.id }}">
+          {{ section.settings.title_line_1 }} <em>{{ section.settings.title_accent }}</em><br>
+          {{ section.settings.title_line_2 }}
+        </h1>
+
+        {%- if section.settings.subtitle != blank -%}
+          <p class="v2-product-main__subtitle-{{ section.id }}">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+
+        <div class="v2-product-main__divider-{{ section.id }}"></div>
+
+        {%- if section.settings.description != blank -%}
+          <div class="v2-product-main__description-{{ section.id }}">{{ section.settings.description }}</div>
+        {%- endif -%}
+
+        <div class="v2-product-main__callout-{{ section.id }}">
+          {%- if section.settings.callout_title != blank -%}
+            <p class="v2-product-main__callout-title-{{ section.id }}">{{ section.settings.callout_title }}</p>
+          {%- endif -%}
+          {%- if section.settings.callout_text != blank -%}
+            <div class="v2-product-main__callout-copy-{{ section.id }}">{{ section.settings.callout_text }}</div>
+          {%- endif -%}
+        </div>
+
+        <div class="v2-product-main__progress-{{ section.id }}">
+          <div class="v2-product-main__progress-row-{{ section.id }}">
+            <span>{{ section.settings.progress_label }}</span>
+            <strong id="V2ProductRevealCount-{{ section.id }}">0 of 10,000</strong>
+          </div>
+          <div class="v2-product-main__progress-bar-{{ section.id }}">
+            <div class="v2-product-main__progress-fill-{{ section.id }}" id="V2ProductRevealFill-{{ section.id }}"></div>
+          </div>
+        </div>
+
+        <div class="v2-product-main__price-card-{{ section.id }}">
+          <div>
+            <p class="v2-product-main__price-value-{{ section.id }}">{{ product_price_display }}</p>
+            <div class="v2-product-main__price-label-{{ section.id }}">{{ section.settings.price_caption }}</div>
+          </div>
+
+          <div class="v2-product-main__price-side-{{ section.id }}">
+            {%- if section.settings.shipping_line_1 != blank -%}<div>{{ section.settings.shipping_line_1 }}</div>{%- endif -%}
+            {%- if section.settings.shipping_line_2 != blank -%}<div>{{ section.settings.shipping_line_2 }}</div>{%- endif -%}
+            {%- if section.settings.shipping_line_3 != blank -%}<div>{{ section.settings.shipping_line_3 }}</div>{%- endif -%}
+          </div>
+
+          <ul class="v2-product-main__feature-list-{{ section.id }}">
+            {%- for index in (1..4) -%}
+              {%- assign feature_key = 'feature_' | append: index -%}
+              {%- assign feature_value = section.settings[feature_key] -%}
+              {%- if feature_value != blank -%}
+                <li class="v2-product-main__feature-item-{{ section.id }}">{{ feature_value }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        <div class="v2-product-main__actions-{{ section.id }}">
+          <button
+            type="button"
+            class="v2-product-main__button-{{ section.id }}"
+            data-iris-buy-button
+            data-variant-id="{{ current_variant.id }}"
+            {% unless current_variant and current_variant.available %}disabled{% endunless %}
+          >
+            {%- if current_variant and current_variant.available -%}
+              {{ section.settings.primary_button_label }} — {{ product_price_display }}
+            {%- else -%}
+              Sold out
+            {%- endif -%}
+          </button>
+
+          <a
+            class="v2-product-main__button-secondary-{{ section.id }}"
+            href="{{ section.settings.archive_link | default: '/pages/iris-archive' }}"
+          >
+            {{ section.settings.archive_button_label }}
+          </a>
+
+          <p class="v2-product-main__error-{{ section.id }}" id="V2ProductError-{{ section.id }}" hidden></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.querySelector('.v2-product-main-{{ section.id }}');
+    if (!root) return;
+
+    var countEl = document.getElementById('V2ProductRevealCount-{{ section.id }}');
+    var fillEl = document.getElementById('V2ProductRevealFill-{{ section.id }}');
+    var buyBtn = root.querySelector('[data-iris-buy-button]');
+    var errorEl = document.getElementById('V2ProductError-{{ section.id }}');
+
+    fetch('/apps/iris/seen-archive?limit=1', {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store'
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('bad_status');
+        return response.json();
+      })
+      .then(function (data) {
+        var total = Number(data && data.total_count) || 0;
+        if (countEl) countEl.textContent = total + ' of 10,000';
+        if (fillEl) {
+          var width = Math.max(3, (total / 10000) * 100);
+          fillEl.style.width = 'min(100%, max(3px, ' + width + '%))';
+        }
+      })
+      .catch(function () {
+        if (countEl) countEl.textContent = '—';
+      });
+
+    if (!buyBtn) return;
+
+    buyBtn.addEventListener('click', function () {
+      var variantId = buyBtn.getAttribute('data-variant-id');
+      if (!variantId || buyBtn.disabled) return;
+
+      buyBtn.disabled = true;
+      if (errorEl) {
+        errorEl.hidden = true;
+        errorEl.textContent = '';
+      }
+
+      fetch('/apps/iris/reserve-random', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('reserve_failed');
+          return res.json();
+        })
+        .then(function (reservation) {
+          if (!reservation || !reservation.irisId || !reservation.reservationToken) {
+            throw new Error('bad_response');
+          }
+
+          return fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+              id: variantId,
+              quantity: 1,
+              properties: {
+                IRIS_ID: reservation.irisId,
+                IRIS_RESERVATION_TOKEN: reservation.reservationToken
+              }
+            })
+          });
+        })
+        .then(function (res) {
+          if (!res.ok) throw new Error('add_to_cart_failed');
+          return res.json();
+        })
+        .then(function () {
+          window.location.assign('/cart');
+        })
+        .catch(function () {
+          if (errorEl) {
+            errorEl.hidden = false;
+            errorEl.textContent = 'We could not reserve an IRIS right now. Please try again.';
+          }
+          buyBtn.disabled = false;
+        });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "V2 Product Main",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "image_picker", "id": "display_image", "label": "Display image" },
+    { "type": "text", "id": "top_badge", "label": "Top badge", "default": "The Unseen Edition" },
+    { "type": "text", "id": "bottom_badge", "label": "Bottom badge", "default": "Unseen until revealed" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "IRIS NYC · Physical Collectible Art" },
+    { "type": "text", "id": "title_line_1", "label": "Title line 1", "default": "The" },
+    { "type": "text", "id": "title_accent", "label": "Title accent", "default": "Unseen" },
+    { "type": "text", "id": "title_line_2", "label": "Title line 2", "default": "Edition" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "One piece. Unknown until it is yours." },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>A hand-made original artwork on paper, completed before you receive it. Its number, its composition, its character — already decided. You don't choose your piece. You receive it. Then you reveal it.</p>"
+    },
+    { "type": "text", "id": "callout_title", "label": "Callout title", "default": "No previews. No selection." },
+    {
+      "type": "textarea",
+      "id": "callout_text",
+      "label": "Callout text",
+      "default": "Your edition is assigned at random and revealed only after purchase. No two pieces in the collection of 10,000 are identical."
+    },
+    { "type": "text", "id": "progress_label", "label": "Progress label", "default": "Editions revealed" },
+    { "type": "text", "id": "price_caption", "label": "Price caption", "default": "Current release price" },
+    { "type": "text", "id": "shipping_line_1", "label": "Shipping line 1", "default": "Shipping calculated at checkout" },
+    { "type": "text", "id": "shipping_line_2", "label": "Shipping line 2", "default": "No returns — each piece is unique" },
+    { "type": "text", "id": "shipping_line_3", "label": "Shipping line 3", "default": "Delivered in 5–10 business days" },
+    { "type": "text", "id": "feature_1", "label": "Feature 1", "default": "Physical gold inside" },
+    { "type": "text", "id": "feature_2", "label": "Feature 2", "default": "Hand-made original" },
+    { "type": "text", "id": "feature_3", "label": "Feature 3", "default": "Archived forever" },
+    { "type": "text", "id": "feature_4", "label": "Feature 4", "default": "Certificate included" },
+    { "type": "text", "id": "primary_button_label", "label": "Primary button label", "default": "Reveal My IRIS" },
+    { "type": "text", "id": "archive_button_label", "label": "Archive button label", "default": "View Revealed Archive" },
+    { "type": "url", "id": "archive_link", "label": "Archive link" }
+  ],
+  "presets": [
+    { "name": "V2 Product Main" }
+  ]
+}
+{% endschema %}
