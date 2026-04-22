@@ -9,6 +9,34 @@
  */
 {
   "sections": {
+    "v2_home_hero_wdKTMG": {
+      "type": "v2-home-hero",
+      "settings": {
+        "eyebrow": "IRIS NYC",
+        "heading": "A new form of <em>collectible art</em>",
+        "description": "<p>Each IRIS is assigned in mystery, revealed through ownership, and anchored by physical gold. The object becomes fully known only when it becomes yours.</p>",
+        "primary_label": "Acquire IRIS",
+        "primary_link": "shopify://products/iris-the-unseen-edition",
+        "secondary_label": "View Revealed Archive",
+        "secondary_link": "shopify://pages/iris-archive",
+        "meta_text": "Current release <strong>$199</strong> &nbsp;&nbsp; 10,000 total works",
+        "visual_eyebrow": "Edition Preview",
+        "visual_title": "The unseen edition",
+        "image_1": "shopify://shop_images/Iris-home-banner-desktop_94ebe10c-e699-4f72-9236-f570ae4ac31e.png",
+        "image_2": "shopify://shop_images/test2.png",
+        "image_3": ""
+      }
+    },
+    "v2_proof_bar_WjM3xD": {
+      "type": "v2-proof-bar",
+      "settings": {
+        "item_1": "<strong>10,000</strong> total works",
+        "item_2": "<strong>24K</strong> gold in every piece",
+        "item_3": "<strong>NFC</strong> activation confirms ownership",
+        "item_4": "<strong>Merkle proof</strong> secures rarity",
+        "item_5": "<strong>IRIS Passport</strong> reveals the full object"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -46,6 +74,7 @@
         "text_PeEfMg",
         "button"
       ],
+      "disabled": true,
       "settings": {
         "image": "shopify://shop_images/Iris-home-banner-desktop_94ebe10c-e699-4f72-9236-f570ae4ac31e.png",
         "image_overlay_opacity": 0,
@@ -255,6 +284,8 @@
     }
   },
   "order": [
+    "v2_home_hero_wdKTMG",
+    "v2_proof_bar_WjM3xD",
     "image_banner",
     "featured_collection",
     "featured_product_PnNbRF",
