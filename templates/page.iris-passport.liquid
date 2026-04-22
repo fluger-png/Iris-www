@@ -1,65 +1,500 @@
 {% layout 'theme' %}
 
-{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
-{{ 'template-collection.css' | asset_url | stylesheet_tag }}
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  .v2-passport-page {
+    --v2-gold: #c9a84c;
+    --v2-gold-dim: #7a6330;
+    --v2-surface: #000000;
+    --v2-surface-2: #101010;
+    --v2-surface-3: #171717;
+    --v2-border: rgba(201, 168, 76, 0.16);
+    --v2-text: #ede8df;
+    --v2-text-mid: #a89f90;
+    background: var(--v2-surface);
+    color: var(--v2-text);
+    border-top: 1px solid var(--v2-border);
+  }
 
-<div class="page-width" style="max-width:1000px;margin:0 auto;padding:28px 16px;">
-  <h1 class="title title--primary" style="margin:0 0 14px;">IRIS Passport</h1>
+  .v2-passport-shell {
+    max-width: 136rem;
+    margin: 0 auto;
+    padding: 9.6rem 8rem 11rem;
+  }
 
-  <div id="iris-passport" class="product grid grid--1-col grid--2-col-tablet" style="gap:24px;">
-    <div class="grid__item">
-      <div class="media media--transparent" style="aspect-ratio:1/1;border:1px solid #eee;background:#f3f4f6;max-width:500px;width:100%;">
-        <img id="iris-passport-img" src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244" alt="" style="width:100%;height:100%;object-fit:cover;cursor:pointer;display:block;">
-      </div>
+  .v2-passport-head {
+    margin-bottom: 4.8rem;
+  }
+
+  .v2-passport-eyebrow {
+    margin: 0 0 1.4rem;
+    color: var(--v2-gold-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.42rem;
+    font-size: 1rem;
+    font-family: var(--font-body-family);
+  }
+
+  .v2-passport-page__title {
+    margin: 0;
+    color: var(--v2-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(3rem, 4.2vw, 5.6rem);
+    line-height: 1.04;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+  }
+
+  .v2-passport-page__summary {
+    margin: 1.8rem 0 0;
+    max-width: 62rem;
+    color: var(--v2-text-mid);
+    font-size: 1.7rem;
+    line-height: 1.85;
+  }
+
+  .v2-passport-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(36rem, 0.96fr);
+    gap: 5.6rem;
+    align-items: start;
+  }
+
+  .v2-passport-media {
+    background: var(--v2-surface-2);
+    border: 1px solid var(--v2-border);
+    padding: 3.2rem;
+  }
+
+  .v2-passport-media__button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+  }
+
+  .v2-passport-media__frame {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: #202020;
+    overflow: hidden;
+  }
+
+  .v2-passport-media__frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: #202020;
+  }
+
+  .v2-passport-panel {
+    background: var(--v2-surface-2);
+    border: 1px solid var(--v2-border);
+    padding: 3.6rem 3.2rem;
+  }
+
+  .v2-passport-panel__eyebrow {
+    margin: 0 0 1.2rem;
+    color: var(--v2-gold-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.34rem;
+    font-size: 1rem;
+  }
+
+  .v2-passport-panel__title {
+    margin: 0;
+    color: var(--v2-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.8rem, 3.4vw, 4.6rem);
+    line-height: 1.02;
+    font-weight: 400;
+  }
+
+  .v2-passport-panel__copy {
+    margin: 1.6rem 0 0;
+    color: var(--v2-text-mid);
+    font-size: 1.6rem;
+    line-height: 1.8;
+  }
+
+  .v2-passport-meta {
+    margin-top: 3.2rem;
+    border-top: 1px solid var(--v2-border);
+  }
+
+  .v2-passport-meta__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.7rem 0;
+    border-bottom: 1px solid var(--v2-border);
+  }
+
+  .v2-passport-meta__label {
+    color: var(--v2-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-size: 1.02rem;
+  }
+
+  .v2-passport-meta__value {
+    color: var(--v2-text);
+    text-align: right;
+    font-size: 1.55rem;
+    line-height: 1.5;
+  }
+
+  .v2-passport-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    margin-top: 3.2rem;
+  }
+
+  .v2-passport-button,
+  .v2-passport-button:visited {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 5.6rem;
+    padding: 1.6rem 2.8rem;
+    border: 1px solid var(--v2-border);
+    background: rgba(201, 168, 76, 0.04);
+    color: var(--v2-gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.24rem;
+    font-size: 1.1rem;
+    transition: all 0.25s ease;
+  }
+
+  .v2-passport-button:hover {
+    border-color: rgba(201, 168, 76, 0.5);
+    background: rgba(201, 168, 76, 0.08);
+  }
+
+  .v2-passport-button--ghost,
+  .v2-passport-button--ghost:visited {
+    background: transparent;
+  }
+
+  .v2-passport-error {
+    margin-top: 2rem;
+    color: #d68f8f;
+    font-size: 1.45rem;
+  }
+
+  .v2-passport-archive {
+    margin-top: 8rem;
+    background: var(--v2-surface-2);
+    border-top: 1px solid var(--v2-border);
+  }
+
+  .v2-passport-archive__wrap {
+    padding: 9rem 0 0;
+  }
+
+  .v2-passport-archive__head {
+    text-align: center;
+    margin-bottom: 6.4rem;
+  }
+
+  .v2-passport-archive__eyebrow {
+    margin: 0 0 1.6rem;
+    color: var(--v2-gold-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.42rem;
+    font-size: 1rem;
+  }
+
+  .v2-passport-archive__title {
+    margin: 0 0 2rem;
+    color: var(--v2-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.1rem, 4vw, 5.2rem);
+    line-height: 1.08;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+  }
+
+  .v2-passport-archive__title em {
+    color: var(--v2-gold) !important;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .v2-passport-archive__description {
+    max-width: 68rem;
+    margin: 0 auto;
+    color: var(--v2-text-mid);
+    font-size: 1.75rem;
+    line-height: 1.8;
+  }
+
+  .v2-passport-archive__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.4rem;
+    min-height: 18rem;
+  }
+
+  .v2-passport-archive__card {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--v2-surface-3);
+    border: 1px solid var(--v2-border);
+    text-decoration: none;
+  }
+
+  .v2-passport-archive__card img {
+    position: absolute;
+    inset: 10%;
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+    background: #2a2a2a;
+    transition: transform 0.45s ease;
+  }
+
+  .v2-passport-archive__card:hover img {
+    transform: scale(1.04);
+  }
+
+  .v2-passport-archive__placeholder {
+    position: absolute;
+    inset: 10%;
+    width: 80%;
+    height: 80%;
+    background: linear-gradient(145deg, rgba(201, 168, 76, 0.12), rgba(255,255,255,0.03));
+  }
+
+  .v2-passport-archive__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: end;
+    background: linear-gradient(180deg, rgba(8, 8, 8, 0.05) 25%, rgba(8, 8, 8, 0.78) 100%);
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .v2-passport-archive__card:hover .v2-passport-archive__overlay {
+    opacity: 1;
+  }
+
+  .v2-passport-archive__label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .v2-passport-archive__iris {
+    color: var(--v2-text);
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+
+  .v2-passport-archive__meta {
+    color: var(--v2-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.18rem;
+    font-size: 0.95rem;
+  }
+
+  .v2-passport-archive__empty {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 16rem;
+    border: 1px solid var(--v2-border);
+    color: var(--v2-text-mid);
+    font-size: 1.5rem;
+    letter-spacing: 0.08rem;
+  }
+
+  .v2-passport-archive__cta {
+    margin-top: 5rem;
+    text-align: center;
+  }
+
+  .v2-passport-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2.4rem;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+  }
+
+  .v2-passport-modal__dialog {
+    position: relative;
+    width: min(100%, 100rem);
+    background: #080808;
+    border: 1px solid var(--v2-border);
+  }
+
+  .v2-passport-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+    border: 1px solid var(--v2-border);
+    background: rgba(8, 8, 8, 0.8);
+    color: var(--v2-text);
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.14rem;
+    font-size: 1rem;
+  }
+
+  .v2-passport-modal__img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media screen and (max-width: 989px) {
+    .v2-passport-shell {
+      padding: 7.2rem 3.2rem 8rem;
+    }
+
+    .v2-passport-grid {
+      grid-template-columns: 1fr;
+      gap: 3.2rem;
+    }
+
+    .v2-passport-archive__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .v2-passport-shell {
+      padding: 5.6rem 2rem 7rem;
+    }
+
+    .v2-passport-media,
+    .v2-passport-panel {
+      padding: 2rem;
+    }
+
+    .v2-passport-meta__row {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .v2-passport-meta__value {
+      text-align: left;
+    }
+
+    .v2-passport-actions {
+      flex-direction: column;
+    }
+
+    .v2-passport-button,
+    .v2-passport-button:visited {
+      width: 100%;
+    }
+
+    .v2-passport-archive__wrap {
+      padding-top: 7rem;
+    }
+
+    .v2-passport-archive__description {
+      font-size: 1.6rem;
+      line-height: 1.75;
+    }
+  }
+{%- endstyle -%}
+
+<div class="v2-passport-page">
+  <div class="v2-passport-shell">
+    <div class="v2-passport-head">
+      <p class="v2-passport-eyebrow">Digital Passport</p>
+      <h1 class="v2-passport-page__title">IRIS Passport</h1>
+      <p class="v2-passport-page__summary">
+        The registered record of your revealed artwork. Each activated IRIS keeps its image, activation date,
+        and rarity commitment in one permanent place.
+      </p>
     </div>
-    <div class="grid__item">
-      <div class="product__info-container">
-        <h2 id="iris-passport-title" class="h1" style="margin:0 0 10px;">IRIS #</h2>
-        <div class="rte" style="font-size:14px;line-height:1.6;">
-          <div id="iris-passport-activated-row"><strong>Activated:</strong> <span id="iris-passport-activated">-</span></div>
-          <div id="iris-passport-weight-row"><strong>Gold content:</strong> <span id="iris-passport-weight">-</span> g (24K)</div>
-          <div><strong>Rarity:</strong> <span id="iris-passport-rarity">Hidden until activated</span></div>
-          <div id="iris-passport-proof" style="margin-top:10px;" hidden>
-            <a id="iris-passport-proof-link" href="#" target="_blank" rel="noreferrer">Verify rarity proof</a>
+
+    <div id="iris-passport" class="v2-passport-grid">
+      <div class="v2-passport-media">
+        <button type="button" class="v2-passport-media__button" id="iris-passport-img-trigger" aria-label="Open IRIS image">
+          <div class="v2-passport-media__frame">
+            <img id="iris-passport-img" src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244" alt="">
+          </div>
+        </button>
+      </div>
+
+      <div class="v2-passport-panel">
+        <p class="v2-passport-panel__eyebrow">Activated Work</p>
+        <h2 id="iris-passport-title" class="v2-passport-panel__title">IRIS #</h2>
+        <div class="v2-passport-panel__copy">
+          This passport confirms the image, rarity, and gold content assigned to the activated work.
+        </div>
+
+        <div class="v2-passport-meta">
+          <div class="v2-passport-meta__row" id="iris-passport-activated-row">
+            <div class="v2-passport-meta__label">Activated</div>
+            <div class="v2-passport-meta__value" id="iris-passport-activated">-</div>
+          </div>
+          <div class="v2-passport-meta__row" id="iris-passport-weight-row">
+            <div class="v2-passport-meta__label">Gold Content</div>
+            <div class="v2-passport-meta__value"><span id="iris-passport-weight">-</span> g (24K)</div>
+          </div>
+          <div class="v2-passport-meta__row">
+            <div class="v2-passport-meta__label">Rarity</div>
+            <div class="v2-passport-meta__value" id="iris-passport-rarity">Hidden until activated</div>
           </div>
         </div>
-        <div style="margin-top:18px;">
-          <a href="/pages/iris-archive" class="button">Back to Archive</a>
+
+        <div class="v2-passport-actions">
+          <a href="/pages/iris-archive" class="v2-passport-button v2-passport-button--ghost">Back to Archive</a>
+          <a id="iris-passport-proof-link" href="#" target="_blank" rel="noreferrer" class="v2-passport-button" hidden>Verify rarity proof</a>
         </div>
       </div>
     </div>
-  </div>
 
-  <p id="iris-passport-error" hidden style="margin-top:18px;color:#b00020;"></p>
+    <p id="iris-passport-error" class="v2-passport-error" hidden></p>
 
-  <div style="margin-top:48px;">
-    <h2 class="title h2" style="margin:0 0 16px;">Revealed Archive</h2>
-    <div class="collection">
-      <ul
-        id="iris-passport-archive-grid"
-        class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop"
-      ></ul>
-    </div>
-    <div style="text-align:center;margin:18px 0 0;">
-      <a href="/pages/iris-archive" class="button">View more</a>
-    </div>
+    <section class="v2-passport-archive" aria-labelledby="iris-passport-archive-title">
+      <div class="v2-passport-archive__wrap">
+        <div class="v2-passport-archive__head">
+          <p class="v2-passport-archive__eyebrow">Revealed Archive</p>
+          <h2 id="iris-passport-archive-title" class="v2-passport-archive__title">What others have <em>received</em></h2>
+          <div class="v2-passport-archive__description">
+            Every activated IRIS enters the visible history of the edition. Browse the works that have already been claimed and revealed.
+          </div>
+        </div>
+
+        <div id="iris-passport-archive-grid" class="v2-passport-archive__grid">
+          <div class="v2-passport-archive__empty">Loading revealed works…</div>
+        </div>
+
+        <div class="v2-passport-archive__cta">
+          <a href="/pages/iris-archive" class="v2-passport-button">Explore the Archive</a>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
 
-<div
-  id="iris-passport-modal"
-  style="position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:24px;z-index:1000;"
->
-  <div style="background:#fff;max-width:1000px;width:100%;position:relative;">
-    <button
-      type="button"
-      id="iris-passport-modal-close"
-      style="position:absolute;top:8px;right:8px;background:#111;color:#fff;border:none;border-radius:4px;padding:6px 10px;cursor:pointer;"
-    >
-      Close
-    </button>
-    <img id="iris-passport-modal-img" src="" alt="" style="width:100%;height:auto;display:block;">
+<div id="iris-passport-modal" class="v2-passport-modal">
+  <div class="v2-passport-modal__dialog">
+    <button type="button" id="iris-passport-modal-close" class="v2-passport-modal__close">Close</button>
+    <img id="iris-passport-modal-img" src="" alt="" class="v2-passport-modal__img">
   </div>
 </div>
 
@@ -76,9 +511,11 @@
     var weightRow = document.getElementById('iris-passport-weight-row');
     var rarityEl = document.getElementById('iris-passport-rarity');
     var img = document.getElementById('iris-passport-img');
+    var imgTrigger = document.getElementById('iris-passport-img-trigger');
     var modal = document.getElementById('iris-passport-modal');
     var modalImg = document.getElementById('iris-passport-modal-img');
     var modalClose = document.getElementById('iris-passport-modal-close');
+    var proofLink = document.getElementById('iris-passport-proof-link');
     var defaultImage = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244';
 
     if (!irisId) {
@@ -94,6 +531,14 @@
       return 'IRIS # ' + clean;
     }
 
+    function formatDate(value) {
+      return new Date(value).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+
     function setPending() {
       title.textContent = labelFromId(irisId);
       if (activatedRow) activatedRow.style.display = 'none';
@@ -101,13 +546,14 @@
       rarityEl.textContent = 'Hidden until activated';
       img.src = defaultImage;
       img.alt = irisId;
+      if (proofLink) proofLink.hidden = true;
     }
 
     setPending();
 
     var url = '/apps/iris/iris/' + encodeURIComponent(irisId);
     if (token) url += '?token=' + encodeURIComponent(token);
-    fetch(url, { headers: { 'Accept': 'application/json' }, cache: 'no-store' })
+    fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store' })
       .then(function (res) {
         if (!res.ok) throw new Error('not_found');
         return res.json();
@@ -117,33 +563,30 @@
         title.textContent = labelFromId(data.iris_id);
         if (data.activated_at) {
           if (activatedRow) activatedRow.style.display = '';
-          activatedEl.textContent = new Date(data.activated_at).toLocaleDateString();
+          activatedEl.textContent = formatDate(data.activated_at);
         } else if (activatedRow) {
           activatedRow.style.display = 'none';
         }
-        if (weightEl) {
-          if (data.activated_at && data.weight_grams != null && data.weight_grams !== '') {
-            if (weightRow) weightRow.style.display = '';
-            weightEl.textContent = Number(data.weight_grams).toFixed(2);
-          } else if (weightRow) {
-            weightRow.style.display = 'none';
-          }
+        if (data.activated_at && data.weight_grams != null && data.weight_grams !== '') {
+          if (weightRow) weightRow.style.display = '';
+          weightEl.textContent = Number(data.weight_grams).toFixed(2);
+        } else if (weightRow) {
+          weightRow.style.display = 'none';
         }
         rarityEl.textContent = data.rarity_code || 'Hidden until activated';
         img.src = data.image_url || defaultImage;
         img.alt = data.iris_id || irisId;
-        img.style.display = 'block';
-        if (data.proof_url) {
-          document.getElementById('iris-passport-proof').hidden = false;
-          document.getElementById('iris-passport-proof-link').href = data.proof_url;
+        if (data.proof_url && proofLink) {
+          proofLink.hidden = false;
+          proofLink.href = data.proof_url;
         }
       })
       .catch(function () {
         setPending();
       });
 
-    if (img && modal && modalImg) {
-      img.addEventListener('click', function () {
+    if (imgTrigger && modal && modalImg) {
+      imgTrigger.addEventListener('click', function () {
         modalImg.src = img.src;
         modal.style.display = 'flex';
       });
@@ -155,46 +598,55 @@
     }
     if (modal) {
       modal.addEventListener('click', function (e) {
-        if (e.target === modal) {
-          modal.style.display = 'none';
-        }
+        if (e.target === modal) modal.style.display = 'none';
       });
     }
 
     function renderArchive(items) {
       var grid = document.getElementById('iris-passport-archive-grid');
       if (!grid) return;
-      var html = items.map(function (item) {
-        var full = item.image_url || defaultImage;
+
+      if (!items.length) {
+        grid.innerHTML = '<div class="v2-passport-archive__empty">No revealed IRIS available right now.</div>';
+        return;
+      }
+
+      grid.innerHTML = items.map(function (item) {
         var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
+        var image = item.image_url
+          ? '<img src="' + item.image_url + '" alt="' + item.iris_id + '" loading="lazy">'
+          : '<div class="v2-passport-archive__placeholder"></div>';
+
         return (
-          '<li class="grid__item">' +
-            '<div class="card-wrapper product-card-wrapper underline-links-hover">' +
-              '<div class="card card--standard card--media">' +
-                '<div class="card__inner ratio" style="--ratio-percent: 100%;">' +
-                  '<a class="full-unstyled-link" href="' + href + '">' +
-                    '<div class="card__media">' +
-                      '<div class="media media--transparent media--hover-effect">' +
-                        '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">' +
-                      '</div>' +
-                    '</div>' +
-                  '</a>' +
-                '</div>' +
-                '<div class="card__content">' +
-                  '<div class="card__information">' +
-                    '<h3 class="card__heading h5" style="text-align:center;font-weight:600;">' + labelFromId(item.iris_id) + '</h3>' +
-                  '</div>' +
-                '</div>' +
+          '<a class="v2-passport-archive__card" href="' + href + '">' +
+            image +
+            '<div class="v2-passport-archive__overlay">' +
+              '<div class="v2-passport-archive__label">' +
+                '<div class="v2-passport-archive__iris">' + item.iris_id + '</div>' +
+                '<div class="v2-passport-archive__meta">' + (item.rarity_code || 'Rarity hidden') + '</div>' +
               '</div>' +
             '</div>' +
-          '</li>'
+          '</a>'
         );
       }).join('');
-      grid.innerHTML = html;
     }
 
-    fetch('/apps/iris/seen-archive?limit=4', { headers: { 'Accept': 'application/json' } })
-      .then(function (res) { return res.ok ? res.json() : null; })
-      .then(function (data) { if (data && data.items) renderArchive(data.items); });
+    fetch('/apps/iris/seen-archive?limit=8', { headers: { Accept: 'application/json' }, cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('bad_status');
+        return res.json();
+      })
+      .then(function (data) {
+        render((data && data.items) ? data.items : []);
+      })
+      .catch(function () {
+        var grid = document.getElementById('iris-passport-archive-grid');
+        if (!grid) return;
+        grid.innerHTML = '<div class="v2-passport-archive__empty">Could not load the archive preview.</div>';
+      });
+
+    function render(items) {
+      renderArchive(items);
+    }
   })();
 </script>
