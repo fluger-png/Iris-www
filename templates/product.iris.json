@@ -12,8 +12,8 @@
     "main": {
       "type": "v2-product-main",
       "settings": {
-        "top_badge": "The Unseen Edition",
-        "bottom_badge": "Unseen until revealed",
+        "top_badge": "",
+        "bottom_badge": "",
         "eyebrow": "IRIS NYC · Physical Collectible Art",
         "title_line_1": "The",
         "title_accent": "Unseen",
@@ -51,9 +51,21 @@
         "faq_question_4": "Shipping & delivery",
         "faq_answer_4": "<p>Orders are packed securely and shipped with tracking. Delivery timelines may vary by destination, but most orders arrive within 5–10 business days.</p>"
       }
+    },
+    "archive": {
+      "type": "v2-archive-preview",
+      "settings": {
+        "eyebrow": "Revealed Archive",
+        "heading": "What others have <em>received</em>",
+        "description": "<p>Every activated IRIS enters the visible history of the edition. Browse the works that have already been claimed and revealed.</p>",
+        "items_to_show": 8,
+        "button_label": "View full archive",
+        "button_link": "shopify://pages/iris-archive"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "archive"
   ]
 }
