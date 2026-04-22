@@ -1,56 +1,343 @@
 {% layout 'theme' %}
 
-{{ 'template-collection.css' | asset_url | stylesheet_tag }}
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
+<style>
+  .v2-iris-archive {
+    --v2-archive-gold: #c9a84c;
+    --v2-archive-gold-dim: #7a6330;
+    --v2-archive-bg: #101010;
+    --v2-archive-surface: #171717;
+    --v2-archive-surface-2: #1d1d1d;
+    --v2-archive-border: rgba(201, 168, 76, 0.16);
+    --v2-archive-text: #ede8df;
+    --v2-archive-text-mid: #a89f90;
+    --v2-archive-text-soft: rgba(237, 232, 223, 0.62);
+    background: var(--v2-archive-bg);
+    color: var(--v2-archive-text);
+    border-top: 1px solid var(--v2-archive-border);
+    border-bottom: 1px solid var(--v2-archive-border);
+  }
 
-<div class="page-width" style="max-width:1100px;margin:0 auto;padding:28px 16px;">
-  <h1 class="title title--primary" style="margin:0 0 14px;">IRIS Archive</h1>
+  .v2-iris-archive__wrap {
+    max-width: 144rem;
+    margin: 0 auto;
+    padding: 11rem 4rem 12rem;
+  }
 
-  <div class="iris-archive-filters" style="display:flex;flex-wrap:wrap;gap:14px;margin:0 0 18px;">
-    <a class="iris-filter is-active" data-rarity="all" href="#">All</a>
-    <a class="iris-filter" data-rarity="Common" href="#">Common</a>
-    <a class="iris-filter" data-rarity="Uncommon" href="#">Uncommon</a>
-    <a class="iris-filter" data-rarity="Rare" href="#">Rare</a>
-    <a class="iris-filter" data-rarity="Ultra Rare" href="#">Ultra Rare</a>
-    <a class="iris-filter" data-rarity="Artist Edition" href="#">Artist Edition</a>
-  </div>
+  .v2-iris-archive__head {
+    text-align: center;
+    margin-bottom: 4.8rem;
+  }
 
-  <style>
-    .iris-archive-filters .iris-filter {
-      font-size: 14px;
-      font-weight: 600;
-      color: #111;
-      text-decoration: none;
+  .v2-iris-archive__eyebrow {
+    margin: 0 0 1.8rem;
+    color: var(--v2-archive-gold-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.42rem;
+    font-size: 1rem;
+    font-family: var(--font-body-family);
+  }
+
+  .v2-iris-archive__title {
+    margin: 0;
+    color: var(--v2-archive-text) !important;
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.2rem, 5vw, 6rem);
+    line-height: 1.06;
+    letter-spacing: 0.03em;
+    font-weight: 400;
+  }
+
+  .v2-iris-archive__title em,
+  .v2-iris-archive__title em * {
+    color: var(--v2-archive-gold) !important;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .v2-iris-archive__description {
+    max-width: 76rem;
+    margin: 2rem auto 0;
+    color: var(--v2-archive-text-mid);
+    font-size: 1.7rem;
+    line-height: 1.8;
+  }
+
+  .v2-iris-archive__filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    margin: 0 0 5.2rem;
+  }
+
+  .v2-iris-archive__filter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 4.6rem;
+    padding: 1.2rem 1.9rem;
+    border: 1px solid var(--v2-archive-border);
+    background: rgba(201, 168, 76, 0.03);
+    color: var(--v2-archive-text-mid);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.22rem;
+    font-size: 1.05rem;
+    transition: all 0.24s ease;
+  }
+
+  .v2-iris-archive__filter:hover,
+  .v2-iris-archive__filter.is-active {
+    color: var(--v2-archive-gold);
+    border-color: rgba(201, 168, 76, 0.45);
+    background: rgba(201, 168, 76, 0.07);
+  }
+
+  .v2-iris-archive__status {
+    min-height: 2.4rem;
+    text-align: center;
+    margin: 0 0 3rem;
+    color: var(--v2-archive-text-soft);
+    font-size: 1.35rem;
+    letter-spacing: 0.08rem;
+  }
+
+  .v2-iris-archive__status[hidden] {
+    display: none;
+  }
+
+  .v2-iris-archive__status--error {
+    color: #de7b7b;
+  }
+
+  .v2-iris-archive__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .v2-iris-archive__card {
+    position: relative;
+    display: block;
+    background: var(--v2-archive-surface);
+    border: 1px solid var(--v2-archive-border);
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .v2-iris-archive__card:hover {
+    border-color: rgba(201, 168, 76, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .v2-iris-archive__media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: var(--v2-archive-surface-2);
+    overflow: hidden;
+  }
+
+  .v2-iris-archive__media img {
+    position: absolute;
+    inset: 10%;
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+    background: #242424;
+    transition: transform 0.45s ease;
+  }
+
+  .v2-iris-archive__card:hover .v2-iris-archive__media img {
+    transform: scale(1.035);
+  }
+
+  .v2-iris-archive__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: end;
+    padding: 2rem;
+    background: linear-gradient(180deg, rgba(8, 8, 8, 0.02) 28%, rgba(8, 8, 8, 0.76) 100%);
+    opacity: 0;
+    transition: opacity 0.24s ease;
+  }
+
+  .v2-iris-archive__card:hover .v2-iris-archive__overlay {
+    opacity: 1;
+  }
+
+  .v2-iris-archive__overlay-meta {
+    color: var(--v2-archive-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.18rem;
+    font-size: 0.95rem;
+  }
+
+  .v2-iris-archive__body {
+    padding: 1.8rem 1.9rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .v2-iris-archive__iris {
+    color: var(--v2-archive-text);
+    font-family: var(--font-heading-family);
+    font-size: 1.9rem;
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+  }
+
+  .v2-iris-archive__meta {
+    color: var(--v2-archive-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.18rem;
+    font-size: 0.95rem;
+  }
+
+  .v2-iris-archive__load-wrap {
+    text-align: center;
+    margin-top: 5rem;
+  }
+
+  .v2-iris-archive__load {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 5.8rem;
+    min-width: 23rem;
+    padding: 1.6rem 3rem;
+    border: 1px solid var(--v2-archive-border);
+    background: rgba(201, 168, 76, 0.04);
+    color: var(--v2-archive-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.24rem;
+    font-size: 1.05rem;
+    font-family: var(--font-body-family);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .v2-iris-archive__load:hover {
+    background: rgba(201, 168, 76, 0.08);
+    border-color: rgba(201, 168, 76, 0.42);
+  }
+
+  .v2-iris-archive__load[hidden] {
+    display: none;
+  }
+
+  .v2-iris-archive__placeholder {
+    position: absolute;
+    inset: 10%;
+    background: linear-gradient(145deg, rgba(201, 168, 76, 0.1), rgba(255, 255, 255, 0.03));
+  }
+
+  @media screen and (max-width: 1199px) {
+    .v2-iris-archive__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    .iris-archive-filters .iris-filter.is-active {
-      text-decoration: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 4px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .v2-iris-archive__wrap {
+      padding: 9rem 3.2rem 10rem;
     }
-    .iris-archive-meta {
-      margin-top: 6px;
-      font-size: 12px;
-      line-height: 1.4;
-      opacity: 0.75;
-      text-align: center;
+
+    .v2-iris-archive__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-  </style>
+  }
 
-  <div id="iris-archive" class="collection">
-    <div class="loading-overlay gradient" id="iris-archive-loading"></div>
-    <ul
-      id="iris-archive-grid"
-      class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop"
-    ></ul>
+  @media screen and (max-width: 749px) {
+    .v2-iris-archive__wrap {
+      padding: 7rem 2rem 8rem;
+    }
+
+    .v2-iris-archive__eyebrow {
+      letter-spacing: 0.28rem;
+      font-size: 0.9rem;
+    }
+
+    .v2-iris-archive__description {
+      font-size: 1.55rem;
+      line-height: 1.75;
+    }
+
+    .v2-iris-archive__filters {
+      gap: 0.8rem;
+      margin-bottom: 4rem;
+    }
+
+    .v2-iris-archive__filter {
+      width: calc(50% - 0.4rem);
+      padding-inline: 1rem;
+      letter-spacing: 0.16rem;
+      font-size: 0.95rem;
+    }
+
+    .v2-iris-archive__grid {
+      gap: 0.3rem;
+    }
+
+    .v2-iris-archive__overlay,
+    .v2-iris-archive__body {
+      padding-inline: 1.5rem;
+    }
+
+    .v2-iris-archive__iris {
+      font-size: 1.65rem;
+    }
+
+    .v2-iris-archive__meta,
+    .v2-iris-archive__overlay-meta {
+      font-size: 0.82rem;
+      letter-spacing: 0.14rem;
+    }
+
+    .v2-iris-archive__load {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+</style>
+
+<section class="v2-iris-archive">
+  <div class="v2-iris-archive__wrap">
+    <div class="v2-iris-archive__head">
+      <p class="v2-iris-archive__eyebrow">Revealed Archive</p>
+      <h1 class="v2-iris-archive__title">IRIS <em>Archive</em></h1>
+      <div class="v2-iris-archive__description">
+        Browse the activated works that have already entered the public history of the edition.
+        Filter by rarity and explore each revealed IRIS passport.
+      </div>
+    </div>
+
+    <div class="v2-iris-archive__filters">
+      <a class="v2-iris-archive__filter iris-filter is-active" data-rarity="all" href="#">All</a>
+      <a class="v2-iris-archive__filter iris-filter" data-rarity="Common" href="#">Common</a>
+      <a class="v2-iris-archive__filter iris-filter" data-rarity="Uncommon" href="#">Uncommon</a>
+      <a class="v2-iris-archive__filter iris-filter" data-rarity="Rare" href="#">Rare</a>
+      <a class="v2-iris-archive__filter iris-filter" data-rarity="Ultra Rare" href="#">Ultra Rare</a>
+      <a class="v2-iris-archive__filter iris-filter" data-rarity="Artist Edition" href="#">Artist Edition</a>
+    </div>
+
+    <p id="iris-archive-empty" class="v2-iris-archive__status" hidden>No activated IRIS yet.</p>
+    <p id="iris-archive-error" class="v2-iris-archive__status v2-iris-archive__status--error" hidden>Could not load IRIS right now.</p>
+
+    <ul id="iris-archive-grid" class="v2-iris-archive__grid"></ul>
+
+    <div class="v2-iris-archive__load-wrap">
+      <button id="iris-archive-load" class="v2-iris-archive__load" type="button" hidden>Load more</button>
+    </div>
   </div>
-
-  <div style="text-align:center;margin:24px 0;">
-    <button id="iris-archive-load" class="button" type="button">Load more</button>
-  </div>
-
-  <p id="iris-archive-empty" hidden>No activated IRIS yet.</p>
-  <p id="iris-archive-error" hidden style="color:#b00020;">Could not load IRIS right now.</p>
-</div>
+</section>
 
 <script>
   (function () {
@@ -58,7 +345,6 @@
     var loadBtn = document.getElementById('iris-archive-load');
     var empty = document.getElementById('iris-archive-empty');
     var error = document.getElementById('iris-archive-error');
-    var loading = document.getElementById('iris-archive-loading');
     var filterButtons = document.querySelectorAll('.iris-filter');
     var cursor = null;
     var done = false;
@@ -67,56 +353,37 @@
     var fetchLimit = pageSize + 1;
     var defaultImage = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244';
 
-    if (loadBtn) {
-      loadBtn.hidden = true;
-      loadBtn.style.display = "none";
-    }
-
     function labelFromId(id) {
       if (!id) return '';
       var clean = id.replace(/^IRIS-?/i, '').trim();
-      return 'IRIS # ' + clean;
+      return 'IRIS No. ' + clean;
     }
 
-    function formatDate(value) {
-      if (!value) return '';
-      var d = new Date(value);
-      if (isNaN(d.getTime())) return '';
-      var mm = String(d.getMonth() + 1).padStart(2, '0');
-      var dd = String(d.getDate()).padStart(2, '0');
-      var yy = String(d.getFullYear()).slice(-2);
-      return mm + '.' + dd + '.' + yy;
+    function metaFromItem(item) {
+      return item && item.rarity_code ? item.rarity_code : 'Activated';
     }
 
     function renderItems(items) {
       var html = items.map(function (item) {
-        var full = item.image_url || defaultImage;
-        var img = '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">';
-
         var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
-        var meta = '';
+        var media = item.image_url
+          ? '<img src="' + item.image_url + '" alt="' + item.iris_id + '" loading="lazy">'
+          : '<div class="v2-iris-archive__placeholder"></div>';
 
         return (
-          '<li class="grid__item">' +
-            '<div class="card-wrapper product-card-wrapper underline-links-hover">' +
-              '<div class="card card--standard card--media">' +
-                '<div class="card__inner ratio" style="--ratio-percent: 100%;">' +
-                  '<a class="full-unstyled-link" href="' + href + '">' +
-                    '<div class="card__media">' +
-                      '<div class="media media--transparent media--hover-effect">' +
-                        img +
-                      '</div>' +
-                    '</div>' +
-                  '</a>' +
-                '</div>' +
-                '<div class="card__content">' +
-                  '<div class="card__information">' +
-                    '<h3 class="card__heading h5" style="text-align:center;font-weight:600;">' + labelFromId(item.iris_id) + '</h3>' +
-                    meta +
-                  '</div>' +
+          '<li>' +
+            '<a class="v2-iris-archive__card" href="' + href + '">' +
+              '<div class="v2-iris-archive__media">' +
+                media +
+                '<div class="v2-iris-archive__overlay">' +
+                  '<div class="v2-iris-archive__overlay-meta">' + metaFromItem(item) + '</div>' +
                 '</div>' +
               '</div>' +
-            '</div>' +
+              '<div class="v2-iris-archive__body">' +
+                '<div class="v2-iris-archive__iris">' + labelFromId(item.iris_id) + '</div>' +
+                '<div class="v2-iris-archive__meta">' + metaFromItem(item) + '</div>' +
+              '</div>' +
+            '</a>' +
           '</li>'
         );
       }).join('');
@@ -124,45 +391,54 @@
       grid.insertAdjacentHTML('beforeend', html);
     }
 
+    function syncLoadButton() {
+      loadBtn.hidden = done || !cursor;
+    }
+
     function loadNext() {
       if (done) return;
-      if (loading) loading.hidden = false;
+
+      error.hidden = true;
+      loadBtn.disabled = true;
+      loadBtn.textContent = 'Loading...';
+
       var url = '/apps/iris/seen-archive?limit=' + fetchLimit;
       if (cursor) url += '&cursor=' + encodeURIComponent(cursor);
       if (rarity && rarity !== 'all') url += '&rarity=' + encodeURIComponent(rarity);
-      fetch(url, { headers: { 'Accept': 'application/json' } })
+
+      fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store' })
         .then(function (res) {
           if (!res.ok) throw new Error('bad_status');
           return res.json();
         })
         .then(function (data) {
-          var items = (data && data.items) ? data.items : [];
+          var items = data && data.items ? data.items : [];
           if (!items.length && !cursor) {
             empty.hidden = false;
             done = true;
-            loadBtn.hidden = true;
-            loadBtn.style.display = "none";
+            cursor = null;
+            syncLoadButton();
             return;
           }
-          var showMore = items.length > pageSize;
-          if (showMore) {
+
+          if (items.length > pageSize) {
             renderItems(items.slice(0, pageSize));
-            cursor = data.nextCursor;
-            loadBtn.hidden = false;
-            loadBtn.style.display = "";
+            cursor = data.nextCursor || null;
           } else {
             renderItems(items);
             cursor = null;
             done = true;
-            loadBtn.hidden = true;
-            loadBtn.style.display = "none";
           }
+
+          syncLoadButton();
         })
         .catch(function () {
           error.hidden = false;
+          syncLoadButton();
         })
         .finally(function () {
-          if (loading) loading.hidden = true;
+          loadBtn.disabled = false;
+          loadBtn.textContent = 'Load more';
         });
     }
 
@@ -173,14 +449,16 @@
       grid.innerHTML = '';
       empty.hidden = true;
       error.hidden = true;
-      loadBtn.hidden = true;
+      syncLoadButton();
       loadNext();
     }
 
     filterButtons.forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        filterButtons.forEach(function (b) { b.classList.remove('is-active'); });
+      btn.addEventListener('click', function (event) {
+        event.preventDefault();
+        filterButtons.forEach(function (item) {
+          item.classList.remove('is-active');
+        });
         btn.classList.add('is-active');
         resetAndLoad(btn.getAttribute('data-rarity') || 'all');
       });
