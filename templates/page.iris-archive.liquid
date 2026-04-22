@@ -174,9 +174,10 @@
 
   .v2-iris-archive__overlay-meta {
     color: var(--v2-archive-gold);
-    text-transform: uppercase;
-    letter-spacing: 0.18rem;
-    font-size: 0.95rem;
+    letter-spacing: 0.12rem;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    white-space: pre-line;
   }
 
   .v2-iris-archive__body {
@@ -363,6 +364,24 @@
       return item && item.rarity_code ? item.rarity_code : 'Activated';
     }
 
+    function formatDate(value) {
+      if (!value) return '-';
+      var date = new Date(value);
+      if (isNaN(date.getTime())) return '-';
+      return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+    }
+
+    function formatGold(value) {
+      if (value === null || value === undefined || value === '') return '-';
+      var number = Number(value);
+      if (isNaN(number)) return '-';
+      return number.toFixed(2) + ' g (24K)';
+    }
+
+    function hoverMetaFromItem(item) {
+      return 'Activated: ' + formatDate(item && item.activated_at) + '\nGold content: ' + formatGold(item && item.weight_grams);
+    }
+
     function renderItems(items) {
       var html = items.map(function (item) {
         var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
@@ -376,7 +395,7 @@
               '<div class="v2-iris-archive__media">' +
                 media +
                 '<div class="v2-iris-archive__overlay">' +
-                  '<div class="v2-iris-archive__overlay-meta">' + metaFromItem(item) + '</div>' +
+                  '<div class="v2-iris-archive__overlay-meta">' + hoverMetaFromItem(item) + '</div>' +
                 '</div>' +
               '</div>' +
               '<div class="v2-iris-archive__body">' +
