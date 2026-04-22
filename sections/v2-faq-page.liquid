@@ -1,0 +1,274 @@
+{%- style -%}
+  .v2-faq-page-{{ section.id }} {
+    --v2-faq-gold: #c9a84c;
+    --v2-faq-gold-dim: #7a6330;
+    --v2-faq-border: rgba(201, 168, 76, 0.16);
+    --v2-faq-text: #ede8df;
+    --v2-faq-text-mid: #a89f90;
+    background: #000;
+    color: var(--v2-faq-text);
+    border-top: 1px solid var(--v2-faq-border);
+    border-bottom: 1px solid var(--v2-faq-border);
+  }
+
+  .v2-faq-page__hero-{{ section.id }} {
+    position: relative;
+    min-height: 42rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 2rem;
+    overflow: hidden;
+    border-bottom: 1px solid var(--v2-faq-border);
+  }
+
+  .v2-faq-page__hero-media-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+  }
+
+  .v2-faq-page__hero-media-{{ section.id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.4;
+    filter: saturate(0.8);
+  }
+
+  .v2-faq-page__hero-overlay-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.48), rgba(0,0,0,0.74));
+  }
+
+  .v2-faq-page__hero-inner-{{ section.id }} {
+    position: relative;
+    z-index: 1;
+    max-width: 86rem;
+    text-align: center;
+  }
+
+  .v2-faq-page__eyebrow-{{ section.id }} {
+    margin: 0 0 1.8rem;
+    color: var(--v2-faq-gold-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.42rem;
+    font-size: 1rem;
+  }
+
+  .v2-faq-page__title-{{ section.id }} {
+    margin: 0;
+    color: var(--v2-faq-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.6rem, 5.6vw, 6.4rem);
+    line-height: 1.02;
+    font-weight: 400;
+  }
+
+  .v2-faq-page__title-{{ section.id }} em {
+    color: var(--v2-faq-gold);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .v2-faq-page__subtitle-{{ section.id }} {
+    margin: 2rem auto 0;
+    max-width: 64rem;
+    color: var(--v2-faq-text-mid);
+    font-size: 1.7rem;
+    line-height: 1.8;
+  }
+
+  .v2-faq-page__body-{{ section.id }} {
+    max-width: 118rem;
+    margin: 0 auto;
+    padding: 7rem 4rem 10rem;
+  }
+
+  .v2-faq-page__list-{{ section.id }} {
+    border-top: 1px solid var(--v2-faq-border);
+  }
+
+  .v2-faq-page__item-{{ section.id }} {
+    border-bottom: 1px solid var(--v2-faq-border);
+  }
+
+  .v2-faq-page__item-{{ section.id }} summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 3.2rem 0;
+  }
+
+  .v2-faq-page__item-{{ section.id }} summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .v2-faq-page__question-{{ section.id }} {
+    color: var(--v2-faq-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.4rem, 3vw, 4rem);
+    line-height: 1.08;
+    font-weight: 400;
+  }
+
+  .v2-faq-page__toggle-{{ section.id }} {
+    position: relative;
+    width: 3.4rem;
+    height: 3.4rem;
+    flex: 0 0 auto;
+  }
+
+  .v2-faq-page__toggle-{{ section.id }}::before,
+  .v2-faq-page__toggle-{{ section.id }}::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2.4rem;
+    height: 1.5px;
+    background: var(--v2-faq-gold);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.2s ease;
+  }
+
+  .v2-faq-page__toggle-{{ section.id }}::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .v2-faq-page__item-{{ section.id }}[open] .v2-faq-page__toggle-{{ section.id }}::after {
+    opacity: 0;
+  }
+
+  .v2-faq-page__answer-{{ section.id }} {
+    max-width: 92rem;
+    padding: 0 0 3rem;
+    color: var(--v2-faq-text-mid);
+    font-size: 1.7rem;
+    line-height: 1.9;
+  }
+
+  .v2-faq-page__answer-{{ section.id }} p,
+  .v2-faq-page__answer-{{ section.id }} ul,
+  .v2-faq-page__answer-{{ section.id }} ol {
+    margin-top: 0;
+  }
+
+  .v2-faq-page__answer-{{ section.id }} li + li {
+    margin-top: 0.4rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .v2-faq-page__body-{{ section.id }} {
+      padding: 5.5rem 3.2rem 8rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .v2-faq-page__hero-{{ section.id }} {
+      min-height: 30rem;
+      padding: 6rem 2rem;
+    }
+
+    .v2-faq-page__eyebrow-{{ section.id }} {
+      letter-spacing: 0.28rem;
+      font-size: 0.92rem;
+    }
+
+    .v2-faq-page__subtitle-{{ section.id }} {
+      font-size: 1.5rem;
+      line-height: 1.75;
+    }
+
+    .v2-faq-page__body-{{ section.id }} {
+      padding: 4.5rem 2rem 6rem;
+    }
+
+    .v2-faq-page__item-{{ section.id }} summary {
+      padding: 2.6rem 0;
+    }
+
+    .v2-faq-page__question-{{ section.id }} {
+      font-size: 2rem;
+    }
+
+    .v2-faq-page__answer-{{ section.id }} {
+      font-size: 1.5rem;
+      line-height: 1.8;
+      padding-bottom: 2.4rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="v2-faq-page-{{ section.id }}">
+  <div class="v2-faq-page__hero-{{ section.id }}">
+    {%- if section.settings.image != blank -%}
+      <div class="v2-faq-page__hero-media-{{ section.id }}">
+        {{
+          section.settings.image
+          | image_url: width: 2400
+          | image_tag: loading: 'lazy', alt: section.settings.title
+        }}
+      </div>
+    {%- endif -%}
+    <div class="v2-faq-page__hero-overlay-{{ section.id }}"></div>
+    <div class="v2-faq-page__hero-inner-{{ section.id }}">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="v2-faq-page__eyebrow-{{ section.id }}">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h1 class="v2-faq-page__title-{{ section.id }}">{{ section.settings.title }}</h1>
+      {%- if section.settings.subtitle != blank -%}
+        <div class="v2-faq-page__subtitle-{{ section.id }}">{{ section.settings.subtitle }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="v2-faq-page__body-{{ section.id }}">
+    <div class="v2-faq-page__list-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        <details class="v2-faq-page__item-{{ section.id }}" {{ block.shopify_attributes }}>
+          <summary>
+            <span class="v2-faq-page__question-{{ section.id }}">{{ block.settings.heading }}</span>
+            <span class="v2-faq-page__toggle-{{ section.id }}" aria-hidden="true"></span>
+          </summary>
+          <div class="v2-faq-page__answer-{{ section.id }}">
+            {{ block.settings.row_content }}
+            {{ block.settings.page.content }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "V2 FAQ Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "IRIS NYC · Support" },
+    { "type": "inline_richtext", "id": "title", "label": "Title", "default": "Frequently Asked <em>Questions</em>" },
+    { "type": "richtext", "id": "subtitle", "label": "Subtitle", "default": "<p>Everything collectors usually want to know about IRIS, reveal, activation, rarity, and delivery.</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Question", "default": "What is IRIS?" },
+        { "type": "richtext", "id": "row_content", "label": "Answer", "default": "<p>IRIS is a collection of 10,000 physical artworks.</p>" },
+        { "type": "page", "id": "page", "label": "Page" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "V2 FAQ Page" }
+  ]
+}
+{% endschema %}
