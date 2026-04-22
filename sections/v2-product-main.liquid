@@ -257,6 +257,30 @@
     gap: 1.4rem;
   }
 
+  .v2-product-main__quantity-control-{{ section.id }} {
+    display: inline-grid;
+    grid-template-columns: 5.2rem 10rem 5.2rem;
+    align-items: stretch;
+    border: 1px solid var(--v2-product-border);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .v2-product-main__quantity-button-{{ section.id }} {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--v2-product-text);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .v2-product-main__quantity-button-{{ section.id }}:hover {
+    background: rgba(201, 168, 76, 0.08);
+    color: var(--v2-product-gold);
+  }
+
   .v2-product-main__quantity-label-{{ section.id }} {
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
@@ -266,11 +290,13 @@
   }
 
   .v2-product-main__quantity-input-{{ section.id }} {
-    width: 10rem;
     min-height: 5.2rem;
-    padding: 0 1.6rem;
-    border: 1px solid var(--v2-product-border);
-    background: rgba(255, 255, 255, 0.02);
+    width: 100%;
+    padding: 0 1rem;
+    border: 0;
+    border-left: 1px solid var(--v2-product-border);
+    border-right: 1px solid var(--v2-product-border);
+    background: transparent;
     color: var(--v2-product-text);
     font-size: 1.58rem;
     text-align: center;
@@ -602,7 +628,11 @@
     }
 
     .v2-product-main__quantity-input-{{ section.id }} {
-      width: 8.8rem;
+      font-size: 1.45rem;
+    }
+
+    .v2-product-main__quantity-control-{{ section.id }} {
+      grid-template-columns: 4.8rem 8.8rem 4.8rem;
     }
 
     .v2-product-main__fact-{{ section.id }} {
@@ -724,16 +754,34 @@
 
         <div class="v2-product-main__quantity-row-{{ section.id }}">
           <label class="v2-product-main__quantity-label-{{ section.id }}" for="V2ProductQuantity-{{ section.id }}">Quantity</label>
-          <input
-            id="V2ProductQuantity-{{ section.id }}"
-            class="v2-product-main__quantity-input-{{ section.id }}"
-            type="number"
-            min="1"
-            max="10"
-            step="1"
-            value="1"
-            inputmode="numeric"
-          >
+          <div class="v2-product-main__quantity-control-{{ section.id }}">
+            <button
+              type="button"
+              class="v2-product-main__quantity-button-{{ section.id }}"
+              data-quantity-minus
+              aria-label="Decrease quantity"
+            >
+              −
+            </button>
+            <input
+              id="V2ProductQuantity-{{ section.id }}"
+              class="v2-product-main__quantity-input-{{ section.id }}"
+              type="number"
+              min="1"
+              max="10"
+              step="1"
+              value="1"
+              inputmode="numeric"
+            >
+            <button
+              type="button"
+              class="v2-product-main__quantity-button-{{ section.id }}"
+              data-quantity-plus
+              aria-label="Increase quantity"
+            >
+              +
+            </button>
+          </div>
         </div>
 
         <div class="v2-product-main__installments-{{ section.id }}">
@@ -825,6 +873,30 @@
     var buyBtn = root.querySelector('[data-iris-buy-button]');
     var errorEl = document.getElementById('V2ProductError-{{ section.id }}');
     var quantityEl = document.getElementById('V2ProductQuantity-{{ section.id }}');
+    var minusBtn = root.querySelector('[data-quantity-minus]');
+    var plusBtn = root.querySelector('[data-quantity-plus]');
+
+    function normalizeQuantity(value) {
+      return Math.max(1, Math.min(10, parseInt(value, 10) || 1));
+    }
+
+    if (quantityEl) {
+      quantityEl.addEventListener('change', function () {
+        quantityEl.value = normalizeQuantity(quantityEl.value);
+      });
+    }
+
+    if (minusBtn && quantityEl) {
+      minusBtn.addEventListener('click', function () {
+        quantityEl.value = normalizeQuantity((parseInt(quantityEl.value, 10) || 1) - 1);
+      });
+    }
+
+    if (plusBtn && quantityEl) {
+      plusBtn.addEventListener('click', function () {
+        quantityEl.value = normalizeQuantity((parseInt(quantityEl.value, 10) || 1) + 1);
+      });
+    }
 
     fetch('/apps/iris/seen-archive?limit=1', {
       headers: { Accept: 'application/json' },
@@ -851,7 +923,7 @@
     buyBtn.addEventListener('click', function () {
       var variantId = buyBtn.getAttribute('data-variant-id');
       if (!variantId || buyBtn.disabled) return;
-      var quantity = quantityEl ? Math.max(1, Math.min(10, parseInt(quantityEl.value, 10) || 1)) : 1;
+      var quantity = quantityEl ? normalizeQuantity(quantityEl.value) : 1;
 
       buyBtn.disabled = true;
       if (errorEl) {
