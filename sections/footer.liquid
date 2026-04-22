@@ -6,6 +6,97 @@
 {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 
 <style>
+  .footer {
+    --iris-footer-bg: #101010;
+    --iris-footer-surface: #171717;
+    --iris-footer-border: rgba(201, 168, 76, 0.15);
+    --iris-footer-text: #ede8df;
+    --iris-footer-text-dim: #a89f90;
+    --iris-footer-text-muted: #8f8779;
+    --iris-footer-gold: #c9a84c;
+    background: var(--iris-footer-bg) !important;
+    color: var(--iris-footer-text) !important;
+    border-top: 1px solid var(--iris-footer-border);
+  }
+
+  .footer .footer__content-top,
+  .footer .footer__content-bottom {
+    background: transparent !important;
+  }
+
+  .footer .footer__content-top {
+    border-bottom: 1px solid var(--iris-footer-border);
+  }
+
+  .footer .footer__blocks-wrapper,
+  .footer .footer__content-bottom-wrapper {
+    border-color: var(--iris-footer-border);
+  }
+
+  .footer .footer-block__heading,
+  .footer .footer-block__heading *,
+  .footer .footer__copyright,
+  .footer .footer__copyright *,
+  .footer .footer__gold,
+  .footer .footer__gold * {
+    color: var(--iris-footer-text) !important;
+  }
+
+  .footer .footer-block__details-content,
+  .footer .footer-block__details-content *,
+  .footer .rte,
+  .footer .rte *,
+  .footer .copyright__content,
+  .footer .footer__gold-label {
+    color: var(--iris-footer-text-dim) !important;
+  }
+
+  .footer .list-menu__item--link,
+  .footer .link--text,
+  .footer .policies a,
+  .footer .footer__copyright a {
+    color: var(--iris-footer-text-dim) !important;
+    transition: color 0.2s ease;
+  }
+
+  .footer .list-menu__item--link:hover,
+  .footer .link--text:hover,
+  .footer .policies a:hover,
+  .footer .footer__copyright a:hover {
+    color: var(--iris-footer-gold) !important;
+  }
+
+  .footer .footer__gold-value {
+    color: var(--iris-footer-gold) !important;
+  }
+
+  .footer .newsletter-form__field-wrapper .field {
+    border: 1px solid var(--iris-footer-border);
+    background: var(--iris-footer-surface);
+  }
+
+  .footer .field__input,
+  .footer .field__label,
+  .footer .newsletter-form__button,
+  .footer .localization-form select,
+  .footer .localization-form button {
+    color: var(--iris-footer-text) !important;
+  }
+
+  .footer .field__input::placeholder {
+    color: var(--iris-footer-text-muted);
+  }
+
+  .footer .list-social__link,
+  .footer .icon {
+    color: var(--iris-footer-text-dim);
+  }
+
+  .footer .list-social__link:hover,
+  .footer .list-social__link:hover .icon {
+    color: var(--iris-footer-gold);
+  }
+
   .footer__social-row {
     display: flex;
     align-items: center;
