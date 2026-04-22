@@ -98,6 +98,18 @@
         "copy_4": "<p>Once activated, the artwork, rarity, and gold details become part of the archive and your personal IRIS record.</p>"
       }
     },
+    "v2_closing_cta_t9QxLm": {
+      "type": "v2-closing-cta",
+      "settings": {
+        "eyebrow": "Acquire Your IRIS",
+        "heading": "Begin the reveal and claim your <em>IRIS</em>",
+        "body": "<p>Purchase from the current edition, activate the piece through NFC, and unlock the passport that makes your work fully yours.</p>",
+        "primary_label": "Shop the Edition",
+        "primary_link": "shopify://products/iris-the-unseen-edition",
+        "secondary_label": "View the Archive",
+        "secondary_link": "shopify://pages/iris-archive"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -351,6 +363,7 @@
     "v2_product_story_gGv9Mk",
     "v2_archive_preview_P4Kx3h",
     "v2_concept_grid_bxY9Lq",
+    "v2_closing_cta_t9QxLm",
     "image_banner",
     "featured_collection",
     "featured_product_PnNbRF",
