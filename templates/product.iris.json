@@ -33,12 +33,7 @@
         "feature_4": "Certificate included",
         "primary_button_label": "Reveal My IRIS",
         "archive_button_label": "View Revealed Archive",
-        "archive_link": "shopify://pages/iris-archive"
-      }
-    },
-    "details": {
-      "type": "v2-product-details",
-      "settings": {
+        "archive_link": "shopify://pages/iris-archive",
         "fact_title_1": "Unique 4-digit ID",
         "fact_meta_1": "Stamped by hand · No two alike",
         "fact_title_2": "Physical Gold — Au 79",
@@ -59,7 +54,6 @@
     }
   },
   "order": [
-    "main",
-    "details"
+    "main"
   ]
 }
