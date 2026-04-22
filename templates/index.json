@@ -82,6 +82,22 @@
         "button_link": "shopify://pages/iris-archive"
       }
     },
+    "v2_concept_grid_bxY9Lq": {
+      "type": "v2-concept-grid",
+      "settings": {
+        "eyebrow": "How It Works",
+        "heading": "Collect, activate, and <em>reveal</em>",
+        "description": "<p>IRIS combines physical acquisition with a reveal ritual. The work becomes fully legible through purchase, NFC confirmation, and activation.</p>",
+        "title_1": "Buy",
+        "copy_1": "<p>Acquire an IRIS from the current edition. The exact work remains unseen at the point of purchase.</p>",
+        "title_2": "Scan",
+        "copy_2": "<p>Use the NFC connection to open the activation flow tied to the physical piece in your hands.</p>",
+        "title_3": "Activate",
+        "copy_3": "<p>Enter the activation PIN to register ownership and unlock the digital passport for your IRIS.</p>",
+        "title_4": "Reveal",
+        "copy_4": "<p>Once activated, the artwork, rarity, and gold details become part of the archive and your personal IRIS record.</p>"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -334,6 +350,7 @@
     "v2_edition_stats_Y2t9Lp",
     "v2_product_story_gGv9Mk",
     "v2_archive_preview_P4Kx3h",
+    "v2_concept_grid_bxY9Lq",
     "image_banner",
     "featured_collection",
     "featured_product_PnNbRF",

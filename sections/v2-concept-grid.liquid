@@ -1,0 +1,273 @@
+{%- style -%}
+  .v2-concept-grid-{{ section.id }} {
+    --v2-gold: #c9a84c;
+    --v2-gold-dim: #7a6330;
+    --v2-bg: #000000;
+    --v2-surface: #101010;
+    --v2-border: rgba(201, 168, 76, 0.15);
+    --v2-text: #ede8df;
+    --v2-text-mid: #a89f90;
+    background: #000000;
+    color: var(--v2-text);
+    border-top: 1px solid var(--v2-border);
+  }
+
+  .v2-concept-grid__wrap-{{ section.id }} {
+    max-width: 128rem;
+    margin: 0 auto;
+    padding: 12rem 8rem;
+  }
+
+  .v2-concept-grid__head-{{ section.id }} {
+    text-align: center;
+    margin-bottom: 6.4rem;
+  }
+
+  .v2-concept-grid__eyebrow-{{ section.id }} {
+    margin: 0 0 1.6rem;
+    color: var(--v2-gold-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.42rem;
+    font-size: 1rem;
+    font-family: var(--font-body-family);
+  }
+
+  .v2-concept-grid__title-{{ section.id }} {
+    margin: 0 0 2rem;
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.4rem, 4.4vw, 5.8rem);
+    line-height: 1.08;
+    letter-spacing: 0.03em;
+    font-weight: 400;
+    color: var(--v2-text) !important;
+  }
+
+  .v2-concept-grid__title-{{ section.id }},
+  .v2-concept-grid__title-{{ section.id }} * {
+    color: var(--v2-text) !important;
+  }
+
+  .v2-concept-grid__title-{{ section.id }} em,
+  .v2-concept-grid__title-{{ section.id }} em * {
+    color: var(--v2-gold) !important;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .v2-concept-grid__description-{{ section.id }} {
+    max-width: 72rem;
+    margin: 0 auto;
+    color: var(--v2-text-mid);
+    font-size: 1.7rem;
+    line-height: 1.8;
+  }
+
+  .v2-concept-grid__grid-{{ section.id }} {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.2rem;
+    background: var(--v2-border);
+    padding: 0.1rem;
+  }
+
+  .v2-concept-grid__card-{{ section.id }} {
+    background: var(--v2-surface);
+    padding: 4rem 3rem 3.6rem;
+    min-height: 34rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2.4rem;
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    border: 1px solid transparent;
+  }
+
+  .v2-concept-grid__card-{{ section.id }}:hover {
+    border-color: rgba(201, 168, 76, 0.28);
+    background: #131313;
+    transform: translateY(-2px);
+  }
+
+  .v2-concept-grid__index-{{ section.id }} {
+    color: var(--v2-gold);
+    font-family: var(--font-heading-family);
+    font-size: 4.6rem;
+    line-height: 1;
+  }
+
+  .v2-concept-grid__card-title-{{ section.id }} {
+    margin: 0 0 1.4rem;
+    font-family: var(--font-heading-family);
+    font-size: 2.8rem;
+    line-height: 1.1;
+    color: var(--v2-text);
+    font-weight: 400;
+  }
+
+  .v2-concept-grid__card-copy-{{ section.id }} {
+    color: var(--v2-text-mid);
+    font-size: 1.55rem;
+    line-height: 1.75;
+  }
+
+  .v2-concept-grid__rule-{{ section.id }} {
+    width: 4rem;
+    height: 1px;
+    background: var(--v2-gold);
+    opacity: 0.9;
+  }
+
+  @media screen and (max-width: 989px) {
+    .v2-concept-grid__wrap-{{ section.id }} {
+      padding: 9rem 3.2rem;
+    }
+
+    .v2-concept-grid__grid-{{ section.id }} {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .v2-concept-grid__wrap-{{ section.id }} {
+      padding: 7rem 2rem;
+    }
+
+    .v2-concept-grid__eyebrow-{{ section.id }} {
+      letter-spacing: 0.28rem;
+      font-size: 0.9rem;
+    }
+
+    .v2-concept-grid__description-{{ section.id }} {
+      font-size: 1.6rem;
+      line-height: 1.75;
+    }
+
+    .v2-concept-grid__grid-{{ section.id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .v2-concept-grid__card-{{ section.id }} {
+      min-height: auto;
+      padding: 3rem 2.4rem 2.8rem;
+    }
+
+    .v2-concept-grid__card-title-{{ section.id }} {
+      font-size: 2.4rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="v2-concept-grid-{{ section.id }}">
+  <div class="v2-concept-grid__wrap-{{ section.id }}">
+    <div class="v2-concept-grid__head-{{ section.id }}">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="v2-concept-grid__eyebrow-{{ section.id }}">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="v2-concept-grid__title-{{ section.id }}">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="v2-concept-grid__description-{{ section.id }}">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="v2-concept-grid__grid-{{ section.id }}">
+      {%- for index in (1..4) -%}
+        {%- liquid
+          assign step_key = 'step_' | append: index
+          assign title_key = 'title_' | append: index
+          assign copy_key = 'copy_' | append: index
+        -%}
+        <article class="v2-concept-grid__card-{{ section.id }}">
+          <div class="v2-concept-grid__index-{{ section.id }}">{{ step_key | remove: 'step_' | prepend: '0' }}</div>
+          <div>
+            <h3 class="v2-concept-grid__card-title-{{ section.id }}">{{ section.settings[title_key] }}</h3>
+            <div class="v2-concept-grid__card-copy-{{ section.id }}">{{ section.settings[copy_key] }}</div>
+          </div>
+          <div class="v2-concept-grid__rule-{{ section.id }}"></div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "V2 Concept Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "How It Works"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Collect, activate, and <em>reveal</em>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>IRIS combines physical acquisition with a reveal ritual. The work becomes fully legible through purchase, NFC confirmation, and activation.</p>"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Card 1 title",
+      "default": "Buy"
+    },
+    {
+      "type": "richtext",
+      "id": "copy_1",
+      "label": "Card 1 copy",
+      "default": "<p>Acquire an IRIS from the current edition. The exact work remains unseen at the point of purchase.</p>"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Card 2 title",
+      "default": "Scan"
+    },
+    {
+      "type": "richtext",
+      "id": "copy_2",
+      "label": "Card 2 copy",
+      "default": "<p>Use the NFC connection to open the activation flow tied to the physical piece in your hands.</p>"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Card 3 title",
+      "default": "Activate"
+    },
+    {
+      "type": "richtext",
+      "id": "copy_3",
+      "label": "Card 3 copy",
+      "default": "<p>Enter the activation PIN to register ownership and unlock the digital passport for your IRIS.</p>"
+    },
+    {
+      "type": "text",
+      "id": "title_4",
+      "label": "Card 4 title",
+      "default": "Reveal"
+    },
+    {
+      "type": "richtext",
+      "id": "copy_4",
+      "label": "Card 4 copy",
+      "default": "<p>Once activated, the artwork, rarity, and gold details become part of the archive and your personal IRIS record.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "V2 Concept Grid"
+    }
+  ]
+}
+{% endschema %}
