@@ -3,6 +3,8 @@
   assign product_price = current_variant.price | default: product.price
   assign product_price_display = product_price | money_without_trailing_zeros
   assign display_media = section.settings.display_image
+  assign art_image_class = 'v2-product-main__art-image-' | append: section.id
+  assign product_form_installment_id = 'v2-product-installment-' | append: section.id
   if display_media == blank
     assign display_media = product.featured_media
   endif
@@ -113,8 +115,8 @@
     margin: 0;
     color: var(--v2-product-text);
     font-family: var(--font-heading-family);
-    font-size: clamp(4.8rem, 7vw, 9rem);
-    line-height: 0.96;
+    font-size: clamp(4.2rem, 6.2vw, 7.4rem);
+    line-height: 0.98;
     font-weight: 400;
     letter-spacing: 0.02em;
   }
@@ -130,7 +132,7 @@
     color: var(--v2-product-text-mid);
     font-family: var(--font-heading-family);
     font-style: italic;
-    font-size: clamp(2.2rem, 2.6vw, 3rem);
+    font-size: clamp(1.9rem, 2.2vw, 2.5rem);
     line-height: 1.35;
   }
 
@@ -143,8 +145,8 @@
 
   .v2-product-main__description-{{ section.id }} {
     color: var(--v2-product-text-mid);
-    font-size: 1.9rem;
-    line-height: 1.95;
+    font-size: 1.7rem;
+    line-height: 1.85;
     max-width: 66rem;
   }
 
@@ -165,15 +167,15 @@
     color: var(--v2-product-text);
     text-transform: uppercase;
     letter-spacing: 0.28rem;
-    font-size: 1.15rem;
+    font-size: 1rem;
   }
 
   .v2-product-main__callout-copy-{{ section.id }} {
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.18rem;
-    font-size: 1.05rem;
-    line-height: 2;
+    font-size: 0.96rem;
+    line-height: 1.9;
   }
 
   .v2-product-main__progress-{{ section.id }} {
@@ -228,7 +230,7 @@
     margin: 0;
     color: var(--v2-product-text);
     font-family: var(--font-heading-family);
-    font-size: clamp(5.6rem, 7vw, 8rem);
+    font-size: clamp(4.6rem, 5.8vw, 6.6rem);
     line-height: 0.92;
     font-weight: 400;
   }
@@ -238,16 +240,59 @@
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.26rem;
-    font-size: 1rem;
+    font-size: 0.92rem;
   }
 
   .v2-product-main__price-side-{{ section.id }} {
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.18rem;
-    font-size: 1rem;
-    line-height: 1.95;
+    font-size: 0.92rem;
+    line-height: 1.8;
     text-align: right;
+  }
+
+  .v2-product-main__quantity-row-{{ section.id }} {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+  }
+
+  .v2-product-main__quantity-label-{{ section.id }} {
+    color: var(--v2-product-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.24rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .v2-product-main__quantity-input-{{ section.id }} {
+    width: 10rem;
+    min-height: 5.2rem;
+    padding: 0 1.6rem;
+    border: 1px solid var(--v2-product-border);
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--v2-product-text);
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .v2-product-main__quantity-input-{{ section.id }}::-webkit-outer-spin-button,
+  .v2-product-main__quantity-input-{{ section.id }}::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .v2-product-main__installments-{{ section.id }} {
+    margin-top: 1.6rem;
+    color: var(--v2-product-text-soft);
+    font-size: 1.35rem;
+    line-height: 1.7;
+  }
+
+  .v2-product-main__installments-{{ section.id }} a {
+    color: var(--v2-product-text);
   }
 
   .v2-product-main__feature-list-{{ section.id }} {
@@ -264,7 +309,7 @@
     color: var(--v2-product-text-mid);
     text-transform: uppercase;
     letter-spacing: 0.18rem;
-    font-size: 1rem;
+    font-size: 0.92rem;
     display: inline-flex;
     align-items: center;
     gap: 0.9rem;
@@ -377,12 +422,12 @@
     }
 
     .v2-product-main__subtitle-{{ section.id }} {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
 
     .v2-product-main__description-{{ section.id }} {
-      font-size: 1.65rem;
-      line-height: 1.85;
+      font-size: 1.55rem;
+      line-height: 1.78;
     }
 
     .v2-product-main__art-badge-{{ section.id }},
@@ -418,6 +463,14 @@
       letter-spacing: 0.24rem;
       font-size: 1.05rem;
     }
+
+    .v2-product-main__quantity-row-{{ section.id }} {
+      align-items: stretch;
+    }
+
+    .v2-product-main__quantity-input-{{ section.id }} {
+      width: 8.8rem;
+    }
   }
 {%- endstyle -%}
 
@@ -436,7 +489,7 @@
                 display_media
                 | image_url: width: 1600
                 | image_tag:
-                  class: 'v2-product-main__art-image-' | append: section.id,
+                  class: art_image_class,
                   loading: 'lazy',
                   alt: product.title
               }}
@@ -513,6 +566,27 @@
           </ul>
         </div>
 
+        <div class="v2-product-main__quantity-row-{{ section.id }}">
+          <label class="v2-product-main__quantity-label-{{ section.id }}" for="V2ProductQuantity-{{ section.id }}">Quantity</label>
+          <input
+            id="V2ProductQuantity-{{ section.id }}"
+            class="v2-product-main__quantity-input-{{ section.id }}"
+            type="number"
+            min="1"
+            max="10"
+            step="1"
+            value="1"
+            inputmode="numeric"
+          >
+        </div>
+
+        <div class="v2-product-main__installments-{{ section.id }}">
+          {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+            <input type="hidden" name="id" value="{{ current_variant.id }}">
+            {{ form | payment_terms }}
+          {%- endform -%}
+        </div>
+
         <div class="v2-product-main__actions-{{ section.id }}">
           <button
             type="button"
@@ -551,6 +625,7 @@
     var fillEl = document.getElementById('V2ProductRevealFill-{{ section.id }}');
     var buyBtn = root.querySelector('[data-iris-buy-button]');
     var errorEl = document.getElementById('V2ProductError-{{ section.id }}');
+    var quantityEl = document.getElementById('V2ProductQuantity-{{ section.id }}');
 
     fetch('/apps/iris/seen-archive?limit=1', {
       headers: { Accept: 'application/json' },
@@ -577,6 +652,7 @@
     buyBtn.addEventListener('click', function () {
       var variantId = buyBtn.getAttribute('data-variant-id');
       if (!variantId || buyBtn.disabled) return;
+      var quantity = quantityEl ? Math.max(1, Math.min(10, parseInt(quantityEl.value, 10) || 1)) : 1;
 
       buyBtn.disabled = true;
       if (errorEl) {
@@ -584,36 +660,45 @@
         errorEl.textContent = '';
       }
 
-      fetch('/apps/iris/reserve-random', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
-      })
-        .then(function (res) {
-          if (!res.ok) throw new Error('reserve_failed');
-          return res.json();
+      function reserveOne() {
+        return fetch('/apps/iris/reserve-random', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
         })
-        .then(function (reservation) {
-          if (!reservation || !reservation.irisId || !reservation.reservationToken) {
-            throw new Error('bad_response');
-          }
-
-          return fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({
-              id: variantId,
-              quantity: 1,
-              properties: {
-                IRIS_ID: reservation.irisId,
-                IRIS_RESERVATION_TOKEN: reservation.reservationToken
-              }
-            })
+          .then(function (res) {
+            if (!res.ok) throw new Error('reserve_failed');
+            return res.json();
           });
-        })
-        .then(function (res) {
+      }
+
+      function addOne(reservation) {
+        if (!reservation || !reservation.irisId || !reservation.reservationToken) {
+          throw new Error('bad_response');
+        }
+
+        return fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            id: variantId,
+            quantity: 1,
+            properties: {
+              IRIS_ID: reservation.irisId,
+              IRIS_RESERVATION_TOKEN: reservation.reservationToken
+            }
+          })
+        }).then(function (res) {
           if (!res.ok) throw new Error('add_to_cart_failed');
           return res.json();
-        })
+        });
+      }
+
+      var chain = Promise.resolve();
+      for (var i = 0; i < quantity; i++) {
+        chain = chain.then(reserveOne).then(addOne);
+      }
+
+      chain
         .then(function () {
           window.location.assign('/cart');
         })
