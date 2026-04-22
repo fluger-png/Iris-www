@@ -76,7 +76,7 @@
             "image": "shopify://shop_images/sample2-about.png",
             "caption": "",
             "heading": "How it works",
-            "text": "<h3>IRIS is a system built around a moment — when your ownership is registered and sealed.</h3><h3> When you purchase an IRIS, nothing is revealed.<br/>You do not choose the artwork, nor see its rarity or place within the collection, until the moment of activation.</h3>",
+            "text": "<h2>IRIS is a system built around a moment — when your ownership is registered and sealed.</h2><h2> When you purchase an IRIS, nothing is revealed.<br/>You do not choose the artwork, nor see its rarity or place within the collection, until the moment of activation.</h2>",
             "button_label": "",
             "button_link": ""
           }
@@ -87,7 +87,7 @@
             "image": "shopify://shop_images/Activation-banner_8cf6ba08-9aee-4bce-9eb9-388b430853a9.png",
             "caption": "",
             "heading": "Activation",
-            "text": "<h3>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens.</h3>",
+            "text": "<h2>Only after you physically receive it and scan the embedded NFC chip does the work awaken. In that moment, ownership is recorded. The artwork reveals itself. Its rarity becomes visible. Its digital passport opens.</h2>",
             "button_label": "",
             "button_link": ""
           }
@@ -98,7 +98,7 @@
             "image": "shopify://shop_images/sample-about_1d41e41a-86c4-4b9c-9e9a-1982b4b15ba8.png",
             "caption": "",
             "heading": "The collection is structured across five material forms.",
-            "text": "<h3>5,000 Black impressions,<br/>3,000 Colors on white paper,<br/>1,500 White on black paper,<br/>400 Color on colored paper,<br/>100 Original works — the sources of the matrices. </h3><h3><br/>Each artwork carries a locked rarity, assigned before any sale. The structure is committed in advance and sealed.</h3><h3></h3>",
+            "text": "<h2>5,000 Black impressions,<br/>3,000 Colors on white paper,<br/>1,500 White on black paper,<br/>400 Color on colored paper,<br/>100 Original works — the sources of the matrices. </h2><h3><br/>Each artwork carries a locked rarity, assigned before any sale. The structure is committed in advance and sealed.</h3><h3></h3>",
             "button_label": "",
             "button_link": ""
           }
@@ -109,7 +109,7 @@
             "image": "shopify://shop_images/sample3-about_d2bb5f2a-4597-4de6-93f3-ea361028289d.png",
             "caption": "",
             "heading": "The gold inside each IRIS is not symbolic currency.",
-            "text": "<h3>It is a physical matter. A tangible weight. A reminder that this is not a purely digital construct, nor a speculative instrument. It is an artwork grounded in material reality.</h3>",
+            "text": "<h2>It is a physical matter. A tangible weight. A reminder that this is not a purely digital construct, nor a speculative instrument. It is an artwork grounded in material reality.</h2>",
             "button_label": "",
             "button_link": ""
           }
@@ -132,8 +132,8 @@
         "desktop_content_position": "middle",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "center",
-        "section_color_scheme": "scheme-3",
-        "row_color_scheme": "scheme-4",
+        "section_color_scheme": "",
+        "row_color_scheme": "",
         "padding_top": 20,
         "padding_bottom": 20
       }
@@ -175,7 +175,7 @@
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
-        "color_scheme": "scheme-4",
+        "color_scheme": "",
         "full_width": true,
         "padding_top": 40,
         "padding_bottom": 52
