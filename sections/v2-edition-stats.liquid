@@ -143,7 +143,7 @@
   }
 {%- endstyle -%}
 
-<section class="v2-edition-stats-{{ section.id }}">
+<section class="v2-edition-stats-{{ section.id }}" id="V2EditionStats-{{ section.id }}">
   <div class="v2-edition-stats__grid-{{ section.id }}">
     {%- for index in (1..4) -%}
       {%- liquid
@@ -151,7 +151,12 @@
         assign label_key = 'label_' | append: index
       -%}
       <div class="v2-edition-stats__item-{{ section.id }}">
-        <div class="v2-edition-stats__value-{{ section.id }}">{{ section.settings[value_key] }}</div>
+        <div
+          class="v2-edition-stats__value-{{ section.id }}"
+          {% if index == 2 %}data-v2-revealed-count{% endif %}
+        >
+          {{ section.settings[value_key] }}
+        </div>
         <div class="v2-edition-stats__label-{{ section.id }}">{{ section.settings[label_key] }}</div>
       </div>
     {%- endfor -%}
@@ -161,11 +166,50 @@
     <div class="v2-edition-stats__scarcity-label-{{ section.id }}">{{ section.settings.scarcity_label }}</div>
     <div class="v2-edition-stats__track-{{ section.id }}">
       <div class="v2-edition-stats__marker-{{ section.id }}"></div>
-      <div class="v2-edition-stats__fill-{{ section.id }}"></div>
+      <div class="v2-edition-stats__fill-{{ section.id }}" data-v2-revealed-fill></div>
     </div>
-    <div class="v2-edition-stats__scarcity-value-{{ section.id }}">{{ section.settings.scarcity_value }}</div>
+    <div class="v2-edition-stats__scarcity-value-{{ section.id }}" data-v2-revealed-label>{{ section.settings.scarcity_value }}</div>
   </div>
 </section>
+
+<script>
+  (function () {
+    var root = document.getElementById('V2EditionStats-{{ section.id }}');
+    if (!root) return;
+
+    var revealedCount = root.querySelector('[data-v2-revealed-count]');
+    var revealedLabel = root.querySelector('[data-v2-revealed-label]');
+    var revealedFill = root.querySelector('[data-v2-revealed-fill]');
+    var totalEditions = 10000;
+
+    fetch('/apps/iris/seen-archive?limit=1', {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store'
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('bad_status');
+        return response.json();
+      })
+      .then(function (data) {
+        var totalCount = Number(data && data.total_count ? data.total_count : 0);
+        if (!Number.isFinite(totalCount)) return;
+
+        if (revealedCount) {
+          revealedCount.textContent = totalCount.toLocaleString('en-US');
+        }
+
+        if (revealedLabel) {
+          revealedLabel.textContent = totalCount.toLocaleString('en-US') + ' of ' + totalEditions.toLocaleString('en-US');
+        }
+
+        if (revealedFill) {
+          var percent = Math.max(0, Math.min(100, (totalCount / totalEditions) * 100));
+          revealedFill.style.width = percent + '%';
+        }
+      })
+      .catch(function () {});
+  })();
+</script>
 
 {% schema %}
 {
