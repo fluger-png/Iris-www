@@ -29,7 +29,7 @@
   .v2-edition-stats__value-{{ section.id }} {
     color: var(--v2-gold);
     font-family: var(--font-heading-family);
-    font-size: clamp(3.8rem, 5vw, 6.2rem);
+    font-size: clamp(3rem, 4vw, 5rem);
     line-height: 1;
     letter-spacing: 0.04em;
   }
@@ -67,7 +67,7 @@
 
   .v2-edition-stats__track-{{ section.id }} {
     position: relative;
-    height: 2px;
+    height: 3px;
     background: rgba(255, 255, 255, 0.08);
   }
 
@@ -79,6 +79,7 @@
     width: {{ section.settings.progress_percent }}%;
     background: linear-gradient(90deg, var(--v2-gold-dim), var(--v2-gold));
     box-shadow: 0 0 12px rgba(201, 168, 76, 0.28);
+    min-width: 0;
   }
 
   .v2-edition-stats__marker-{{ section.id }} {
@@ -137,6 +138,10 @@
     .v2-edition-stats__scarcity-value-{{ section.id }} {
       font-size: 0.9rem;
       letter-spacing: 0.22rem;
+    }
+
+    .v2-edition-stats__value-{{ section.id }} {
+      font-size: 4rem;
     }
 
     .v2-edition-stats__scarcity-{{ section.id }} {
@@ -206,7 +211,7 @@
 
         if (revealedFill) {
           var percent = Math.max(0, Math.min(100, (totalCount / totalEditions) * 100));
-          var visiblePercent = totalCount > 0 ? Math.max(percent, 3) : 0;
+          var visiblePercent = totalCount > 0 ? Math.max(percent, 6) : 0;
           revealedFill.style.width = visiblePercent + '%';
         }
       })

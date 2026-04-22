@@ -2,7 +2,7 @@
   .v2-archive-preview-{{ section.id }} {
     --v2-gold: #c9a84c;
     --v2-gold-dim: #7a6330;
-    --v2-surface: #111111;
+    --v2-surface: #101010;
     --v2-surface-2: #171717;
     --v2-border: rgba(201, 168, 76, 0.15);
     --v2-text: #ede8df;
@@ -274,7 +274,7 @@
             '<div class="v2-archive-preview__overlay-{{ section.id }}">' +
               '<div class="v2-archive-preview__label-{{ section.id }}">' +
                 '<div class="v2-archive-preview__iris-{{ section.id }}">' + item.iris_id + '</div>' +
-                '<div class="v2-archive-preview__meta-{{ section.id }}">Revealed · Unique</div>' +
+                '<div class="v2-archive-preview__meta-{{ section.id }}">' + (item.rarity_code || 'Rarity hidden') + '</div>' +
               '</div>' +
             '</div>' +
           '</a>'
