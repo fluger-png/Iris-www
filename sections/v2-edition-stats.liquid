@@ -29,7 +29,7 @@
   .v2-edition-stats__value-{{ section.id }} {
     color: var(--v2-gold);
     font-family: var(--font-heading-family);
-    font-size: clamp(3rem, 4vw, 5rem);
+    font-size: clamp(2.4rem, 3.2vw, 4rem);
     line-height: 1;
     letter-spacing: 0.04em;
   }
@@ -141,7 +141,7 @@
     }
 
     .v2-edition-stats__value-{{ section.id }} {
-      font-size: 4rem;
+      font-size: 3.2rem;
     }
 
     .v2-edition-stats__scarcity-{{ section.id }} {
@@ -211,8 +211,8 @@
 
         if (revealedFill) {
           var percent = Math.max(0, Math.min(100, (totalCount / totalEditions) * 100));
-          var visiblePercent = totalCount > 0 ? Math.max(percent, 6) : 0;
-          revealedFill.style.width = visiblePercent + '%';
+          revealedFill.style.width = percent + '%';
+          revealedFill.style.minWidth = totalCount > 0 ? '3px' : '0';
         }
       })
       .catch(function () {});
