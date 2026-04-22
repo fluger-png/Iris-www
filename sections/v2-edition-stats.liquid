@@ -204,7 +204,8 @@
 
         if (revealedFill) {
           var percent = Math.max(0, Math.min(100, (totalCount / totalEditions) * 100));
-          revealedFill.style.width = percent + '%';
+          var visiblePercent = totalCount > 0 ? Math.max(percent, 1.5) : 0;
+          revealedFill.style.width = visiblePercent + '%';
         }
       })
       .catch(function () {});
