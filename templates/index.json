@@ -101,13 +101,9 @@
     "v2_closing_cta_t9QxLm": {
       "type": "v2-closing-cta",
       "settings": {
-        "eyebrow": "Acquire Your IRIS",
-        "heading": "Begin the reveal and claim your <em>IRIS</em>",
-        "body": "<p>Purchase from the current edition, activate the piece through NFC, and unlock the passport that makes your work fully yours.</p>",
-        "primary_label": "Shop the Edition",
-        "primary_link": "shopify://products/iris-the-unseen-edition",
-        "secondary_label": "View the Archive",
-        "secondary_link": "shopify://pages/iris-archive"
+        "eyebrow": "AU · 79 · 196.967",
+        "quote": "<p>Gold does not decay. It does not change. It simply persists — through every moment it has passed through, every hand it has touched. Every IRIS carries this inside it.</p>",
+        "footer_text": "A trace of permanence in every piece · New York"
       }
     },
     "image_banner": {

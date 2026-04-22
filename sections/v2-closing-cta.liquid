@@ -1,133 +1,107 @@
 {%- style -%}
   .v2-closing-cta-{{ section.id }} {
     --v2-gold: #c9a84c;
-    --v2-gold-light: #e8cc7a;
-    --v2-gold-dim: #7a6330;
-    --v2-bg: #101010;
     --v2-border: rgba(201, 168, 76, 0.15);
     --v2-text: #ede8df;
-    --v2-text-mid: #a89f90;
-    background: #101010;
+    --v2-text-dim: #8f8779;
+    background: #000000;
     color: var(--v2-text);
     border-top: 1px solid var(--v2-border);
     border-bottom: 1px solid var(--v2-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .v2-closing-cta-{{ section.id }}::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
   }
 
   .v2-closing-cta__wrap-{{ section.id }} {
-    max-width: 118rem;
+    position: relative;
+    z-index: 1;
+    max-width: 144rem;
     margin: 0 auto;
-    padding: 12rem 8rem;
+    padding: 15rem 8rem 14rem;
     text-align: center;
   }
 
   .v2-closing-cta__eyebrow-{{ section.id }} {
-    margin: 0 0 1.6rem;
-    color: var(--v2-gold-dim);
+    margin: 0 0 7rem;
+    color: var(--v2-gold);
     text-transform: uppercase;
-    letter-spacing: 0.42rem;
-    font-size: 1rem;
+    letter-spacing: 0.6rem;
+    font-size: 1.15rem;
+    line-height: 1.2;
     font-family: var(--font-body-family);
   }
 
-  .v2-closing-cta__title-{{ section.id }} {
-    margin: 0 0 2.2rem;
-    font-family: var(--font-heading-family);
-    font-size: clamp(3.6rem, 5vw, 6.8rem);
-    line-height: 1.04;
-    letter-spacing: 0.03em;
-    font-weight: 400;
-    color: var(--v2-text) !important;
-  }
-
-  .v2-closing-cta__title-{{ section.id }},
-  .v2-closing-cta__title-{{ section.id }} * {
-    color: var(--v2-text) !important;
-  }
-
-  .v2-closing-cta__title-{{ section.id }} em,
-  .v2-closing-cta__title-{{ section.id }} em * {
-    color: var(--v2-gold) !important;
+  .v2-closing-cta__quote-{{ section.id }} {
+    max-width: 118rem;
+    margin: 0 auto 7rem;
+    color: var(--v2-text);
+    font-family: "Cormorant Garamond", var(--font-heading-family), serif;
     font-style: italic;
     font-weight: 400;
+    font-size: clamp(4.2rem, 4.8vw, 6.8rem);
+    line-height: 1.42;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
   }
 
-  .v2-closing-cta__body-{{ section.id }} {
-    max-width: 72rem;
-    margin: 0 auto 4rem;
-    color: var(--v2-text-mid);
-    font-size: 1.75rem;
-    line-height: 1.8;
+  .v2-closing-cta__quote-{{ section.id }} p {
+    margin: 0;
   }
 
-  .v2-closing-cta__actions-{{ section.id }} {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.6rem;
-  }
-
-  .v2-closing-cta__button-{{ section.id }} {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 5.8rem;
-    padding: 1.6rem 3.2rem;
-    text-decoration: none;
+  .v2-closing-cta__footer-{{ section.id }} {
+    color: var(--v2-text-dim);
     text-transform: uppercase;
-    letter-spacing: 0.24rem;
-    font-size: 1.1rem;
+    letter-spacing: 0.48rem;
+    font-size: 1.15rem;
+    line-height: 1.4;
     font-family: var(--font-body-family);
-    transition: all 0.25s ease;
-  }
-
-  .v2-closing-cta__button-{{ section.id }}.is-primary {
-    background: var(--v2-gold);
-    color: #080808;
-  }
-
-  .v2-closing-cta__button-{{ section.id }}.is-primary:hover {
-    background: var(--v2-gold-light);
-  }
-
-  .v2-closing-cta__button-{{ section.id }}.is-secondary {
-    border: 1px solid var(--v2-border);
-    color: var(--v2-gold);
-    background: rgba(201, 168, 76, 0.04);
-  }
-
-  .v2-closing-cta__button-{{ section.id }}.is-secondary:hover {
-    border-color: rgba(201, 168, 76, 0.45);
-    background: rgba(201, 168, 76, 0.08);
   }
 
   @media screen and (max-width: 989px) {
     .v2-closing-cta__wrap-{{ section.id }} {
-      padding: 9rem 3.2rem;
+      padding: 11rem 3.2rem 10rem;
+    }
+
+    .v2-closing-cta__eyebrow-{{ section.id }} {
+      margin-bottom: 5rem;
+    }
+
+    .v2-closing-cta__quote-{{ section.id }} {
+      margin-bottom: 5rem;
+      font-size: clamp(3.6rem, 5.4vw, 5.4rem);
+      line-height: 1.45;
     }
   }
 
   @media screen and (max-width: 749px) {
     .v2-closing-cta__wrap-{{ section.id }} {
-      padding: 7rem 2rem;
+      padding: 8rem 2rem 7.5rem;
     }
 
     .v2-closing-cta__eyebrow-{{ section.id }} {
-      letter-spacing: 0.28rem;
-      font-size: 0.9rem;
+      margin-bottom: 3.6rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.32rem;
     }
 
-    .v2-closing-cta__body-{{ section.id }} {
-      font-size: 1.6rem;
-      line-height: 1.75;
+    .v2-closing-cta__quote-{{ section.id }} {
+      margin-bottom: 3.8rem;
+      font-size: clamp(3rem, 8vw, 4.2rem);
+      line-height: 1.5;
     }
 
-    .v2-closing-cta__actions-{{ section.id }} {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .v2-closing-cta__button-{{ section.id }} {
-      width: 100%;
+    .v2-closing-cta__footer-{{ section.id }} {
+      font-size: 0.95rem;
+      letter-spacing: 0.24rem;
     }
   }
 {%- endstyle -%}
@@ -138,33 +112,13 @@
       <p class="v2-closing-cta__eyebrow-{{ section.id }}">{{ section.settings.eyebrow }}</p>
     {%- endif -%}
 
-    {%- if section.settings.heading != blank -%}
-      <h2 class="v2-closing-cta__title-{{ section.id }}">{{ section.settings.heading }}</h2>
+    {%- if section.settings.quote != blank -%}
+      <div class="v2-closing-cta__quote-{{ section.id }}">{{ section.settings.quote }}</div>
     {%- endif -%}
 
-    {%- if section.settings.body != blank -%}
-      <div class="v2-closing-cta__body-{{ section.id }}">{{ section.settings.body }}</div>
+    {%- if section.settings.footer_text != blank -%}
+      <p class="v2-closing-cta__footer-{{ section.id }}">{{ section.settings.footer_text }}</p>
     {%- endif -%}
-
-    <div class="v2-closing-cta__actions-{{ section.id }}">
-      {%- if section.settings.primary_label != blank -%}
-        <a
-          class="v2-closing-cta__button-{{ section.id }} is-primary"
-          href="{{ section.settings.primary_link | default: '/products/iris-the-unseen-edition' }}"
-        >
-          {{ section.settings.primary_label | escape }}
-        </a>
-      {%- endif -%}
-
-      {%- if section.settings.secondary_label != blank -%}
-        <a
-          class="v2-closing-cta__button-{{ section.id }} is-secondary"
-          href="{{ section.settings.secondary_link | default: '/pages/iris-archive' }}"
-        >
-          {{ section.settings.secondary_label | escape }}
-        </a>
-      {%- endif -%}
-    </div>
   </div>
 </section>
 
@@ -177,42 +131,20 @@
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
-      "default": "Acquire Your IRIS"
-    },
-    {
-      "type": "inline_richtext",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Begin the reveal and claim your <em>IRIS</em>"
+      "label": "Top line",
+      "default": "AU · 79 · 196.967"
     },
     {
       "type": "richtext",
-      "id": "body",
-      "label": "Body",
-      "default": "<p>Purchase from the current edition, activate the piece through NFC, and unlock the passport that makes your work fully yours.</p>"
+      "id": "quote",
+      "label": "Quote",
+      "default": "<p>Gold does not decay. It does not change. It simply persists — through every moment it has passed through, every hand it has touched. Every IRIS carries this inside it.</p>"
     },
     {
       "type": "text",
-      "id": "primary_label",
-      "label": "Primary button label",
-      "default": "Shop the Edition"
-    },
-    {
-      "type": "url",
-      "id": "primary_link",
-      "label": "Primary button link"
-    },
-    {
-      "type": "text",
-      "id": "secondary_label",
-      "label": "Secondary button label",
-      "default": "View the Archive"
-    },
-    {
-      "type": "url",
-      "id": "secondary_link",
-      "label": "Secondary button link"
+      "id": "footer_text",
+      "label": "Bottom line",
+      "default": "A trace of permanence in every piece · New York"
     }
   ],
   "presets": [
