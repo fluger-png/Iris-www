@@ -1,0 +1,156 @@
+{%- style -%}
+  .v2-closing-cta-{{ section.id }} {
+    --v2-gold: #c9a84c;
+    --v2-border: rgba(201, 168, 76, 0.15);
+    --v2-text: #ede8df;
+    --v2-text-dim: #8f8779;
+    background: #000000;
+    color: var(--v2-text);
+    border-top: 1px solid var(--v2-border);
+    border-bottom: 1px solid var(--v2-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .v2-closing-cta-{{ section.id }}::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .v2-closing-cta__wrap-{{ section.id }} {
+    position: relative;
+    z-index: 1;
+    max-width: 144rem;
+    margin: 0 auto;
+    padding: 15rem 8rem 14rem;
+    text-align: center;
+  }
+
+  .v2-closing-cta__eyebrow-{{ section.id }} {
+    margin: 0 0 7rem;
+    color: var(--v2-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.6rem;
+    font-size: 1.15rem;
+    line-height: 1.2;
+    font-family: var(--font-body-family);
+  }
+
+  .v2-closing-cta__quote-{{ section.id }} {
+    max-width: 118rem;
+    margin: 0 auto 7rem;
+    color: var(--v2-text);
+    font-family: "Cormorant Garamond", var(--font-heading-family), serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(3.8rem, 4.3vw, 6.1rem);
+    line-height: 1.42;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+  }
+
+  .v2-closing-cta__quote-{{ section.id }} p {
+    margin: 0;
+  }
+
+  .v2-closing-cta__footer-{{ section.id }} {
+    color: var(--v2-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.48rem;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    font-family: var(--font-body-family);
+  }
+
+  @media screen and (max-width: 989px) {
+    .v2-closing-cta__wrap-{{ section.id }} {
+      padding: 11rem 3.2rem 10rem;
+    }
+
+    .v2-closing-cta__eyebrow-{{ section.id }} {
+      margin-bottom: 5rem;
+    }
+
+    .v2-closing-cta__quote-{{ section.id }} {
+      margin-bottom: 5rem;
+      font-size: clamp(3.6rem, 5.4vw, 5.4rem);
+      line-height: 1.45;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .v2-closing-cta__wrap-{{ section.id }} {
+      padding: 8rem 2rem 7.5rem;
+    }
+
+    .v2-closing-cta__eyebrow-{{ section.id }} {
+      margin-bottom: 3.6rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.32rem;
+    }
+
+    .v2-closing-cta__quote-{{ section.id }} {
+      margin-bottom: 3.8rem;
+      font-size: clamp(3rem, 8vw, 4.2rem);
+      line-height: 1.5;
+    }
+
+    .v2-closing-cta__footer-{{ section.id }} {
+      font-size: 0.95rem;
+      letter-spacing: 0.24rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="v2-closing-cta-{{ section.id }}">
+  <div class="v2-closing-cta__wrap-{{ section.id }}">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="v2-closing-cta__eyebrow-{{ section.id }}">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.quote != blank -%}
+      <div class="v2-closing-cta__quote-{{ section.id }}">{{ section.settings.quote }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.footer_text != blank -%}
+      <p class="v2-closing-cta__footer-{{ section.id }}">{{ section.settings.footer_text }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "V2 Closing CTA",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Top line",
+      "default": "AU · 79 · 196.967"
+    },
+    {
+      "type": "richtext",
+      "id": "quote",
+      "label": "Quote",
+      "default": "<p>Gold does not decay. It does not change. It simply persists — through every moment it has passed through, every hand it has touched. Every IRIS carries this inside it.</p>"
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Bottom line",
+      "default": "A trace of permanence in every piece · New York"
+    }
+  ],
+  "presets": [
+    {
+      "name": "V2 Closing CTA"
+    }
+  ]
+}
+{% endschema %}

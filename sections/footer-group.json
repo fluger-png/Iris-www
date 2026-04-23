@@ -19,7 +19,6 @@
         "newsletter_heading": "Subscribe to our emails",
         "enable_follow_on_shop": false,
         "show_social": true,
-        "show_gold_price": true,
         "enable_country_selector": false,
         "enable_language_selector": false,
         "payment_enable": false,

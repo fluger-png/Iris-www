@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "v2-collaborate-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

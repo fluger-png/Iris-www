@@ -1,0 +1,139 @@
+{%- style -%}
+  .v2-proof-bar-{{ section.id }} {
+    --v2-gold: #c9a84c;
+    --v2-gold-dim: #7a6330;
+    --v2-surface: #0f0f0f;
+    --v2-border: rgba(201, 168, 76, 0.15);
+    --v2-text-dim: #9f9789;
+    background: var(--v2-surface);
+    border-top: 1px solid var(--v2-border);
+    border-bottom: 1px solid var(--v2-border);
+    overflow: hidden;
+  }
+
+  .v2-proof-bar__track-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    gap: 5.6rem;
+    width: max-content;
+    padding: 1.8rem 0;
+    animation: v2-proof-bar-scroll-{{ section.id }} 28s linear infinite;
+  }
+
+  .v2-proof-bar-{{ section.id }}:hover .v2-proof-bar__track-{{ section.id }} {
+    animation-play-state: paused;
+  }
+
+  .v2-proof-bar__item-{{ section.id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.4rem;
+    color: var(--v2-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.22rem;
+    font-size: 1rem;
+    white-space: nowrap;
+    font-family: var(--font-body-family);
+  }
+
+  .v2-proof-bar__item-{{ section.id }} strong {
+    color: var(--v2-gold);
+    font-weight: 600;
+  }
+
+  .v2-proof-bar__dot-{{ section.id }} {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--v2-gold-dim);
+    flex-shrink: 0;
+  }
+
+  @keyframes v2-proof-bar-scroll-{{ section.id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .v2-proof-bar__track-{{ section.id }} {
+      gap: 3.6rem;
+      padding: 1.5rem 0;
+    }
+
+    .v2-proof-bar__item-{{ section.id }} {
+      letter-spacing: 0.16rem;
+      font-size: 0.9rem;
+    }
+  }
+{%- endstyle -%}
+
+{%- capture items_markup -%}
+  {%- for index in (1..5) -%}
+    {%- liquid
+      assign key = 'item_' | append: index
+      assign value = section.settings[key]
+    -%}
+    {%- if value != blank -%}
+      <span class="v2-proof-bar__item-{{ section.id }}">
+        <span class="v2-proof-bar__dot-{{ section.id }}"></span>
+        {{ value }}
+      </span>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+<section class="v2-proof-bar-{{ section.id }}">
+  <div class="v2-proof-bar__track-{{ section.id }}">
+    {{ items_markup }}
+    {{ items_markup }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "V2 Proof Bar",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "item_1",
+      "label": "Item 1",
+      "default": "<strong>10,000</strong> total works"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "item_2",
+      "label": "Item 2",
+      "default": "<strong>24K</strong> gold in every piece"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "item_3",
+      "label": "Item 3",
+      "default": "<strong>NFC</strong> activation confirms ownership"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "item_4",
+      "label": "Item 4",
+      "default": "<strong>Merkle proof</strong> secures rarity"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "item_5",
+      "label": "Item 5",
+      "default": "<strong>IRIS Passport</strong> reveals the full object"
+    }
+  ],
+  "presets": [
+    {
+      "name": "V2 Proof Bar"
+    }
+  ]
+}
+{% endschema %}

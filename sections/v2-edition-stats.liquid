@@ -1,0 +1,242 @@
+{%- style -%}
+  .v2-edition-stats-{{ section.id }} {
+    --v2-gold: #c9a84c;
+    --v2-gold-dim: #7a6330;
+    --v2-surface: #0d0d0d;
+    --v2-border: rgba(201, 168, 76, 0.15);
+    --v2-text-mid: #8f8779;
+    background: var(--v2-surface);
+    border-top: 1px solid var(--v2-border);
+    border-bottom: 1px solid var(--v2-border);
+  }
+
+  .v2-edition-stats__grid-{{ section.id }} {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-bottom: 1px solid var(--v2-border);
+  }
+
+  .v2-edition-stats__item-{{ section.id }} {
+    padding: 5.2rem 2rem 4.4rem;
+    text-align: center;
+    border-right: 1px solid var(--v2-border);
+  }
+
+  .v2-edition-stats__item-{{ section.id }}:last-child {
+    border-right: 0;
+  }
+
+  .v2-edition-stats__value-{{ section.id }} {
+    color: var(--v2-gold);
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.4rem, 3.2vw, 4rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+
+  .v2-edition-stats__label-{{ section.id }} {
+    margin-top: 2.2rem;
+    color: var(--v2-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.34rem;
+    font-size: 1rem;
+    font-family: var(--font-body-family);
+  }
+
+  .v2-edition-stats__scarcity-{{ section.id }} {
+    display: grid;
+    grid-template-columns: 24rem minmax(0, 1fr) 24rem;
+    gap: 3rem;
+    align-items: center;
+    padding: 5rem 8rem;
+  }
+
+  .v2-edition-stats__scarcity-label-{{ section.id }},
+  .v2-edition-stats__scarcity-value-{{ section.id }} {
+    color: var(--v2-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.34rem;
+    font-size: 1rem;
+    font-family: var(--font-body-family);
+  }
+
+  .v2-edition-stats__scarcity-value-{{ section.id }} {
+    color: var(--v2-gold);
+    text-align: right;
+  }
+
+  .v2-edition-stats__track-{{ section.id }} {
+    position: relative;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .v2-edition-stats__fill-{{ section.id }} {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: {{ section.settings.progress_percent }}%;
+    background: linear-gradient(90deg, var(--v2-gold-dim), var(--v2-gold));
+    box-shadow: 0 0 12px rgba(201, 168, 76, 0.28);
+    min-width: 0;
+  }
+
+  .v2-edition-stats__marker-{{ section.id }} {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: var(--v2-gold);
+    transform: translateY(-50%);
+    box-shadow: 0 0 14px rgba(201, 168, 76, 0.45);
+  }
+
+  @media screen and (max-width: 989px) {
+    .v2-edition-stats__grid-{{ section.id }} {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .v2-edition-stats__item-{{ section.id }}:nth-child(2) {
+      border-right: 0;
+    }
+
+    .v2-edition-stats__item-{{ section.id }}:nth-child(-n+2) {
+      border-bottom: 1px solid var(--v2-border);
+    }
+
+    .v2-edition-stats__scarcity-{{ section.id }} {
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+      padding: 4rem 3.2rem;
+    }
+
+    .v2-edition-stats__scarcity-value-{{ section.id }} {
+      text-align: left;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .v2-edition-stats__grid-{{ section.id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .v2-edition-stats__item-{{ section.id }} {
+      border-right: 0;
+      border-bottom: 1px solid var(--v2-border);
+      padding: 3.6rem 2rem 3.2rem;
+    }
+
+    .v2-edition-stats__item-{{ section.id }}:last-child {
+      border-bottom: 0;
+    }
+
+    .v2-edition-stats__label-{{ section.id }},
+    .v2-edition-stats__scarcity-label-{{ section.id }},
+    .v2-edition-stats__scarcity-value-{{ section.id }} {
+      font-size: 0.9rem;
+      letter-spacing: 0.22rem;
+    }
+
+    .v2-edition-stats__value-{{ section.id }} {
+      font-size: 3.2rem;
+    }
+
+    .v2-edition-stats__scarcity-{{ section.id }} {
+      padding: 3rem 2rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="v2-edition-stats-{{ section.id }}" id="V2EditionStats-{{ section.id }}">
+  <div class="v2-edition-stats__grid-{{ section.id }}">
+    {%- for index in (1..4) -%}
+      {%- liquid
+        assign value_key = 'value_' | append: index
+        assign label_key = 'label_' | append: index
+      -%}
+      <div class="v2-edition-stats__item-{{ section.id }}">
+        <div
+          class="v2-edition-stats__value-{{ section.id }}"
+          {% if index == 2 %}data-v2-revealed-count{% endif %}
+        >
+          {{ section.settings[value_key] }}
+        </div>
+        <div class="v2-edition-stats__label-{{ section.id }}">{{ section.settings[label_key] }}</div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="v2-edition-stats__scarcity-{{ section.id }}">
+    <div class="v2-edition-stats__scarcity-label-{{ section.id }}">{{ section.settings.scarcity_label }}</div>
+    <div class="v2-edition-stats__track-{{ section.id }}">
+      <div class="v2-edition-stats__marker-{{ section.id }}"></div>
+      <div class="v2-edition-stats__fill-{{ section.id }}" data-v2-revealed-fill></div>
+    </div>
+    <div class="v2-edition-stats__scarcity-value-{{ section.id }}" data-v2-revealed-label>{{ section.settings.scarcity_value }}</div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('V2EditionStats-{{ section.id }}');
+    if (!root) return;
+
+    var revealedCount = root.querySelector('[data-v2-revealed-count]');
+    var revealedLabel = root.querySelector('[data-v2-revealed-label]');
+    var revealedFill = root.querySelector('[data-v2-revealed-fill]');
+    var totalEditions = 10000;
+
+    fetch('/apps/iris/seen-archive?limit=1', {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store'
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('bad_status');
+        return response.json();
+      })
+      .then(function (data) {
+        var totalCount = Number(data && data.total_count ? data.total_count : 0);
+        if (!Number.isFinite(totalCount)) return;
+
+        if (revealedCount) {
+          revealedCount.textContent = totalCount.toLocaleString('en-US');
+        }
+
+        if (revealedLabel) {
+          revealedLabel.textContent = totalCount.toLocaleString('en-US') + ' of ' + totalEditions.toLocaleString('en-US');
+        }
+
+        if (revealedFill) {
+          var percent = Math.max(0, Math.min(100, (totalCount / totalEditions) * 100));
+          revealedFill.style.width = percent + '%';
+          revealedFill.style.minWidth = totalCount > 0 ? '3px' : '0';
+        }
+      })
+      .catch(function () {});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "V2 Edition Stats",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "value_1", "label": "Value 1", "default": "10,000" },
+    { "type": "text", "id": "label_1", "label": "Label 1", "default": "Total Editions" },
+    { "type": "text", "id": "value_2", "label": "Value 2", "default": "35" },
+    { "type": "text", "id": "label_2", "label": "Label 2", "default": "Revealed" },
+    { "type": "text", "id": "value_3", "label": "Value 3", "default": "AU" },
+    { "type": "text", "id": "label_3", "label": "Label 3", "default": "Gold In Every Piece" },
+    { "type": "text", "id": "value_4", "label": "Value 4", "default": "0" },
+    { "type": "text", "id": "label_4", "label": "Label 4", "default": "Duplicates Ever" },
+    { "type": "text", "id": "scarcity_label", "label": "Scarcity label", "default": "Editions Revealed" },
+    { "type": "text", "id": "scarcity_value", "label": "Scarcity value", "default": "35 of 10,000" },
+    { "type": "range", "id": "progress_percent", "label": "Progress percent", "min": 0, "max": 100, "step": 1, "default": 1 }
+  ],
+  "presets": [{ "name": "V2 Edition Stats" }]
+}
+{% endschema %}
