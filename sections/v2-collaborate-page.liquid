@@ -1658,14 +1658,22 @@
       });
     }
 
+    function normalizeGoldValue(value) {
+      if (value === null || value === undefined) return null;
+      if (typeof value === 'number') return isFinite(value) ? value : null;
+      var cleaned = String(value).replace(/[^0-9.\-]/g, '');
+      var parsed = Number(cleaned);
+      return isFinite(parsed) ? parsed : null;
+    }
+
     function readCache() {
       try {
         var raw = localStorage.getItem(cacheKey);
         if (!raw) return null;
         var parsed = JSON.parse(raw);
-        if (!parsed || !parsed.value || !parsed.ts) return null;
+        if (!parsed || parsed.value === undefined || !parsed.ts) return null;
         if (Date.now() - parsed.ts > ttl) return null;
-        return parsed.value;
+        return normalizeGoldValue(parsed.value);
       } catch (e) {
         return null;
       }
