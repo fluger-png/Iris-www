@@ -199,21 +199,23 @@
 
   .v2-product-main__progress-bar-{{ section.id }} {
     position: relative;
-    height: 4px;
+    height: 6px;
     background: #1D1C1B;
     overflow: hidden;
+    border-radius: 999px;
   }
 
   .v2-product-main__progress-fill-{{ section.id }} {
     position: absolute;
     left: 0;
     top: 0;
-    height: 4px;
+    height: 6px;
     width: 0;
-    background: var(--v2-product-gold);
+    background: #C9A84C;
     min-width: 0;
     transition: width 0.8s ease;
-    border-radius: 0 2px 2px 0;
+    border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.35) inset;
   }
 
   .v2-product-main__price-card-{{ section.id }} {
@@ -910,7 +912,8 @@
       if (fillEl && barEl) {
         var progressPercent = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
         fillEl.style.width = progressPercent + '%';
-        fillEl.style.minWidth = total > 0 ? '4px' : '0';
+        fillEl.style.minWidth = total > 0 ? '8px' : '0';
+        fillEl.style.background = '#C9A84C';
       }
       if (calloutCopyEl) {
         if (editionSize <= 100) {
