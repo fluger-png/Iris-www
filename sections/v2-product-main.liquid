@@ -216,6 +216,8 @@
     transition: width 0.8s ease;
     border-radius: 999px;
     box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.35) inset;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .v2-product-main__price-card-{{ section.id }} {
@@ -914,9 +916,11 @@
       if (countEl) countEl.textContent = total + ' of ' + editionSize.toLocaleString();
       if (fillEl && barEl) {
         var progressPercent = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
-        fillEl.style.width = progressPercent + '%';
-        fillEl.style.minWidth = total > 0 ? '8px' : '0';
-        fillEl.style.background = '#C9A84C';
+        var visiblePercent = total > 0 ? Math.max(progressPercent, 1) : 0;
+        barEl.style.background = visiblePercent > 0
+          ? 'linear-gradient(to right, #C9A84C 0%, #C9A84C ' + visiblePercent + '%, #1D1C1B ' + visiblePercent + '%, #1D1C1B 100%)'
+          : '#1D1C1B';
+        fillEl.style.width = '0';
       }
       if (calloutCopyEl) {
         if (editionSize <= 100) {
