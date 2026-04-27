@@ -920,13 +920,20 @@
       if (fillEl) {
         var progressPercent = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
         fillEl.style.width = progressPercent + '%';
-        fillEl.style.minWidth = total > 0 ? '3px' : '0';
+        fillEl.style.minWidth = total > 0 ? '5px' : '0';
       }
       if (calloutCopyEl) {
-        calloutCopyEl.textContent = calloutCopyEl.textContent.replace(
-          /No two pieces.*?identical\.?/i,
-          'No two pieces in this collection of ' + editionSize.toLocaleString() + ' are identical.'
-        );
+        if (editionSize <= 100) {
+          calloutCopyEl.textContent = calloutCopyEl.textContent.replace(
+            /\s*No two pieces.*?identical\.?/i,
+            ''
+          ).trim();
+        } else {
+          calloutCopyEl.textContent = calloutCopyEl.textContent.replace(
+            /No two pieces.*?identical\.?/i,
+            'No two pieces in this collection of ' + editionSize.toLocaleString() + ' are identical.'
+          );
+        }
       }
     }
 
