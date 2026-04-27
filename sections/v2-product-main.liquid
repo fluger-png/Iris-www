@@ -200,10 +200,18 @@
   .v2-product-main__progress-bar-{{ section.id }} {
     position: relative;
     height: 4px;
-    background-color: #1D1C1B;
-    background-image: linear-gradient(to right, #000 1px, transparent 1px);
+    background: #1D1C1B;
+    overflow: hidden;
+  }
+
+  .v2-product-main__progress-bar-{{ section.id }}::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, transparent 0, transparent calc(100% - 1px), #000 calc(100% - 1px), #000 100%);
     background-size: var(--v2-product-segment-width, 5px) 100%;
-    overflow: visible;
+    pointer-events: none;
+    z-index: 2;
   }
 
   .v2-product-main__progress-fill-{{ section.id }} {
@@ -212,9 +220,8 @@
     top: 0;
     height: 4px;
     width: 0;
-    background-color: var(--v2-product-gold);
-    background-image: linear-gradient(to right, #000 1px, transparent 1px);
-    background-size: var(--v2-product-segment-width, 5px) 100%;
+    background: var(--v2-product-gold);
+    z-index: 1;
   }
 
   .v2-product-main__price-card-{{ section.id }} {
