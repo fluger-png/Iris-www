@@ -714,7 +714,7 @@
             <p class="v2-product-main__callout-title-{{ section.id }}">{{ section.settings.callout_title }}</p>
           {%- endif -%}
           {%- if section.settings.callout_text != blank -%}
-            <div class="v2-product-main__callout-copy-{{ section.id }}">{{ section.settings.callout_text }}</div>
+            <div class="v2-product-main__callout-copy-{{ section.id }}" id="V2ProductCalloutCopy-{{ section.id }}">{{ section.settings.callout_text }}</div>
           {%- endif -%}
         </div>
 
@@ -871,6 +871,7 @@
 
     var countEl = document.getElementById('V2ProductRevealCount-{{ section.id }}');
     var fillEl = document.getElementById('V2ProductRevealFill-{{ section.id }}');
+    var calloutCopyEl = document.getElementById('V2ProductCalloutCopy-{{ section.id }}');
     var buyBtn = root.querySelector('[data-iris-buy-button]');
     var errorEl = document.getElementById('V2ProductError-{{ section.id }}');
     var quantityEl = document.getElementById('V2ProductQuantity-{{ section.id }}');
@@ -904,8 +905,15 @@
       var editionSize = Number(data && data.collection && data.collection.edition_size) || 10000;
       if (countEl) countEl.textContent = total + ' of ' + editionSize.toLocaleString();
       if (fillEl) {
-        var width = Math.max(3, (total / editionSize) * 100);
-        fillEl.style.width = 'min(100%, max(3px, ' + width + '%))';
+        var progressPercent = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
+        fillEl.style.width = progressPercent + '%';
+        fillEl.style.minWidth = total > 0 ? '3px' : '0';
+      }
+      if (calloutCopyEl) {
+        calloutCopyEl.textContent = calloutCopyEl.textContent.replace(
+          /No two pieces.*?identical\.?/i,
+          'No two pieces in this collection of ' + editionSize.toLocaleString() + ' are identical.'
+        );
       }
     }
 
