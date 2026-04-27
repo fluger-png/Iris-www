@@ -36,10 +36,6 @@
     background: var(--surface);
   }
 
-  .v2-collab-{{ section.id }} .cc-section--full-lines {
-    border-bottom: 1px solid var(--border);
-  }
-
   .v2-collab-{{ section.id }} .cc-eyebrow {
     margin: 0 0 1.8rem;
     color: var(--gold-dim);
@@ -847,10 +843,6 @@
     border-top: 1px solid var(--border);
   }
 
-  .v2-collab-{{ section.id }} .cc-faq-item:last-child {
-    border-bottom: 1px solid var(--border);
-  }
-
   .v2-collab-{{ section.id }} .cc-faq-toggle {
     width: 100%;
     padding: 2.8rem 0;
@@ -1172,7 +1164,8 @@
     </div>
   </div>
 
-  <div class="cc-section page-width">
+  <div class="cc-section">
+    <div class="page-width">
     <p class="cc-eyebrow">Who This Is For</p>
     <h2 class="cc-title">Four types of <em>partners.</em><br>One platform.</h2>
 
@@ -1287,6 +1280,7 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <div class="cc-section cc-section--surface" id="CollaborateProcess-{{ section.id }}">
@@ -1328,7 +1322,8 @@
     </div>
   </div>
 
-  <div class="cc-section page-width">
+  <div class="cc-section">
+    <div class="page-width">
     <p class="cc-eyebrow">Edition Sizes</p>
     <h2 class="cc-title">Choose your <em>scale</em></h2>
     <div class="cc-grid-3">
@@ -1399,9 +1394,10 @@
         </div>
       </article>
     </div>
+    </div>
   </div>
 
-  <div class="cc-section cc-section--surface cc-section--full-lines">
+  <div class="cc-section cc-section--surface">
     <div class="page-width">
     <p class="cc-eyebrow">The Math</p>
     <div class="cc-math" style="margin-top:4rem;">
@@ -1459,7 +1455,8 @@
     </div>
   </div>
 
-  <div class="cc-section page-width">
+  <div class="cc-section">
+    <div class="page-width">
     <p class="cc-eyebrow">What IRIS Provides</p>
     <h2 class="cc-title">Everything you <em>don't</em><br>have to think about</h2>
     <div class="cc-grid-3">
@@ -1497,9 +1494,10 @@
         </ul>
       </article>
     </div>
+    </div>
   </div>
 
-  <div class="cc-section cc-section--surface cc-section--full-lines">
+  <div class="cc-section cc-section--surface">
     <div class="page-width">
     <p class="cc-eyebrow">FAQ</p>
     <h2 class="cc-title">Common <em>questions</em></h2>
@@ -1561,7 +1559,8 @@
     </div>
   </div>
 
-  <div class="cc-section page-width">
+  <div class="cc-section">
+    <div class="page-width">
     <div class="cc-apply" id="CollaborateApply-{{ section.id }}">
       <p class="cc-eyebrow">Apply</p>
       <h2 class="cc-title">Launch your edition.<br><em>Earn from every reveal.</em></h2>
@@ -1622,6 +1621,7 @@
           </div>
         </div>
       {%- endform -%}
+    </div>
     </div>
   </div>
 </section>
