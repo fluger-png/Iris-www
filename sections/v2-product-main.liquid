@@ -200,14 +200,9 @@
   .v2-product-main__progress-bar-{{ section.id }} {
     position: relative;
     height: 4px;
-    background:
-      repeating-linear-gradient(
-        to right,
-        #1D1C1B 0,
-        #1D1C1B calc(1% - 1px),
-        #000 calc(1% - 1px),
-        #000 1%
-      );
+    background-color: #1D1C1B;
+    background-image: linear-gradient(to right, #000 1px, transparent 1px);
+    background-size: var(--v2-product-segment-width, 5px) 100%;
     overflow: visible;
   }
 
@@ -217,14 +212,9 @@
     top: 0;
     height: 4px;
     width: 0;
-    background:
-      repeating-linear-gradient(
-        to right,
-        var(--v2-product-gold) 0,
-        var(--v2-product-gold) calc(1% - 1px),
-        #000 calc(1% - 1px),
-        #000 1%
-      );
+    background-color: var(--v2-product-gold);
+    background-image: linear-gradient(to right, #000 1px, transparent 1px);
+    background-size: var(--v2-product-segment-width, 5px) 100%;
   }
 
   .v2-product-main__price-card-{{ section.id }} {
@@ -923,6 +913,9 @@
         var barWidth = barEl.getBoundingClientRect().width || 0;
         var segmentWidth = editionSize > 0 ? (barWidth / editionSize) : 0;
         var fillWidthPx = total > 0 ? Math.max(segmentWidth, (barWidth * progressPercent / 100)) : 0;
+        var segmentWidthPx = segmentWidth > 0 ? segmentWidth + 'px' : '5px';
+        barEl.style.setProperty('--v2-product-segment-width', segmentWidthPx);
+        fillEl.style.setProperty('--v2-product-segment-width', segmentWidthPx);
         fillEl.style.width = fillWidthPx > 0 ? fillWidthPx + 'px' : '0';
       }
       if (calloutCopyEl) {
