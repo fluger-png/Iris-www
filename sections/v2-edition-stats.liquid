@@ -68,7 +68,7 @@
   .v2-edition-stats__track-{{ section.id }} {
     position: relative;
     height: 3px;
-    background: rgba(255, 255, 255, 0.08);
+    background: #1D1C1B;
   }
 
   .v2-edition-stats__fill-{{ section.id }} {
@@ -76,10 +76,11 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: {{ section.settings.progress_percent }}%;
-    background: linear-gradient(90deg, var(--v2-gold-dim), var(--v2-gold));
-    box-shadow: 0 0 12px rgba(201, 168, 76, 0.28);
+    width: 0;
+    background: transparent;
+    box-shadow: none;
     min-width: 0;
+    opacity: 0;
   }
 
   .v2-edition-stats__marker-{{ section.id }} {
@@ -187,6 +188,7 @@
     var revealedCount = root.querySelector('[data-v2-revealed-count]');
     var revealedLabel = root.querySelector('[data-v2-revealed-label]');
     var revealedFill = root.querySelector('[data-v2-revealed-fill]');
+    var revealedTrack = root.querySelector('.v2-edition-stats__track-{{ section.id }}');
     var totalEditions = 10000;
 
     fetch('/apps/iris/seen-archive?limit=1&collection=iris-the-unseen-edition', {
@@ -211,10 +213,16 @@
           revealedLabel.textContent = totalCount.toLocaleString('en-US') + ' of ' + totalEditions.toLocaleString('en-US');
         }
 
-        if (revealedFill) {
+        if (revealedTrack) {
           var percent = Math.max(0, Math.min(100, (totalCount / totalEditions) * 100));
-          revealedFill.style.width = percent + '%';
-          revealedFill.style.minWidth = totalCount > 0 ? '3px' : '0';
+          var visiblePercent = totalCount > 0 ? Math.max(percent, 1) : 0;
+          revealedTrack.style.background = visiblePercent > 0
+            ? 'linear-gradient(to right, #C9A84C 0%, #C9A84C ' + visiblePercent + '%, #1D1C1B ' + visiblePercent + '%, #1D1C1B 100%)'
+            : '#1D1C1B';
+        }
+
+        if (revealedFill) {
+          revealedFill.style.width = '0';
         }
       })
       .catch(function () {});
