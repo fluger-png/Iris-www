@@ -797,6 +797,8 @@
             class="v2-product-main__button-{{ section.id }}"
             data-iris-buy-button
             data-variant-id="{{ current_variant.id }}"
+            data-product-id="{{ product.id }}"
+            data-product-handle="{{ product.handle }}"
             {% unless current_variant and current_variant.available %}disabled{% endunless %}
           >
             {%- if current_variant and current_variant.available -%}
@@ -922,6 +924,8 @@
 
     buyBtn.addEventListener('click', function () {
       var variantId = buyBtn.getAttribute('data-variant-id');
+      var productId = buyBtn.getAttribute('data-product-id');
+      var productHandle = buyBtn.getAttribute('data-product-handle');
       if (!variantId || buyBtn.disabled) return;
       var quantity = quantityEl ? normalizeQuantity(quantityEl.value) : 1;
 
@@ -934,7 +938,11 @@
       function reserveOne() {
         return fetch('/apps/iris/reserve-random', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            product_id: productId,
+            product_handle: productHandle
+          })
         })
           .then(function (res) {
             if (!res.ok) throw new Error('reserve_failed');

@@ -52,7 +52,11 @@
       function reserveOne() {
         return fetch('/apps/iris/reserve-random', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            product_id: container.getAttribute('data-product-id'),
+            product_handle: container.getAttribute('data-product-handle')
+          })
         }).then(function (res) {
           if (!res.ok) throw new Error('reserve_failed');
           return res.json();

@@ -108,7 +108,7 @@
         {%- endunless -%}
 
    {%- if is_iris_template -%}
-  <div class="iris-randomize" data-iris-randomize data-iris-max="10" style="margin-top: 12px;">
+  <div class="iris-randomize" data-iris-randomize data-iris-max="10" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}" style="margin-top: 12px;">
     <button type="button" class="button button--secondary" data-iris-randomize-button>
       Reveal a Random IRIS
     </button>
@@ -184,7 +184,11 @@
       function reserveOne() {
         return fetch('/apps/iris/reserve-random', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            product_id: container.getAttribute('data-product-id'),
+            product_handle: container.getAttribute('data-product-handle')
+          })
         }).then(function (res) {
           if (!res.ok) throw new Error('reserve_failed');
           return res.json();
