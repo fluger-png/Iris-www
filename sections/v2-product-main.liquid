@@ -199,8 +199,15 @@
 
   .v2-product-main__progress-bar-{{ section.id }} {
     position: relative;
-    height: 1px;
-    background: rgba(237, 232, 223, 0.12);
+    height: 4px;
+    background:
+      repeating-linear-gradient(
+        to right,
+        #1D1C1B 0,
+        #1D1C1B calc(1% - 1px),
+        transparent calc(1% - 1px),
+        transparent 1%
+      );
     overflow: visible;
   }
 
@@ -208,10 +215,16 @@
     position: absolute;
     left: 0;
     top: 0;
-    height: 1px;
-    min-width: 3px;
+    height: 4px;
     width: 0;
-    background: var(--v2-product-gold);
+    background:
+      repeating-linear-gradient(
+        to right,
+        var(--v2-product-gold) 0,
+        var(--v2-product-gold) calc(1% - 1px),
+        transparent calc(1% - 1px),
+        transparent 1%
+      );
   }
 
   .v2-product-main__price-card-{{ section.id }} {
