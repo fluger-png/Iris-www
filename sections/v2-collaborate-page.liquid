@@ -1254,7 +1254,7 @@
           <div class="cc-tab-math__big" data-collab-private-total>$—</div>
           <div class="cc-tab-math__small" data-collab-private-line>Current cost per unit: $— · 100 pieces minimum · Upfront invoice = cost × quantity</div>
           <div style="margin-top:auto; padding-top:2.8rem; border-top:1px solid var(--border);" class="cc-tab-math__small">
-            <strong style="display:block; color:var(--text); font-weight:400; margin-bottom:1rem;">Current cost per unit <span data-collab-cost>$—</span></strong>
+            <strong style="display:block; color:var(--text); font-weight:400; margin-bottom:1rem;">Current cost per unit <span data-collab-private-cost>$—</span></strong>
             Private editions are invoiced before production begins<br>
             IRIS does not list them publicly<br>
             You keep 100% of downstream sales revenue
@@ -1712,7 +1712,8 @@
       var artistTotal = publicTotal(100, 0.70);
       var studioTotal = publicTotal(1000, 0.75);
       var galleryTotal = publicTotal(10000, 0.80);
-      var privateMinimum = costPerUnit * 100;
+      var privateUnitPrice = 100;
+      var privateMinimum = privateUnitPrice * 100;
 
       setAll('[data-collab-gold-price]', money(gold, 2));
       setAll('[data-collab-cost]', money(costPerUnit, 2));
@@ -1721,6 +1722,7 @@
       setAll('[data-collab-studio-total]', 'from ' + coarseMoney(studioTotal));
       setAll('[data-collab-gallery-total]', 'from ' + coarseMoney(galleryTotal));
       setAll('[data-collab-private-total]', wholeMoney(privateMinimum));
+      setAll('[data-collab-private-cost]', wholeMoney(privateUnitPrice));
       setAll('[data-tier-artist-total]', 'from ' + coarseMoney(artistTotal));
       setAll('[data-tier-studio-total]', 'from ' + coarseMoney(studioTotal));
       setAll('[data-tier-gallery-total]', 'from ' + coarseMoney(galleryTotal));
@@ -1728,7 +1730,7 @@
       setAll('[data-collab-artist-line]', 'Current minimum price: ' + wholeMoney(displayMin) + ' (excl. tax) · 100 pieces · Artist earns 70% of the margin');
       setAll('[data-collab-studio-line]', 'Current minimum price: ' + wholeMoney(displayMin) + ' (excl. tax) · 1,000 pieces · Studio earns 75% of the margin');
       setAll('[data-collab-gallery-line]', 'Current minimum price: ' + wholeMoney(displayMin) + ' (excl. tax) · 10,000 pieces · Gallery earns 80% of the margin');
-      setAll('[data-collab-private-line]', 'Current cost per unit: ' + money(costPerUnit, 2) + ' · 100 pieces minimum · Upfront invoice = cost × quantity');
+      setAll('[data-collab-private-line]', 'Current cost per unit: ' + wholeMoney(privateUnitPrice) + ' · 100 pieces minimum · Upfront invoice = cost × quantity');
     }
 
     function fetchPrice() {
