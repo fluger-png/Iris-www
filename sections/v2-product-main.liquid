@@ -204,16 +204,6 @@
     overflow: hidden;
   }
 
-  .v2-product-main__progress-bar-{{ section.id }}::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(to right, transparent 0, transparent calc(100% - 1px), #000 calc(100% - 1px), #000 100%);
-    background-size: var(--v2-product-segment-width, 5px) 100%;
-    pointer-events: none;
-    z-index: 2;
-  }
-
   .v2-product-main__progress-fill-{{ section.id }} {
     position: absolute;
     left: 0;
@@ -221,7 +211,6 @@
     height: 4px;
     width: 0;
     background: var(--v2-product-gold);
-    z-index: 1;
   }
 
   .v2-product-main__price-card-{{ section.id }} {
@@ -917,13 +906,7 @@
       if (countEl) countEl.textContent = total + ' of ' + editionSize.toLocaleString();
       if (fillEl && barEl) {
         var progressPercent = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
-        var barWidth = barEl.getBoundingClientRect().width || 0;
-        var segmentWidth = editionSize > 0 ? (barWidth / editionSize) : 0;
-        var fillWidthPx = total > 0 ? Math.max(segmentWidth, (barWidth * progressPercent / 100)) : 0;
-        var segmentWidthPx = segmentWidth > 0 ? segmentWidth + 'px' : '5px';
-        barEl.style.setProperty('--v2-product-segment-width', segmentWidthPx);
-        fillEl.style.setProperty('--v2-product-segment-width', segmentWidthPx);
-        fillEl.style.width = fillWidthPx > 0 ? fillWidthPx + 'px' : '0';
+        fillEl.style.width = progressPercent + '%';
       }
       if (calloutCopyEl) {
         if (editionSize <= 100) {
