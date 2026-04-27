@@ -369,6 +369,14 @@
     color: var(--gold);
   }
 
+  .v2-collab-{{ section.id }} .cc-tab-math__specs {
+    color: var(--text);
+    font-family: var(--font-heading-family);
+    font-size: 1.9rem;
+    line-height: 1.5;
+    margin-top: 0.2rem;
+  }
+
   .v2-collab-{{ section.id }} .cc-tab-math__small {
     color: var(--text-dim);
     font-family: var(--font-body-family);
@@ -1039,6 +1047,15 @@
       padding-bottom: 5rem;
     }
 
+    .v2-collab-{{ section.id }} .cc-hero .cc-title {
+      font-size: clamp(3.4rem, 13vw, 6.2rem);
+      line-height: 0.98;
+    }
+
+    .v2-collab-{{ section.id }} .cc-hero .cc-title em {
+      white-space: nowrap;
+    }
+
     .v2-collab-{{ section.id }} .cc-button-row {
       flex-direction: column;
     }
@@ -1177,8 +1194,9 @@
         </div>
         <div class="cc-tab-math">
           <div class="cc-eyebrow" style="margin-bottom:1.6rem;">Artist Package</div>
+          <div class="cc-tab-math__specs" data-collab-artist-specs>1 artwork · 100 pieces</div>
           <div class="cc-tab-math__big" data-collab-artist-total>$—</div>
-          <div class="cc-tab-math__small" data-collab-artist-line>Current minimum price: $— (excl. tax) · 100 pieces · Artist earns 70% of the margin</div>
+          <div class="cc-tab-math__small" data-collab-artist-line>At current minimum price: $— (excl. tax)</div>
           <div style="margin-top:auto; padding-top:2.8rem; border-top:1px solid var(--border);" class="cc-tab-math__small">
             <strong style="display:block; color:var(--text); font-weight:400; margin-bottom:1rem;">Current minimum price <span data-collab-min-price>$—</span> <span style="color:var(--muted)">(excl. tax)</span></strong>
             Margin = listed price minus production cost<br>
@@ -1201,8 +1219,9 @@
         </div>
         <div class="cc-tab-math">
           <div class="cc-eyebrow" style="margin-bottom:1.6rem;">Studio Package</div>
+          <div class="cc-tab-math__specs" data-collab-studio-specs>10 artworks · 1,000 pieces</div>
           <div class="cc-tab-math__big" data-collab-studio-total>$—</div>
-          <div class="cc-tab-math__small" data-collab-studio-line>Current minimum price: $— (excl. tax) · 1,000 pieces · Studio earns 75% of the margin</div>
+          <div class="cc-tab-math__small" data-collab-studio-line>At current minimum price: $— (excl. tax)</div>
           <div style="margin-top:auto; padding-top:2.8rem; border-top:1px solid var(--border);" class="cc-tab-math__small">
             <strong style="display:block; color:var(--text); font-weight:400; margin-bottom:1rem;">Current minimum price <span data-collab-min-price>$—</span> <span style="color:var(--muted)">(excl. tax)</span></strong>
             Margin updates with live gold price<br>
@@ -1226,8 +1245,9 @@
         </div>
         <div class="cc-tab-math">
           <div class="cc-eyebrow" style="margin-bottom:1.6rem;">Gallery Package</div>
+          <div class="cc-tab-math__specs" data-collab-gallery-specs>100 artworks · 10,000 pieces</div>
           <div class="cc-tab-math__big" data-collab-gallery-total>$—</div>
-          <div class="cc-tab-math__small" data-collab-gallery-line>Current minimum price: $— (excl. tax) · 10,000 pieces · Gallery earns 80% of the margin</div>
+          <div class="cc-tab-math__small" data-collab-gallery-line>At current minimum price: $— (excl. tax)</div>
           <div style="margin-top:auto; padding-top:2.8rem; border-top:1px solid var(--border);" class="cc-tab-math__small">
             <strong style="display:block; color:var(--text); font-weight:400; margin-bottom:1rem;">$5,000 setup fee upfront</strong>
             Production costs are still recovered from sales<br>
@@ -1251,6 +1271,7 @@
         </div>
         <div class="cc-tab-math">
           <div class="cc-eyebrow" style="margin-bottom:1.6rem;">Private / Corporate</div>
+          <div class="cc-tab-math__specs" data-collab-private-specs>Any artwork count · Min. 100 pieces</div>
           <div class="cc-tab-math__big" data-collab-private-total>$—</div>
           <div class="cc-tab-math__small" data-collab-private-line>Current cost per unit: $— · 100 pieces minimum · Upfront invoice = cost × quantity</div>
           <div style="margin-top:auto; padding-top:2.8rem; border-top:1px solid var(--border);" class="cc-tab-math__small">
@@ -1339,6 +1360,7 @@
             <li>10 artworks</li>
             <li>$0 setup fee</li>
             <li>75 / 25 split (Partner / IRIS)</li>
+            <li>Dedicated partner landing page</li>
             <li>Public edition — costs recovered from sales</li>
           </ul>
           <div class="cc-tier__earnings">
@@ -1360,6 +1382,8 @@
             <li>100 artworks</li>
             <li>$5,000 setup fee</li>
             <li>80 / 20 split (Partner / IRIS)</li>
+            <li>Full branded microsite</li>
+            <li>Custom packaging design</li>
             <li>Public edition — production still recovered from sales</li>
           </ul>
           <div class="cc-tier__earnings">
@@ -1373,7 +1397,8 @@
     </div>
   </div>
 
-  <div class="cc-section cc-section--surface page-width">
+  <div class="cc-section cc-section--surface">
+    <div class="page-width">
     <p class="cc-eyebrow">The Math</p>
     <div class="cc-math" style="margin-top:4rem;">
       <div class="cc-math-card">
@@ -1427,6 +1452,7 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <div class="cc-section page-width">
@@ -1469,17 +1495,14 @@
     </div>
   </div>
 
-  <div class="cc-section cc-section--surface page-width">
+  <div class="cc-section cc-section--surface">
+    <div class="page-width">
     <p class="cc-eyebrow">FAQ</p>
     <h2 class="cc-title">Common <em>questions</em></h2>
     <div class="cc-faq">
       <div class="cc-faq-item">
         <button class="cc-faq-toggle" type="button"><span class="cc-faq-question">How is the minimum price calculated?</span><span class="cc-faq-plus">+</span></button>
         <div class="cc-faq-body"><div class="cc-faq-body__inner"><div class="cc-faq-answer">The minimum price is based on the live gold price and updates automatically. Each piece contains 0.4g of gold — combined with $20 in production costs, this gives a cost per unit. The minimum listed price is set at cost × 1.50, ensuring a 50% margin above production cost. Sales tax (16%) is added at checkout on top — it doesn't affect your earnings. You can always price above the minimum, and the higher you price, the more you earn per piece.</div></div></div>
-      </div>
-      <div class="cc-faq-item">
-        <button class="cc-faq-toggle" type="button"><span class="cc-faq-question">What is the 16% tax?</span><span class="cc-faq-plus">+</span></button>
-        <div class="cc-faq-body"><div class="cc-faq-body__inner"><div class="cc-faq-answer">It's a sales tax collected from the buyer at checkout — added on top of the listed price. It does not come out of your earnings. Your margin is calculated from your listed price minus production cost only. The tax goes directly to the government and is handled entirely by IRIS — you don't need to manage it.</div></div></div>
       </div>
       <div class="cc-faq-item">
         <button class="cc-faq-toggle" type="button"><span class="cc-faq-question">Can I set my own price?</span><span class="cc-faq-plus">+</span></button>
@@ -1517,6 +1540,7 @@
         <button class="cc-faq-toggle" type="button"><span class="cc-faq-question">What counts as 'net margin'?</span><span class="cc-faq-plus">+</span></button>
         <div class="cc-faq-body"><div class="cc-faq-body__inner"><div class="cc-faq-answer">Net margin is what's left after deducting the production cost per unit from your listed price. Your earnings are your package percentage of that margin. Tax is added at checkout and does not reduce your share. We never deduct anything else.</div></div></div>
       </div>
+    </div>
     </div>
   </div>
 
@@ -1718,10 +1742,15 @@
       setAll('[data-collab-gold-price]', money(gold, 2));
       setAll('[data-collab-cost]', money(costPerUnit, 2));
       setAll('[data-collab-min-price]', wholeMoney(displayMin));
+      setAll('[data-collab-artist-specs]', '1 artwork · 100 pieces');
+      setAll('[data-collab-studio-specs]', '10 artworks · 1,000 pieces');
+      setAll('[data-collab-gallery-specs]', '100 artworks · 10,000 pieces');
+      setAll('[data-collab-private-specs]', 'Any artwork count · Min. 100 pieces');
+
       setAll('[data-collab-artist-total]', 'from ' + coarseMoney(artistTotal));
       setAll('[data-collab-studio-total]', 'from ' + coarseMoney(studioTotal));
       setAll('[data-collab-gallery-total]', 'from ' + coarseMoney(galleryTotal));
-      setAll('[data-collab-private-total]', wholeMoney(privateMinimum));
+      setAll('[data-collab-private-total]', wholeMoney(privateUnitPrice));
       setAll('[data-collab-private-cost]', wholeMoney(privateUnitPrice));
       setAll('[data-tier-artist-total]', 'from ' + coarseMoney(artistTotal));
       setAll('[data-tier-studio-total]', 'from ' + coarseMoney(studioTotal));
