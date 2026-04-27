@@ -692,13 +692,10 @@
       </div>
 
       <div>
-        {%- if section.settings.eyebrow != blank -%}
-          <p class="v2-product-main__eyebrow-{{ section.id }}">{{ section.settings.eyebrow }}</p>
-        {%- endif -%}
+        {%- assign product_vendor_display = product.vendor | default: 'IRIS NYC' -%}
+        <p class="v2-product-main__eyebrow-{{ section.id }}">{{ product_vendor_display }} · Physical Collectible Art</p>
 
-        <h1 class="v2-product-main__title-{{ section.id }}">
-          {{ section.settings.title_line_1 }} <em>{{ section.settings.title_accent }}</em> {{ section.settings.title_line_2 }}
-        </h1>
+        <h1 class="v2-product-main__title-{{ section.id }}">{{ product.title }}</h1>
 
         {%- if section.settings.subtitle != blank -%}
           <p class="v2-product-main__subtitle-{{ section.id }}">{{ section.settings.subtitle }}</p>
@@ -706,7 +703,9 @@
 
         <div class="v2-product-main__divider-{{ section.id }}"></div>
 
-        {%- if section.settings.description != blank -%}
+        {%- if product.description != blank -%}
+          <div class="v2-product-main__description-{{ section.id }}">{{ product.description }}</div>
+        {%- elsif section.settings.description != blank -%}
           <div class="v2-product-main__description-{{ section.id }}">{{ section.settings.description }}</div>
         {%- endif -%}
 
@@ -722,7 +721,7 @@
         <div class="v2-product-main__progress-{{ section.id }}">
           <div class="v2-product-main__progress-row-{{ section.id }}">
             <span>{{ section.settings.progress_label }}</span>
-            <strong id="V2ProductRevealCount-{{ section.id }}">0 of 10,000</strong>
+            <strong id="V2ProductRevealCount-{{ section.id }}">—</strong>
           </div>
           <div class="v2-product-main__progress-bar-{{ section.id }}">
             <div class="v2-product-main__progress-fill-{{ section.id }}" id="V2ProductRevealFill-{{ section.id }}"></div>
@@ -900,25 +899,42 @@
       });
     }
 
-    fetch('/apps/iris/seen-archive?limit=1', {
-      headers: { Accept: 'application/json' },
-      cache: 'no-store'
-    })
-      .then(function (response) {
-        if (!response.ok) throw new Error('bad_status');
-        return response.json();
+    function renderRevealStats(data) {
+      var total = Number(data && data.total_count) || 0;
+      var editionSize = Number(data && data.collection && data.collection.edition_size) || 10000;
+      if (countEl) countEl.textContent = total + ' of ' + editionSize.toLocaleString();
+      if (fillEl) {
+        var width = Math.max(3, (total / editionSize) * 100);
+        fillEl.style.width = 'min(100%, max(3px, ' + width + '%))';
+      }
+    }
+
+    function fetchRevealStats(url, allowFallback) {
+      return fetch(url, {
+        headers: { Accept: 'application/json' },
+        cache: 'no-store'
       })
-      .then(function (data) {
-        var total = Number(data && data.total_count) || 0;
-        if (countEl) countEl.textContent = total + ' of 10,000';
-        if (fillEl) {
-          var width = Math.max(3, (total / 10000) * 100);
-          fillEl.style.width = 'min(100%, max(3px, ' + width + '%))';
-        }
-      })
-      .catch(function () {
-        if (countEl) countEl.textContent = '—';
-      });
+        .then(function (response) {
+          if (!response.ok) {
+            if (allowFallback && response.status === 404) {
+              return fetchRevealStats('/apps/iris/seen-archive?limit=1', false);
+            }
+            throw new Error('bad_status');
+          }
+          return response.json();
+        })
+        .then(renderRevealStats);
+    }
+
+    var collectionHandle = '{{ product.handle | escape }}';
+    var archiveUrl = '/apps/iris/seen-archive?limit=1';
+    if (collectionHandle) {
+      archiveUrl += '&collection=' + encodeURIComponent(collectionHandle);
+    }
+
+    fetchRevealStats(archiveUrl, Boolean(collectionHandle)).catch(function () {
+      if (countEl) countEl.textContent = '—';
+    });
 
     if (!buyBtn) return;
 
