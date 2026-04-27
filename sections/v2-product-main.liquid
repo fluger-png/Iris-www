@@ -199,23 +199,22 @@
 
   .v2-product-main__progress-bar-{{ section.id }} {
     position: relative;
-    height: 6px;
+    height: 4px;
     background: #1D1C1B;
     overflow: hidden;
-    border-radius: 999px;
+    border-radius: 0;
   }
 
   .v2-product-main__progress-fill-{{ section.id }} {
     position: absolute;
     left: 0;
     top: 0;
-    height: 6px;
+    height: 4px;
     width: 0;
     background: #C9A84C;
     min-width: 0;
     transition: width 0.8s ease;
-    border-radius: 999px;
-    box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.35) inset;
+    border-radius: 0;
     opacity: 0;
     pointer-events: none;
   }
@@ -910,9 +909,6 @@
     function renderRevealStats(data) {
       var total = Number(data && data.total_count) || 0;
       var editionSize = Number(data && data.collection && data.collection.edition_size) || 10000;
-      if (collectionHandle === 'sayat-nova') {
-        total = Math.max(total, 20);
-      }
       if (countEl) countEl.textContent = total + ' of ' + editionSize.toLocaleString();
       if (fillEl && barEl) {
         var progressPercent = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
