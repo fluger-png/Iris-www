@@ -211,6 +211,9 @@
     height: 4px;
     width: 0;
     background: var(--v2-product-gold);
+    min-width: 0;
+    transition: width 0.8s ease;
+    border-radius: 0 2px 2px 0;
   }
 
   .v2-product-main__price-card-{{ section.id }} {
@@ -907,6 +910,7 @@
       if (fillEl && barEl) {
         var progressPercent = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
         fillEl.style.width = progressPercent + '%';
+        fillEl.style.minWidth = total > 0 ? '4px' : '0';
       }
       if (calloutCopyEl) {
         if (editionSize <= 100) {
