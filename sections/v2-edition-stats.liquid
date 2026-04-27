@@ -189,7 +189,7 @@
     var revealedFill = root.querySelector('[data-v2-revealed-fill]');
     var totalEditions = 10000;
 
-    fetch('/apps/iris/seen-archive?limit=1', {
+    fetch('/apps/iris/seen-archive?limit=1&collection=iris-the-unseen-edition', {
       headers: { Accept: 'application/json' },
       cache: 'no-store'
     })
@@ -199,7 +199,9 @@
       })
       .then(function (data) {
         var totalCount = Number(data && data.total_count ? data.total_count : 0);
+        var collectionEditions = Number(data && data.collection && data.collection.edition_size) || totalEditions;
         if (!Number.isFinite(totalCount)) return;
+        totalEditions = collectionEditions;
 
         if (revealedCount) {
           revealedCount.textContent = totalCount.toLocaleString('en-US');
