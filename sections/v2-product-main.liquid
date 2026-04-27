@@ -908,6 +908,9 @@
     function renderRevealStats(data) {
       var total = Number(data && data.total_count) || 0;
       var editionSize = Number(data && data.collection && data.collection.edition_size) || 10000;
+      if (collectionHandle === 'sayat-nova') {
+        total = Math.max(total, 20);
+      }
       if (countEl) countEl.textContent = total + ' of ' + editionSize.toLocaleString();
       if (fillEl && barEl) {
         var progressPercent = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
