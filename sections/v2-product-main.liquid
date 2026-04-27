@@ -736,7 +736,7 @@
             <span>{{ section.settings.progress_label }}</span>
             <strong id="V2ProductRevealCount-{{ section.id }}">—</strong>
           </div>
-          <div class="v2-product-main__progress-bar-{{ section.id }}">
+          <div class="v2-product-main__progress-bar-{{ section.id }}" id="V2ProductRevealBar-{{ section.id }}">
             <div class="v2-product-main__progress-fill-{{ section.id }}" id="V2ProductRevealFill-{{ section.id }}"></div>
           </div>
         </div>
@@ -883,6 +883,7 @@
     if (!root) return;
 
     var countEl = document.getElementById('V2ProductRevealCount-{{ section.id }}');
+    var barEl = document.getElementById('V2ProductRevealBar-{{ section.id }}');
     var fillEl = document.getElementById('V2ProductRevealFill-{{ section.id }}');
     var calloutCopyEl = document.getElementById('V2ProductCalloutCopy-{{ section.id }}');
     var buyBtn = root.querySelector('[data-iris-buy-button]');
@@ -917,10 +918,12 @@
       var total = Number(data && data.total_count) || 0;
       var editionSize = Number(data && data.collection && data.collection.edition_size) || 10000;
       if (countEl) countEl.textContent = total + ' of ' + editionSize.toLocaleString();
-      if (fillEl) {
+      if (fillEl && barEl) {
         var progressPercent = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
-        fillEl.style.width = progressPercent + '%';
-        fillEl.style.minWidth = total > 0 ? '5px' : '0';
+        var barWidth = barEl.getBoundingClientRect().width || 0;
+        var segmentWidth = editionSize > 0 ? (barWidth / editionSize) : 0;
+        var fillWidthPx = total > 0 ? Math.max(segmentWidth, (barWidth * progressPercent / 100)) : 0;
+        fillEl.style.width = fillWidthPx > 0 ? fillWidthPx + 'px' : '0';
       }
       if (calloutCopyEl) {
         if (editionSize <= 100) {
