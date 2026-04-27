@@ -586,46 +586,40 @@
     margin-top: 6rem;
   }
 
-  .v2-collab-{{ section.id }} .cc-math-card__bars {
-    margin-top: 3.6rem;
+  .v2-collab-{{ section.id }} .cc-math-card__stats {
+    margin-top: 3.2rem;
     display: grid;
-    gap: 2rem;
+    gap: 1.8rem;
   }
 
-  .v2-collab-{{ section.id }} .cc-math-card__bar-row {
-    display: grid;
-    grid-template-columns: 10rem 1fr;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  .v2-collab-{{ section.id }} .cc-math-card__track {
-    height: 4rem;
-    background: rgba(255,255,255,0.05);
-    overflow: hidden;
-  }
-
-  .v2-collab-{{ section.id }} .cc-math-card__fill {
-    height: 100%;
+  .v2-collab-{{ section.id }} .cc-math-card__stat {
+    min-height: 8.8rem;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
     display: flex;
-    align-items: center;
-    padding-left: 1.6rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1.8rem 2.2rem;
+  }
+
+  .v2-collab-{{ section.id }} .cc-math-card__label {
+    color: var(--text);
     font-family: var(--font-body-family);
-    font-size: 1rem;
-    letter-spacing: 0.14rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.16rem;
     text-transform: uppercase;
   }
 
-  .v2-collab-{{ section.id }} .cc-math-card__fill--you {
-    width: 70%;
-    background: linear-gradient(to right, var(--gold-dim), var(--gold));
-    color: var(--black);
+  .v2-collab-{{ section.id }} .cc-math-card__value {
+    margin-top: 0.8rem;
+    font-family: var(--font-heading-family);
+    font-size: 3.2rem;
+    line-height: 1;
   }
 
-  .v2-collab-{{ section.id }} .cc-math-card__fill--iris {
-    width: 30%;
-    background: rgba(255,255,255,0.08);
-    color: var(--text-mid);
+  .v2-collab-{{ section.id }} .cc-math-card__value--gold {
+    color: var(--gold);
   }
 
   .v2-collab-{{ section.id }} .cc-math-card__footer {
@@ -638,45 +632,6 @@
     letter-spacing: 0.14rem;
     text-transform: uppercase;
     line-height: 1.9;
-  }
-
-  .v2-collab-{{ section.id }} .cc-math-cases {
-    margin-top: 4rem;
-    display: grid;
-    gap: 0.2rem;
-  }
-
-  .v2-collab-{{ section.id }} .cc-math-case {
-    padding: 2.8rem 3.2rem;
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,0.015);
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  .v2-collab-{{ section.id }} .cc-math-case__left {
-    color: var(--text);
-    font-family: var(--font-heading-family);
-    font-size: 1.9rem;
-  }
-
-  .v2-collab-{{ section.id }} .cc-math-case__meta {
-    margin-top: 0.8rem;
-    color: var(--text-dim);
-    font-family: var(--font-body-family);
-    font-size: 0.9rem;
-    letter-spacing: 0.14rem;
-    text-transform: uppercase;
-    line-height: 1.7;
-  }
-
-  .v2-collab-{{ section.id }} .cc-math-case__value {
-    color: var(--gold);
-    font-family: var(--font-heading-family);
-    font-size: 3rem;
-    white-space: nowrap;
   }
 
   .v2-collab-{{ section.id }} .cc-support-card__icon {
@@ -1086,11 +1041,6 @@
       margin: -2.4rem -2.4rem 2rem auto;
     }
 
-    .v2-collab-{{ section.id }} .cc-math-case {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
     .v2-collab-{{ section.id }} .cc-form-input,
     .v2-collab-{{ section.id }} .cc-form-select {
       padding-left: 2rem;
@@ -1403,21 +1353,19 @@
     <div class="cc-math" style="margin-top:4rem;">
       <div class="cc-math-card">
         <div class="cc-math-card__eyebrow">Live gold-linked production</div>
-        <div class="cc-math-card__bars">
-          <div class="cc-math-card__bar-row">
-            <div class="cc-form-label">Gold price / g</div>
-            <div class="cc-math-card__track"><div class="cc-math-card__fill cc-math-card__fill--you"><span data-collab-gold-price>$—</span></div></div>
+        <div class="cc-math-card__stats">
+          <div class="cc-math-card__stat">
+            <div class="cc-math-card__label">Gold price / g</div>
+            <div class="cc-math-card__value cc-math-card__value--gold" data-collab-gold-price>$—</div>
           </div>
-          <div class="cc-math-card__bar-row">
-            <div class="cc-form-label">Cost per unit</div>
-            <div class="cc-math-card__track"><div class="cc-math-card__fill cc-math-card__fill--iris"><span data-collab-cost>$—</span></div></div>
+          <div class="cc-math-card__stat">
+            <div class="cc-math-card__label">Cost per unit</div>
+            <div class="cc-math-card__value" data-collab-cost>$—</div>
           </div>
         </div>
         <div class="cc-math-card__footer">
           gold_cost = 0.4 × live gold price<br>
-          production_cost = $20.00<br>
-          cost_per_unit = gold_cost + production_cost<br>
-          <strong style="color:var(--gold-light)">Minimum listed price = cost × 1.50</strong>
+          production_cost = $20.00
         </div>
       </div>
 
@@ -1427,29 +1375,6 @@
         <div class="cc-copy" style="margin-top:2rem; max-width:62rem;">Current minimum price: <strong style="color:var(--text)"><span data-collab-min-price>$—</span></strong> (excl. tax) — this is the lowest listed price at which a partner may sell a piece.</div>
         <div class="cc-copy" style="margin-top:2rem; max-width:62rem;">For public editions, you set your price at or above the current minimum. Sales tax (16%) is added at checkout on top of your listed price. Production cost is deducted from your listed price to calculate margin, and the remaining margin is then split according to your package tier.</div>
         <div class="cc-copy" style="margin-top:2rem; max-width:62rem;">Margin = your listed price minus production cost<br>Your earnings = margin × your package percentage<br>Tax = collected from the buyer at checkout, does not affect your margin</div>
-        <div class="cc-math-cases">
-          <div class="cc-math-case">
-            <div>
-              <div class="cc-math-case__left">Artist · 100 pieces at <span data-collab-min-price>$—</span> (excl. tax)</div>
-              <div class="cc-math-case__meta">Tax added at checkout separately · Artist keeps 70% of the margin</div>
-            </div>
-            <div class="cc-math-case__value" data-tier-artist-total>$—</div>
-          </div>
-          <div class="cc-math-case">
-            <div>
-              <div class="cc-math-case__left">Studio · 1,000 pieces at <span data-collab-min-price>$—</span> (excl. tax)</div>
-              <div class="cc-math-case__meta">Production recovered from sales · Studio keeps 75% of the margin</div>
-            </div>
-            <div class="cc-math-case__value" data-tier-studio-total>$—</div>
-          </div>
-          <div class="cc-math-case">
-            <div>
-              <div class="cc-math-case__left">Gallery · 10,000 pieces at <span data-collab-min-price>$—</span> (excl. tax)</div>
-              <div class="cc-math-case__meta">Plus $5,000 setup fee · Gallery keeps 80% of the margin</div>
-            </div>
-            <div class="cc-math-case__value" data-tier-gallery-total>$—</div>
-          </div>
-        </div>
       </div>
     </div>
     </div>
