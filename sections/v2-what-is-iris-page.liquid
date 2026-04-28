@@ -119,6 +119,11 @@
     font-weight: 400;
     line-height: 0.93;
     letter-spacing: -0.22rem;
+    max-width: 100%;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    text-wrap: balance;
   }
 
   .v2-what-is-iris__hero-title-{{ section.id }} em {
@@ -136,6 +141,10 @@
     font-size: clamp(2rem, 2.1vw, 3rem);
     font-style: italic;
     line-height: 1.62;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    text-wrap: pretty;
   }
 
   .v2-what-is-iris__hero-specs-{{ section.id }} {
@@ -984,12 +993,15 @@
     }
 
     .v2-what-is-iris__hero-title-{{ section.id }} {
-      font-size: clamp(4.8rem, 16vw, 8rem);
-      letter-spacing: -0.1rem;
+      font-size: clamp(3.2rem, 11.4vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.06rem;
+      text-wrap: pretty;
     }
 
     .v2-what-is-iris__hero-body-{{ section.id }} {
-      font-size: 1.8rem;
+      font-size: 1.62rem;
+      line-height: 1.62;
     }
 
     .v2-what-is-iris__split-title-{{ section.id }},
