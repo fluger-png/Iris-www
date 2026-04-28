@@ -209,6 +209,18 @@
     background: var(--wis-ink);
   }
 
+  .v2-what-is-iris__identity-shell-{{ section.id }}.is-empty {
+    grid-template-columns: 1fr;
+  }
+
+  .v2-what-is-iris__identity-shell-{{ section.id }}.is-empty .v2-what-is-iris__split-left-{{ section.id }} {
+    border-right: 0;
+  }
+
+  .v2-what-is-iris__identity-shell-{{ section.id }}.is-empty .v2-what-is-iris__identity-visual-{{ section.id }} {
+    display: none;
+  }
+
   .v2-what-is-iris__split-left-{{ section.id }},
   .v2-what-is-iris__split-right-copy-{{ section.id }} {
     padding: 13rem 6rem;
@@ -693,6 +705,10 @@
       grid-template-columns: 1fr;
     }
 
+    .v2-what-is-iris__identity-shell-{{ section.id }}.is-empty {
+      grid-template-columns: 1fr;
+    }
+
     .v2-what-is-iris__split-left-{{ section.id }},
     .v2-what-is-iris__aesthetics-left-{{ section.id }} {
       border-right: 0;
@@ -900,40 +916,38 @@
 
       <div class="v2-what-is-iris__split-right-copy-{{ section.id }}">
         <span class="v2-what-is-iris__label-{{ section.id }}">II — The gold</span>
-        <h2 class="v2-what-is-iris__split-title-{{ section.id }}">0.4 grams of real gold.<br>Inside every piece.</h2>
+        <h2 class="v2-what-is-iris__split-title-{{ section.id }}">Every IRIS contains 0.4 grams of physical gold.</h2>
         <div class="v2-what-is-iris__copy-{{ section.id }}">
           <p>Each IRIS contains 0.4 grams of physical gold embedded into the artwork itself. Gold has held value for five thousand years. Hang it on your wall, place it on a shelf, or keep it with the things you consider worth keeping. Either way, the gold is there.</p>
         </div>
       </div>
     </section>
 
-    <section class="v2-what-is-iris__split-{{ section.id }}">
+    <section class="v2-what-is-iris__split-{{ section.id }} v2-what-is-iris__identity-shell-{{ section.id }}" id="V2WhatIsIrisIdentitySection-{{ section.id }}">
       <div class="v2-what-is-iris__split-left-{{ section.id }}">
         <span class="v2-what-is-iris__label-{{ section.id }}">III — Identity &amp; Archive</span>
-        <h2 class="v2-what-is-iris__split-title-{{ section.id }}">Every piece<br>knows<br><span class="v2-what-is-iris__gold-em-{{ section.id }}">who it belongs to.</span></h2>
+        <h2 class="v2-what-is-iris__split-title-{{ section.id }}">Scan it. It becomes yours.</h2>
         <div class="v2-what-is-iris__copy-{{ section.id }}">
-          <p>Inside the frame, an NFC chip. The moment you scan it, your piece awakens — its number, its artwork, its rarity, its position in the collection. All revealed at once.</p>
-          <p>That activation is permanent. Your number enters the IRIS archive — a public record of every piece that has ever been revealed. It stays there. Forever.</p>
-          <p>The archive is not a blockchain. It is a living registry — every scan, every owner, every city. A growing history of where IRIS pieces exist in the world.</p>
+          <p>Every IRIS ships sealed. Inside the frame, an NFC chip. When you scan it, the piece identifies itself — artwork, number, rarity. First time anyone sees it. That scan also registers your piece as authentic. It enters the archive. From that moment, it has a record, a place, an owner.</p>
         </div>
       </div>
 
-      <div class="v2-what-is-iris__identity-visual-{{ section.id }}">
-        <div class="v2-what-is-iris__card-{{ section.id }}">
-          <div class="v2-what-is-iris__card-label-{{ section.id }}">Activation · live</div>
-          <div class="v2-what-is-iris__card-title-{{ section.id }}">&quot;Untitled Study #7&quot;</div>
-          <div class="v2-what-is-iris__card-meta-{{ section.id }}">IRIS #0047 · Edition of 100 · Rare</div>
-          <div class="v2-what-is-iris__card-body-{{ section.id }}">Activated April 27, 2026 · Brooklyn, New York<br>Owner record created · Certificate issued</div>
-          <div class="v2-what-is-iris__scan-{{ section.id }}"><div class="v2-what-is-iris__scan-dot-{{ section.id }}"></div><div class="v2-what-is-iris__scan-label-{{ section.id }}">Archived</div></div>
+      <div class="v2-what-is-iris__identity-visual-{{ section.id }}" id="V2WhatIsIrisIdentityVisual-{{ section.id }}" hidden>
+        <div class="v2-what-is-iris__card-{{ section.id }}" id="V2WhatIsIrisLatestCard-{{ section.id }}">
+          <div class="v2-what-is-iris__card-label-{{ section.id }}">Latest activation</div>
+          <div class="v2-what-is-iris__card-title-{{ section.id }}" id="V2WhatIsIrisLatestTitle-{{ section.id }}">IRIS #0000</div>
+          <div class="v2-what-is-iris__card-meta-{{ section.id }}" id="V2WhatIsIrisLatestMeta-{{ section.id }}">Activated · New York, United States</div>
+          <div class="v2-what-is-iris__card-body-{{ section.id }}" id="V2WhatIsIrisLatestBody-{{ section.id }}">The latest revealed piece now lives in the archive.</div>
+          <div class="v2-what-is-iris__scan-{{ section.id }}"><div class="v2-what-is-iris__scan-dot-{{ section.id }}"></div><div class="v2-what-is-iris__scan-label-{{ section.id }}" id="V2WhatIsIrisLatestStatus-{{ section.id }}">Archived</div></div>
         </div>
 
-        <div class="v2-what-is-iris__card-{{ section.id }} v2-what-is-iris__archive-card-{{ section.id }}">
-          <div class="v2-what-is-iris__card-label-{{ section.id }}">Revealed Archive · Recent</div>
-          <div class="v2-what-is-iris__archive-row-{{ section.id }}"><div>IRIS #0031</div><div><span>London, UK</span></div></div>
-          <div class="v2-what-is-iris__archive-row-{{ section.id }}"><div>IRIS #0089</div><div><span>Tokyo, Japan</span></div></div>
-          <div class="v2-what-is-iris__archive-row-{{ section.id }}"><div>IRIS #0012</div><div><span>Paris, France</span></div></div>
-          <div class="v2-what-is-iris__archive-row-{{ section.id }}"><div>IRIS #0063</div><div><span>São Paulo, Brazil</span></div></div>
-          <div class="v2-what-is-iris__archive-row-{{ section.id }}"><div style="color:var(--wis-dim)">27 more…</div><div><span style="color:var(--wis-dim)">12 countries</span></div></div>
+        <div class="v2-what-is-iris__card-{{ section.id }} v2-what-is-iris__archive-card-{{ section.id }}" id="V2WhatIsIrisArchiveCard-{{ section.id }}">
+          <div class="v2-what-is-iris__card-label-{{ section.id }}">Revealed archive · Recent</div>
+          <div id="V2WhatIsIrisArchiveRows-{{ section.id }}"></div>
+          <div class="v2-what-is-iris__archive-row-{{ section.id }}">
+            <div id="V2WhatIsIrisArchiveMore-{{ section.id }}" style="color:var(--wis-dim)">0 more…</div>
+            <div><span id="V2WhatIsIrisArchiveCountries-{{ section.id }}" style="color:var(--wis-dim)">0 countries</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -941,55 +955,25 @@
     <section class="v2-what-is-iris__reveal-{{ section.id }}">
       <div class="v2-what-is-iris__reveal-watermark-{{ section.id }}">IRIS</div>
       <span class="v2-what-is-iris__label-{{ section.id }}" style="display:block;margin-bottom:3.2rem;">IV — The reveal</span>
-      <h2 class="v2-what-is-iris__reveal-title-{{ section.id }}">You don&#39;t choose.<br><em>You receive.</em></h2>
+      <h2 class="v2-what-is-iris__reveal-title-{{ section.id }}">You don&#39;t know what you have until you open it.</h2>
       <div class="v2-what-is-iris__reveal-rule-{{ section.id }}"></div>
-      <p class="v2-what-is-iris__reveal-body-{{ section.id }}">Your piece is assigned before you purchase it. Its number, its artwork, its rarity — already decided. The moment you scan the chip is the moment it becomes yours. Not before.</p>
+      <p class="v2-what-is-iris__reveal-body-{{ section.id }}">Every piece is assigned before anyone buys it. The artwork, the number, the rarity — all set. When you purchase, you get a sealed frame.</p>
 
       <div class="v2-what-is-iris__reveal-steps-{{ section.id }}">
         <div class="v2-what-is-iris__reveal-step-{{ section.id }}">
           <div class="v2-what-is-iris__reveal-num-{{ section.id }}">01</div>
-          <div class="v2-what-is-iris__reveal-step-title-{{ section.id }}">You purchase</div>
+          <div class="v2-what-is-iris__reveal-step-title-{{ section.id }}">You receive</div>
           <p>Your piece is sealed. Its identity is assigned — but invisible. You receive a numbered, sealed IRIS delivered to your door.</p>
         </div>
         <div class="v2-what-is-iris__reveal-step-{{ section.id }} v2-what-is-iris__reveal-step-{{ section.id }}--highlight">
           <div class="v2-what-is-iris__reveal-num-{{ section.id }}">02</div>
           <div class="v2-what-is-iris__reveal-step-title-{{ section.id }}">You scan</div>
-          <p>Hold your phone to the NFC chip. In that single moment — artwork, number, rarity, archive entry. Everything at once. This is the moment.</p>
+          <p>Hold your phone to the NFC chip and enter your unique PIN code. In that single moment — artwork, number, rarity, archive entry. Everything at once. This is the moment.</p>
         </div>
         <div class="v2-what-is-iris__reveal-step-{{ section.id }}">
           <div class="v2-what-is-iris__reveal-num-{{ section.id }}">03</div>
           <div class="v2-what-is-iris__reveal-step-title-{{ section.id }}">It is yours</div>
-          <p>Your piece enters the permanent archive under your name. Its record cannot be altered. The number belongs to you — and only to you.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="v2-what-is-iris__aesthetics-{{ section.id }}">
-      <div class="v2-what-is-iris__aesthetics-left-{{ section.id }}">
-        <span class="v2-what-is-iris__label-{{ section.id }}">V — The aesthetic</span>
-        <h2 class="v2-what-is-iris__section-title-{{ section.id }}">An art object.<br>Not a<br><span class="v2-what-is-iris__gold-em-{{ section.id }}">commodity.</span></h2>
-        <div class="v2-what-is-iris__copy-{{ section.id }}">
-          <p>IRIS exists at the intersection of contemporary art, material craft, and collected value. Each edition is built around a body of work — a specific artist, a specific vision, a specific moment in time.</p>
-          <p>The format is fixed. The 4×4 frame, the archival paper, the embedded gold — these are constants. What changes is the artwork inside. Every edition is different. Every piece within an edition is numbered.</p>
-        </div>
-      </div>
-
-      <div class="v2-what-is-iris__aesthetics-right-{{ section.id }}">
-        <div class="v2-what-is-iris__thought-{{ section.id }}">
-          <div class="v2-what-is-iris__thought-marker-{{ section.id }}">Permanence</div>
-          <p>In a world that moves faster than memory, IRIS is something you can hold. A fixed point. An object that does not update, does not expire, does not disappear from a server.</p>
-        </div>
-        <div class="v2-what-is-iris__thought-{{ section.id }}">
-          <div class="v2-what-is-iris__thought-marker-{{ section.id }}">Material value</div>
-          <p>The gold inside is not decorative. It is <em>weight</em> — a real material anchoring the work to something beyond aesthetic. You feel it when you hold it.</p>
-        </div>
-        <div class="v2-what-is-iris__thought-{{ section.id }}">
-          <div class="v2-what-is-iris__thought-marker-{{ section.id }}">Scarcity</div>
-          <p>Every edition has a fixed number of pieces. Once the edition is complete, <em>no more are produced.</em> The number on your piece is the only record of its place in the collection.</p>
-        </div>
-        <div class="v2-what-is-iris__thought-{{ section.id }}">
-          <div class="v2-what-is-iris__thought-marker-{{ section.id }}">Chance</div>
-          <p>You do not choose your artwork. You receive what was already yours. <em>Chance is only the name we give to fate before we recognise it.</em></p>
+          <p>Your piece enters the permanent archive under your name. Its record cannot be altered. The number belongs to you.</p>
         </div>
       </div>
     </section>
@@ -997,32 +981,9 @@
     <section class="v2-what-is-iris__collab-{{ section.id }}">
       <div class="v2-what-is-iris__collab-header-{{ section.id }}">
         <span class="v2-what-is-iris__label-{{ section.id }}">VI — An open platform</span>
-        <h2 class="v2-what-is-iris__section-title-{{ section.id }}">IRIS is a format.<br><span class="v2-what-is-iris__gold-em-{{ section.id }}">Any artist can use it.</span></h2>
+        <h2 class="v2-what-is-iris__section-title-{{ section.id }}">IRIS is a platform. Open to any artist.</h2>
         <div class="v2-what-is-iris__copy-{{ section.id }}">
-          <p>The IRIS object — the format, the gold, the NFC, the archive — is a platform. Artists, galleries, studios, and brands can launch their own IRIS edition. The infrastructure is ours. The artwork is theirs.</p>
-        </div>
-      </div>
-
-      <div class="v2-what-is-iris__collab-grid-{{ section.id }}">
-        <div class="v2-what-is-iris__collab-card-{{ section.id }} v2-what-is-iris__collab-card--featured-{{ section.id }}">
-          <div class="v2-what-is-iris__collab-icon-{{ section.id }}">◈</div>
-          <div class="v2-what-is-iris__collab-card-title-{{ section.id }}">Artists</div>
-          <p>1 artwork · 100 pieces · no upfront cost. Launch your edition and earn 70% of every sale.</p>
-        </div>
-        <div class="v2-what-is-iris__collab-card-{{ section.id }}">
-          <div class="v2-what-is-iris__collab-icon-{{ section.id }}">◎</div>
-          <div class="v2-what-is-iris__collab-card-title-{{ section.id }}">Studios</div>
-          <p>10 artworks · 1,000 pieces. Scale your practice into a collectible series with recurring revenue.</p>
-        </div>
-        <div class="v2-what-is-iris__collab-card-{{ section.id }}">
-          <div class="v2-what-is-iris__collab-icon-{{ section.id }}">⬡</div>
-          <div class="v2-what-is-iris__collab-card-title-{{ section.id }}">Galleries</div>
-          <p>100 artworks · 10,000 pieces. A flagship edition tied to your program, artists, or institution.</p>
-        </div>
-        <div class="v2-what-is-iris__collab-card-{{ section.id }}">
-          <div class="v2-what-is-iris__collab-icon-{{ section.id }}">◇</div>
-          <div class="v2-what-is-iris__collab-card-title-{{ section.id }}">Private &amp; Corporate</div>
-          <p>Custom editions for client gifts, private collections, or corporate recognition — fully independent.</p>
+          <p>Any artist, gallery, or brand can launch their own IRIS edition. The infrastructure, production, and distribution are ours. The artwork is yours.</p>
         </div>
       </div>
 
@@ -1030,12 +991,6 @@
         <a href="/pages/collaborate" class="v2-what-is-iris__button-gold-{{ section.id }}">Start your edition →</a>
         <div class="v2-what-is-iris__collab-note-{{ section.id }}">Applications reviewed within 48 hours. No upfront cost for public editions.</div>
       </div>
-    </section>
-
-    <section class="v2-what-is-iris__closing-{{ section.id }}">
-      <h2 class="v2-what-is-iris__closing-title-{{ section.id }}">A piece of art.<br>A gram of gold.<br><em>A number that is yours.</em></h2>
-      <p class="v2-what-is-iris__closing-copy-{{ section.id }}">That is what IRIS is. Everything else — the edition, the artist, the rarity — is what surrounds it.</p>
-      <a href="/products/iris-the-unseen-edition" class="v2-what-is-iris__button-gold-{{ section.id }}">Shop IRIS →</a>
     </section>
 
     <div class="v2-what-is-iris__ticker-{{ section.id }}">
@@ -1052,6 +1007,108 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var sectionId = {{ section.id | json }};
+    var shellEl = document.getElementById('V2WhatIsIrisIdentitySection-' + sectionId);
+    var visualEl = document.getElementById('V2WhatIsIrisIdentityVisual-' + sectionId);
+    var latestTitleEl = document.getElementById('V2WhatIsIrisLatestTitle-' + sectionId);
+    var latestMetaEl = document.getElementById('V2WhatIsIrisLatestMeta-' + sectionId);
+    var latestBodyEl = document.getElementById('V2WhatIsIrisLatestBody-' + sectionId);
+    var latestStatusEl = document.getElementById('V2WhatIsIrisLatestStatus-' + sectionId);
+    var archiveRowsEl = document.getElementById('V2WhatIsIrisArchiveRows-' + sectionId);
+    var archiveMoreEl = document.getElementById('V2WhatIsIrisArchiveMore-' + sectionId);
+    var archiveCountriesEl = document.getElementById('V2WhatIsIrisArchiveCountries-' + sectionId);
+
+    if (!shellEl || !visualEl || !latestTitleEl || !latestMetaEl || !latestBodyEl || !latestStatusEl || !archiveRowsEl || !archiveMoreEl || !archiveCountriesEl) {
+      return;
+    }
+
+    function hideCards() {
+      visualEl.hidden = true;
+      shellEl.classList.add('is-empty');
+    }
+
+    function formatDate(value) {
+      if (!value) return '';
+      var date = new Date(value);
+      if (Number.isNaN(date.getTime())) return '';
+      return date.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    }
+
+    function normalizeLocation(item) {
+      var location = item && item.location && typeof item.location === 'object' ? item.location : null;
+      var city = (item && (item.city || item.owner_city || item.shipping_city)) || (location && location.city) || null;
+      var country = (item && (item.country || item.country_name || item.owner_country || item.shipping_country)) || (location && (location.country || location.country_name)) || null;
+      if (!city || !country) return null;
+      return { city: String(city), country: String(country) };
+    }
+
+    function fetchRevealStats(url) {
+      return fetch(url, {
+        headers: { Accept: 'application/json' },
+        cache: 'no-store'
+      }).then(function (response) {
+        if (!response.ok) throw new Error('archive_fetch_failed');
+        return response.json();
+      });
+    }
+
+    fetchRevealStats('/apps/iris/seen-archive?limit=6').then(function (data) {
+      var items = Array.isArray(data && data.items) ? data.items : [];
+      var enriched = items.map(function (item) {
+        return {
+          irisId: item && item.iris_id ? String(item.iris_id) : '',
+          rarity: item && item.rarity_code ? String(item.rarity_code) : '',
+          activatedAt: item && item.activated_at ? String(item.activated_at) : '',
+          location: normalizeLocation(item)
+        };
+      }).filter(function (item) {
+        return item.irisId && item.location;
+      });
+
+      if (!enriched.length) {
+        hideCards();
+        return;
+      }
+
+      var latest = enriched[0];
+      var recent = enriched.slice(1, 6);
+      var countries = Array.from(new Set(enriched.map(function (item) { return item.location.country; })));
+      var moreCount = Math.max(0, Number(data && data.total_count) - 1 - recent.length);
+
+      latestTitleEl.textContent = 'IRIS #' + latest.irisId;
+      latestMetaEl.textContent = [formatDate(latest.activatedAt), latest.location.city + ', ' + latest.location.country].filter(Boolean).join(' · ');
+      latestBodyEl.textContent = latest.rarity ? ('Activated and archived as ' + latest.rarity + '.') : 'Activated and archived in the public IRIS record.';
+      latestStatusEl.textContent = 'Archived';
+
+      archiveRowsEl.innerHTML = '';
+      if (!recent.length) {
+        hideCards();
+        return;
+      }
+
+      recent.forEach(function (item) {
+        var row = document.createElement('div');
+        row.className = 'v2-what-is-iris__archive-row-' + sectionId;
+        row.innerHTML = '<div>IRIS #' + item.irisId + '</div><div><span>' + item.location.city + ', ' + item.location.country + '</span></div>';
+        archiveRowsEl.appendChild(row);
+      });
+
+      archiveMoreEl.textContent = moreCount + ' more…';
+      archiveCountriesEl.textContent = countries.length + ' countries';
+      visualEl.hidden = false;
+      shellEl.classList.remove('is-empty');
+    }).catch(function () {
+      hideCards();
+    });
+  })();
+</script>
 
 {% schema %}
 {
