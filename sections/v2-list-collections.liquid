@@ -473,96 +473,94 @@
     </div>
   </div>
 
-  {%- paginate sorted_collections by 30 -%}
-    {%- liquid
-      assign rendered_count = 0
-    -%}
-    <div class="v2-collections__grid-wrap-{{ section.id }}">
-      <div class="v2-collections__grid-{{ section.id }}" data-collections-grid>
-        {%- for collection in sorted_collections -%}
-          {%- unless excluded_handles contains collection.handle -%}
-            {%- liquid
-              assign first_product = collection.products.first
-              assign card_link = collection.url
-              assign archive_handle = collection.handle
-              if first_product != blank
-                assign card_link = first_product.url
-                assign archive_handle = first_product.handle
-              endif
+  {%- liquid
+    assign rendered_count = 0
+  -%}
+  <div class="v2-collections__grid-wrap-{{ section.id }}">
+    <div class="v2-collections__grid-{{ section.id }}" data-collections-grid>
+      {%- for collection in sorted_collections limit: 30 -%}
+        {%- unless excluded_handles contains collection.handle -%}
+          {%- liquid
+            assign first_product = collection.products.first
+            assign card_link = collection.url
+            assign archive_handle = collection.handle
+            if first_product != blank
+              assign card_link = first_product.url
+              assign archive_handle = first_product.handle
+            endif
 
-              assign display_title = collection.title
-              if archive_handle == 'iris-the-unseen-edition' or archive_handle == 'iris-collection' or archive_handle == 'iris'
-                assign display_title = 'IRIS Collection'
-              endif
+            assign display_title = collection.title
+            if archive_handle == 'iris-the-unseen-edition' or archive_handle == 'iris-collection' or archive_handle == 'iris'
+              assign display_title = 'IRIS Collection'
+            endif
 
-              assign card_image = collection.image
-              if card_image == blank and first_product != blank
-                assign card_image = first_product.featured_media.preview_image | default: first_product.featured_image
-              endif
+            assign card_image = collection.image
+            if card_image == blank and first_product != blank
+              assign card_image = first_product.featured_media.preview_image | default: first_product.featured_image
+            endif
 
-              assign card_media_class = 'v2-collections__artwork-media-' | append: section.id
+            assign card_media_class = 'v2-collections__artwork-media-' | append: section.id
 
-              assign card_price = nil
-              if first_product != blank and first_product.price
-                assign card_price = first_product.price | money_without_trailing_zeros
-              endif
+            assign card_price = nil
+            if first_product != blank and first_product.price
+              assign card_price = first_product.price | money_without_trailing_zeros
+            endif
 
-              assign rendered_count = rendered_count | plus: 1
-            -%}
-            <a
-              href="{{ card_link }}"
-              class="v2-collections__card-{{ section.id }}"
-              data-collection-card
-              data-collection-handle="{{ archive_handle | escape }}"
-              data-collection-title="{{ display_title | escape }}"
-            >
-              <div class="v2-collections__artwork-{{ section.id }}">
-                <div class="v2-collections__artwork-bg-{{ section.id }}"></div>
-                {%- if card_image != blank -%}
-                  {{ card_image | image_url: width: 1200 | image_tag:
-                    class: card_media_class,
-                    loading: 'lazy',
-                    alt: display_title
-                  }}
-                {%- else -%}
-                  <div class="v2-collections__artwork-fallback-{{ section.id }}">{{ display_title }}</div>
-                {%- endif -%}
-                <div class="v2-collections__badge-{{ section.id }}"><span class="v2-collections__badge-dot-{{ section.id }}"></span>Active</div>
-              </div>
+            assign rendered_count = rendered_count | plus: 1
+          -%}
+          <a
+            href="{{ card_link }}"
+            class="v2-collections__card-{{ section.id }}"
+            data-collection-card
+            data-collection-handle="{{ archive_handle | escape }}"
+            data-collection-title="{{ display_title | escape }}"
+          >
+            <div class="v2-collections__artwork-{{ section.id }}">
+              <div class="v2-collections__artwork-bg-{{ section.id }}"></div>
+              {%- if card_image != blank -%}
+                {{ card_image | image_url: width: 1200 | image_tag:
+                  class: card_media_class,
+                  loading: 'lazy',
+                  alt: display_title
+                }}
+              {%- else -%}
+                <div class="v2-collections__artwork-fallback-{{ section.id }}">{{ display_title }}</div>
+              {%- endif -%}
+              <div class="v2-collections__badge-{{ section.id }}"><span class="v2-collections__badge-dot-{{ section.id }}"></span>Active</div>
+            </div>
 
-              <div class="v2-collections__body-{{ section.id }}">
-                <div class="v2-collections__name-{{ section.id }}">&ldquo;{{ display_title }}&rdquo;</div>
+            <div class="v2-collections__body-{{ section.id }}">
+              <div class="v2-collections__name-{{ section.id }}">&ldquo;{{ display_title }}&rdquo;</div>
 
-                <div class="v2-collections__progress-{{ section.id }}">
-                  <div class="v2-collections__progress-row-{{ section.id }}">
-                    <span>Editions revealed</span>
-                    <strong data-collection-count>—</strong>
-                  </div>
-                  <div class="v2-collections__track-{{ section.id }}">
-                    <div class="v2-collections__fill-{{ section.id }}" data-collection-fill data-empty="true"></div>
-                  </div>
+              <div class="v2-collections__progress-{{ section.id }}">
+                <div class="v2-collections__progress-row-{{ section.id }}">
+                  <span>Editions revealed</span>
+                  <strong data-collection-count>—</strong>
                 </div>
-
-                <div class="v2-collections__price-row-{{ section.id }}">
-                  <div>
-                    <div class="v2-collections__price-{{ section.id }}">{{ card_price | default: '—' }}</div>
-                    <div class="v2-collections__price-label-{{ section.id }}">Current price</div>
-                  </div>
-                  <div class="v2-collections__cta-{{ section.id }}">Reveal →</div>
+                <div class="v2-collections__track-{{ section.id }}">
+                  <div class="v2-collections__fill-{{ section.id }}" data-collection-fill data-empty="true"></div>
                 </div>
               </div>
-            </a>
-          {%- endunless -%}
-        {%- endfor -%}
-      </div>
 
-      {%- if rendered_count == 0 -%}
-        <div class="v2-collections__empty-{{ section.id }}">
-          <p>No collections are visible yet.</p>
-        </div>
-      {%- endif -%}
+              <div class="v2-collections__price-row-{{ section.id }}">
+                <div>
+                  <div class="v2-collections__price-{{ section.id }}">{{ card_price | default: '—' }}</div>
+                  <div class="v2-collections__price-label-{{ section.id }}">Current price</div>
+                </div>
+                <div class="v2-collections__cta-{{ section.id }}">Reveal →</div>
+              </div>
+            </div>
+          </a>
+        {%- endunless -%}
+      {%- endfor -%}
     </div>
-  {%- endpaginate -%}
+
+    {%- if rendered_count == 0 -%}
+      <div class="v2-collections__empty-{{ section.id }}">
+        <p>No collections are visible yet.</p>
+      </div>
+    {%- endif -%}
+  </div>
 </div>
 
 <script>
