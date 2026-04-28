@@ -304,32 +304,13 @@
   }
 
   .v2-collections__track-{{ section.id }} {
-    height: 1px;
-    background: var(--v2c-border);
+    height: 2px;
+    background: #1d1c1b;
     position: relative;
+    transition: background 0.35s ease;
   }
 
   .v2-collections__fill-{{ section.id }} {
-    position: relative;
-    height: 100%;
-    width: 0;
-    background: var(--v2c-gold);
-    transition: width 1.2s ease;
-  }
-
-  .v2-collections__fill-{{ section.id }}::after {
-    content: '';
-    position: absolute;
-    right: -3px;
-    top: -3px;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--v2c-gold);
-    box-shadow: 0 0 8px rgba(201, 168, 76, 0.6);
-  }
-
-  .v2-collections__fill-{{ section.id }}[data-empty="true"]::after {
     display: none;
   }
 
@@ -624,6 +605,7 @@
         var handle = card.getAttribute('data-collection-handle');
         var countEl = card.querySelector('[data-collection-count]');
         var fillEl = card.querySelector('[data-collection-fill]');
+        var trackEl = fillEl ? fillEl.parentElement : null;
         if (!handle || !countEl || !fillEl) return;
 
         fetch('/apps/iris/seen-archive?limit=1&collection=' + encodeURIComponent(handle), {
@@ -643,9 +625,13 @@
             }
             countEl.textContent = formatNumber(total) + ' of ' + formatNumber(editionSize);
             var progress = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
-            fillEl.style.width = progress + '%';
-            if (progress > 0) {
-              fillEl.setAttribute('data-empty', 'false');
+            var visibleProgress = total > 0 ? Math.max(progress, 1) : 0;
+            if (trackEl) {
+              if (visibleProgress > 0) {
+                trackEl.style.background = 'linear-gradient(90deg, #c9a84c 0%, #c9a84c ' + visibleProgress + '%, #1d1c1b ' + visibleProgress + '%, #1d1c1b 100%)';
+              } else {
+                trackEl.style.background = '#1d1c1b';
+              }
             }
           })
           .catch(function() {
