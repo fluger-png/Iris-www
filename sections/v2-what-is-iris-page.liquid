@@ -294,6 +294,20 @@
     max-width: 42rem;
   }
 
+  .v2-what-is-iris__object-image-frame-{{ section.id }} {
+    width: 100%;
+    max-width: 56rem;
+    border: 1px solid var(--wis-border);
+    background: rgba(8, 8, 8, 0.48);
+    padding: 2.4rem;
+  }
+
+  .v2-what-is-iris__object-image-{{ section.id }} {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .v2-what-is-iris__gold-visual-{{ section.id }} {
     position: relative;
     width: 32rem;
@@ -370,6 +384,20 @@
     flex-direction: column;
     justify-content: center;
     gap: 2.4rem;
+  }
+
+  .v2-what-is-iris__identity-image-frame-{{ section.id }} {
+    width: 100%;
+    max-width: 50rem;
+    border: 1px solid var(--wis-border);
+    background: rgba(8, 8, 8, 0.48);
+    padding: 2rem;
+  }
+
+  .v2-what-is-iris__identity-image-{{ section.id }} {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .v2-what-is-iris__card-{{ section.id }} {
@@ -602,9 +630,39 @@
     border-bottom: 1px solid var(--wis-border);
   }
 
+  .v2-what-is-iris__collab-shell-{{ section.id }} {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(34rem, 44rem);
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .v2-what-is-iris__collab-copy-{{ section.id }} {
+    min-width: 0;
+  }
+
   .v2-what-is-iris__collab-header-{{ section.id }} {
     max-width: 78rem;
     margin-bottom: 5.2rem;
+  }
+
+  .v2-what-is-iris__collab-visual-{{ section.id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .v2-what-is-iris__collab-image-frame-{{ section.id }} {
+    width: 100%;
+    border: 1px solid var(--wis-border);
+    background: rgba(8, 8, 8, 0.48);
+    padding: 2.4rem;
+  }
+
+  .v2-what-is-iris__collab-image-{{ section.id }} {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .v2-what-is-iris__collab-grid-{{ section.id }} {
@@ -719,6 +777,11 @@
     .v2-what-is-iris__collab-grid-{{ section.id }},
     .v2-what-is-iris__reveal-steps-{{ section.id }} {
       grid-template-columns: 1fr;
+    }
+
+    .v2-what-is-iris__collab-shell-{{ section.id }} {
+      grid-template-columns: 1fr;
+      gap: 4rem;
     }
 
     .v2-what-is-iris__collab-grid-{{ section.id }} {
@@ -889,14 +952,14 @@
       </div>
 
       <div class="v2-what-is-iris__visual-{{ section.id }}">
-        <svg class="v2-what-is-iris__frame-svg-{{ section.id }}" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="32" y="32" width="356" height="356" fill="#3a3830"/>
-          <rect x="88" y="88" width="244" height="244" fill="#f2efe7"/>
-          <rect x="132" y="132" width="156" height="156" fill="#151512" stroke="#3a3830" stroke-width="2"/>
-          <path d="M156 210C173 182 192 168 210 168C228 168 247 182 264 210" fill="none" stroke="#e8e4dc" stroke-width="3"/>
-          <path d="M171 212C180 225 193 232 210 232C227 232 240 225 249 212" fill="none" stroke="#e8e4dc" stroke-width="3"/>
-          <circle cx="302" cy="118" r="12" fill="#c9a84c"/>
-        </svg>
+        <div class="v2-what-is-iris__object-image-frame-{{ section.id }}">
+          <img
+            class="v2-what-is-iris__object-image-{{ section.id }}"
+            src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/Iris-home-banner-desktop_94ebe10c-e699-4f72-9236-f570ae4ac31e.png?v=1773987638"
+            alt="IRIS object preview"
+            loading="lazy"
+          >
+        </div>
       </div>
     </section>
 
@@ -932,21 +995,32 @@
         </div>
       </div>
 
-      <div class="v2-what-is-iris__identity-visual-{{ section.id }}" id="V2WhatIsIrisIdentityVisual-{{ section.id }}" hidden>
-        <div class="v2-what-is-iris__card-{{ section.id }}" id="V2WhatIsIrisLatestCard-{{ section.id }}">
-          <div class="v2-what-is-iris__card-label-{{ section.id }}">Latest activation</div>
-          <div class="v2-what-is-iris__card-title-{{ section.id }}" id="V2WhatIsIrisLatestTitle-{{ section.id }}">IRIS #0000</div>
-          <div class="v2-what-is-iris__card-meta-{{ section.id }}" id="V2WhatIsIrisLatestMeta-{{ section.id }}">Activated · New York, United States</div>
-          <div class="v2-what-is-iris__card-body-{{ section.id }}" id="V2WhatIsIrisLatestBody-{{ section.id }}">The latest revealed piece now lives in the archive.</div>
-          <div class="v2-what-is-iris__scan-{{ section.id }}"><div class="v2-what-is-iris__scan-dot-{{ section.id }}"></div><div class="v2-what-is-iris__scan-label-{{ section.id }}" id="V2WhatIsIrisLatestStatus-{{ section.id }}">Archived</div></div>
+      <div class="v2-what-is-iris__identity-visual-{{ section.id }}" id="V2WhatIsIrisIdentityVisual-{{ section.id }}">
+        <div class="v2-what-is-iris__identity-image-frame-{{ section.id }}">
+          <img
+            class="v2-what-is-iris__identity-image-{{ section.id }}"
+            src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/Activation-banner_8cf6ba08-9aee-4bce-9eb9-388b430853a9.png?v=1771047378"
+            alt="IRIS activation preview"
+            loading="lazy"
+          >
         </div>
 
-        <div class="v2-what-is-iris__card-{{ section.id }} v2-what-is-iris__archive-card-{{ section.id }}" id="V2WhatIsIrisArchiveCard-{{ section.id }}">
-          <div class="v2-what-is-iris__card-label-{{ section.id }}">Revealed archive · Recent</div>
-          <div id="V2WhatIsIrisArchiveRows-{{ section.id }}"></div>
-          <div class="v2-what-is-iris__archive-row-{{ section.id }}">
-            <div id="V2WhatIsIrisArchiveMore-{{ section.id }}" style="color:var(--wis-dim)">0 more…</div>
-            <div><span id="V2WhatIsIrisArchiveCountries-{{ section.id }}" style="color:var(--wis-dim)">0 countries</span></div>
+        <div id="V2WhatIsIrisIdentityCards-{{ section.id }}" hidden>
+          <div class="v2-what-is-iris__card-{{ section.id }}" id="V2WhatIsIrisLatestCard-{{ section.id }}">
+            <div class="v2-what-is-iris__card-label-{{ section.id }}">Latest activation</div>
+            <div class="v2-what-is-iris__card-title-{{ section.id }}" id="V2WhatIsIrisLatestTitle-{{ section.id }}">IRIS #0000</div>
+            <div class="v2-what-is-iris__card-meta-{{ section.id }}" id="V2WhatIsIrisLatestMeta-{{ section.id }}">Activated · New York, United States</div>
+            <div class="v2-what-is-iris__card-body-{{ section.id }}" id="V2WhatIsIrisLatestBody-{{ section.id }}">The latest revealed piece now lives in the archive.</div>
+            <div class="v2-what-is-iris__scan-{{ section.id }}"><div class="v2-what-is-iris__scan-dot-{{ section.id }}"></div><div class="v2-what-is-iris__scan-label-{{ section.id }}" id="V2WhatIsIrisLatestStatus-{{ section.id }}">Archived</div></div>
+          </div>
+
+          <div class="v2-what-is-iris__card-{{ section.id }} v2-what-is-iris__archive-card-{{ section.id }}" id="V2WhatIsIrisArchiveCard-{{ section.id }}">
+            <div class="v2-what-is-iris__card-label-{{ section.id }}">Revealed archive · Recent</div>
+            <div id="V2WhatIsIrisArchiveRows-{{ section.id }}"></div>
+            <div class="v2-what-is-iris__archive-row-{{ section.id }}">
+              <div id="V2WhatIsIrisArchiveMore-{{ section.id }}" style="color:var(--wis-dim)">0 more…</div>
+              <div><span id="V2WhatIsIrisArchiveCountries-{{ section.id }}" style="color:var(--wis-dim)">0 countries</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -979,17 +1053,32 @@
     </section>
 
     <section class="v2-what-is-iris__collab-{{ section.id }}">
-      <div class="v2-what-is-iris__collab-header-{{ section.id }}">
-        <span class="v2-what-is-iris__label-{{ section.id }}">VI — An open platform</span>
-        <h2 class="v2-what-is-iris__section-title-{{ section.id }}">IRIS is a platform. Open to any artist.</h2>
-        <div class="v2-what-is-iris__copy-{{ section.id }}">
-          <p>Any artist, gallery, or brand can launch their own IRIS edition. The infrastructure, production, and distribution are ours. The artwork is yours.</p>
-        </div>
-      </div>
+      <div class="v2-what-is-iris__collab-shell-{{ section.id }}">
+        <div class="v2-what-is-iris__collab-copy-{{ section.id }}">
+          <div class="v2-what-is-iris__collab-header-{{ section.id }}">
+            <span class="v2-what-is-iris__label-{{ section.id }}">VI — An open platform</span>
+            <h2 class="v2-what-is-iris__section-title-{{ section.id }}">IRIS is a platform. Open to any artist.</h2>
+            <div class="v2-what-is-iris__copy-{{ section.id }}">
+              <p>Any artist, gallery, or brand can launch their own IRIS edition. The infrastructure, production, and distribution are ours. The artwork is yours.</p>
+            </div>
+          </div>
 
-      <div class="v2-what-is-iris__collab-cta-{{ section.id }}">
-        <a href="/pages/collaborate" class="v2-what-is-iris__button-gold-{{ section.id }}">Start your edition →</a>
-        <div class="v2-what-is-iris__collab-note-{{ section.id }}">Applications reviewed within 48 hours. No upfront cost for public editions.</div>
+          <div class="v2-what-is-iris__collab-cta-{{ section.id }}">
+            <a href="/pages/collaborate" class="v2-what-is-iris__button-gold-{{ section.id }}">Start your edition →</a>
+            <div class="v2-what-is-iris__collab-note-{{ section.id }}">Applications reviewed within 48 hours. No upfront cost for public editions.</div>
+          </div>
+        </div>
+
+        <div class="v2-what-is-iris__collab-visual-{{ section.id }}">
+          <div class="v2-what-is-iris__collab-image-frame-{{ section.id }}">
+            <img
+              class="v2-what-is-iris__collab-image-{{ section.id }}"
+              src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/Screenshot_2026-04-27_at_1.05.52_PM.png?v=1777358449"
+              alt="IRIS platform preview"
+              loading="lazy"
+            >
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1012,7 +1101,7 @@
   (function () {
     var sectionId = {{ section.id | json }};
     var shellEl = document.getElementById('V2WhatIsIrisIdentitySection-' + sectionId);
-    var visualEl = document.getElementById('V2WhatIsIrisIdentityVisual-' + sectionId);
+    var visualEl = document.getElementById('V2WhatIsIrisIdentityCards-' + sectionId);
     var latestTitleEl = document.getElementById('V2WhatIsIrisLatestTitle-' + sectionId);
     var latestMetaEl = document.getElementById('V2WhatIsIrisLatestMeta-' + sectionId);
     var latestBodyEl = document.getElementById('V2WhatIsIrisLatestBody-' + sectionId);
@@ -1027,7 +1116,6 @@
 
     function hideCards() {
       visualEl.hidden = true;
-      shellEl.classList.add('is-empty');
     }
 
     function formatDate(value) {
@@ -1069,7 +1157,7 @@
           location: normalizeLocation(item)
         };
       }).filter(function (item) {
-        return item.irisId && item.location;
+        return item.irisId;
       });
 
       if (!enriched.length) {
@@ -1079,31 +1167,28 @@
 
       var latest = enriched[0];
       var recent = enriched.slice(1, 6);
-      var countries = Array.from(new Set(enriched.map(function (item) { return item.location.country; })));
+      var countries = Array.from(new Set(enriched.map(function (item) { return item.location && item.location.country ? item.location.country : null; }).filter(Boolean)));
       var moreCount = Math.max(0, Number(data && data.total_count) - 1 - recent.length);
 
       latestTitleEl.textContent = 'IRIS #' + latest.irisId;
-      latestMetaEl.textContent = [formatDate(latest.activatedAt), latest.location.city + ', ' + latest.location.country].filter(Boolean).join(' · ');
+      latestMetaEl.textContent = [
+        formatDate(latest.activatedAt),
+        latest.location ? (latest.location.city + ', ' + latest.location.country) : 'Archive record'
+      ].filter(Boolean).join(' · ');
       latestBodyEl.textContent = latest.rarity ? ('Activated and archived as ' + latest.rarity + '.') : 'Activated and archived in the public IRIS record.';
       latestStatusEl.textContent = 'Archived';
 
       archiveRowsEl.innerHTML = '';
-      if (!recent.length) {
-        hideCards();
-        return;
-      }
-
       recent.forEach(function (item) {
         var row = document.createElement('div');
         row.className = 'v2-what-is-iris__archive-row-' + sectionId;
-        row.innerHTML = '<div>IRIS #' + item.irisId + '</div><div><span>' + item.location.city + ', ' + item.location.country + '</span></div>';
+        row.innerHTML = '<div>IRIS #' + item.irisId + '</div><div><span>' + (item.location ? (item.location.city + ', ' + item.location.country) : formatDate(item.activatedAt)) + '</span></div>';
         archiveRowsEl.appendChild(row);
       });
 
       archiveMoreEl.textContent = moreCount + ' more…';
-      archiveCountriesEl.textContent = countries.length + ' countries';
+      archiveCountriesEl.textContent = countries.length ? (countries.length + ' countries') : 'live records';
       visualEl.hidden = false;
-      shellEl.classList.remove('is-empty');
     }).catch(function () {
       hideCards();
     });
