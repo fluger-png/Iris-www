@@ -993,14 +993,22 @@
     }
 
     .v2-what-is-iris__hero-title-{{ section.id }} {
-      font-size: clamp(3.2rem, 11.4vw, 5.2rem);
-      line-height: 0.95;
+      font-size: clamp(2.75rem, 9.2vw, 4.4rem);
+      line-height: 0.98;
       letter-spacing: -0.06rem;
       text-wrap: pretty;
     }
 
+    .v2-what-is-iris__hero-title-{{ section.id }},
     .v2-what-is-iris__hero-body-{{ section.id }} {
-      font-size: 1.62rem;
+      max-width: 100%;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+    }
+
+    .v2-what-is-iris__hero-body-{{ section.id }} {
+      font-size: 1.48rem;
       line-height: 1.62;
     }
 
@@ -1043,6 +1051,43 @@
     .v2-what-is-iris__button-outline-{{ section.id }} {
       min-width: 0;
       width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 430px) {
+    .v2-what-is-iris__hero-{{ section.id }},
+    .v2-what-is-iris__reveal-{{ section.id }},
+    .v2-what-is-iris__collab-{{ section.id }},
+    .v2-what-is-iris__closing-{{ section.id }} {
+      padding-left: 1.8rem;
+      padding-right: 1.8rem;
+    }
+
+    .v2-what-is-iris__hero-title-{{ section.id }} {
+      font-size: clamp(1.95rem, 7.8vw, 3rem);
+      line-height: 1.03;
+      letter-spacing: -0.025rem;
+      text-wrap: balance;
+    }
+
+    .v2-what-is-iris__hero-body-{{ section.id }} {
+      font-size: 1.24rem;
+      line-height: 1.52;
+    }
+
+    .v2-what-is-iris__split-title-{{ section.id }},
+    .v2-what-is-iris__reveal-title-{{ section.id }},
+    .v2-what-is-iris__section-title-{{ section.id }},
+    .v2-what-is-iris__closing-title-{{ section.id }} {
+      font-size: clamp(2.5rem, 9vw, 4.2rem);
+      line-height: 1.03;
+      text-wrap: balance;
+    }
+
+    .v2-what-is-iris__copy-{{ section.id }} p,
+    .v2-what-is-iris__closing-copy-{{ section.id }} {
+      font-size: 1.28rem;
+      line-height: 1.58;
     }
   }
 {%- endstyle -%}

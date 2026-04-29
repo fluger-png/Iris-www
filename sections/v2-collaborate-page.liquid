@@ -1008,8 +1008,8 @@
     }
 
     .v2-collab-{{ section.id }} .cc-hero .cc-title {
-      font-size: clamp(2.9rem, 10.8vw, 4.9rem);
-      line-height: 0.96;
+      font-size: clamp(2.55rem, 8.8vw, 4.2rem);
+      line-height: 0.98;
       letter-spacing: -0.04rem;
       text-wrap: pretty;
     }
@@ -1018,8 +1018,16 @@
       white-space: normal;
     }
 
+    .v2-collab-{{ section.id }} .cc-hero .cc-title,
     .v2-collab-{{ section.id }} .cc-hero .cc-copy {
-      font-size: 1.65rem;
+      max-width: 100%;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+    }
+
+    .v2-collab-{{ section.id }} .cc-hero .cc-copy {
+      font-size: 1.52rem;
       line-height: 1.7;
     }
 
@@ -1062,6 +1070,27 @@
       padding-left: 2rem;
       padding-right: 2rem;
       min-height: 6.4rem;
+    }
+  }
+
+  @media screen and (max-width: 430px) {
+    .v2-collab-{{ section.id }} .cc-section,
+    .v2-collab-{{ section.id }} .cc-hero__copy,
+    .v2-collab-{{ section.id }} .cc-hero__visual {
+      padding-left: 1.6rem;
+      padding-right: 1.6rem;
+    }
+
+    .v2-collab-{{ section.id }} .cc-hero .cc-title {
+      font-size: clamp(1.9rem, 7.6vw, 2.85rem);
+      line-height: 1.03;
+      letter-spacing: -0.025rem;
+      text-wrap: balance;
+    }
+
+    .v2-collab-{{ section.id }} .cc-hero .cc-copy {
+      font-size: 1.28rem;
+      line-height: 1.58;
     }
   }
 {%- endstyle -%}
