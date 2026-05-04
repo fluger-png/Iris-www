@@ -57,7 +57,7 @@
 
           function labelFromId(id) {
             if (!id) return '';
-            var clean = id.replace(/^IRIS-?/i, '').trim();
+            var clean = String(id).replace(/^IRIS-?/i, '').trim();
             return 'IRIS # ' + clean;
           }
 
@@ -80,7 +80,7 @@
                       '</div>' +
                       '<div class="card__content">' +
                         '<div class="card__information">' +
-                          '<h3 class="card__heading h5" style="text-align:center;font-weight:600;">' + labelFromId(item.iris_id) + '</h3>' +
+                          '<h3 class="card__heading h5" style="text-align:center;font-weight:600;">' + labelFromId(item.display_iris_id || item.iris_id) + '</h3>' +
                         '</div>' +
                       '</div>' +
                     '</div>' +

@@ -533,7 +533,7 @@
     }
 
     function labelFromId(id) {
-      var clean = id.replace(/^IRIS-?/i, '').trim();
+      var clean = String(id).replace(/^IRIS-?/i, '').trim();
       return 'IRIS # ' + clean;
     }
 
@@ -565,7 +565,7 @@
       })
       .then(function (data) {
         if (error) error.hidden = true;
-        title.textContent = labelFromId(data.iris_id);
+        title.textContent = labelFromId(data.display_iris_id || data.iris_id);
         if (data.activated_at) {
           if (activatedRow) activatedRow.style.display = '';
           activatedEl.textContent = formatDate(data.activated_at);
@@ -623,7 +623,7 @@
             image +
             '<div class="v2-passport-archive__overlay">' +
               '<div class="v2-passport-archive__label">' +
-                '<div class="v2-passport-archive__iris">' + item.iris_id + '</div>' +
+                '<div class="v2-passport-archive__iris">' + (item.display_iris_id || item.iris_id) + '</div>' +
                 '<div class="v2-passport-archive__meta">' + (item.rarity_code || 'Rarity hidden') + '</div>' +
               '</div>' +
             '</div>' +

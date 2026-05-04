@@ -356,7 +356,7 @@
 
     function labelFromId(id) {
       if (!id) return '';
-      var clean = id.replace(/^IRIS-?/i, '').trim();
+      var clean = String(id).replace(/^IRIS-?/i, '').trim();
       return 'IRIS No. ' + clean;
     }
 
@@ -399,7 +399,7 @@
                 '</div>' +
               '</div>' +
               '<div class="v2-iris-archive__body">' +
-                '<div class="v2-iris-archive__iris">' + labelFromId(item.iris_id) + '</div>' +
+                '<div class="v2-iris-archive__iris">' + labelFromId(item.display_iris_id || item.iris_id) + '</div>' +
                 '<div class="v2-iris-archive__meta">' + metaFromItem(item) + '</div>' +
               '</div>' +
             '</a>' +

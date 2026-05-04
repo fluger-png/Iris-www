@@ -129,7 +129,7 @@
       if (!res.ok) return;
       const data = await res.json();
       if (data && data.iris_id) {
-        document.getElementById("irisId").textContent = data.iris_id;
+        document.getElementById("irisId").textContent = data.display_iris_id || data.iris_id;
       }
       if (data && data.image_url) {
         var img = document.getElementById("irisPreview");
@@ -197,7 +197,7 @@
       weightEl.textContent = w == null ? "—" : Number(w).toFixed(2);
     }
     if (titleEl) {
-      titleEl.textContent = (data.iris_id || irisId || "IRIS") + " Activated";
+      titleEl.textContent = ((data.display_iris_id || data.iris_id || irisId || "IRIS")) + " Activated";
     }
     if (introEl) introEl.style.display = "none";
     if (noticeEl) noticeEl.hidden = false;
