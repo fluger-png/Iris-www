@@ -277,7 +277,7 @@
             img +
             '<div class="v2-archive-preview__overlay-{{ section.id }}">' +
               '<div class="v2-archive-preview__label-{{ section.id }}">' +
-                '<div class="v2-archive-preview__iris-{{ section.id }}">' + item.iris_id + '</div>' +
+                '<div class="v2-archive-preview__iris-{{ section.id }}">' + (item.display_iris_id || item.iris_id) + '</div>' +
                 '<div class="v2-archive-preview__meta-{{ section.id }}">' + (item.rarity_code || 'Rarity hidden') + '</div>' +
               '</div>' +
             '</div>' +
