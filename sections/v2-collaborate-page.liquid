@@ -378,6 +378,10 @@
     color: var(--gold);
   }
 
+  .v2-collab-{{ section.id }} .cc-earn-prefix {
+    color: var(--text);
+  }
+
   .v2-collab-{{ section.id }} .cc-tab-math__specs {
     color: var(--text);
     font-family: var(--font-heading-family);
@@ -1657,6 +1661,12 @@
       });
     }
 
+    function setAllHtml(selector, html) {
+      root.querySelectorAll(selector).forEach(function (el) {
+        el.innerHTML = html;
+      });
+    }
+
     function normalizeGoldValue(value) {
       if (value === null || value === undefined) return null;
       if (typeof value === 'number') return isFinite(value) ? value : null;
@@ -1721,14 +1731,14 @@
       setAll('[data-collab-gallery-specs]', '100 artworks · 10,000 pieces');
       setAll('[data-collab-private-specs]', 'Any artwork count · Min. 100 pieces');
 
-      setAll('[data-collab-artist-total]', 'from ' + coarseMoney(artistTotal));
-      setAll('[data-collab-studio-total]', 'from ' + coarseMoney(studioTotal));
-      setAll('[data-collab-gallery-total]', 'from ' + coarseMoney(galleryTotal));
+      setAllHtml('[data-collab-artist-total]', '<span class="cc-earn-prefix">Earn from</span> ' + coarseMoney(artistTotal));
+      setAllHtml('[data-collab-studio-total]', '<span class="cc-earn-prefix">Earn from</span> ' + coarseMoney(studioTotal));
+      setAllHtml('[data-collab-gallery-total]', '<span class="cc-earn-prefix">Earn from</span> ' + coarseMoney(galleryTotal));
       setAll('[data-collab-private-total]', wholeMoney(privateUnitPrice));
       setAll('[data-collab-private-cost]', wholeMoney(privateUnitPrice));
-      setAll('[data-tier-artist-total]', 'from ' + coarseMoney(artistTotal));
-      setAll('[data-tier-studio-total]', 'from ' + coarseMoney(studioTotal));
-      setAll('[data-tier-gallery-total]', 'from ' + coarseMoney(galleryTotal));
+      setAllHtml('[data-tier-artist-total]', '<span class="cc-earn-prefix">Earn from</span> ' + coarseMoney(artistTotal));
+      setAllHtml('[data-tier-studio-total]', '<span class="cc-earn-prefix">Earn from</span> ' + coarseMoney(studioTotal));
+      setAllHtml('[data-tier-gallery-total]', '<span class="cc-earn-prefix">Earn from</span> ' + coarseMoney(galleryTotal));
 
       setAll('[data-collab-artist-line]', 'Current minimum price: ' + wholeMoney(displayMin) + ' (excl. tax) · 100 pieces · Artist earns 70% of the margin');
       setAll('[data-collab-studio-line]', 'Current minimum price: ' + wholeMoney(displayMin) + ' (excl. tax) · 1,000 pieces · Studio earns 75% of the margin');
