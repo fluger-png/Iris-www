@@ -104,6 +104,12 @@ details[open].menu-opening > .menu-drawer__submenu {
   font-size: 1.8rem;
 }
 
+@media screen and (max-width: 989px) {
+  #menu-drawer .menu-drawer__menu-item {
+    font-size: 14px !important;
+  }
+}
+
 .menu-drawer summary.menu-drawer__menu-item {
   padding-right: 5.2rem;
 }
