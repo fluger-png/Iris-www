@@ -234,9 +234,6 @@
       {%- if section.settings.heading != blank -%}
         <h2 class="v2-archive-preview__title-{{ section.id }}">{{ section.settings.heading }}</h2>
       {%- endif -%}
-      {%- if section.settings.description != blank -%}
-        <div class="v2-archive-preview__description-{{ section.id }}">{{ section.settings.description }}</div>
-      {%- endif -%}
     </div>
 
     <div class="v2-archive-preview__grid-{{ section.id }}" id="V2ArchivePreviewGrid-{{ section.id }}">
@@ -320,12 +317,6 @@
       "id": "heading",
       "label": "Heading",
       "default": "What others have <em>received</em>"
-    },
-    {
-      "type": "richtext",
-      "id": "description",
-      "label": "Description",
-      "default": "<p>Every activated IRIS enters the visible history of the edition. Browse the works that have already been claimed and revealed.</p>"
     },
     {
       "type": "range",

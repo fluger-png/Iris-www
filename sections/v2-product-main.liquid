@@ -4,6 +4,7 @@
   assign product_price_display = product_price | money_without_trailing_zeros
   assign display_media = section.settings.display_image
   assign art_image_class = 'v2-product-main__art-image-' | append: section.id
+  assign main_image_id = 'V2ProductMainImage-' | append: section.id
   assign product_form_installment_id = 'v2-product-installment-' | append: section.id
   if display_media == blank
     assign display_media = product.featured_media
@@ -99,6 +100,58 @@
     width: 76%;
     height: 76%;
     background: #0d0d0d;
+  }
+
+  .v2-product-main__gallery-row-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2.4rem;
+  }
+
+  .v2-product-main__thumbnails-{{ section.id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .v2-product-main__thumbnail-{{ section.id }} {
+    width: 7.2rem;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border: 1px solid rgba(201, 168, 76, 0.24);
+    background: #0d0d0d;
+    cursor: pointer;
+    opacity: 0.72;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .v2-product-main__thumbnail-{{ section.id }}[aria-current="true"],
+  .v2-product-main__thumbnail-{{ section.id }}:hover {
+    border-color: var(--v2-product-gold);
+    opacity: 1;
+  }
+
+  .v2-product-main__thumbnail-{{ section.id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .v2-product-main__gallery-link-{{ section.id }} {
+    color: var(--v2-product-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.22rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .v2-product-main__gallery-link-{{ section.id }}:hover {
+    color: #d3b35b;
   }
 
   .v2-product-main__eyebrow-{{ section.id }} {
@@ -220,9 +273,6 @@
   }
 
   .v2-product-main__price-card-{{ section.id }} {
-    display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: 2rem 3rem;
     margin-top: 4rem;
     padding: 3.2rem 3rem 2.8rem;
     border: 1px solid var(--v2-product-border);
@@ -612,6 +662,16 @@
       bottom: 1.6rem;
     }
 
+    .v2-product-main__gallery-row-{{ section.id }} {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .v2-product-main__thumbnail-{{ section.id }} {
+      width: 6.4rem;
+    }
+
     .v2-product-main__callout-{{ section.id }},
     .v2-product-main__price-card-{{ section.id }} {
       padding-inline: 2rem;
@@ -680,19 +740,53 @@
         <div class="v2-product-main__art-{{ section.id }}">
           <div class="v2-product-main__art-inner-{{ section.id }}">
             {%- if display_media != blank -%}
-              {{
-                display_media
-                | image_url: width: 1600
-                | image_tag:
-                  class: art_image_class,
-                  loading: 'lazy',
-                  alt: product.title
-              }}
+              <img
+                id="{{ main_image_id }}"
+                class="{{ art_image_class }}"
+                src="{{ display_media | image_url: width: 1600 }}"
+                alt="{{ product.title | escape }}"
+                loading="lazy"
+                data-v2-main-product-image
+              >
             {%- else -%}
               <div class="v2-product-main__art-placeholder-{{ section.id }}"></div>
             {%- endif -%}
           </div>
 
+        </div>
+
+        <div class="v2-product-main__gallery-row-{{ section.id }}">
+          {%- if product.media.size > 1 -%}
+            <div class="v2-product-main__thumbnails-{{ section.id }}" aria-label="Product images">
+              {%- for media in product.media -%}
+                {%- if media.preview_image != blank -%}
+                  <button
+                    type="button"
+                    class="v2-product-main__thumbnail-{{ section.id }}"
+                    data-v2-product-thumbnail
+                    data-full-src="{{ media.preview_image | image_url: width: 1600 }}"
+                    aria-label="Show product image {{ forloop.index }}"
+                    {% if display_media.id == media.id %}aria-current="true"{% endif %}
+                  >
+                    {{
+                      media.preview_image
+                      | image_url: width: 180
+                      | image_tag:
+                        loading: 'lazy',
+                        alt: product.title
+                    }}
+                  </button>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          <a
+            class="v2-product-main__gallery-link-{{ section.id }}"
+            href="{{ section.settings.archive_link | default: '/pages/iris-archive' }}"
+          >
+            View Gallery
+          </a>
         </div>
       </div>
 
@@ -728,22 +822,6 @@
             <p class="v2-product-main__price-value-{{ section.id }}">{{ product_price_display }}</p>
             <div class="v2-product-main__price-label-{{ section.id }}">{{ section.settings.price_caption }}</div>
           </div>
-
-          <div class="v2-product-main__price-side-{{ section.id }}">
-            {%- if section.settings.shipping_line_1 != blank -%}<div>{{ section.settings.shipping_line_1 }}</div>{%- endif -%}
-            {%- if section.settings.shipping_line_2 != blank -%}<div>{{ section.settings.shipping_line_2 }}</div>{%- endif -%}
-            {%- if section.settings.shipping_line_3 != blank -%}<div>{{ section.settings.shipping_line_3 }}</div>{%- endif -%}
-          </div>
-
-          <ul class="v2-product-main__feature-list-{{ section.id }}">
-            {%- for index in (1..4) -%}
-              {%- assign feature_key = 'feature_' | append: index -%}
-              {%- assign feature_value = section.settings[feature_key] -%}
-              {%- if feature_value != blank -%}
-                <li class="v2-product-main__feature-item-{{ section.id }}">{{ feature_value }}</li>
-              {%- endif -%}
-            {%- endfor -%}
-          </ul>
         </div>
 
         <div class="v2-product-main__quantity-row-{{ section.id }}">
@@ -801,20 +879,12 @@
               Sold out
             {%- endif -%}
           </button>
-
-          <a
-            class="v2-product-main__button-secondary-{{ section.id }}"
-            href="{{ section.settings.archive_link | default: '/pages/iris-archive' }}"
-          >
-            {{ section.settings.archive_button_label }}
-          </a>
-
           <p class="v2-product-main__error-{{ section.id }}" id="V2ProductError-{{ section.id }}" hidden></p>
         </div>
 
         <div class="v2-product-main__details-stack-{{ section.id }}">
           <div class="v2-product-main__facts-{{ section.id }}">
-            {%- for index in (1..4) -%}
+            {%- for index in (2..4) -%}
               {%- assign title_key = 'fact_title_' | append: index -%}
               {%- assign meta_key = 'fact_meta_' | append: index -%}
               {%- assign title_value = section.settings[title_key] -%}
@@ -873,6 +943,8 @@
     var quantityEl = document.getElementById('V2ProductQuantity-{{ section.id }}');
     var minusBtn = root.querySelector('[data-quantity-minus]');
     var plusBtn = root.querySelector('[data-quantity-plus]');
+    var mainImage = root.querySelector('[data-v2-main-product-image]');
+    var thumbnailButtons = root.querySelectorAll('[data-v2-product-thumbnail]');
 
     function normalizeQuantity(value) {
       return Math.max(1, Math.min(10, parseInt(value, 10) || 1));
@@ -895,6 +967,18 @@
         quantityEl.value = normalizeQuantity((parseInt(quantityEl.value, 10) || 1) + 1);
       });
     }
+
+    thumbnailButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (!mainImage || !button.dataset.fullSrc) return;
+        mainImage.src = button.dataset.fullSrc;
+        mainImage.removeAttribute('srcset');
+        thumbnailButtons.forEach(function (item) {
+          item.removeAttribute('aria-current');
+        });
+        button.setAttribute('aria-current', 'true');
+      });
+    });
 
     function renderRevealStats(data) {
       var total = Number(data && data.total_count) || 0;
@@ -1049,21 +1133,10 @@
       "label": "Callout text",
       "default": "Your edition is assigned at random and revealed only after purchase. No two pieces in the collection of 10,000 are identical."
     },
-    { "type": "text", "id": "progress_label", "label": "Progress label", "default": "Editions revealed" },
     { "type": "text", "id": "price_caption", "label": "Price caption", "default": "Current release price" },
-    { "type": "text", "id": "shipping_line_1", "label": "Shipping line 1", "default": "Shipping calculated at checkout" },
-    { "type": "text", "id": "shipping_line_2", "label": "Shipping line 2", "default": "No returns — each piece is unique" },
-    { "type": "text", "id": "shipping_line_3", "label": "Shipping line 3", "default": "Delivered in 5–10 business days" },
-    { "type": "text", "id": "feature_1", "label": "Feature 1", "default": "Physical gold inside" },
-    { "type": "text", "id": "feature_2", "label": "Feature 2", "default": "Hand-made original" },
-    { "type": "text", "id": "feature_3", "label": "Feature 3", "default": "Archived forever" },
-    { "type": "text", "id": "feature_4", "label": "Feature 4", "default": "Certificate included" },
     { "type": "text", "id": "primary_button_label", "label": "Primary button label", "default": "Reveal My IRIS" },
-    { "type": "text", "id": "archive_button_label", "label": "Archive button label", "default": "View Revealed Archive" },
     { "type": "url", "id": "archive_link", "label": "Archive link" },
     { "type": "header", "content": "Facts" },
-    { "type": "text", "id": "fact_title_1", "label": "Fact 1 title", "default": "Unique 4-digit ID" },
-    { "type": "text", "id": "fact_meta_1", "label": "Fact 1 meta", "default": "Stamped by hand · No two alike" },
     { "type": "text", "id": "fact_title_2", "label": "Fact 2 title", "default": "Physical Gold — Au 79" },
     { "type": "text", "id": "fact_meta_2", "label": "Fact 2 meta", "default": "Embedded in every piece · Permanence" },
     { "type": "text", "id": "fact_title_3", "label": "Fact 3 title", "default": "Ownership Certificate" },
