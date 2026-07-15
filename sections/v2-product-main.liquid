@@ -45,6 +45,10 @@
     top: 11rem;
   }
 
+  .v2-product-main__content-{{ section.id }} {
+    min-width: 0;
+  }
+
   .v2-product-main__art-{{ section.id }} {
     position: relative;
     background: transparent;
@@ -593,12 +597,32 @@
     }
 
     .v2-product-main__grid-{{ section.id }} {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 4.4rem;
     }
 
     .v2-product-main__visual-shell-{{ section.id }} {
+      order: 2;
       position: static;
+    }
+
+    .v2-product-main__content-{{ section.id }} {
+      display: contents;
+    }
+
+    .v2-product-main__intro-{{ section.id }} {
+      order: 1;
+    }
+
+    .v2-product-main__description-{{ section.id }},
+    .v2-product-main__callout-{{ section.id }},
+    .v2-product-main__price-card-{{ section.id }},
+    .v2-product-main__quantity-row-{{ section.id }},
+    .v2-product-main__installments-{{ section.id }},
+    .v2-product-main__actions-{{ section.id }},
+    .v2-product-main__details-stack-{{ section.id }} {
+      order: 3;
     }
 
     .v2-product-main__price-card-{{ section.id }} {
@@ -766,17 +790,19 @@
         </div>
       </div>
 
-      <div>
-        {%- assign product_vendor_display = product.vendor | default: 'IRIS NYC' -%}
-        <p class="v2-product-main__eyebrow-{{ section.id }}">{{ product_vendor_display }} · Physical Collectible Art</p>
+      <div class="v2-product-main__content-{{ section.id }}">
+        <div class="v2-product-main__intro-{{ section.id }}">
+          {%- assign product_vendor_display = product.vendor | default: 'IRIS NYC' -%}
+          <p class="v2-product-main__eyebrow-{{ section.id }}">{{ product_vendor_display }} · Physical Collectible Art</p>
 
-        <h1 class="v2-product-main__title-{{ section.id }}">{{ product.title }}</h1>
+          <h1 class="v2-product-main__title-{{ section.id }}">{{ product.title }}</h1>
 
-        {%- if section.settings.subtitle != blank -%}
-          <p class="v2-product-main__subtitle-{{ section.id }}">{{ section.settings.subtitle }}</p>
-        {%- endif -%}
+          {%- if section.settings.subtitle != blank -%}
+            <p class="v2-product-main__subtitle-{{ section.id }}">{{ section.settings.subtitle }}</p>
+          {%- endif -%}
 
-        <div class="v2-product-main__divider-{{ section.id }}"></div>
+          <div class="v2-product-main__divider-{{ section.id }}"></div>
+        </div>
 
         {%- if product.description != blank -%}
           <div class="v2-product-main__description-{{ section.id }}">{{ product.description }}</div>
