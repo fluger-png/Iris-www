@@ -60,6 +60,48 @@
     background: #1a1a1a;
   }
 
+  .v2-product-story__slider-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .v2-product-story__slide-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.9s ease;
+    will-change: transform, opacity;
+  }
+
+  .v2-product-story__slide-{{ section.id }}.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 2;
+  }
+
+  .v2-product-story__slide-{{ section.id }}.is-exiting {
+    opacity: 0;
+    transform: translateY(100%);
+    z-index: 1;
+  }
+
+  .v2-product-story__slide-{{ section.id }} img,
+  .v2-product-story__slide-{{ section.id }} svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center center;
+    background: #1a1a1a;
+  }
+
   .v2-product-story__content-{{ section.id }} {
     padding-top: 2.4rem;
   }
@@ -233,21 +275,25 @@
           aria-label="{{ section.settings.button_label | default: 'Shop the Edition' | escape }}"
         >
           <div class="v2-product-story__frame-{{ section.id }}">
-            {%- if section.settings.image != blank -%}
-              {%- assign image_class = 'v2-product-story__image-' | append: section.id -%}
-              {{
-                section.settings.image
-                | image_url: width: 2200
-                | image_tag:
-                  class: image_class,
-                  loading: 'lazy',
-                  widths: '750, 1100, 1500, 2000, 2200',
-                  sizes: '(min-width: 990px) 46vw, 100vw'
-              }}
-            {%- else -%}
-              {%- assign placeholder_class = 'v2-product-story__image-' | append: section.id -%}
-              {{ 'image' | placeholder_svg_tag: placeholder_class }}
-            {%- endif -%}
+            <div class="v2-product-story__slider-{{ section.id }}" id="V2ProductStorySlider-{{ section.id }}">
+              <div class="v2-product-story__slide-{{ section.id }} is-active">
+                {%- if section.settings.image != blank -%}
+                  {%- assign image_class = 'v2-product-story__image-' | append: section.id -%}
+                  {{
+                    section.settings.image
+                    | image_url: width: 2200
+                    | image_tag:
+                      class: image_class,
+                      loading: 'lazy',
+                      widths: '750, 1100, 1500, 2000, 2200',
+                      sizes: '(min-width: 990px) 46vw, 100vw'
+                  }}
+                {%- else -%}
+                  {%- assign placeholder_class = 'v2-product-story__image-' | append: section.id -%}
+                  {{ 'image' | placeholder_svg_tag: placeholder_class }}
+                {%- endif -%}
+              </div>
+            </div>
           </div>
         </a>
       </div>
@@ -294,6 +340,85 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    var slider = document.getElementById('V2ProductStorySlider-{{ section.id }}');
+    if (!slider) return;
+
+    var slideClass = 'v2-product-story__slide-{{ section.id }}';
+    var activeClass = 'is-active';
+    var exitingClass = 'is-exiting';
+    var currentIndex = 0;
+    var timer = null;
+
+    function createSlide(item, eager) {
+      var slide = document.createElement('div');
+      var image = document.createElement('img');
+
+      slide.className = slideClass;
+      image.src = item.image_url;
+      image.alt = item.display_iris_id || item.iris_id || 'Activated IRIS';
+      image.loading = eager ? 'eager' : 'lazy';
+
+      slide.appendChild(image);
+      return slide;
+    }
+
+    function startSlider(items) {
+      var slides;
+
+      if (!items.length || items.length < 2) return;
+
+      slider.innerHTML = '';
+      items.forEach(function (item, index) {
+        var slide = createSlide(item, index === 0);
+        if (index === 0) slide.classList.add(activeClass);
+        slider.appendChild(slide);
+      });
+
+      slides = slider.querySelectorAll('.' + slideClass);
+      currentIndex = 0;
+
+      if (timer) clearInterval(timer);
+
+      timer = setInterval(function () {
+        var currentSlide = slides[currentIndex];
+        var nextIndex = (currentIndex + 1) % slides.length;
+        var nextSlide = slides[nextIndex];
+
+        currentSlide.classList.remove(activeClass);
+        currentSlide.classList.add(exitingClass);
+        nextSlide.classList.remove(exitingClass);
+        nextSlide.classList.add(activeClass);
+
+        window.setTimeout(function () {
+          currentSlide.classList.remove(exitingClass);
+        }, 950);
+
+        currentIndex = nextIndex;
+      }, 5000);
+    }
+
+    fetch('/apps/iris/seen-archive?limit=12', {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store'
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('bad_status');
+        return response.json();
+      })
+      .then(function (data) {
+        var items = data && data.items ? data.items : [];
+        var imageItems = items.filter(function (item) {
+          return item && item.image_url;
+        }).slice(0, 10);
+
+        startSlider(imageItems);
+      })
+      .catch(function () {});
+  })();
+</script>
 
 {% schema %}
 {
