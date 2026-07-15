@@ -95,6 +95,21 @@
     line-height: 1;
   }
 
+  .v2-concept-grid__card-top-{{ section.id }} {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .v2-concept-grid__icon-{{ section.id }} {
+    width: 5.8rem;
+    height: 5.8rem;
+    object-fit: contain;
+    display: block;
+    flex: 0 0 5.8rem;
+  }
+
   .v2-concept-grid__card-title-{{ section.id }} {
     margin: 0 0 1.4rem;
     font-family: var(--font-heading-family);
@@ -179,7 +194,39 @@
           assign copy_key = 'copy_' | append: index
         -%}
         <article class="v2-concept-grid__card-{{ section.id }}">
-          <div class="v2-concept-grid__index-{{ section.id }}">{{ step_key | remove: 'step_' | prepend: '0' }}</div>
+          <div class="v2-concept-grid__card-top-{{ section.id }}">
+            <div class="v2-concept-grid__index-{{ section.id }}">{{ step_key | remove: 'step_' | prepend: '0' }}</div>
+            {%- case index -%}
+              {%- when 1 -%}
+                <img
+                  class="v2-concept-grid__icon-{{ section.id }}"
+                  src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/buy_icon_0c78d2ff-793d-4bc7-8600-fa7aec7f2944.svg"
+                  alt=""
+                  loading="lazy"
+                >
+              {%- when 2 -%}
+                <img
+                  class="v2-concept-grid__icon-{{ section.id }}"
+                  src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/scan_icon_34c8074d-18e9-4917-adf1-bc54d8d786d2.svg"
+                  alt=""
+                  loading="lazy"
+                >
+              {%- when 3 -%}
+                <img
+                  class="v2-concept-grid__icon-{{ section.id }}"
+                  src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/activate_icon_d42bed14-7f03-4fc2-bb27-be060c7eb2c7.svg"
+                  alt=""
+                  loading="lazy"
+                >
+              {%- when 4 -%}
+                <img
+                  class="v2-concept-grid__icon-{{ section.id }}"
+                  src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/reveal_icon_74ee00a7-b053-4414-9b1e-d10ab13ecec2.svg"
+                  alt=""
+                  loading="lazy"
+                >
+            {%- endcase -%}
+          </div>
           <div>
             <h3 class="v2-concept-grid__card-title-{{ section.id }}">{{ section.settings[title_key] }}</h3>
             <div class="v2-concept-grid__card-copy-{{ section.id }}">{{ section.settings[copy_key] }}</div>
