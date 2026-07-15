@@ -60,32 +60,8 @@
     background: #1a1a1a;
   }
 
-  .v2-product-story__badge-{{ section.id }} {
-    position: absolute;
-    top: 2.4rem;
-    right: 2.4rem;
-    z-index: 2;
-    padding: 1rem 1.5rem;
-    border: 1px solid var(--v2-border);
-    background: rgba(8, 8, 8, 0.82);
-    color: var(--v2-gold);
-    text-transform: uppercase;
-    letter-spacing: 0.22rem;
-    font-size: 1rem;
-    font-family: var(--font-body-family);
-  }
-
   .v2-product-story__content-{{ section.id }} {
     padding-top: 2.4rem;
-  }
-
-  .v2-product-story__eyebrow-{{ section.id }} {
-    margin: 0 0 1.8rem;
-    color: var(--v2-gold-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.42rem;
-    font-size: 1rem;
-    font-family: var(--font-body-family);
   }
 
   .v2-product-story__title-{{ section.id }} {
@@ -224,20 +200,8 @@
       padding: 7rem 2rem;
     }
 
-    .v2-product-story__badge-{{ section.id }} {
-      top: 1.6rem;
-      right: 1.6rem;
-      font-size: 0.9rem;
-      letter-spacing: 0.16rem;
-    }
-
     .v2-product-story__frame-{{ section.id }} {
       padding: 2rem;
-    }
-
-    .v2-product-story__eyebrow-{{ section.id }} {
-      letter-spacing: 0.28rem;
-      font-size: 0.9rem;
     }
 
     .v2-product-story__body-{{ section.id }} {
@@ -268,10 +232,6 @@
           href="{{ section.settings.button_link | default: '/products/iris-the-unseen-edition' }}"
           aria-label="{{ section.settings.button_label | default: 'Shop the Edition' | escape }}"
         >
-          {%- if section.settings.badge != blank -%}
-            <div class="v2-product-story__badge-{{ section.id }}">{{ section.settings.badge }}</div>
-          {%- endif -%}
-
           <div class="v2-product-story__frame-{{ section.id }}">
             {%- if section.settings.image != blank -%}
               {%- assign image_class = 'v2-product-story__image-' | append: section.id -%}
@@ -293,10 +253,6 @@
       </div>
 
       <div class="v2-product-story__content-{{ section.id }}">
-        {%- if section.settings.eyebrow != blank -%}
-          <p class="v2-product-story__eyebrow-{{ section.id }}">{{ section.settings.eyebrow }}</p>
-        {%- endif -%}
-
         {%- if section.settings.heading != blank -%}
           <h2 class="v2-product-story__title-{{ section.id }}">{{ section.settings.heading }}</h2>
         {%- endif -%}
@@ -349,18 +305,6 @@
       "type": "image_picker",
       "id": "image",
       "label": "Image"
-    },
-    {
-      "type": "text",
-      "id": "badge",
-      "label": "Badge",
-      "default": "Physical work · NFC linked"
-    },
-    {
-      "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow",
-      "default": "The Object"
     },
     {
       "type": "inline_richtext",

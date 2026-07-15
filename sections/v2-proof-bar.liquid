@@ -84,6 +84,10 @@
       </span>
     {%- endif -%}
   {%- endfor -%}
+  <span class="v2-proof-bar__item-{{ section.id }}" data-v2-proof-gold-price>
+    <span class="v2-proof-bar__dot-{{ section.id }}"></span>
+    <strong>Gold</strong> USD/g <span data-v2-proof-gold-value>—</span>
+  </span>
 {%- endcapture -%}
 
 <section class="v2-proof-bar-{{ section.id }}">
@@ -92,6 +96,71 @@
     {{ items_markup }}
   </div>
 </section>
+
+<script>
+  (function () {
+    var root = document.querySelector('.v2-proof-bar-{{ section.id }}');
+    if (!root) return;
+
+    var valueEls = root.querySelectorAll('[data-v2-proof-gold-value]');
+    if (!valueEls.length) return;
+
+    var cacheKey = 'iris_goldapi_usd_g';
+    var ttl = 8 * 60 * 60 * 1000;
+
+    function setValue(text) {
+      valueEls.forEach(function (el) {
+        el.textContent = text;
+      });
+    }
+
+    function readCache() {
+      try {
+        var raw = localStorage.getItem(cacheKey);
+        if (!raw) return null;
+        var parsed = JSON.parse(raw);
+        if (!parsed || !parsed.value || !parsed.ts) return null;
+        if (Date.now() - parsed.ts > ttl) return null;
+        return parsed.value;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function writeCache(value) {
+      try {
+        localStorage.setItem(cacheKey, JSON.stringify({ value: value, ts: Date.now() }));
+      } catch (e) {}
+    }
+
+    function fetchPrice() {
+      var cached = readCache();
+      if (cached) {
+        setValue(cached);
+        return;
+      }
+
+      fetch('/apps/iris/gold-price', { headers: { 'Accept': 'application/json' } })
+        .then(function (res) {
+          if (!res.ok) throw new Error('bad_status');
+          return res.json();
+        })
+        .then(function (data) {
+          var perGram = data.price_usd_g;
+          if (!perGram) throw new Error('missing_price');
+          var formatted = '$' + Number(perGram).toFixed(2);
+          setValue(formatted);
+          writeCache(formatted);
+        })
+        .catch(function () {
+          setValue('—');
+        });
+    }
+
+    fetchPrice();
+    setInterval(fetchPrice, ttl);
+  })();
+</script>
 
 {% schema %}
 {

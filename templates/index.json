@@ -57,8 +57,6 @@
       "type": "v2-product-story",
       "settings": {
         "image": "shopify://shop_images/product-1.png",
-        "badge": "Physical work · NFC linked",
-        "eyebrow": "The Object",
         "heading": "A physical artwork revealed through <em>ownership</em>",
         "body": "<p>IRIS is designed as a collectible ritual. You do not select the exact artwork in advance. The image is disclosed only after purchase and activation, turning ownership itself into part of the reveal.</p><p>Every piece carries a trace of 24K gold, an NFC connection, and a rarity assignment committed publicly through a Merkle proof process.</p>",
         "feature_1": "10,000 total physical works across the full edition.",

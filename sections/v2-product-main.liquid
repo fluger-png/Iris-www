@@ -267,6 +267,10 @@
   }
 
   .v2-product-main__price-card-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.4rem;
     margin-top: 4rem;
     padding: 3.2rem 3rem 2.8rem;
     border: 1px solid var(--v2-product-border);
@@ -300,10 +304,10 @@
   }
 
   .v2-product-main__quantity-row-{{ section.id }} {
-    margin-top: 2rem;
     display: flex;
+    flex-direction: column-reverse;
     align-items: center;
-    gap: 1.4rem;
+    gap: 0.9rem;
   }
 
   .v2-product-main__quantity-control-{{ section.id }} {
@@ -618,7 +622,6 @@
     .v2-product-main__description-{{ section.id }},
     .v2-product-main__callout-{{ section.id }},
     .v2-product-main__price-card-{{ section.id }},
-    .v2-product-main__quantity-row-{{ section.id }},
     .v2-product-main__installments-{{ section.id }},
     .v2-product-main__actions-{{ section.id }},
     .v2-product-main__details-stack-{{ section.id }} {
@@ -626,7 +629,9 @@
     }
 
     .v2-product-main__price-card-{{ section.id }} {
-      grid-template-columns: 1fr;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .v2-product-main__price-side-{{ section.id }} {
@@ -697,8 +702,13 @@
     .v2-product-main__button-{{ section.id }},
     .v2-product-main__button-secondary-{{ section.id }} {
       min-height: 6.4rem;
+      width: min(80vw, 100%);
       letter-spacing: 0.24rem;
       font-size: 1.54rem;
+    }
+
+    .v2-product-main__actions-{{ section.id }} {
+      justify-items: center;
     }
 
     .v2-product-main__gallery-button-{{ section.id }} {
@@ -708,7 +718,7 @@
     }
 
     .v2-product-main__quantity-row-{{ section.id }} {
-      align-items: stretch;
+      align-items: center;
     }
 
     .v2-product-main__quantity-input-{{ section.id }} {
@@ -716,12 +726,13 @@
     }
 
     .v2-product-main__quantity-control-{{ section.id }} {
-      grid-template-columns: 4.8rem 8.8rem 4.8rem;
+      grid-template-columns: 4rem 6.8rem 4rem;
     }
 
     .v2-product-main__fact-{{ section.id }} {
-      grid-template-columns: 1fr;
-      gap: 1.2rem;
+      grid-template-columns: 5.2rem minmax(0, 1fr);
+      gap: 1.4rem;
+      padding: 1.6rem;
     }
 
     .v2-product-main__fact-icon-{{ section.id }} {
@@ -824,37 +835,37 @@
             <p class="v2-product-main__price-value-{{ section.id }}">{{ product_price_display }}</p>
             <div class="v2-product-main__price-label-{{ section.id }}">{{ section.settings.price_caption }}</div>
           </div>
-        </div>
 
-        <div class="v2-product-main__quantity-row-{{ section.id }}">
-          <label class="v2-product-main__quantity-label-{{ section.id }}" for="V2ProductQuantity-{{ section.id }}">Quantity</label>
-          <div class="v2-product-main__quantity-control-{{ section.id }}">
-            <button
-              type="button"
-              class="v2-product-main__quantity-button-{{ section.id }}"
-              data-quantity-minus
-              aria-label="Decrease quantity"
-            >
-              −
-            </button>
-            <input
-              id="V2ProductQuantity-{{ section.id }}"
-              class="v2-product-main__quantity-input-{{ section.id }}"
-              type="number"
-              min="1"
-              max="10"
-              step="1"
-              value="1"
-              inputmode="numeric"
-            >
-            <button
-              type="button"
-              class="v2-product-main__quantity-button-{{ section.id }}"
-              data-quantity-plus
-              aria-label="Increase quantity"
-            >
-              +
-            </button>
+          <div class="v2-product-main__quantity-row-{{ section.id }}">
+            <label class="v2-product-main__quantity-label-{{ section.id }}" for="V2ProductQuantity-{{ section.id }}">Quantity</label>
+            <div class="v2-product-main__quantity-control-{{ section.id }}">
+              <button
+                type="button"
+                class="v2-product-main__quantity-button-{{ section.id }}"
+                data-quantity-minus
+                aria-label="Decrease quantity"
+              >
+                −
+              </button>
+              <input
+                id="V2ProductQuantity-{{ section.id }}"
+                class="v2-product-main__quantity-input-{{ section.id }}"
+                type="number"
+                min="1"
+                max="10"
+                step="1"
+                value="1"
+                inputmode="numeric"
+              >
+              <button
+                type="button"
+                class="v2-product-main__quantity-button-{{ section.id }}"
+                data-quantity-plus
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
+            </div>
           </div>
         </div>
 
