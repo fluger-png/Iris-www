@@ -439,6 +439,83 @@
     cursor: not-allowed;
   }
 
+  .v2-product-main__button-{{ section.id }}.is-loading {
+    opacity: 1;
+    cursor: wait;
+  }
+
+  .v2-product-main__button-label-{{ section.id }},
+  .v2-product-main__button-loading-{{ section.id }} {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .v2-product-main__button-label-{{ section.id }} {
+    display: inline-flex;
+  }
+
+  .v2-product-main__button-loading-{{ section.id }} {
+    display: none;
+    gap: 1.4rem;
+  }
+
+  .v2-product-main__button-{{ section.id }}.is-loading .v2-product-main__button-label-{{ section.id }} {
+    display: none;
+  }
+
+  .v2-product-main__button-{{ section.id }}.is-loading .v2-product-main__button-loading-{{ section.id }} {
+    display: inline-flex;
+  }
+
+  .v2-product-main__loader-{{ section.id }},
+  .v2-product-main__loader-{{ section.id }} div {
+    box-sizing: border-box;
+  }
+
+  .v2-product-main__loader-{{ section.id }} {
+    display: inline-block;
+    position: relative;
+    width: 3.2rem;
+    height: 3.2rem;
+    flex: 0 0 3.2rem;
+  }
+
+  .v2-product-main__loader-{{ section.id }} div {
+    display: inline-block;
+    position: absolute;
+    left: 0.32rem;
+    width: 0.64rem;
+    background: currentColor;
+    animation: v2-product-main-loader-{{ section.id }} 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+
+  .v2-product-main__loader-{{ section.id }} div:nth-child(1) {
+    left: 0.32rem;
+    animation-delay: -0.24s;
+  }
+
+  .v2-product-main__loader-{{ section.id }} div:nth-child(2) {
+    left: 1.28rem;
+    animation-delay: -0.12s;
+  }
+
+  .v2-product-main__loader-{{ section.id }} div:nth-child(3) {
+    left: 2.24rem;
+    animation-delay: 0s;
+  }
+
+  @keyframes v2-product-main-loader-{{ section.id }} {
+    0% {
+      top: 0.32rem;
+      height: 2.56rem;
+    }
+    50%,
+    100% {
+      top: 0.96rem;
+      height: 1.28rem;
+    }
+  }
+
   .v2-product-main__button-secondary-{{ section.id }} {
     background: transparent;
     color: var(--v2-product-gold);
@@ -895,9 +972,15 @@
             {% unless current_variant and current_variant.available %}disabled{% endunless %}
           >
             {%- if current_variant and current_variant.available -%}
-              {{ section.settings.primary_button_label }} — {{ product_price_display }}
+              <span class="v2-product-main__button-label-{{ section.id }}">
+                {{ section.settings.primary_button_label }} — {{ product_price_display }}
+              </span>
+              <span class="v2-product-main__button-loading-{{ section.id }}" aria-hidden="true">
+                <span class="v2-product-main__loader-{{ section.id }}"><span></span><span></span><span></span></span>
+                <span>Assigning your IRIS…</span>
+              </span>
             {%- else -%}
-              Sold out
+              <span class="v2-product-main__button-label-{{ section.id }}">Sold out</span>
             {%- endif -%}
           </button>
           <p class="v2-product-main__error-{{ section.id }}" id="V2ProductError-{{ section.id }}" hidden></p>
@@ -1043,6 +1126,11 @@
 
     if (!buyBtn) return;
 
+    function setBuyButtonLoading(isLoading) {
+      buyBtn.classList.toggle('is-loading', isLoading);
+      buyBtn.setAttribute('aria-busy', isLoading ? 'true' : 'false');
+    }
+
     buyBtn.addEventListener('click', function () {
       var variantId = buyBtn.getAttribute('data-variant-id');
       var productId = buyBtn.getAttribute('data-product-id');
@@ -1051,6 +1139,7 @@
       var quantity = quantityEl ? normalizeQuantity(quantityEl.value) : 1;
 
       buyBtn.disabled = true;
+      setBuyButtonLoading(true);
       if (errorEl) {
         errorEl.hidden = true;
         errorEl.textContent = '';
@@ -1107,6 +1196,7 @@
             errorEl.hidden = false;
             errorEl.textContent = 'We could not reserve an IRIS right now. Please try again.';
           }
+          setBuyButtonLoading(false);
           buyBtn.disabled = false;
         });
     });
