@@ -579,6 +579,13 @@
     stroke-linejoin: round;
   }
 
+  .v2-product-main__fact-icon-{{ section.id }} img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+    display: block;
+  }
+
   .v2-product-main__fact-title-{{ section.id }} {
     margin: 0 0 0.6rem;
     color: var(--v2-product-text);
@@ -997,8 +1004,18 @@
                 <div class="v2-product-main__fact-icon-{{ section.id }}">
                   {%- case index -%}
                     {%- when 1 -%}{{ v2_fact_icon_1 }}
-                    {%- when 2 -%}{{ v2_fact_icon_2 }}
-                    {%- when 3 -%}{{ v2_fact_icon_3 }}
+                    {%- when 2 -%}
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/gold_bar_icon_transparent.svg?v=1784087860"
+                        alt=""
+                        loading="lazy"
+                      >
+                    {%- when 3 -%}
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/certificate_icon_transparent.svg?v=1784087860"
+                        alt=""
+                        loading="lazy"
+                      >
                     {%- when 4 -%}{{ v2_fact_icon_4 }}
                   {%- endcase -%}
                 </div>
