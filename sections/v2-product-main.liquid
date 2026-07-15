@@ -585,6 +585,15 @@
     display: block;
   }
 
+  .v2-product-main__fact-mask-{{ section.id }} {
+    width: 5.8rem;
+    height: 5.8rem;
+    display: block;
+    background: #eabf50;
+    -webkit-mask: var(--v2-product-fact-icon) center / contain no-repeat;
+    mask: var(--v2-product-fact-icon) center / contain no-repeat;
+  }
+
   .v2-product-main__fact-title-{{ section.id }} {
     margin: 0 0 0.6rem;
     color: var(--v2-product-text);
@@ -1005,11 +1014,11 @@
                 <div class="v2-product-main__fact-icon-{{ section.id }}">
                   {%- case index -%}
                     {%- when 1 -%}
-                      <img
-                        src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/activate_icon_d42bed14-7f03-4fc2-bb27-be060c7eb2c7.svg"
-                        alt=""
-                        loading="lazy"
-                      >
+                      <span
+                        class="v2-product-main__fact-mask-{{ section.id }}"
+                        style="--v2-product-fact-icon: url('https://cdn.shopify.com/s/files/1/0710/5239/4589/files/activate_icon_d42bed14-7f03-4fc2-bb27-be060c7eb2c7.svg');"
+                        aria-hidden="true"
+                      ></span>
                     {%- when 2 -%}
                       <img
                         src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/gold_bar_icon_transparent.svg"
