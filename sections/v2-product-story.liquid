@@ -400,7 +400,24 @@
       }, 3000);
     }
 
-    fetch('/apps/iris/seen-archive?limit=12', {
+    function shuffle(items) {
+      var shuffled = items.slice();
+      var currentIndex = shuffled.length;
+      var randomIndex;
+      var temporaryValue;
+
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = shuffled[currentIndex];
+        shuffled[currentIndex] = shuffled[randomIndex];
+        shuffled[randomIndex] = temporaryValue;
+      }
+
+      return shuffled;
+    }
+
+    fetch('/apps/iris/seen-archive?limit=20', {
       headers: { Accept: 'application/json' },
       cache: 'no-store'
     })
@@ -412,9 +429,9 @@
         var items = data && data.items ? data.items : [];
         var imageItems = items.filter(function (item) {
           return item && item.image_url;
-        }).slice(0, 10);
+        }).slice(0, 20);
 
-        startSlider(imageItems);
+        startSlider(shuffle(imageItems));
       })
       .catch(function () {});
   })();
