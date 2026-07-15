@@ -994,7 +994,9 @@
 
         <div class="v2-product-main__details-stack-{{ section.id }}">
           <div class="v2-product-main__facts-{{ section.id }}">
-            {%- for index in (1..3) -%}
+            {%- assign fact_order = '2,1,3' | split: ',' -%}
+            {%- for fact_index in fact_order -%}
+              {%- assign index = fact_index | plus: 0 -%}
               {%- assign title_key = 'fact_title_' | append: index -%}
               {%- assign meta_key = 'fact_meta_' | append: index -%}
               {%- assign title_value = section.settings[title_key] -%}
@@ -1002,7 +1004,12 @@
               <div class="v2-product-main__fact-{{ section.id }}">
                 <div class="v2-product-main__fact-icon-{{ section.id }}">
                   {%- case index -%}
-                    {%- when 1 -%}{{ v2_fact_icon_1 }}
+                    {%- when 1 -%}
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/activate_icon_d42bed14-7f03-4fc2-bb27-be060c7eb2c7.svg"
+                        alt=""
+                        loading="lazy"
+                      >
                     {%- when 2 -%}
                       <img
                         src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/gold_bar_icon_transparent.svg"
