@@ -17,7 +17,7 @@
         "description": "<p>Each IRIS is assigned in mystery, revealed through ownership, and anchored by physical gold. The object becomes fully known only when it becomes yours.</p>",
         "primary_label": "Reveal My IRIS",
         "primary_link": "shopify://products/iris-the-unseen-edition",
-        "secondary_label": "View Revealed Archive",
+        "secondary_label": "View Gallery",
         "secondary_link": "shopify://pages/iris-archive",
         "meta_text": "Current release <strong>$120</strong>    10,000 total works",
         "visual_eyebrow": "Edition Preview",
@@ -38,6 +38,7 @@
     },
     "v2_edition_stats_Y2t9Lp": {
       "type": "v2-edition-stats",
+      "disabled": true,
       "settings": {
         "value_1": "10,000",
         "label_1": "Total Editions",
@@ -75,9 +76,8 @@
       "settings": {
         "eyebrow": "Revealed Archive",
         "heading": "What others have <em>received</em>",
-        "description": "<p>Every activated IRIS enters the visible history of the edition. Browse the works that have already been claimed and revealed.</p>",
         "items_to_show": 8,
-        "button_label": "Explore the Archive",
+        "button_label": "View Gallery",
         "button_link": "shopify://pages/iris-archive"
       }
     },
