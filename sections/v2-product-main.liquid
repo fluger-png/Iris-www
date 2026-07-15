@@ -6,15 +6,10 @@
   assign art_image_class = 'v2-product-main__art-image-' | append: section.id
   assign main_image_id = 'V2ProductMainImage-' | append: section.id
   assign product_form_installment_id = 'v2-product-installment-' | append: section.id
-  assign product_video_media = blank
+  assign product_video_url = 'https://cdn.shopify.com/videos/c/o/v/1c506c3439704005abdc60f6164e77e9.mp4'
   if display_media == blank
     assign display_media = product.featured_media
   endif
-  for media in product.media
-    if product_video_media == blank and media.media_type == 'video'
-      assign product_video_media = media
-    endif
-  endfor
 -%}
 
 {%- style -%}
@@ -756,16 +751,11 @@
         </div>
 
         <div class="v2-product-main__gallery-row-{{ section.id }}">
-          {%- if product_video_media != blank -%}
-            <div class="v2-product-main__video-{{ section.id }}">
-              {{
-                product_video_media
-                | video_tag:
-                  controls: true,
-                  image_size: '1600x'
-              }}
-            </div>
-          {%- endif -%}
+          <div class="v2-product-main__video-{{ section.id }}">
+            <video controls preload="metadata" playsinline>
+              <source src="{{ product_video_url }}" type="video/mp4">
+            </video>
+          </div>
 
           <a
             class="v2-product-main__gallery-button-{{ section.id }}"
