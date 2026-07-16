@@ -235,6 +235,7 @@
   var isLoggedIn = {% if customer %}true{% else %}false{% endif %};
   var storefrontLoginUrl = {{ routes.storefront_login_url | json }};
   const params = new URLSearchParams(window.location.search);
+  const testSuccess = params.get("test_success") === "1";
   let iris = params.get("iris");
   let tokenParam = params.get("token");
   let token = "";
@@ -294,16 +295,27 @@
     } catch (e) {}
   }
 
-  if (!irisId && tokenParam) {
+  if (testSuccess) {
+    showActivationSuccess({
+      status: "ok",
+      iris_id: "IRIS-9999",
+      display_iris_id: "IRIS-9999",
+      image_url: "https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244",
+      activated_at: new Date().toISOString(),
+      rarity_code: "Rare",
+      weight_grams: 0.24,
+      passport_url: "/pages/iris-passport?iris_id=IRIS-9999"
+    });
+  } else if (!irisId && tokenParam) {
     token = tokenParam;
     hydrateFromToken(tokenParam);
   }
 
-  if (irisId) {
+  if (!testSuccess && irisId) {
     hydrateFromIrisId(irisId);
   }
 
-  if (!irisId && !tokenParam) {
+  if (!testSuccess && !irisId && !tokenParam) {
     msg.textContent = "Missing IRIS ID in the link.";
     form.querySelector("button").disabled = true;
   }
