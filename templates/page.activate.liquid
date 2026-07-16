@@ -2,7 +2,11 @@
 
 <style>
   .iris-activate-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 16px;
     padding-top: calc(40px + var(--header-height, 0px));
+    text-align: center;
   }
   .iris-activate-image-wrap {
     max-width: 400px;
@@ -20,96 +24,235 @@
     border: 1px solid #eee;
     border-radius: 0;
   }
-  .iris-activation-success {
-    display: grid;
-    gap: 18px;
-    margin: 24px auto 0;
-    max-width: 560px;
+  .iris-activate-wrap.is-success {
+    --v2-gold: #c9a84c;
+    --v2-gold-dim: #7a6330;
+    --v2-surface: #000000;
+    --v2-surface-2: #101010;
+    --v2-border: rgba(201, 168, 76, 0.16);
+    --v2-text: #ede8df;
+    --v2-text-mid: #a89f90;
+    max-width: none;
+    width: 100%;
+    padding: 0;
+    background: var(--v2-surface);
+    color: var(--v2-text);
+    border-top: 1px solid var(--v2-border);
     text-align: left;
   }
+
+  .iris-activation-success {
+    margin: 0;
+  }
+
   .iris-activation-success[hidden] {
     display: none;
   }
+
+  .iris-success-shell {
+    max-width: 136rem;
+    margin: 0 auto;
+    padding: 9.6rem 8rem 11rem;
+  }
+
+  .iris-success-head {
+    margin-bottom: 4.8rem;
+  }
+
   .iris-success-card {
-    border: 1px solid rgba(234, 191, 80, .32);
-    background: rgba(234, 191, 80, .045);
-    padding: 22px;
+    background: var(--v2-surface-2);
+    border: 1px solid var(--v2-border);
+    padding: 3.2rem;
   }
+
   .iris-success-eyebrow {
-    margin: 0 0 10px;
-    color: #9a7d31;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .16em;
+    margin: 0 0 1.4rem;
+    color: var(--v2-gold-dim);
     text-transform: uppercase;
+    letter-spacing: 0.42rem;
+    font-size: 1rem;
+    font-family: var(--font-body-family);
   }
+
   .iris-success-title {
-    margin: 0 0 10px;
-    font-size: 28px;
-    line-height: 1.1;
-  }
-  .iris-success-copy {
     margin: 0;
-    color: rgba(0, 0, 0, .72);
-    font-size: 15px;
-    line-height: 1.55;
+    color: var(--v2-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(3rem, 4.2vw, 5.6rem);
+    line-height: 1.04;
+    font-weight: 400;
+    letter-spacing: 0.03em;
   }
-  .iris-success-passport {
+
+  .iris-success-copy {
+    margin: 1.8rem 0 0;
+    max-width: 62rem;
+    color: var(--v2-text-mid);
+    font-size: 1.7rem;
+    line-height: 1.85;
+  }
+
+  .iris-success-grid {
     display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 18px;
-    align-items: center;
+    grid-template-columns: minmax(0, 1.04fr) minmax(36rem, 0.96fr);
+    gap: 5.6rem;
+    align-items: start;
   }
-  .iris-success-passport img {
-    width: 120px;
+
+  .iris-success-media,
+  .iris-success-panel {
+    background: var(--v2-surface-2);
+    border: 1px solid var(--v2-border);
+  }
+
+  .iris-success-media {
+    padding: 3.2rem;
+  }
+
+  .iris-success-media__frame {
     aspect-ratio: 1 / 1;
-    object-fit: contain;
-    background: #f3f4f6;
+    background: #202020;
+    overflow: hidden;
   }
-  .iris-success-meta {
-    display: grid;
-    gap: 10px;
-  }
-  .iris-success-meta-row span {
-    display: block;
-    color: rgba(0, 0, 0, .52);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-  }
-  .iris-success-meta-row strong {
-    display: block;
-    margin-top: 3px;
-    font-size: 15px;
-  }
-  .iris-save-button {
+
+  .iris-success-media__frame img {
     width: 100%;
-    min-height: 58px;
-    margin-top: 2px;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: #202020;
+  }
+
+  .iris-success-panel {
+    padding: 3.6rem 3.2rem;
+  }
+
+  .iris-success-panel__title {
+    margin: 0;
+    color: var(--v2-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.8rem, 3.4vw, 4.6rem);
+    line-height: 1.02;
+    font-weight: 400;
+  }
+
+  .iris-success-panel__copy {
+    margin: 1.6rem 0 0;
+    color: var(--v2-text-mid);
+    font-size: 1.6rem;
+    line-height: 1.8;
+  }
+
+  .iris-success-passport {
+    display: block;
+  }
+
+  .iris-success-passport img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .iris-success-meta {
+    margin-top: 3.2rem;
+    border-top: 1px solid var(--v2-border);
+  }
+
+  .iris-success-meta-row span {
+    color: var(--v2-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-size: 1.02rem;
+  }
+
+  .iris-success-meta-row strong {
+    color: var(--v2-text);
+    text-align: right;
+    font-size: 1.55rem;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .iris-success-meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.7rem 0;
+    border-bottom: 1px solid var(--v2-border);
+  }
+
+  .iris-save-button {
+    width: auto;
+    min-height: 5.6rem;
+    margin-top: 3.2rem;
+    padding: 1.6rem 2.8rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid var(--v2-border);
+    background: rgba(201, 168, 76, 0.04);
+    color: var(--v2-gold);
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.24rem;
+    font-size: 1.1rem;
+    transition: all 0.25s ease;
   }
+
+  .iris-save-button:hover {
+    border-color: rgba(201, 168, 76, 0.5);
+    background: rgba(201, 168, 76, 0.08);
+  }
+
+  .iris-success-lower {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    margin-top: 5.6rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .iris-success-shell {
+      padding: 7.2rem 3.2rem 8rem;
+    }
+
+    .iris-success-grid,
+    .iris-success-lower {
+      grid-template-columns: 1fr;
+      gap: 3.2rem;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     .iris-activate-wrap {
       padding-top: calc(24px + var(--header-height, 64px));
     }
+    .iris-activate-wrap.is-success {
+      padding: 0;
+    }
+    .iris-success-shell {
+      padding: 5.6rem 2rem 7rem;
+    }
     .iris-success-card {
-      padding: 18px;
+      padding: 2rem;
     }
-    .iris-success-passport {
-      grid-template-columns: 92px 1fr;
-      gap: 14px;
+    .iris-success-media,
+    .iris-success-panel {
+      padding: 2rem;
     }
-    .iris-success-passport img {
-      width: 92px;
+    .iris-success-meta-row {
+      display: grid;
+      gap: 0.4rem;
+    }
+    .iris-success-meta-row strong {
+      text-align: left;
+    }
+    .iris-save-button {
+      width: 100%;
     }
   }
 </style>
 
-<div class="page-width iris-activate-wrap" style="max-width:700px;margin:0 auto;padding:40px 16px;text-align:center;">
+<div id="activateWrap" class="page-width iris-activate-wrap">
 
   <h1 id="activateTitle">Activate your IRIS</h1>
 
@@ -155,57 +298,70 @@
   </form>
 
   <section id="activationSuccess" class="iris-activation-success" hidden aria-live="polite">
-    <div class="iris-success-card">
-      <p class="iris-success-eyebrow">Activation complete</p>
-      <h2 class="iris-success-title">Your IRIS is now awake.</h2>
-      <p class="iris-success-copy">
-        This piece has entered the IRIS archive. Its passport is recorded by IRIS number, activation time, and artwork data.
-      </p>
-    </div>
+    <div class="iris-success-shell">
+      <div class="iris-success-head">
+        <p class="iris-success-eyebrow">Activation Complete</p>
+        <h2 class="iris-success-title">Your IRIS is now awake.</h2>
+        <p class="iris-success-copy">
+          This piece has entered the IRIS archive. Its passport is recorded by IRIS number, activation time, and artwork data.
+        </p>
+      </div>
 
-    <div class="iris-success-card iris-success-passport">
-      <img id="successImage" src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244" alt="Activated IRIS" width="120" height="120">
-      <div class="iris-success-meta">
-        <div class="iris-success-meta-row">
-          <span>IRIS No.</span>
-          <strong id="successIrisId">—</strong>
+      <div class="iris-success-grid">
+        <div class="iris-success-media">
+          <div class="iris-success-media__frame">
+            <img id="successImage" src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244" alt="Activated IRIS" width="900" height="900">
+          </div>
         </div>
-        <div class="iris-success-meta-row">
-          <span>Activated</span>
-          <strong id="successActivatedAt">—</strong>
+
+        <div class="iris-success-panel">
+          <p class="iris-success-eyebrow">Activated Work</p>
+          <h3 id="successIrisId" class="iris-success-panel__title">—</h3>
+          <div class="iris-success-panel__copy">
+            This passport preview confirms the image, rarity, and gold content assigned to the activated work.
+          </div>
+
+          <div class="iris-success-meta">
+            <div class="iris-success-meta-row">
+              <span>Activated</span>
+              <strong id="successActivatedAt">—</strong>
+            </div>
+            <div class="iris-success-meta-row">
+              <span>Gold Content</span>
+              <strong><span id="successWeight">—</span> g (24K)</strong>
+            </div>
+            <div class="iris-success-meta-row">
+              <span>Rarity</span>
+              <strong id="successRarity">—</strong>
+            </div>
+            <div class="iris-success-meta-row">
+              <span>Provenance</span>
+              <strong id="successProvenance">Registered in the IRIS archive</strong>
+            </div>
+          </div>
+
+          <a id="saveToIrisBtn" class="iris-save-button" href="{{ routes.storefront_login_url }}?return_to={{ '/pages/my-iris' | url_encode }}">
+            Save to My IRIS
+          </a>
         </div>
-        <div class="iris-success-meta-row">
-          <span>Rarity</span>
-          <strong id="successRarity">—</strong>
+      </div>
+
+      <div class="iris-success-lower">
+        <div class="iris-success-card">
+          <p class="iris-success-eyebrow">Welcome</p>
+          <p class="iris-success-copy">
+            You are now part of the visible IRIS history. Keep this page, save your IRIS to your account, and return to your collection whenever you need it.
+          </p>
         </div>
-        <div class="iris-success-meta-row">
-          <span>Gold</span>
-          <strong><span id="successWeight">—</span> g 24K</strong>
-        </div>
-        <div class="iris-success-meta-row">
-          <span>Provenance</span>
-          <strong id="successProvenance">Registered in the IRIS archive</strong>
+
+        <div class="iris-success-card">
+          <p class="iris-success-eyebrow">Coming Next</p>
+          <p class="iris-success-copy">
+            Owner tools are being prepared for future releases, including collection features and invitation-based referral access.
+          </p>
         </div>
       </div>
     </div>
-
-    <div class="iris-success-card">
-      <p class="iris-success-eyebrow">Welcome</p>
-      <p class="iris-success-copy">
-        You are now part of the visible IRIS history. Keep this page, save your IRIS to your account, and return to your collection whenever you need it.
-      </p>
-    </div>
-
-    <div class="iris-success-card">
-      <p class="iris-success-eyebrow">Coming next</p>
-      <p class="iris-success-copy">
-        Owner tools are being prepared for future releases, including collection features and invitation-based referral access.
-      </p>
-    </div>
-
-    <a id="saveToIrisBtn" class="button button--primary iris-save-button" href="{{ routes.storefront_login_url }}?return_to={{ '/pages/my-iris' | url_encode }}">
-      Save to My IRIS
-    </a>
   </section>
 
   <div id="alreadyActivated" hidden style="margin:20px 0 0;font-size:14px;line-height:1.6;text-align:center;">
@@ -365,6 +521,7 @@
 
   function showActivationSuccess(data) {
     var formEl = document.getElementById("activateForm");
+    var wrapEl = document.getElementById("activateWrap");
     var titleEl = document.getElementById("activateTitle");
     var introEl = document.getElementById("activateIntro");
     var footerEl = document.getElementById("activateFooter");
@@ -379,8 +536,9 @@
     var returnTo = "/pages/my-iris";
 
     updatePreviewImage(data.image_url);
+    if (wrapEl) wrapEl.classList.add("is-success");
     if (formEl) formEl.style.display = "none";
-    if (titleEl) titleEl.textContent = displayId + " Activated";
+    if (titleEl) titleEl.style.display = "none";
     if (introEl) introEl.style.display = "none";
     if (footerEl) footerEl.style.display = "none";
     if (irisIdBlock) irisIdBlock.style.display = "none";
