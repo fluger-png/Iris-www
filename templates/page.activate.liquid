@@ -346,13 +346,28 @@
   }
 
   .iris-success-spec-status {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
     margin-top: 0.8rem;
     color: var(--v2-gold);
     font-family: var(--font-body-family);
     font-size: 1.02rem;
     letter-spacing: 0.2rem;
     text-transform: uppercase;
+  }
+
+  .iris-success-spec-loader {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.35em;
+    min-width: 1.35em;
+    color: var(--v2-gold);
+    font-size: 1.15em;
+    line-height: 1;
+    letter-spacing: 0;
+    transform: translateY(-0.02em);
   }
 
   @media screen and (max-width: 989px) {
@@ -584,7 +599,7 @@
                 <div class="iris-success-spec-key">Marketplace</div>
                 <div class="iris-success-spec-val">
                   Verified transfers between owners, authenticated by IRIS<br>
-                  <span class="iris-success-spec-status">-> In development</span>
+                  <span class="iris-success-spec-status">-> In development <span id="marketplaceProgress" class="iris-success-spec-loader" aria-hidden="true">◴</span></span>
                 </div>
               </div>
             </div>
@@ -629,6 +644,20 @@
   let iris = params.get("iris");
   let tokenParam = params.get("token");
   let token = "";
+
+  function startUnicodeLoader(elementId, sequenceArray, intervalMs) {
+    var element = document.getElementById(elementId);
+    var frameIndex = 0;
+    var delay = intervalMs || 150;
+    if (!element || !sequenceArray || !sequenceArray.length) return null;
+
+    return setInterval(function () {
+      element.textContent = sequenceArray[frameIndex];
+      frameIndex = (frameIndex + 1) % sequenceArray.length;
+    }, delay);
+  }
+
+  startUnicodeLoader("marketplaceProgress", ["◴", "◷", "◶", "◵"], 150);
 
   function normalize(v){
     if(!v) return "";
