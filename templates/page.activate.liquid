@@ -50,7 +50,7 @@
   }
 
   .iris-success-shell {
-    max-width: 104rem;
+    max-width: 114rem;
     margin: 0 auto;
     padding: 6.6rem 5.6rem 7.6rem;
   }
@@ -94,19 +94,22 @@
 
   .iris-success-grid {
     display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(30rem, 0.86fr);
-    gap: 3.8rem;
+    grid-template-columns: minmax(0, 0.98fr) minmax(32rem, 0.9fr);
+    gap: 3rem;
     align-items: start;
+    background: var(--v2-surface-2);
+    border: 1px solid var(--v2-border);
+    padding: 2.4rem;
   }
 
   .iris-success-media,
   .iris-success-panel {
-    background: var(--v2-surface-2);
-    border: 1px solid var(--v2-border);
+    background: transparent;
+    border: 0;
   }
 
   .iris-success-media {
-    padding: 2.2rem;
+    padding: 0;
   }
 
   .iris-success-media__frame {
@@ -124,7 +127,9 @@
   }
 
   .iris-success-panel {
-    padding: 2.5rem 2.2rem;
+    align-self: stretch;
+    padding: 0 0 0 3rem;
+    border-left: 1px solid var(--v2-border);
   }
 
   .iris-success-panel__title {
@@ -212,7 +217,7 @@
 
   @media screen and (max-width: 989px) {
     .iris-success-shell {
-      max-width: 82rem;
+      max-width: 90rem;
       padding: 5rem 3.2rem 5.8rem;
     }
 
@@ -220,6 +225,16 @@
     .iris-success-lower {
       grid-template-columns: 1fr;
       gap: 2.2rem;
+    }
+
+    .iris-success-grid {
+      padding: 2rem;
+    }
+
+    .iris-success-panel {
+      padding: 2.2rem 0 0;
+      border-left: 0;
+      border-top: 1px solid var(--v2-border);
     }
   }
 
@@ -236,9 +251,11 @@
     .iris-success-card {
       padding: 1.6rem;
     }
-    .iris-success-media,
-    .iris-success-panel {
+    .iris-success-grid {
       padding: 1.6rem;
+    }
+    .iris-success-panel {
+      padding: 1.6rem 0 0;
     }
     .iris-success-meta-row {
       display: grid;
