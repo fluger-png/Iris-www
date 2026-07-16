@@ -209,45 +209,94 @@
   }
 
   .iris-success-lower {
-    margin-top: 4.8rem;
+    width: 100vw;
+    margin: 5.4rem calc(50% - 50vw) 0;
     border-top: 1px solid var(--v2-border);
-    border-left: 1px solid var(--v2-border);
-    border-right: 1px solid var(--v2-border);
+    background: #080808;
   }
 
-  .iris-success-editorial {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  .iris-success-welcome {
+    min-height: 62vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10rem 5.6rem;
+    text-align: center;
     border-bottom: 1px solid var(--v2-border);
-    background: rgba(16, 16, 16, 0.62);
+    background:
+      radial-gradient(circle at 50% 50%, rgba(201, 168, 76, 0.055), transparent 42%),
+      #080808;
   }
 
-  .iris-success-editorial__head,
-  .iris-success-editorial__body {
-    padding: 5.4rem 4.4rem;
+  .iris-success-welcome__inner {
+    max-width: 96rem;
   }
 
-  .iris-success-editorial__head {
-    border-right: 1px solid var(--v2-border);
-  }
-
-  .iris-success-editorial__title {
+  .iris-success-welcome__title {
     margin: 0;
     color: var(--v2-text);
     font-family: var(--font-heading-family);
-    font-size: clamp(4.1rem, 4.4vw, 6.4rem);
+    font-size: clamp(6.4rem, 8.2vw, 12rem);
     font-weight: 400;
-    line-height: 0.98;
-    letter-spacing: -0.08rem;
+    line-height: 0.93;
+    letter-spacing: -0.2rem;
   }
 
-  .iris-success-editorial__title em {
+  .iris-success-welcome__title em {
+    display: block;
     color: var(--v2-gold);
     font-style: italic;
     font-weight: 400;
   }
 
-  .iris-success-editorial__copy {
+  .iris-success-welcome__copy {
+    max-width: 78rem;
+    margin: 4rem auto 0;
+    color: var(--v2-text-mid);
+    font-family: var(--font-heading-family);
+    font-size: clamp(2rem, 2.1vw, 3rem);
+    font-style: italic;
+    line-height: 1.62;
+  }
+
+  .iris-success-next {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    border-bottom: 1px solid var(--v2-border);
+    background: #0e0e0c;
+  }
+
+  .iris-success-next__copy {
+    padding: 10rem 6rem;
+    border-right: 1px solid var(--v2-border);
+  }
+
+  .iris-success-next__image {
+    min-height: 100%;
+    background: #080808;
+    overflow: hidden;
+  }
+
+  .iris-success-next__image img {
+    width: 100%;
+    height: 100%;
+    min-height: 72rem;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .iris-success-next__title {
+    margin: 0 0 3rem;
+    color: var(--v2-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(4.6rem, 5vw, 7.6rem);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.12rem;
+  }
+
+  .iris-success-next__body {
     margin: 0;
     color: var(--v2-text-mid);
     font-family: var(--font-heading-family);
@@ -256,24 +305,26 @@
   }
 
   .iris-success-spec-list {
-    margin-top: 3.2rem;
+    margin-top: 4.4rem;
     border-top: 1px solid var(--v2-border);
   }
 
   .iris-success-spec-row {
-    display: grid;
-    grid-template-columns: 17rem 1fr;
+    display: flex;
+    align-items: center;
     gap: 2rem;
-    padding: 1.7rem 0;
+    padding: 1.75rem 0;
     border-bottom: 1px solid var(--v2-border);
   }
 
   .iris-success-spec-key {
+    width: 17rem;
+    flex-shrink: 0;
     color: var(--v2-text-mid);
     font-family: var(--font-body-family);
     font-size: 0.95rem;
-    letter-spacing: 0.26rem;
-    line-height: 1.45;
+    letter-spacing: 0.3rem;
+    line-height: 1.35;
     text-transform: uppercase;
   }
 
@@ -281,7 +332,7 @@
     color: var(--v2-text);
     font-family: var(--font-heading-family);
     font-size: 1.55rem;
-    line-height: 1.52;
+    line-height: 1.5;
   }
 
   .iris-success-spec-val a,
@@ -311,7 +362,7 @@
     }
 
     .iris-success-grid,
-    .iris-success-editorial {
+    .iris-success-next {
       grid-template-columns: 1fr;
       gap: 2.2rem;
     }
@@ -330,13 +381,19 @@
       border-top: 1px solid var(--v2-border);
     }
 
-    .iris-success-editorial {
-      gap: 0;
+    .iris-success-welcome {
+      min-height: 52vh;
+      padding: 8rem 3.2rem;
     }
 
-    .iris-success-editorial__head {
+    .iris-success-next__copy {
+      padding: 7rem 3.2rem;
       border-right: 0;
       border-bottom: 1px solid var(--v2-border);
+    }
+
+    .iris-success-next__image img {
+      min-height: 48rem;
     }
   }
 
@@ -359,20 +416,34 @@
     .iris-success-panel {
       padding: 1.6rem 0 0;
     }
-    .iris-success-editorial__head,
-    .iris-success-editorial__body {
-      padding: 3.6rem 2.2rem;
+    .iris-success-welcome {
+      min-height: 58vh;
+      padding: 7rem 2rem;
     }
-    .iris-success-editorial__title {
-      font-size: clamp(3.2rem, 11vw, 4.8rem);
+    .iris-success-welcome__title {
+      font-size: clamp(4.2rem, 16vw, 6.4rem);
+      letter-spacing: -0.1rem;
     }
-    .iris-success-editorial__copy {
+    .iris-success-welcome__copy,
+    .iris-success-next__body {
       font-size: 1.55rem;
       line-height: 1.72;
     }
+    .iris-success-next__copy {
+      padding: 5.6rem 2rem;
+    }
+    .iris-success-next__title {
+      font-size: clamp(3.6rem, 13vw, 5.2rem);
+    }
     .iris-success-spec-row {
-      grid-template-columns: 1fr;
+      display: grid;
       gap: 0.8rem;
+    }
+    .iris-success-spec-key {
+      width: auto;
+    }
+    .iris-success-next__image img {
+      min-height: 34rem;
     }
     .iris-success-meta-row {
       display: grid;
@@ -482,24 +553,20 @@
       </div>
 
       <div class="iris-success-lower">
-        <section class="iris-success-editorial">
-          <div class="iris-success-editorial__head">
-            <h2 class="iris-success-editorial__title"><em>Welcome</em><br>to IRIS Collective.</h2>
-          </div>
-          <div class="iris-success-editorial__body">
-            <p class="iris-success-editorial__copy">
-              You're now part of a growing archive of awakened work - every IRIS piece has its own story,
-              and this one just became part of the record. Save it to your account, and it's yours to revisit any time.
+        <section class="iris-success-welcome">
+          <div class="iris-success-welcome__inner">
+            <h2 class="iris-success-welcome__title"><em>Welcome</em>to IRIS Collective.</h2>
+            <p class="iris-success-welcome__copy">
+              You're now part of a growing archive of awakened work - every IRIS piece has its own story, and this one just became part of the record. Save it to your account, and it's yours to revisit any time.
             </p>
           </div>
         </section>
 
-        <section class="iris-success-editorial">
-          <div class="iris-success-editorial__head">
-            <h2 class="iris-success-editorial__title">COMING NEXT</h2>
-          </div>
-          <div class="iris-success-editorial__body">
-            <p class="iris-success-editorial__copy">
+        <section class="iris-success-next">
+          <div class="iris-success-next__copy">
+            <span class="iris-success-eyebrow">Ownership Roadmap</span>
+            <h2 class="iris-success-next__title">COMING NEXT</h2>
+            <p class="iris-success-next__body">
               An IRIS piece doesn't end at the moment you unlock it.<br>
               What you're holding today is the start of a longer story - one that keeps being written by everyone who owns,
               shares, and eventually passes on a piece after you.
@@ -521,6 +588,10 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <div class="iris-success-next__image">
+            <img src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/scan-banner2.png?v=1777364858" alt="IRIS activation preview" width="1600" height="1600" loading="lazy">
           </div>
         </section>
       </div>
