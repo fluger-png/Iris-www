@@ -123,6 +123,7 @@
   .v2-product-main__video-{{ section.id }} video {
     width: 100%;
     display: block;
+    background: #0d0d0d url("https://cdn.shopify.com/s/files/1/0710/5239/4589/files/unboxing.png?v=1784161265") center / cover no-repeat;
   }
 
   .v2-product-main__gallery-button-{{ section.id }} {
@@ -887,7 +888,12 @@
 
         <div class="v2-product-main__gallery-row-{{ section.id }}">
           <div class="v2-product-main__video-{{ section.id }}">
-            <video controls preload="metadata" playsinline>
+            <video
+              controls
+              preload="none"
+              playsinline
+              poster="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/unboxing.png?v=1784161265"
+            >
               <source src="{{ product_video_url }}" type="video/mp4">
             </video>
           </div>
