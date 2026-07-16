@@ -209,10 +209,99 @@
   }
 
   .iris-success-lower {
+    margin-top: 4.8rem;
+    border-top: 1px solid var(--v2-border);
+    border-left: 1px solid var(--v2-border);
+    border-right: 1px solid var(--v2-border);
+  }
+
+  .iris-success-editorial {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.4rem;
-    margin-top: 3.8rem;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    border-bottom: 1px solid var(--v2-border);
+    background: rgba(16, 16, 16, 0.62);
+  }
+
+  .iris-success-editorial__head,
+  .iris-success-editorial__body {
+    padding: 5.4rem 4.4rem;
+  }
+
+  .iris-success-editorial__head {
+    border-right: 1px solid var(--v2-border);
+  }
+
+  .iris-success-editorial__title {
+    margin: 0;
+    color: var(--v2-text);
+    font-family: var(--font-heading-family);
+    font-size: clamp(4.1rem, 4.4vw, 6.4rem);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.08rem;
+  }
+
+  .iris-success-editorial__title em {
+    color: var(--v2-gold);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .iris-success-editorial__copy {
+    margin: 0;
+    color: var(--v2-text-mid);
+    font-family: var(--font-heading-family);
+    font-size: 1.75rem;
+    line-height: 1.82;
+  }
+
+  .iris-success-spec-list {
+    margin-top: 3.2rem;
+    border-top: 1px solid var(--v2-border);
+  }
+
+  .iris-success-spec-row {
+    display: grid;
+    grid-template-columns: 17rem 1fr;
+    gap: 2rem;
+    padding: 1.7rem 0;
+    border-bottom: 1px solid var(--v2-border);
+  }
+
+  .iris-success-spec-key {
+    color: var(--v2-text-mid);
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    letter-spacing: 0.26rem;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
+  .iris-success-spec-val {
+    color: var(--v2-text);
+    font-family: var(--font-heading-family);
+    font-size: 1.55rem;
+    line-height: 1.52;
+  }
+
+  .iris-success-spec-val a,
+  .iris-success-spec-val a:visited {
+    color: var(--v2-gold);
+    text-decoration: none;
+    font-family: var(--font-body-family);
+    font-size: 1.02rem;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+  }
+
+  .iris-success-spec-status {
+    display: inline-block;
+    margin-top: 0.8rem;
+    color: var(--v2-gold);
+    font-family: var(--font-body-family);
+    font-size: 1.02rem;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
   }
 
   @media screen and (max-width: 989px) {
@@ -222,9 +311,13 @@
     }
 
     .iris-success-grid,
-    .iris-success-lower {
+    .iris-success-editorial {
       grid-template-columns: 1fr;
       gap: 2.2rem;
+    }
+
+    .iris-success-lower {
+      margin-top: 3.4rem;
     }
 
     .iris-success-grid {
@@ -235,6 +328,15 @@
       padding: 2.2rem 0 0;
       border-left: 0;
       border-top: 1px solid var(--v2-border);
+    }
+
+    .iris-success-editorial {
+      gap: 0;
+    }
+
+    .iris-success-editorial__head {
+      border-right: 0;
+      border-bottom: 1px solid var(--v2-border);
     }
   }
 
@@ -256,6 +358,21 @@
     }
     .iris-success-panel {
       padding: 1.6rem 0 0;
+    }
+    .iris-success-editorial__head,
+    .iris-success-editorial__body {
+      padding: 3.6rem 2.2rem;
+    }
+    .iris-success-editorial__title {
+      font-size: clamp(3.2rem, 11vw, 4.8rem);
+    }
+    .iris-success-editorial__copy {
+      font-size: 1.55rem;
+      line-height: 1.72;
+    }
+    .iris-success-spec-row {
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
     }
     .iris-success-meta-row {
       display: grid;
@@ -365,19 +482,47 @@
       </div>
 
       <div class="iris-success-lower">
-        <div class="iris-success-card">
-          <p class="iris-success-eyebrow">Welcome</p>
-          <p class="iris-success-copy">
-            You are now part of the visible IRIS history. Keep this page, save your IRIS to your account, and return to your collection whenever you need it.
-          </p>
-        </div>
+        <section class="iris-success-editorial">
+          <div class="iris-success-editorial__head">
+            <h2 class="iris-success-editorial__title"><em>Welcome</em><br>to IRIS Collective.</h2>
+          </div>
+          <div class="iris-success-editorial__body">
+            <p class="iris-success-editorial__copy">
+              You're now part of a growing archive of awakened work - every IRIS piece has its own story,
+              and this one just became part of the record. Save it to your account, and it's yours to revisit any time.
+            </p>
+          </div>
+        </section>
 
-        <div class="iris-success-card">
-          <p class="iris-success-eyebrow">Coming Next</p>
-          <p class="iris-success-copy">
-            Owner tools are being prepared for future releases, including collection features and invitation-based referral access.
-          </p>
-        </div>
+        <section class="iris-success-editorial">
+          <div class="iris-success-editorial__head">
+            <h2 class="iris-success-editorial__title">COMING NEXT</h2>
+          </div>
+          <div class="iris-success-editorial__body">
+            <p class="iris-success-editorial__copy">
+              An IRIS piece doesn't end at the moment you unlock it.<br>
+              What you're holding today is the start of a longer story - one that keeps being written by everyone who owns,
+              shares, and eventually passes on a piece after you.
+            </p>
+
+            <div class="iris-success-spec-list">
+              <div class="iris-success-spec-row">
+                <div class="iris-success-spec-key">Affiliate Program</div>
+                <div class="iris-success-spec-val">
+                  Bring others into IRIS and be part of how it grows<br>
+                  <a href="https://marketplace.uppromote.com/" target="_blank" rel="noopener">-> Apply now</a>
+                </div>
+              </div>
+              <div class="iris-success-spec-row">
+                <div class="iris-success-spec-key">Marketplace</div>
+                <div class="iris-success-spec-val">
+                  Verified transfers between owners, authenticated by IRIS<br>
+                  <span class="iris-success-spec-status">-> In development</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </section>
