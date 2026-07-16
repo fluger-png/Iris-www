@@ -5,6 +5,8 @@
   endif
   if section.settings.image_2 != blank
     assign hero_images_count = hero_images_count | plus: 1
+  elsif section.settings.video_2_url != blank
+    assign hero_images_count = hero_images_count | plus: 1
   endif
   if section.settings.image_3 != blank
     assign hero_images_count = hero_images_count | plus: 1
@@ -171,6 +173,7 @@
   }
 
   .v2-home-hero__slide-{{ section.id }} img,
+  .v2-home-hero__slide-{{ section.id }} video,
   .v2-home-hero__placeholder-{{ section.id }} {
     width: 100%;
     height: 100%;
@@ -202,6 +205,10 @@
     gap: 1.6rem;
     color: #f6f1e8;
     z-index: 2;
+  }
+
+  .v2-home-hero__caption-{{ section.id }}.has-dots-only {
+    justify-content: flex-end;
   }
 
   .v2-home-hero__caption-label-{{ section.id }} {
@@ -357,7 +364,17 @@
               assign image_key = 'image_' | append: index
               assign hero_image = section.settings[image_key]
             -%}
-            {%- if hero_image != blank -%}
+            {%- assign video_url = blank -%}
+            {%- if index == 2 -%}
+              {%- assign video_url = section.settings.video_2_url -%}
+            {%- endif -%}
+            {%- if video_url != blank -%}
+              <div class="v2-home-hero__slide-{{ section.id }}{% if forloop.first %} is-active{% endif %}" data-v2-home-hero-slide>
+                <video muted loop playsinline preload="metadata" data-v2-home-hero-video>
+                  <source src="{{ video_url | escape }}" type="video/mp4">
+                </video>
+              </div>
+            {%- elsif hero_image != blank -%}
               <div class="v2-home-hero__slide-{{ section.id }}{% if forloop.first %} is-active{% endif %}" data-v2-home-hero-slide>
                 {{
                   hero_image
@@ -375,11 +392,17 @@
 
       <div class="v2-home-hero__overlay-{{ section.id }}"></div>
 
-      <div class="v2-home-hero__caption-{{ section.id }}">
-        <div>
-          <div class="v2-home-hero__caption-label-{{ section.id }}">{{ section.settings.visual_eyebrow }}</div>
-          <div class="v2-home-hero__caption-title-{{ section.id }}">{{ section.settings.visual_title }}</div>
-        </div>
+      <div class="v2-home-hero__caption-{{ section.id }}{% if section.settings.visual_eyebrow == blank and section.settings.visual_title == blank %} has-dots-only{% endif %}">
+        {%- if section.settings.visual_eyebrow != blank or section.settings.visual_title != blank -%}
+          <div>
+            {%- if section.settings.visual_eyebrow != blank -%}
+              <div class="v2-home-hero__caption-label-{{ section.id }}">{{ section.settings.visual_eyebrow }}</div>
+            {%- endif -%}
+            {%- if section.settings.visual_title != blank -%}
+              <div class="v2-home-hero__caption-title-{{ section.id }}">{{ section.settings.visual_title }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
 
         {%- if hero_images_count > 1 -%}
           <div class="v2-home-hero__dots-{{ section.id }}" data-v2-home-hero-dots>
@@ -387,8 +410,12 @@
               {%- liquid
                 assign image_key = 'image_' | append: index
                 assign hero_image = section.settings[image_key]
+                assign video_url = blank
+                if index == 2
+                  assign video_url = section.settings.video_2_url
+                endif
               -%}
-              {%- if hero_image != blank -%}
+              {%- if hero_image != blank or video_url != blank -%}
                 <button
                   type="button"
                   class="v2-home-hero__dot-{{ section.id }}{% if forloop.first %} is-active{% endif %}"
@@ -417,6 +444,20 @@
     var activeIndex = 0;
     var timer = null;
 
+    function playActiveVideo(slide) {
+      var video = slide ? slide.querySelector('[data-v2-home-hero-video]') : null;
+      if (!video) return;
+      video.play().catch(function () {});
+    }
+
+    function pauseInactiveVideos() {
+      slides.forEach(function (slide, index) {
+        var video = slide.querySelector('[data-v2-home-hero-video]');
+        if (!video || index === activeIndex) return;
+        video.pause();
+      });
+    }
+
     function render(index) {
       activeIndex = index;
       slides.forEach(function (slide, slideIndex) {
@@ -425,6 +466,8 @@
       dots.forEach(function (dot, dotIndex) {
         dot.classList.toggle('is-active', dotIndex === index);
       });
+      pauseInactiveVideos();
+      playActiveVideo(slides[index]);
     }
 
     function start() {
@@ -450,6 +493,15 @@
 
     root.addEventListener('mouseenter', stop);
     root.addEventListener('mouseleave', start);
+
+    window.setTimeout(function () {
+      slides.forEach(function (slide) {
+        var video = slide.querySelector('[data-v2-home-hero-video]');
+        if (!video) return;
+        video.preload = 'auto';
+        video.load();
+      });
+    }, 700);
 
     start();
   })();
@@ -528,6 +580,12 @@
       "type": "image_picker",
       "id": "image_2",
       "label": "Image 2"
+    },
+    {
+      "type": "text",
+      "id": "video_2_url",
+      "label": "Video 2 URL",
+      "default": "https://cdn.shopify.com/videos/c/o/v/07c8844bffd949d2a833600c5a665dd6.mp4"
     },
     {
       "type": "image_picker",
