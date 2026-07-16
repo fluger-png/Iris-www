@@ -443,6 +443,12 @@
 
     var activeIndex = 0;
     var timer = null;
+    var imageSlideDuration = 4200;
+    var videoSlideDuration = 33000;
+
+    function getSlideDuration(slide) {
+      return slide && slide.querySelector('[data-v2-home-hero-video]') ? videoSlideDuration : imageSlideDuration;
+    }
 
     function playActiveVideo(slide) {
       var video = slide ? slide.querySelector('[data-v2-home-hero-video]') : null;
@@ -472,14 +478,15 @@
 
     function start() {
       stop();
-      timer = window.setInterval(function () {
+      timer = window.setTimeout(function () {
         render((activeIndex + 1) % slides.length);
-      }, 4200);
+        start();
+      }, getSlideDuration(slides[activeIndex]));
     }
 
     function stop() {
       if (timer) {
-        window.clearInterval(timer);
+        window.clearTimeout(timer);
         timer = null;
       }
     }
