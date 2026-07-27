@@ -330,7 +330,8 @@
                 if (err.message === 'owner_mismatch') {
                   setTransferStatus('This IRIS is not registered to this account.', true);
                 } else if (err.message === 'transfer_email_failed' || err.message === 'http_502') {
-                  setTransferStatus('We could not send the transfer email. Please try again or contact support.', true);
+                  var emailReason = err.payload && err.payload.reason ? ' (' + err.payload.reason + ')' : '';
+                  setTransferStatus('We could not send the transfer email' + emailReason + '. Please try again or contact support.', true);
                 } else if (err.message === 'same_email') {
                   setTransferStatus('Enter a different email for the new owner.', true);
                 } else if (err.message === 'invalid_email') {
