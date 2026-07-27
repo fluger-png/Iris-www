@@ -335,6 +335,10 @@
                   setTransferStatus('Enter a different email for the new owner.', true);
                 } else if (err.message === 'invalid_email') {
                   setTransferStatus('Please enter a valid email.', true);
+                } else if (err.message === 'missing_required_fields') {
+                  setTransferStatus('Transfer request is missing required information. Please refresh and try again.', true);
+                } else if (err.message === 'iris_not_found') {
+                  setTransferStatus('This IRIS could not be found. Please refresh My IRIS and try again.', true);
                 } else if (err.message === 'not_activated') {
                   setTransferStatus('This IRIS must be activated before it can be transferred.', true);
                 } else if (err.message === 'http_404') {
