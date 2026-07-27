@@ -50,12 +50,13 @@
       }
 
       function reserveOne() {
+        var productHandle = container.getAttribute('data-product-handle');
         return fetch('/apps/iris/reserve-random', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
             product_id: container.getAttribute('data-product-id'),
-            product_handle: container.getAttribute('data-product-handle')
+            product_handle: productHandle
           })
         }).then(function (res) {
           if (!res.ok) throw new Error('reserve_failed');
@@ -73,7 +74,9 @@
             quantity: 1,
             properties: {
               IRIS_ID: data.irisId,
-              IRIS_RESERVATION_TOKEN: data.reservationToken
+              IRIS_RESERVATION_TOKEN: data.reservationToken,
+              _IRIS_COLLECTION_SLUG: container.getAttribute('data-product-handle'),
+              _IRIS_PRODUCT_HANDLE: container.getAttribute('data-product-handle')
             }
           })
         }).then(function (res) {

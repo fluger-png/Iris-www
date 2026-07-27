@@ -1211,7 +1211,9 @@
             quantity: 1,
             properties: {
               IRIS_ID: reservation.irisId,
-              IRIS_RESERVATION_TOKEN: reservation.reservationToken
+              IRIS_RESERVATION_TOKEN: reservation.reservationToken,
+              _IRIS_COLLECTION_SLUG: productHandle,
+              _IRIS_PRODUCT_HANDLE: productHandle
             }
           })
         }).then(function (res) {
