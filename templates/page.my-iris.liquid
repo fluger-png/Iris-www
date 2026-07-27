@@ -17,6 +17,87 @@
       .iris-collection { margin-top: 18px; }
       .iris-placeholder { background: #e5e7eb; width: 100%; height: 100%; }
       .iris-card-label { text-align: center; font-weight: 600; }
+      .iris-card-actions { display:flex;justify-content:center;margin-top:10px; }
+      .iris-transfer-button {
+        min-height: 38px;
+        padding: 9px 16px;
+        border: 1px solid #111;
+        background: transparent;
+        color: #111;
+        font-size: 12px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .iris-transfer-button:hover { background:#111;color:#fff; }
+      .iris-transfer-note {
+        margin: 8px 0 0;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.4;
+        opacity: .7;
+      }
+      .iris-transfer-modal[hidden] { display:none; }
+      .iris-transfer-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(0,0,0,.62);
+      }
+      .iris-transfer-dialog {
+        width: min(100%, 460px);
+        background: #fff;
+        color: #111;
+        border: 1px solid #111;
+        padding: 28px;
+      }
+      .iris-transfer-dialog h2 { margin:0 0 12px;font-size:26px;line-height:1.1; }
+      .iris-transfer-dialog p { margin:0 0 16px;font-size:14px;line-height:1.6;opacity:.78; }
+      .iris-transfer-dialog label {
+        display: block;
+        margin: 0 0 8px;
+        font-size: 11px;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+        opacity: .68;
+      }
+      .iris-transfer-dialog input {
+        width: 100%;
+        min-height: 52px;
+        padding: 0 14px;
+        border: 1px solid #111;
+        color: #111;
+        font-size: 17px;
+      }
+      .iris-transfer-dialog__actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 18px;
+      }
+      .iris-transfer-dialog__actions button {
+        min-height: 44px;
+        padding: 10px 16px;
+        border: 1px solid #111;
+        background: transparent;
+        color: #111;
+        font-size: 12px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .iris-transfer-dialog__actions button[type="submit"] { background:#111;color:#fff; }
+      .iris-transfer-status {
+        min-height: 20px;
+        margin-top: 14px;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .iris-transfer-status.is-error { color:#b00020; }
     </style>
 
     <div id="iris-app" data-email="{{ customer.email | escape }}">
@@ -37,6 +118,25 @@
         Could not load IRIS right now. Please try again.
       </p>
 
+      <div id="iris-transfer-modal" class="iris-transfer-modal" hidden>
+        <div class="iris-transfer-dialog" role="dialog" aria-modal="true" aria-labelledby="iris-transfer-title">
+          <h2 id="iris-transfer-title">Transfer IRIS</h2>
+          <p id="iris-transfer-copy">
+            Enter the new owner's email. They will receive a transfer code by email. To complete the transfer, they must physically scan the NFC tag on this IRIS and enter that code.
+          </p>
+          <form id="iris-transfer-form">
+            <input id="iris-transfer-iris" type="hidden">
+            <label for="iris-transfer-email">New owner email</label>
+            <input id="iris-transfer-email" type="email" autocomplete="email" required>
+            <div class="iris-transfer-dialog__actions">
+              <button type="button" id="iris-transfer-cancel">Cancel</button>
+              <button type="submit" id="iris-transfer-submit">Send Code</button>
+            </div>
+            <div id="iris-transfer-status" class="iris-transfer-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+
       <noscript>
         <p style="margin:12px 0;">Please enable JavaScript to view your IRIS.</p>
       </noscript>
@@ -52,11 +152,48 @@
         var empty = document.getElementById('iris-empty');
         var grid = document.getElementById('iris-grid');
         var error = document.getElementById('iris-error');
+        var transferModal = document.getElementById('iris-transfer-modal');
+        var transferForm = document.getElementById('iris-transfer-form');
+        var transferIris = document.getElementById('iris-transfer-iris');
+        var transferTitle = document.getElementById('iris-transfer-title');
+        var transferEmail = document.getElementById('iris-transfer-email');
+        var transferStatus = document.getElementById('iris-transfer-status');
+        var transferSubmit = document.getElementById('iris-transfer-submit');
+        var transferCancel = document.getElementById('iris-transfer-cancel');
 
         function labelFromId(id) {
           if (!id) return '';
           var clean = String(id).replace(/^IRIS-?/i, '').trim();
           return 'IRIS # ' + clean;
+        }
+
+        function escapeHtml(value) {
+          return String(value || '').replace(/[&<>"']/g, function (ch) {
+            return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch];
+          });
+        }
+
+        function setTransferStatus(message, isError) {
+          if (!transferStatus) return;
+          transferStatus.textContent = message || '';
+          transferStatus.classList.toggle('is-error', !!isError);
+        }
+
+        function openTransferModal(irisId, displayId) {
+          if (!transferModal || !transferIris || !transferTitle || !transferEmail) return;
+          transferIris.value = irisId;
+          transferTitle.textContent = 'Transfer ' + (displayId || labelFromId(irisId));
+          transferEmail.value = '';
+          setTransferStatus('', false);
+          transferModal.hidden = false;
+          setTimeout(function () { transferEmail.focus(); }, 30);
+        }
+
+        function closeTransferModal() {
+          if (!transferModal) return;
+          transferModal.hidden = true;
+          if (transferForm) transferForm.reset();
+          setTransferStatus('', false);
         }
 
         fetch('/apps/iris/my-iris?email=' + encodeURIComponent(email), {
@@ -81,6 +218,10 @@
                 ? '<img src="' + full + '" alt="' + item.iris_id + '" loading="lazy">'
                 : '<div class="iris-placeholder"></div>';
               var href = item.passport_url || ('/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id));
+              var displayId = labelFromId(item.display_iris_id || item.iris_id);
+              var pending = item.transfer_pending && item.transfer_pending_to
+                ? '<p class="iris-transfer-note">Transfer code sent to ' + escapeHtml(item.transfer_pending_to) + '</p>'
+                : '';
               return (
                 '<li class="grid__item">' +
                   '<div class="card-wrapper product-card-wrapper underline-links-hover">' +
@@ -97,8 +238,12 @@
                       '<div class="card__content">' +
                         '<div class="card__information">' +
                           '<h3 class="card__heading h5 iris-card-label">' +
-                            '<a class="full-unstyled-link" href="' + href + '">' + labelFromId(item.display_iris_id || item.iris_id) + '</a>' +
+                            '<a class="full-unstyled-link" href="' + href + '">' + displayId + '</a>' +
                           '</h3>' +
+                          '<div class="iris-card-actions">' +
+                            '<button class="iris-transfer-button" type="button" data-transfer-iris="' + escapeHtml(item.iris_id) + '" data-transfer-display="' + escapeHtml(displayId) + '">Transfer</button>' +
+                          '</div>' +
+                          pending +
                         '</div>' +
                       '</div>' +
                     '</div>' +
@@ -113,6 +258,71 @@
             if (loading) loading.hidden = true;
             error.hidden = false;
           });
+
+        if (grid) {
+          grid.addEventListener('click', function (event) {
+            var button = event.target.closest('[data-transfer-iris]');
+            if (!button) return;
+            openTransferModal(button.getAttribute('data-transfer-iris'), button.getAttribute('data-transfer-display'));
+          });
+        }
+
+        if (transferCancel) {
+          transferCancel.addEventListener('click', closeTransferModal);
+        }
+
+        if (transferModal) {
+          transferModal.addEventListener('click', function (event) {
+            if (event.target === transferModal) closeTransferModal();
+          });
+        }
+
+        if (transferForm) {
+          transferForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            var irisId = transferIris.value;
+            var toEmail = transferEmail.value.trim().toLowerCase();
+            if (!irisId || !toEmail) {
+              setTransferStatus('Please enter the new owner email.', true);
+              return;
+            }
+
+            transferSubmit.disabled = true;
+            setTransferStatus('Sending transfer code…', false);
+            fetch('/apps/iris/transfer-request', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({ iris_id: irisId, from_email: email, to_email: toEmail })
+            })
+              .then(function (res) {
+                return res.json().then(function (data) {
+                  if (!res.ok) {
+                    var err = new Error(data && data.error ? data.error : 'transfer_failed');
+                    err.payload = data;
+                    throw err;
+                  }
+                  return data;
+                });
+              })
+              .then(function (data) {
+                setTransferStatus('Transfer code sent to ' + data.to_email + '. They must scan the NFC tag and enter that code to claim this IRIS.', false);
+              })
+              .catch(function (err) {
+                if (err.message === 'owner_mismatch') {
+                  setTransferStatus('This IRIS is not registered to this account.', true);
+                } else if (err.message === 'transfer_email_failed') {
+                  setTransferStatus('We could not send the transfer email. Please try again or contact support.', true);
+                } else if (err.message === 'same_email') {
+                  setTransferStatus('Enter a different email for the new owner.', true);
+                } else {
+                  setTransferStatus('Transfer could not be started. Please try again.', true);
+                }
+              })
+              .finally(function () {
+                transferSubmit.disabled = false;
+              });
+          });
+        }
       })();
     </script>
   {% endif %}

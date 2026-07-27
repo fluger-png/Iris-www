@@ -41,6 +41,78 @@
     text-align: left;
   }
 
+  .iris-transfer-claim {
+    max-width: 460px;
+    margin: 24px auto 0;
+    padding: 24px;
+    border: 1px solid #111;
+    text-align: left;
+  }
+
+  .iris-transfer-claim[hidden],
+  .iris-transfer-success[hidden] {
+    display: none;
+  }
+
+  .iris-transfer-claim h2,
+  .iris-transfer-success h2 {
+    margin: 0 0 12px;
+    font-size: 28px;
+    line-height: 1.1;
+  }
+
+  .iris-transfer-claim p,
+  .iris-transfer-success p {
+    margin: 0 0 18px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: .78;
+  }
+
+  .iris-transfer-claim label {
+    display: block;
+    margin: 0 0 8px;
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    opacity: .68;
+  }
+
+  .iris-transfer-claim input {
+    width: 100%;
+    min-height: 52px;
+    margin: 0 0 14px;
+    padding: 0 14px;
+    border: 1px solid #111;
+    color: #111;
+    font-size: 17px;
+  }
+
+  .iris-transfer-claim button,
+  .iris-transfer-success a {
+    min-height: 52px;
+    padding: 13px 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #111;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .iris-transfer-success {
+    max-width: 520px;
+    margin: 24px auto 0;
+    padding: 26px;
+    border: 1px solid #111;
+    text-align: center;
+  }
+
   .iris-activation-success {
     margin: 0;
   }
@@ -518,6 +590,30 @@
     </button>
   </form>
 
+  <section id="transferClaim" class="iris-transfer-claim" hidden aria-live="polite">
+    <h2 id="transferClaimTitle">Claim Transfer</h2>
+    <p>
+      This IRIS has an open ownership transfer. Enter the email that received the transfer code, then enter the code from the email. The NFC scan confirms physical access to the artwork.
+    </p>
+    <form id="transferClaimForm">
+      <label for="transferEmailInput">Recipient email</label>
+      <input id="transferEmailInput" type="email" autocomplete="email" {% if customer %}value="{{ customer.email | escape }}"{% endif %} required>
+
+      <label for="transferCodeInput">Transfer code</label>
+      <input id="transferCodeInput" type="text" inputmode="numeric" maxlength="12" autocomplete="one-time-code" required>
+
+      <button id="transferClaimBtn" type="submit">Claim My IRIS</button>
+    </form>
+  </section>
+
+  <section id="transferSuccess" class="iris-transfer-success" hidden aria-live="polite">
+    <h2>Transfer Complete</h2>
+    <p>
+      This IRIS has been transferred to your email. You can now view it in your My IRIS library.
+    </p>
+    <a id="transferSuccessLink" href="/pages/my-iris">View My IRIS</a>
+  </section>
+
   <section id="activationSuccess" class="iris-activation-success" hidden aria-live="polite">
     <div class="iris-success-shell">
       <div class="iris-success-head">
@@ -672,6 +768,7 @@
   }
 
   const irisId = normalize(iris);
+  let resolvedIrisId = irisId;
 
   document.getElementById("irisId").textContent = irisId || "Unknown";
 
@@ -680,6 +777,14 @@
   const emailInput = document.getElementById("emailInput");
   const msg = document.getElementById("activateMsg");
   const successSection = document.getElementById("activationSuccess");
+  const transferClaim = document.getElementById("transferClaim");
+  const transferClaimForm = document.getElementById("transferClaimForm");
+  const transferClaimTitle = document.getElementById("transferClaimTitle");
+  const transferEmailInput = document.getElementById("transferEmailInput");
+  const transferCodeInput = document.getElementById("transferCodeInput");
+  const transferClaimBtn = document.getElementById("transferClaimBtn");
+  const transferSuccess = document.getElementById("transferSuccess");
+  const transferSuccessLink = document.getElementById("transferSuccessLink");
 
   async function hydrateFromToken(tok) {
     try {
@@ -687,6 +792,7 @@
       if (!res.ok) return;
       const data = await res.json();
       if (data && data.iris_id) {
+        resolvedIrisId = data.iris_id;
         document.getElementById("irisId").textContent = data.display_iris_id || data.iris_id;
       }
       if (data && data.image_url) {
@@ -694,7 +800,11 @@
         if (img) img.src = data.image_url;
       }
       if (data && data.status === "activated") {
-        showActivated(data);
+        if (data.transfer_pending) {
+          showTransferClaim(data);
+        } else {
+          showActivated(data);
+        }
       }
     } catch (e) {}
   }
@@ -704,12 +814,17 @@
       const res = await fetch("/apps/iris/iris/" + encodeURIComponent(id), { headers: { "Accept": "application/json" } });
       if (!res.ok) return;
       const data = await res.json();
+      if (data && data.iris_id) resolvedIrisId = data.iris_id;
       if (data && data.image_url) {
         var img = document.getElementById("irisPreview");
         if (img) img.src = data.image_url;
       }
       if (data && data.status === "activated") {
-        showActivated(data);
+        if (data.transfer_pending) {
+          showTransferClaim(data);
+        } else {
+          showActivated(data);
+        }
       }
     } catch (e) {}
   }
@@ -772,6 +887,57 @@
     if (noticeEl) noticeEl.hidden = false;
     if (footerEl) footerEl.style.display = "none";
     if (irisIdBlock) irisIdBlock.style.display = "none";
+  }
+
+  function showTransferClaim(data) {
+    var formEl = document.getElementById("activateForm");
+    var box = document.getElementById("alreadyActivated");
+    var titleEl = document.getElementById("activateTitle");
+    var introEl = document.getElementById("activateIntro");
+    var noticeEl = document.getElementById("activatedNotice");
+    var footerEl = document.getElementById("activateFooter");
+    var displayId = data.display_iris_id || data.iris_id || resolvedIrisId || "IRIS";
+
+    resolvedIrisId = data.iris_id || resolvedIrisId;
+    if (formEl) formEl.style.display = "none";
+    if (box) box.hidden = true;
+    if (transferSuccess) transferSuccess.hidden = true;
+    if (transferClaim) transferClaim.hidden = false;
+    if (transferClaimTitle) transferClaimTitle.textContent = "Claim Transfer for " + displayId;
+    if (titleEl) titleEl.textContent = displayId + " Transfer";
+    if (introEl) {
+      introEl.textContent = "Scan confirmed. Enter the transfer code sent by email to claim this IRIS.";
+      introEl.style.display = "";
+    }
+    if (noticeEl) noticeEl.hidden = true;
+    if (footerEl) footerEl.style.display = "none";
+    msg.textContent = "";
+  }
+
+  function showTransferSuccess(data) {
+    var titleEl = document.getElementById("activateTitle");
+    var introEl = document.getElementById("activateIntro");
+    var footerEl = document.getElementById("activateFooter");
+    var alreadyBox = document.getElementById("alreadyActivated");
+    var displayId = data.display_iris_id || data.iris_id || resolvedIrisId || "IRIS";
+
+    updatePreviewImage(data.image_url);
+    if (transferClaim) transferClaim.hidden = true;
+    if (alreadyBox) alreadyBox.hidden = true;
+    if (successSection) successSection.hidden = true;
+    if (transferSuccess) transferSuccess.hidden = false;
+    if (transferSuccessLink) {
+      transferSuccessLink.href = isLoggedIn
+        ? "/pages/my-iris"
+        : storefrontLoginUrl + "?return_to=" + encodeURIComponent("/pages/my-iris");
+    }
+    if (titleEl) titleEl.textContent = displayId + " Claimed";
+    if (introEl) {
+      introEl.textContent = "Ownership transfer is complete.";
+      introEl.style.display = "";
+    }
+    if (footerEl) footerEl.style.display = "none";
+    msg.textContent = "";
   }
 
   function updatePreviewImage(src) {
@@ -870,4 +1036,60 @@
       msg.textContent = "Activation failed. Please try again.";
     }
   });
+
+  if (transferClaimForm) {
+    transferClaimForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      msg.textContent = "";
+
+      var email = transferEmailInput.value.trim().toLowerCase();
+      var transferCode = transferCodeInput.value.trim();
+      if (!email) {
+        msg.textContent = "Please enter the recipient email.";
+        return;
+      }
+      if (!transferCode) {
+        msg.textContent = "Please enter your transfer code.";
+        return;
+      }
+
+      transferClaimBtn.disabled = true;
+      transferClaimBtn.textContent = "Claiming…";
+      try {
+        const res = await fetch("/apps/iris/transfer-claim", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({
+            iris_id: resolvedIrisId || irisId,
+            token: token || tokenParam,
+            email: email,
+            transfer_code: transferCode
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          if (data.error === "invalid_transfer_code") {
+            msg.textContent = "Invalid transfer code. Please try again.";
+          } else if (data.error === "transfer_not_found") {
+            msg.textContent = "No open transfer was found for this email.";
+          } else if (data.error === "transfer_expired") {
+            msg.textContent = "This transfer code has expired. Ask the owner to start a new transfer.";
+          } else if (data.error === "invalid_activation_link") {
+            msg.textContent = "Please scan the NFC tag again from the physical IRIS.";
+          } else if (data.error === "too_many_attempts") {
+            msg.textContent = "Too many attempts. Please wait and try again.";
+          } else {
+            msg.textContent = "Transfer claim failed. Please try again.";
+          }
+          return;
+        }
+        showTransferSuccess(data);
+      } catch (err) {
+        msg.textContent = "Transfer claim failed. Please try again.";
+      } finally {
+        transferClaimBtn.disabled = false;
+        transferClaimBtn.textContent = "Claim My IRIS";
+      }
+    });
+  }
 </script>
