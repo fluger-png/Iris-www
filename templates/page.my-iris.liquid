@@ -17,8 +17,17 @@
       .iris-collection { margin-top: 18px; }
       .iris-placeholder { background: #e5e7eb; width: 100%; height: 100%; }
       .iris-card-label { text-align: center; font-weight: 600; }
-      .iris-card-actions { display:flex;justify-content:center;margin-top:10px; }
+      .iris-card-actions {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        pointer-events: auto;
+      }
       .iris-transfer-button {
+        position: relative;
+        z-index: 4;
         min-height: 38px;
         padding: 9px 16px;
         border: 1px solid #111;
@@ -28,6 +37,7 @@
         letter-spacing: .14em;
         text-transform: uppercase;
         cursor: pointer;
+        pointer-events: auto;
       }
       .iris-transfer-button:hover { background:#111;color:#fff; }
       .iris-transfer-note {
@@ -263,6 +273,8 @@
           grid.addEventListener('click', function (event) {
             var button = event.target.closest('[data-transfer-iris]');
             if (!button) return;
+            event.preventDefault();
+            event.stopPropagation();
             openTransferModal(button.getAttribute('data-transfer-iris'), button.getAttribute('data-transfer-display'));
           });
         }
