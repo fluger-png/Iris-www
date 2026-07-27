@@ -307,10 +307,17 @@
               body: JSON.stringify({ iris_id: irisId, from_email: email, to_email: toEmail })
             })
               .then(function (res) {
-                return res.json().then(function (data) {
+                return res.text().then(function (text) {
+                  var data = {};
+                  try {
+                    data = text ? JSON.parse(text) : {};
+                  } catch (parseError) {
+                    data = {};
+                  }
                   if (!res.ok) {
-                    var err = new Error(data && data.error ? data.error : 'transfer_failed');
+                    var err = new Error(data && data.error ? data.error : 'http_' + res.status);
                     err.payload = data;
+                    err.status = res.status;
                     throw err;
                   }
                   return data;
@@ -326,8 +333,16 @@
                   setTransferStatus('We could not send the transfer email. Please try again or contact support.', true);
                 } else if (err.message === 'same_email') {
                   setTransferStatus('Enter a different email for the new owner.', true);
+                } else if (err.message === 'invalid_email') {
+                  setTransferStatus('Please enter a valid email.', true);
+                } else if (err.message === 'not_activated') {
+                  setTransferStatus('This IRIS must be activated before it can be transferred.', true);
+                } else if (err.message === 'http_404') {
+                  setTransferStatus('Transfer service is not deployed yet. Please deploy the latest backend.', true);
+                } else if (err.message === 'transfer_request_failed' || err.message === 'http_500') {
+                  setTransferStatus('Transfer service is not ready yet. Please run the backend deploy and database migration.', true);
                 } else {
-                  setTransferStatus('Transfer could not be started. Please try again.', true);
+                  setTransferStatus('Transfer could not be started: ' + err.message + '.', true);
                 }
               })
               .finally(function () {
