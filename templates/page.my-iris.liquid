@@ -344,7 +344,8 @@
                 } else if (err.message === 'http_404') {
                   setTransferStatus('Transfer service is not deployed yet. Please deploy the latest backend.', true);
                 } else if (err.message === 'transfer_request_failed' || err.message === 'http_500') {
-                  setTransferStatus('Transfer service is not ready yet. Please run the backend deploy and database migration.', true);
+                  var reason = err.payload && err.payload.reason ? ' (' + err.payload.reason + ')' : '';
+                  setTransferStatus('Transfer service hit an internal error' + reason + '. Please try again after backend deploy.', true);
                 } else {
                   setTransferStatus('Transfer could not be started: ' + err.message + '.', true);
                 }
