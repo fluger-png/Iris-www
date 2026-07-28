@@ -88,6 +88,13 @@
     font-size: 17px;
   }
 
+  .iris-transfer-claim input:disabled {
+    background: #f4f4f4;
+    color: #555;
+    opacity: 1;
+    cursor: not-allowed;
+  }
+
   .iris-transfer-claim button,
   .iris-transfer-success a {
     min-height: 52px;
@@ -593,7 +600,7 @@
   <section id="transferClaim" class="iris-transfer-claim" hidden aria-live="polite">
     <h2 id="transferClaimTitle">Claim Transfer</h2>
     <p>
-      This IRIS has an open ownership transfer. Enter the email that received the transfer code, then enter the code from the email. The NFC scan confirms physical access to the artwork.
+      This IRIS has an open ownership transfer. The recipient email is locked to the address that received the transfer code. The NFC scan confirms physical access to the artwork.
     </p>
     <form id="transferClaimForm">
       <label for="transferEmailInput">Recipient email</label>
@@ -905,6 +912,16 @@
     if (transferClaim) transferClaim.hidden = false;
     if (transferClaimTitle) transferClaimTitle.textContent = "Claim Transfer for " + displayId;
     if (titleEl) titleEl.textContent = displayId + " Transfer";
+    if (transferEmailInput) {
+      if (data.transfer_pending_to) {
+        transferEmailInput.value = String(data.transfer_pending_to).trim().toLowerCase();
+        transferEmailInput.disabled = true;
+        transferEmailInput.setAttribute("aria-disabled", "true");
+      } else {
+        transferEmailInput.disabled = false;
+        transferEmailInput.removeAttribute("aria-disabled");
+      }
+    }
     if (introEl) {
       introEl.textContent = "Scan confirmed. Enter the transfer code sent by email to claim this IRIS.";
       introEl.style.display = "";
