@@ -485,6 +485,14 @@
     background: rgba(201, 168, 76, 0.08);
   }
 
+  .iris-save-note {
+    margin: 1.2rem 0 0;
+    color: var(--v2-muted);
+    font-family: var(--font-body-family);
+    font-size: 1.12rem;
+    line-height: 1.6;
+  }
+
   .iris-success-lower {
     width: 100vw;
     margin: 5.4rem calc(50% - 50vw) 0;
@@ -807,15 +815,16 @@
 
     {% if customer %}
       <input id="emailInput" type="hidden" value="{{ customer.email | escape }}">
-      <p style="font-size:12px;opacity:.6;margin:0 0 12px;text-align:left;">
+      <p id="irisAccountNote" style="font-size:12px;opacity:.6;margin:0 0 12px;text-align:left;">
         Activating as {{ customer.email }}
       </p>
     {% else %}
-      <div style="text-align:center;">
+      <div id="emailFieldWrap" style="text-align:center;">
         <label for="emailInput" style="font-size:12px;opacity:.7;display:block;margin-bottom:10px;">Email</label>
         <input id="emailInput" type="email"
                style="width:320px;height:60px;font-size:20px;text-align:center;color:#333;border:1px solid #111;border-radius:0px;">
       </div>
+      <p id="irisAccountNote" hidden style="font-size:12px;opacity:.6;margin:0 0 12px;text-align:left;"></p>
     {% endif %}
 
     <button id="activateBtn" type="submit" class="button button--primary" style="height:60px;display:inline-flex;align-items:center;justify-content:center;">
@@ -893,6 +902,7 @@
           <a id="saveToIrisBtn" class="iris-save-button" href="/apps/iris/v3/account">
             Save to My IRIS
           </a>
+          <p id="saveToIrisNote" class="iris-save-note" hidden></p>
         </div>
       </div>
 
@@ -1007,6 +1017,8 @@
   const form = document.getElementById("activateForm");
   const pinInput = document.getElementById("pinInput");
   const emailInput = document.getElementById("emailInput");
+  const emailFieldWrap = document.getElementById("emailFieldWrap");
+  const irisAccountNote = document.getElementById("irisAccountNote");
   const msg = document.getElementById("activateMsg");
   const successSection = document.getElementById("activationSuccess");
   const transferClaim = document.getElementById("transferClaim");
@@ -1017,6 +1029,27 @@
   const transferClaimBtn = document.getElementById("transferClaimBtn");
   const transferSuccess = document.getElementById("transferSuccess");
   const transferSuccessLink = document.getElementById("transferSuccessLink");
+  let irisAccountAuthenticated = false;
+  let irisAccountEmail = "";
+
+  async function hydrateIrisAccountSession() {
+    try {
+      const res = await fetch("/apps/iris/v3/session", { headers: { "Accept": "application/json" } });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (!data || !data.authenticated || !data.email) return;
+      irisAccountAuthenticated = true;
+      irisAccountEmail = String(data.email).trim().toLowerCase();
+      if (emailInput) emailInput.value = irisAccountEmail;
+      if (emailFieldWrap) emailFieldWrap.hidden = true;
+      if (irisAccountNote) {
+        irisAccountNote.hidden = false;
+        irisAccountNote.textContent = "Activating as " + irisAccountEmail;
+      }
+    } catch (e) {}
+  }
+
+  hydrateIrisAccountSession();
 
   async function hydrateFromToken(tok) {
     try {
@@ -1201,8 +1234,10 @@
     var successRarity = document.getElementById("successRarity");
     var successWeight = document.getElementById("successWeight");
     var saveBtn = document.getElementById("saveToIrisBtn");
+    var saveNote = document.getElementById("saveToIrisNote");
+    var account = data.iris_account || {};
     var displayId = data.display_iris_id || data.iris_id || irisId || "IRIS";
-    var returnTo = irisAccountUrl;
+    var returnTo = account.verify_url || account.account_url || irisAccountUrl;
 
     updatePreviewImage(data.image_url);
     if (wrapEl) wrapEl.classList.add("is-success");
@@ -1221,6 +1256,25 @@
     }
     if (saveBtn) {
       saveBtn.href = returnTo;
+      saveBtn.textContent = "Save to My IRIS";
+    }
+    if (saveNote) {
+      if (account.authenticated) {
+        saveNote.hidden = false;
+        saveNote.textContent = "You're already signed in. This IRIS is ready in your library.";
+      } else if (account.code_status === "already_sent") {
+        saveNote.hidden = false;
+        saveNote.textContent = "Use the IRIS login code already sent to " + (account.email || "your email") + ".";
+      } else if (account.code_status === "sent") {
+        saveNote.hidden = false;
+        saveNote.textContent = "We sent an IRIS login code to " + (account.email || "your email") + ".";
+      } else if (account.code_status === "send_failed") {
+        saveNote.hidden = false;
+        saveNote.textContent = "Activation is complete. You can request your login code on the next screen.";
+      } else {
+        saveNote.hidden = true;
+        saveNote.textContent = "";
+      }
     }
     if (successSection) successSection.hidden = false;
     msg.textContent = "";
@@ -1235,7 +1289,7 @@
     msg.textContent = "";
 
     const pin = pinInput.value.trim();
-    const email = emailInput.value.trim().toLowerCase();
+    const email = (irisAccountAuthenticated && irisAccountEmail ? irisAccountEmail : emailInput.value).trim().toLowerCase();
     pinInput.style.color = pin ? "#000" : "#333";
     if (!pin || pin.length < 6) {
       msg.textContent = "Please enter your 6-digit PIN.";
