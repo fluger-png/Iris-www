@@ -844,7 +844,7 @@
     <p>
       This IRIS has been transferred to your email. You can now view it in your My IRIS library.
     </p>
-    <a id="transferSuccessLink" href="/pages/my-iris">View My IRIS</a>
+    <a id="transferSuccessLink" href="/apps/iris/v3/account">View My IRIS</a>
   </section>
 
   <section id="activationSuccess" class="iris-activation-success" hidden aria-live="polite">
@@ -890,7 +890,7 @@
             </div>
           </div>
 
-          <a id="saveToIrisBtn" class="iris-save-button" href="/customer_authentication/login?return_to={{ '/pages/my-iris' | url_encode }}">
+          <a id="saveToIrisBtn" class="iris-save-button" href="/apps/iris/v3/account">
             Save to My IRIS
           </a>
         </div>
@@ -966,8 +966,7 @@
 </div>
 
 <script>
-  var isLoggedIn = {% if customer %}true{% else %}false{% endif %};
-  var customerAccountLoginUrl = "/customer_authentication/login";
+  var irisAccountUrl = "/apps/iris/v3/account";
   const params = new URLSearchParams(window.location.search);
   const testSuccess = params.get("test_success") === "1";
   let iris = params.get("iris");
@@ -987,10 +986,6 @@
   }
 
   startUnicodeLoader("marketplaceProgress", ["◴", "◷", "◶", "◵"], 150);
-
-  function buildCustomerAccountLoginUrl(returnTo) {
-    return customerAccountLoginUrl + "?return_to=" + encodeURIComponent(returnTo || "/pages/my-iris");
-  }
 
   function normalize(v){
     if(!v) return "";
@@ -1174,9 +1169,7 @@
     if (successSection) successSection.hidden = true;
     if (transferSuccess) transferSuccess.hidden = false;
     if (transferSuccessLink) {
-      transferSuccessLink.href = isLoggedIn
-        ? "/pages/my-iris"
-        : buildCustomerAccountLoginUrl("/pages/my-iris");
+      transferSuccessLink.href = irisAccountUrl;
     }
     if (titleEl) titleEl.textContent = displayId + " Claimed";
     if (introEl) {
@@ -1209,7 +1202,7 @@
     var successWeight = document.getElementById("successWeight");
     var saveBtn = document.getElementById("saveToIrisBtn");
     var displayId = data.display_iris_id || data.iris_id || irisId || "IRIS";
-    var returnTo = "/pages/my-iris";
+    var returnTo = irisAccountUrl;
 
     updatePreviewImage(data.image_url);
     if (wrapEl) wrapEl.classList.add("is-success");
@@ -1227,9 +1220,7 @@
       successWeight.textContent = w == null ? "—" : Number(w).toFixed(2);
     }
     if (saveBtn) {
-      saveBtn.href = isLoggedIn
-        ? returnTo
-        : buildCustomerAccountLoginUrl(returnTo);
+      saveBtn.href = returnTo;
     }
     if (successSection) successSection.hidden = false;
     msg.textContent = "";
