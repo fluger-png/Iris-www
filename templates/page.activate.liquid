@@ -885,7 +885,7 @@
             </div>
           </div>
 
-          <a id="saveToIrisBtn" class="iris-save-button" href="{{ routes.storefront_login_url }}?return_to={{ '/pages/my-iris' | url_encode }}">
+          <a id="saveToIrisBtn" class="iris-save-button" href="/customer_authentication/login?return_to={{ '/pages/my-iris' | url_encode }}">
             Save to My IRIS
           </a>
         </div>
@@ -962,7 +962,7 @@
 
 <script>
   var isLoggedIn = {% if customer %}true{% else %}false{% endif %};
-  var storefrontLoginUrl = {{ routes.storefront_login_url | json }};
+  var customerAccountLoginUrl = "/customer_authentication/login";
   const params = new URLSearchParams(window.location.search);
   const testSuccess = params.get("test_success") === "1";
   let iris = params.get("iris");
@@ -982,6 +982,10 @@
   }
 
   startUnicodeLoader("marketplaceProgress", ["◴", "◷", "◶", "◵"], 150);
+
+  function buildCustomerAccountLoginUrl(returnTo) {
+    return customerAccountLoginUrl + "?return_to=" + encodeURIComponent(returnTo || "/pages/my-iris");
+  }
 
   function normalize(v){
     if(!v) return "";
@@ -1167,7 +1171,7 @@
     if (transferSuccessLink) {
       transferSuccessLink.href = isLoggedIn
         ? "/pages/my-iris"
-        : storefrontLoginUrl + "?return_to=" + encodeURIComponent("/pages/my-iris");
+        : buildCustomerAccountLoginUrl("/pages/my-iris");
     }
     if (titleEl) titleEl.textContent = displayId + " Claimed";
     if (introEl) {
@@ -1220,7 +1224,7 @@
     if (saveBtn) {
       saveBtn.href = isLoggedIn
         ? returnTo
-        : storefrontLoginUrl + "?return_to=" + encodeURIComponent(returnTo);
+        : buildCustomerAccountLoginUrl(returnTo);
     }
     if (successSection) successSection.hidden = false;
     msg.textContent = "";
