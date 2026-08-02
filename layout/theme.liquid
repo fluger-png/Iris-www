@@ -265,6 +265,29 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    <style>
+      .button--primary,
+      .shopify-challenge__button,
+      .customer button,
+      button.shopify-payment-button__button--unbranded,
+      [class*='v2-home-hero__button-'].is-primary,
+      [class*='v2-product-main__button-']:not([class*='secondary']),
+      [class*='v2-product-story__cta-'],
+      [class*='v2-what-is-iris__button-gold-'],
+      .v2-passport-button,
+      .v2-iris-archive__load,
+      .cc-button--gold,
+      #activateBtn,
+      #transferClaimBtn,
+      .iris-transfer-success a,
+      .iris-save-button {
+        font-family: var(--font-heading-family), "Unbounded", -apple-system, BlinkMacSystemFont, sans-serif !important;
+        font-size: 1.4rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0 !important;
+        text-transform: uppercase !important;
+      }
+    </style>
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
@@ -386,5 +409,53 @@
 
 
 
+    <script>
+      (function () {
+        var storageKey = 'iris_account_session';
+        var accountPath = '/apps/iris/v3/account';
+
+        function readStoredSession() {
+          try {
+            return window.localStorage && window.localStorage.getItem(storageKey);
+          } catch (error) {
+            return '';
+          }
+        }
+
+        function withStoredSession(href) {
+          var stored = readStoredSession();
+          if (!stored) return href;
+          try {
+            var token = decodeURIComponent(stored);
+            var url = new URL(href || accountPath, window.location.origin);
+            if (url.pathname.indexOf('/apps/iris/v3') !== 0) return href;
+            url.searchParams.set('session', token);
+            return url.pathname + url.search + url.hash;
+          } catch (error) {
+            return href;
+          }
+        }
+
+        document.querySelectorAll('[data-iris-account-link]').forEach(function (link) {
+          link.addEventListener('click', function () {
+            link.setAttribute('href', withStoredSession(link.getAttribute('href') || accountPath));
+          });
+        });
+
+        fetch('/apps/iris/v3/session', { headers: { Accept: 'application/json' } })
+          .then(function (response) {
+            if (!response.ok) throw new Error('session_check_failed');
+            return response.json();
+          })
+          .then(function (data) {
+            if (!data || !data.authenticated) return;
+            document.documentElement.classList.add('iris-account-authenticated');
+            document.querySelectorAll('[data-iris-account-link]').forEach(function (link) {
+              link.setAttribute('href', accountPath);
+            });
+          })
+          .catch(function () {});
+      })();
+    </script>
   </body>
 </html>
