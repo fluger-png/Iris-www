@@ -137,8 +137,9 @@
           </nav>
           <div class="menu-drawer__utility-links">
             <a
-              href="/apps/iris/v3/profile"
+              href="/apps/iris/v3/account"
               class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
+              data-iris-account-link
             >
               <span class="svg-wrapper">
                 <img
@@ -149,7 +150,7 @@
                   style="width:20px;height:20px;object-fit:contain;"
                 >
               </span>
-              IRIS Profile
+              My IRIS
             </a>
             {%- if localization.available_countries or localization.available_languages -%}
               <div class="menu-drawer__localization header-localization">
