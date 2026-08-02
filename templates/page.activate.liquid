@@ -854,6 +854,7 @@
       This IRIS has been transferred to your email. You can now view it in your My IRIS library.
     </p>
     <a id="transferSuccessLink" href="/apps/iris/v3/account">View My IRIS</a>
+    <p id="transferSuccessAccountNote" hidden></p>
   </section>
 
   <section id="activationSuccess" class="iris-activation-success" hidden aria-live="polite">
@@ -1041,6 +1042,7 @@
       irisAccountAuthenticated = true;
       irisAccountEmail = String(data.email).trim().toLowerCase();
       if (emailInput) emailInput.value = irisAccountEmail;
+      if (transferEmailInput && !transferEmailInput.value) transferEmailInput.value = irisAccountEmail;
       if (emailFieldWrap) emailFieldWrap.hidden = true;
       if (irisAccountNote) {
         irisAccountNote.hidden = false;
@@ -1194,6 +1196,8 @@
     var introEl = document.getElementById("activateIntro");
     var footerEl = document.getElementById("activateFooter");
     var alreadyBox = document.getElementById("alreadyActivated");
+    var accountNote = document.getElementById("transferSuccessAccountNote");
+    var account = data.iris_account || {};
     var displayId = data.display_iris_id || data.iris_id || resolvedIrisId || "IRIS";
 
     updatePreviewImage(data.image_url);
@@ -1202,7 +1206,25 @@
     if (successSection) successSection.hidden = true;
     if (transferSuccess) transferSuccess.hidden = false;
     if (transferSuccessLink) {
-      transferSuccessLink.href = irisAccountUrl;
+      transferSuccessLink.href = account.verify_url || account.account_url || irisAccountUrl;
+    }
+    if (accountNote) {
+      if (account.authenticated) {
+        accountNote.hidden = false;
+        accountNote.textContent = "You're already signed in. This IRIS is ready in your library.";
+      } else if (account.code_status === "already_sent") {
+        accountNote.hidden = false;
+        accountNote.textContent = "Use the IRIS login code already sent to " + (account.email || "your email") + ".";
+      } else if (account.code_status === "sent") {
+        accountNote.hidden = false;
+        accountNote.textContent = "We sent an IRIS login code to " + (account.email || "your email") + ".";
+      } else if (account.code_status === "send_failed") {
+        accountNote.hidden = false;
+        accountNote.textContent = "Transfer is complete. You can request your login code on the next screen.";
+      } else {
+        accountNote.hidden = true;
+        accountNote.textContent = "";
+      }
     }
     if (titleEl) titleEl.textContent = displayId + " Claimed";
     if (introEl) {
