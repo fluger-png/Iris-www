@@ -1318,6 +1318,8 @@
           msg.textContent = "This IRIS is already activated.";
         } else if (data.error === "pin_not_set") {
           msg.textContent = "PIN not available yet. Please contact support.";
+        } else if (data.error === "invalid_email") {
+          msg.textContent = "Please enter a valid email.";
         } else {
           msg.textContent = "Activation failed. Please try again.";
         }
