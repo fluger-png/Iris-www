@@ -1042,6 +1042,19 @@
     }
   }
 
+  function addStoredSessionToIrisAccountUrl(url) {
+    var sessionToken = readIrisAccountSessionToken();
+    if (!sessionToken || !url) return url;
+    try {
+      var parsed = new URL(url, window.location.origin);
+      if (parsed.pathname.indexOf("/apps/iris/v3") !== 0) return url;
+      parsed.searchParams.set("session", sessionToken);
+      return parsed.pathname + parsed.search + parsed.hash;
+    } catch (e) {
+      return url;
+    }
+  }
+
   async function hydrateIrisAccountSession() {
     try {
       var sessionToken = readIrisAccountSessionToken();
@@ -1218,7 +1231,7 @@
     if (successSection) successSection.hidden = true;
     if (transferSuccess) transferSuccess.hidden = false;
     if (transferSuccessLink) {
-      transferSuccessLink.href = account.verify_url || account.account_url || irisAccountUrl;
+      transferSuccessLink.href = account.verify_url || addStoredSessionToIrisAccountUrl(account.account_url || irisAccountUrl);
     }
     if (accountNote) {
       if (account.authenticated) {
@@ -1271,7 +1284,7 @@
     var saveNote = document.getElementById("saveToIrisNote");
     var account = data.iris_account || {};
     var displayId = data.display_iris_id || data.iris_id || irisId || "IRIS";
-    var returnTo = account.verify_url || account.account_url || irisAccountUrl;
+    var returnTo = account.verify_url || addStoredSessionToIrisAccountUrl(account.account_url || irisAccountUrl);
 
     updatePreviewImage(data.image_url);
     if (wrapEl) wrapEl.classList.add("is-success");

@@ -440,9 +440,12 @@
           link.addEventListener('click', function () {
             link.setAttribute('href', withStoredSession(link.getAttribute('href') || accountPath));
           });
+          link.setAttribute('href', withStoredSession(link.getAttribute('href') || accountPath));
         });
 
-        fetch('/apps/iris/v3/session', { headers: { Accept: 'application/json' } })
+        var sessionUrl = withStoredSession('/apps/iris/v3/session');
+
+        fetch(sessionUrl, { headers: { Accept: 'application/json' } })
           .then(function (response) {
             if (!response.ok) throw new Error('session_check_failed');
             return response.json();
@@ -451,7 +454,7 @@
             if (!data || !data.authenticated) return;
             document.documentElement.classList.add('iris-account-authenticated');
             document.querySelectorAll('[data-iris-account-link]').forEach(function (link) {
-              link.setAttribute('href', accountPath);
+              link.setAttribute('href', withStoredSession(accountPath));
             });
           })
           .catch(function () {});
