@@ -1033,9 +1033,21 @@
   let irisAccountAuthenticated = false;
   let irisAccountEmail = "";
 
+  function readIrisAccountSessionToken() {
+    try {
+      var stored = window.localStorage && window.localStorage.getItem("iris_account_session");
+      return stored ? decodeURIComponent(stored) : "";
+    } catch (e) {
+      return "";
+    }
+  }
+
   async function hydrateIrisAccountSession() {
     try {
-      const res = await fetch("/apps/iris/v3/session", { headers: { "Accept": "application/json" } });
+      var sessionToken = readIrisAccountSessionToken();
+      var sessionUrl = "/apps/iris/v3/session";
+      if (sessionToken) sessionUrl += "?session=" + encodeURIComponent(sessionToken);
+      const res = await fetch(sessionUrl, { headers: { "Accept": "application/json" } });
       if (!res.ok) return;
       const data = await res.json();
       if (!data || !data.authenticated || !data.email) return;
@@ -1326,7 +1338,13 @@
       const res = await fetch("/apps/iris/activate-verify", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({ iris_id: token ? (irisId + "-" + token) : irisId, pin, email, token: token || tokenParam })
+        body: JSON.stringify({
+          iris_id: token ? (irisId + "-" + token) : irisId,
+          pin,
+          email,
+          token: token || tokenParam,
+          iris_account_session: readIrisAccountSessionToken()
+        })
       });
       const data = await res.json();
       if (!res.ok) {
@@ -1379,7 +1397,8 @@
             iris_id: resolvedIrisId || irisId,
             token: token || tokenParam,
             email: email,
-            transfer_code: transferCode
+            transfer_code: transferCode,
+            iris_account_session: readIrisAccountSessionToken()
           })
         });
         const data = await res.json();
