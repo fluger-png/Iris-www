@@ -207,6 +207,37 @@ details[open].menu-opening > .menu-drawer__submenu {
   margin-bottom: 0;
 }
 
+.menu-drawer__search-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 1rem 0;
+  font-size: 1.4rem;
+  color: rgb(var(--color-foreground));
+}
+
+@media screen and (max-width: 749px) {
+  .menu-drawer__account,
+  .menu-drawer__search-link {
+    display: flex;
+    width: fit-content;
+    gap: 1.2rem;
+  }
+
+  .menu-drawer__account .svg-wrapper,
+  .menu-drawer__search-link .svg-wrapper {
+    width: 2.4rem;
+    height: 2.4rem;
+    flex: 0 0 2.4rem;
+  }
+
+  .menu-drawer__account img,
+  .menu-drawer__search-link .icon {
+    width: 2.4rem !important;
+    height: 2.4rem !important;
+  }
+}
+
 .menu-drawer__utility-links:has(.menu-drawer__localization) .menu-drawer__account {
   margin: 0;
 }

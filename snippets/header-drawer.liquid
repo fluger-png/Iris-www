@@ -152,6 +152,16 @@
               </span>
               My IRIS
             </a>
+            <a
+              href="{{ routes.search_url }}"
+              class="menu-drawer__search-link link focus-inset h5 medium-hide large-up-hide"
+              aria-label="{{ 'general.search.search' | t }}"
+            >
+              <span class="svg-wrapper">
+                {{- 'icon-search.svg' | inline_asset_content -}}
+              </span>
+              {{ 'general.search.search' | t }}
+            </a>
             {%- if localization.available_countries or localization.available_languages -%}
               <div class="menu-drawer__localization header-localization">
                 {%- if localization.available_countries and localization.available_countries.size > 1 -%}
