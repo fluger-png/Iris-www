@@ -1199,7 +1199,7 @@
       }
 
       function addOne(reservation) {
-        if (!reservation || !reservation.irisId || !reservation.reservationToken) {
+        if (!reservation || !reservation.reservationToken) {
           throw new Error('bad_response');
         }
 
@@ -1210,8 +1210,7 @@
             id: variantId,
             quantity: 1,
             properties: {
-              IRIS_ID: reservation.irisId,
-              IRIS_RESERVATION_TOKEN: reservation.reservationToken,
+              _IRIS_RESERVATION_TOKEN: reservation.reservationToken,
               _IRIS_COLLECTION_SLUG: productHandle,
               _IRIS_PRODUCT_HANDLE: productHandle
             }

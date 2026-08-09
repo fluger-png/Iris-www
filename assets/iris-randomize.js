@@ -65,7 +65,7 @@
       }
 
       function addOne(data) {
-        if (!data || !data.irisId || !data.reservationToken) throw new Error('bad_response');
+        if (!data || !data.reservationToken) throw new Error('bad_response');
         return fetch('/cart/add.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -73,8 +73,7 @@
             id: variantId,
             quantity: 1,
             properties: {
-              IRIS_ID: data.irisId,
-              IRIS_RESERVATION_TOKEN: data.reservationToken,
+              _IRIS_RESERVATION_TOKEN: data.reservationToken,
               _IRIS_COLLECTION_SLUG: container.getAttribute('data-product-handle'),
               _IRIS_PRODUCT_HANDLE: container.getAttribute('data-product-handle')
             }

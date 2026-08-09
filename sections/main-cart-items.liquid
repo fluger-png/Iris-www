@@ -219,7 +219,7 @@
                         assign has_vol_pricing = true
                       endif
                     -%}
-                    {%- assign iris_token = item.properties['IRIS_RESERVATION_TOKEN'] -%}
+                    {%- assign iris_token = item.properties['_IRIS_RESERVATION_TOKEN'] | default: item.properties['IRIS_RESERVATION_TOKEN'] -%}
 <td class="cart-item__quantity{% if has_qty_rules or has_vol_pricing %} cart-item__quantity--info{% endif %}">
   {%- if iris_token != blank -%}
     <div class="cart-item__quantity-wrapper quantity-popover-wrapper">
