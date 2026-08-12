@@ -376,20 +376,48 @@
 
     .v2-iris-archive__body {
       position: relative;
-      padding-right: 5.2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        "iris iris"
+        "meta like";
+      column-gap: 1rem;
+      row-gap: 1.1rem;
+    }
+
+    .v2-iris-archive__body-top {
+      display: contents;
     }
 
     .v2-iris-archive__like {
-      position: absolute;
-      right: 1.5rem;
-      bottom: 0.35rem;
+      grid-area: like;
+      position: static;
       z-index: 3;
-      min-width: 2.8rem;
+      align-self: center;
+      justify-self: end;
+      min-width: 2.2rem;
       margin-top: 0;
     }
 
+    .v2-iris-archive__like-button,
+    .v2-iris-archive__like-button svg {
+      width: 2.08rem;
+      height: 2.08rem;
+    }
+
+    .v2-iris-archive__like-count {
+      min-height: 0.72rem;
+      font-size: 0.72rem;
+    }
+
     .v2-iris-archive__iris {
+      grid-area: iris;
       font-size: 1.65rem;
+    }
+
+    .v2-iris-archive__meta {
+      grid-area: meta;
+      align-self: center;
     }
 
     .v2-iris-archive__meta,
