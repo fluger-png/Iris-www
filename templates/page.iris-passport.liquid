@@ -149,8 +149,70 @@
   .v2-passport-actions {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 1.4rem;
     margin-top: 3.2rem;
+  }
+
+  .v2-passport-like {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    min-width: 2.8rem;
+  }
+
+  .v2-passport-like[hidden] {
+    display: none;
+  }
+
+  .v2-passport-like__button {
+    width: 2.6rem;
+    height: 2.6rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #4b4a46;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+  }
+
+  .v2-passport-like__button:hover,
+  .v2-passport-like__button.is-liked {
+    color: var(--v2-gold);
+  }
+
+  .v2-passport-like__button:disabled {
+    cursor: wait;
+    opacity: 0.52;
+  }
+
+  .v2-passport-like__button svg {
+    width: 2.6rem;
+    height: 2.6rem;
+    display: block;
+    fill: currentColor;
+  }
+
+  .v2-passport-like__button:active {
+    transform: scale(0.92);
+  }
+
+  .v2-passport-like__count {
+    display: block;
+    min-height: 0.9rem;
+    color: var(--v2-text-mid);
+    font-size: 0.9rem;
+    line-height: 1;
+    letter-spacing: 0.04rem;
+  }
+
+  .v2-passport-actions .v2-passport-button--ghost {
+    margin-left: auto;
   }
 
   .v2-passport-button,
@@ -410,6 +472,10 @@
       flex-direction: column;
     }
 
+    .v2-passport-actions .v2-passport-button--ghost {
+      margin-left: 0;
+    }
+
     .v2-passport-button,
     .v2-passport-button:visited {
       width: 100%;
@@ -469,6 +535,14 @@
         </div>
 
         <div class="v2-passport-actions">
+          <div id="iris-passport-like" class="v2-passport-like" hidden>
+            <button type="button" id="iris-passport-like-button" class="v2-passport-like__button" aria-pressed="false" title="Like this IRIS">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </button>
+            <span id="iris-passport-like-count" class="v2-passport-like__count"></span>
+          </div>
           <a href="/pages/iris-archive" class="v2-passport-button v2-passport-button--ghost">Back to Archive</a>
         </div>
       </div>
@@ -522,7 +596,13 @@
     var modal = document.getElementById('iris-passport-modal');
     var modalImg = document.getElementById('iris-passport-modal-img');
     var modalClose = document.getElementById('iris-passport-modal-close');
+    var likeWrap = document.getElementById('iris-passport-like');
+    var likeButton = document.getElementById('iris-passport-like-button');
+    var likeCount = document.getElementById('iris-passport-like-count');
     var defaultImage = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244';
+    var sessionToken = readStoredSessionToken();
+    var likesEnabled = false;
+    var activeIrisId = irisId;
 
     if (!irisId) {
       if (error) {
@@ -545,6 +625,49 @@
       });
     }
 
+    function readStoredSessionToken() {
+      try {
+        var raw = window.localStorage && window.localStorage.getItem('iris_account_session');
+        if (!raw) return '';
+        try {
+          return decodeURIComponent(raw);
+        } catch (error) {
+          return raw;
+        }
+      } catch (error) {
+        return '';
+      }
+    }
+
+    function buildPassportUrl() {
+      var url = '/apps/iris/iris/' + encodeURIComponent(irisId);
+      var query = [];
+      if (token) query.push('token=' + encodeURIComponent(token));
+      if (sessionToken) query.push('session=' + encodeURIComponent(sessionToken));
+      return query.length ? url + '?' + query.join('&') : url;
+    }
+
+    function setLikeState(liked, count) {
+      if (!likeButton || !likeCount) return;
+
+      var safeCount = Number(count);
+      if (!isFinite(safeCount)) safeCount = 0;
+
+      likeButton.classList.toggle('is-liked', liked);
+      likeButton.setAttribute('aria-pressed', liked ? 'true' : 'false');
+      likeButton.setAttribute('title', liked ? 'Unlike this IRIS' : 'Like this IRIS');
+      likeCount.textContent = safeCount > 0 ? String(safeCount) : '';
+    }
+
+    function showLikeControl(data) {
+      likesEnabled = !!(data && data.likes_enabled);
+      if (!likeWrap || !likeButton || !likesEnabled) return;
+
+      likeWrap.hidden = false;
+      likeButton.disabled = false;
+      setLikeState(!!data.liked_by_me, data.like_count);
+    }
+
     function setPending() {
       title.textContent = labelFromId(irisId);
       if (activatedRow) activatedRow.style.display = 'none';
@@ -556,15 +679,14 @@
 
     setPending();
 
-    var url = '/apps/iris/iris/' + encodeURIComponent(irisId);
-    if (token) url += '?token=' + encodeURIComponent(token);
-    fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store' })
+    fetch(buildPassportUrl(), { headers: { Accept: 'application/json' }, cache: 'no-store', credentials: 'same-origin' })
       .then(function (res) {
         if (!res.ok) throw new Error('not_found');
         return res.json();
       })
       .then(function (data) {
         if (error) error.hidden = true;
+        activeIrisId = data.iris_id || irisId;
         title.textContent = labelFromId(data.display_iris_id || data.iris_id);
         if (data.activated_at) {
           if (activatedRow) activatedRow.style.display = '';
@@ -581,10 +703,54 @@
         rarityEl.textContent = data.rarity_code || 'Hidden until activated';
         img.src = data.image_url || defaultImage;
         img.alt = data.iris_id || irisId;
+        showLikeControl(data);
       })
       .catch(function () {
         setPending();
       });
+
+    if (likeButton) {
+      likeButton.addEventListener('click', function () {
+        if (!likesEnabled || likeButton.disabled || !activeIrisId) return;
+
+        likeButton.disabled = true;
+
+        fetch('/apps/iris/archive-like', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          cache: 'no-store',
+          credentials: 'same-origin',
+          body: JSON.stringify({
+            iris_id: activeIrisId,
+            session: sessionToken
+          })
+        })
+          .then(function (res) {
+            if (res.status === 401) {
+              window.location.href = '/apps/iris/v3/account?return_to=' + encodeURIComponent(window.location.pathname + window.location.search);
+              throw new Error('not_authenticated');
+            }
+            if (!res.ok) throw new Error('bad_status');
+            return res.json();
+          })
+          .then(function (data) {
+            if (!data || data.status !== 'ok') throw new Error('bad_payload');
+            setLikeState(!!data.liked, data.like_count);
+          })
+          .catch(function () {
+            likeButton.classList.add('is-error');
+            window.setTimeout(function () {
+              likeButton.classList.remove('is-error');
+            }, 900);
+          })
+          .finally(function () {
+            likeButton.disabled = false;
+          });
+      });
+    }
 
     if (imgTrigger && modal && modalImg) {
       imgTrigger.addEventListener('click', function () {
