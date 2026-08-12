@@ -89,6 +89,11 @@
     background: #202020;
   }
 
+  .v2-passport-side {
+    display: grid;
+    gap: 1.8rem;
+  }
+
   .v2-passport-panel {
     background: var(--v2-surface-2);
     border: 1px solid var(--v2-border);
@@ -213,6 +218,93 @@
 
   .v2-passport-actions .v2-passport-button--ghost {
     margin-left: auto;
+  }
+
+  .v2-passport-shop {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .v2-passport-shop__button,
+  .v2-passport-shop__button:visited {
+    position: relative;
+    min-height: 4.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.1rem 5.4rem;
+    border: 1px solid rgba(237, 232, 223, 0.92) !important;
+    border-radius: 1.2rem;
+    background: #111215;
+    color: #ffffff !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: var(--font-body-family);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow: 0 0 0 1px rgba(234, 191, 80, 0.18), 0 1rem 2.6rem rgba(0, 0, 0, 0.34);
+  }
+
+  .v2-passport-shop__button span {
+    position: relative;
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  .v2-passport-shop__button::before,
+  .v2-passport-shop__button::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .v2-passport-shop__button::before {
+    inset: -155%;
+    z-index: 0;
+    opacity: 0.72;
+    background: conic-gradient(
+      from 0deg,
+      rgba(255, 255, 255, 0) 0deg,
+      #c9a84c 42deg,
+      #fff6cf 82deg,
+      rgba(255, 255, 255, 0) 132deg,
+      #eabf50 190deg,
+      #ffffff 244deg,
+      rgba(255, 255, 255, 0) 306deg,
+      #c9a84c 360deg
+    );
+    animation: iris-passport-shop-gold-spin 8s cubic-bezier(0.56, 0.15, 0.28, 0.86) infinite;
+  }
+
+  .v2-passport-shop__button::after {
+    inset: 2px;
+    z-index: 1;
+    border-radius: 1rem;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(234, 191, 80, 0.25), rgba(234, 191, 80, 0) 46%),
+      linear-gradient(180deg, #161616 0%, #090909 100%);
+  }
+
+  .v2-passport-shop__button:hover,
+  .v2-passport-shop__button:focus {
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+  }
+
+  .v2-passport-shop__button:hover::before,
+  .v2-passport-shop__button:focus::before {
+    opacity: 1;
+  }
+
+  @keyframes iris-passport-shop-gold-spin {
+    0% { transform: rotate(10deg) scale(1); }
+    50% { transform: rotate(190deg) scale(0.82); }
+    100% { transform: rotate(370deg) scale(1); }
   }
 
   .v2-passport-button,
@@ -491,6 +583,12 @@
       margin-left: 0;
     }
 
+    .v2-passport-shop__button,
+    .v2-passport-shop__button:visited {
+      width: min(100%, 28rem);
+      padding: 1.05rem 2.4rem;
+    }
+
     .v2-passport-button,
     .v2-passport-button:visited {
       width: 100%;
@@ -526,35 +624,40 @@
         </button>
       </div>
 
-      <div class="v2-passport-panel">
-        <p class="v2-passport-panel__eyebrow">Activated Work</p>
-        <h2 id="iris-passport-title" class="v2-passport-panel__title">IRIS #</h2>
+      <div class="v2-passport-side">
+        <div class="v2-passport-panel">
+          <p class="v2-passport-panel__eyebrow">Activated Work</p>
+          <h2 id="iris-passport-title" class="v2-passport-panel__title">IRIS #</h2>
 
-        <div class="v2-passport-meta">
-          <div class="v2-passport-meta__row" id="iris-passport-activated-row">
-            <div class="v2-passport-meta__label">Activated</div>
-            <div class="v2-passport-meta__value" id="iris-passport-activated">-</div>
+          <div class="v2-passport-meta">
+            <div class="v2-passport-meta__row" id="iris-passport-activated-row">
+              <div class="v2-passport-meta__label">Activated</div>
+              <div class="v2-passport-meta__value" id="iris-passport-activated">-</div>
+            </div>
+            <div class="v2-passport-meta__row" id="iris-passport-weight-row">
+              <div class="v2-passport-meta__label">Gold Content</div>
+              <div class="v2-passport-meta__value"><span id="iris-passport-weight">-</span> g (24K)</div>
+            </div>
+            <div class="v2-passport-meta__row">
+              <div class="v2-passport-meta__label">Rarity</div>
+              <div class="v2-passport-meta__value" id="iris-passport-rarity">Hidden until activated</div>
+            </div>
           </div>
-          <div class="v2-passport-meta__row" id="iris-passport-weight-row">
-            <div class="v2-passport-meta__label">Gold Content</div>
-            <div class="v2-passport-meta__value"><span id="iris-passport-weight">-</span> g (24K)</div>
-          </div>
-          <div class="v2-passport-meta__row">
-            <div class="v2-passport-meta__label">Rarity</div>
-            <div class="v2-passport-meta__value" id="iris-passport-rarity">Hidden until activated</div>
+
+          <div class="v2-passport-actions">
+            <div id="iris-passport-like" class="v2-passport-like" hidden>
+              <button type="button" id="iris-passport-like-button" class="v2-passport-like__button" aria-pressed="false" title="Like this IRIS">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </button>
+              <span id="iris-passport-like-count" class="v2-passport-like__count"></span>
+            </div>
+            <a href="/pages/iris-archive" class="v2-passport-button v2-passport-button--ghost">Back to Archive</a>
           </div>
         </div>
-
-        <div class="v2-passport-actions">
-          <div id="iris-passport-like" class="v2-passport-like" hidden>
-            <button type="button" id="iris-passport-like-button" class="v2-passport-like__button" aria-pressed="false" title="Like this IRIS">
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-            </button>
-            <span id="iris-passport-like-count" class="v2-passport-like__count"></span>
-          </div>
-          <a href="/pages/iris-archive" class="v2-passport-button v2-passport-button--ghost">Back to Archive</a>
+        <div class="v2-passport-shop">
+          <a class="v2-passport-shop__button" href="/products/iris-the-unseen-edition"><span>Shop Your IRIS</span></a>
         </div>
       </div>
     </div>
