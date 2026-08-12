@@ -48,7 +48,7 @@
           "type": "faq_item",
           "settings": {
             "heading": "What is the digital passport?",
-            "row_content": "<p>The digital passport is a permanent record of the artwork.</p><p>It includes:</p><ul><li>Artwork ID</li><li>Rarity</li><li>Activation date</li><li>Ownership history</li></ul><p>The passport records facts. It does not assign value.</p>",
+            "row_content": "<p>The digital passport is a permanent record of the artwork.</p><p>It includes:</p><ul><li>Artwork ID</li><li>Rarity</li><li>Gold weight</li><li>Activation date</li><li>Ownership history</li></ul><p>The passport records facts. It does not assign value.</p>",
             "page": ""
           }
         },
@@ -80,7 +80,7 @@
           "type": "faq_item",
           "settings": {
             "heading": "Can I transfer ownership?",
-            "row_content": "<p>Ownership transfer functionality may be introduced in the future.</p><p>Currently, ownership is recorded upon activation and remains tied to the activated account.</p>",
+            "row_content": "<p>Yes. Activated IRIS works can be transferred to a new owner.</p><p>To transfer ownership:</p><ol><li>Open your IRIS account</li><li>Choose the IRIS you want to transfer</li><li>Enter the recipient email</li><li>The recipient scans the NFC chip and enters the transfer code sent by email</li></ol><p>Once completed, the passport updates to the new owner.</p>",
             "page": ""
           }
         },
@@ -99,6 +99,14 @@
             "row_content": "<p>No.</p><p>Each IRIS physically contains 0.4 grams of 24k gold embedded within the artwork.</p><p>The gold is a material element of the piece.</p>",
             "page": ""
           }
+        },
+        "faq_12": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "Can I resell my IRIS?",
+            "row_content": "<p>Yes. You may resell your IRIS privately and transfer ownership through the IRIS account system.</p><p>An official IRIS marketplace is in development. It will be designed for verified listings and ownership transfers between collectors.</p><p>IRIS does not guarantee resale value or set market prices.</p>",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -112,7 +120,8 @@
         "faq_8",
         "faq_9",
         "faq_10",
-        "faq_11"
+        "faq_11",
+        "faq_12"
       ],
       "settings": {
         "image": "shopify://shop_images/faq-banner_cc53e7b7-e1d3-491a-b2a2-3b250664d555.png",
