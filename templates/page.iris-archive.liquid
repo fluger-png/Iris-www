@@ -509,13 +509,14 @@
       var liked = !!item.liked_by_me;
       var count = Number(item.like_count);
       if (!isFinite(count)) count = 0;
+      var countText = count > 0 ? String(count) : '';
 
       return (
         '<div class="v2-iris-archive__like">' +
           '<button class="v2-iris-archive__like-button' + (liked ? ' is-liked' : '') + '" type="button" data-iris-like="' + escapeHtml(item.iris_id) + '" aria-pressed="' + (liked ? 'true' : 'false') + '" title="' + (liked ? 'Unlike' : 'Like') + ' ' + escapeHtml(labelFromId(item.display_iris_id || item.iris_id)) + '">' +
             likeIcon +
           '</button>' +
-          '<span class="v2-iris-archive__like-count">' + count + '</span>' +
+          '<span class="v2-iris-archive__like-count">' + countText + '</span>' +
         '</div>'
       );
     }
@@ -528,7 +529,7 @@
       var countEl = button.parentNode && button.parentNode.querySelector('.v2-iris-archive__like-count');
       if (countEl) {
         var safeCount = Number(count);
-        countEl.textContent = isFinite(safeCount) ? String(safeCount) : '0';
+        countEl.textContent = isFinite(safeCount) && safeCount > 0 ? String(safeCount) : '';
       }
     }
 
