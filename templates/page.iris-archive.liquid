@@ -136,9 +136,9 @@
     text-decoration: none;
   }
 
-  .v2-iris-archive__card:hover {
+  .v2-iris-archive__card:hover,
+  .v2-iris-archive__card.is-hovered {
     border-color: rgba(201, 168, 76, 0.4);
-    transform: translateY(-2px);
   }
 
   .v2-iris-archive__media {
@@ -159,7 +159,8 @@
     transition: transform 0.45s ease;
   }
 
-  .v2-iris-archive__card:hover .v2-iris-archive__media img {
+  .v2-iris-archive__card:hover .v2-iris-archive__media img,
+  .v2-iris-archive__card.is-hovered .v2-iris-archive__media img {
     transform: scale(1.035);
   }
 
@@ -171,10 +172,12 @@
     padding: 2rem;
     background: linear-gradient(180deg, rgba(8, 8, 8, 0.02) 28%, rgba(8, 8, 8, 0.76) 100%);
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.24s ease;
   }
 
-  .v2-iris-archive__card:hover .v2-iris-archive__overlay {
+  .v2-iris-archive__card:hover .v2-iris-archive__overlay,
+  .v2-iris-archive__card.is-hovered .v2-iris-archive__overlay {
     opacity: 1;
   }
 
@@ -641,6 +644,33 @@
         btn.classList.add('is-active');
         resetAndLoad(btn.getAttribute('data-rarity') || 'all');
       });
+    });
+
+    function closestArchiveCard(target) {
+      return target && target.closest ? target.closest('.v2-iris-archive__card') : null;
+    }
+
+    grid.addEventListener('pointerover', function (event) {
+      var card = closestArchiveCard(event.target);
+      if (!card || (event.relatedTarget && card.contains(event.relatedTarget))) return;
+      card.classList.add('is-hovered');
+    });
+
+    grid.addEventListener('pointerout', function (event) {
+      var card = closestArchiveCard(event.target);
+      if (!card || (event.relatedTarget && card.contains(event.relatedTarget))) return;
+      card.classList.remove('is-hovered');
+    });
+
+    grid.addEventListener('focusin', function (event) {
+      var card = closestArchiveCard(event.target);
+      if (card) card.classList.add('is-hovered');
+    });
+
+    grid.addEventListener('focusout', function (event) {
+      var card = closestArchiveCard(event.target);
+      if (!card || (event.relatedTarget && card.contains(event.relatedTarget))) return;
+      card.classList.remove('is-hovered');
     });
 
     grid.addEventListener('click', function (event) {
