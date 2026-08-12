@@ -362,9 +362,30 @@
       gap: 0.3rem;
     }
 
+    .v2-iris-archive__media img,
+    .v2-iris-archive__placeholder {
+      inset: 1rem;
+      width: calc(100% - 2rem);
+      height: calc(100% - 2rem);
+    }
+
     .v2-iris-archive__overlay,
     .v2-iris-archive__body {
       padding-inline: 1.5rem;
+    }
+
+    .v2-iris-archive__like {
+      position: absolute;
+      top: 1.6rem;
+      right: 1.6rem;
+      z-index: 3;
+      min-width: 2.8rem;
+      margin-top: 0;
+      text-shadow: 0 0.1rem 0.8rem rgba(0, 0, 0, 0.45);
+    }
+
+    .v2-iris-archive__like-button {
+      color: #4b4a46;
     }
 
     .v2-iris-archive__iris {
