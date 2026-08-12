@@ -130,6 +130,12 @@
     transition: border-color 0.25s ease, transform 0.25s ease;
   }
 
+  .v2-iris-archive__card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
   .v2-iris-archive__card:hover {
     border-color: rgba(201, 168, 76, 0.4);
     transform: translateY(-2px);
@@ -187,12 +193,76 @@
     gap: 0.7rem;
   }
 
-  .v2-iris-archive__iris {
+  .v2-iris-archive__body-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.2rem;
+  }
+
+  .v2-iris-archive__iris,
+  .v2-iris-archive__iris:visited {
     color: var(--v2-archive-text);
     font-family: var(--font-heading-family);
     font-size: 1.9rem;
     line-height: 1.1;
     letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+
+  .v2-iris-archive__iris:hover {
+    color: var(--v2-archive-gold);
+  }
+
+  .v2-iris-archive__like {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    min-width: 2.8rem;
+    margin-top: -0.3rem;
+  }
+
+  .v2-iris-archive__like-button {
+    width: 2.6rem;
+    height: 2.6rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #4b4a46;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+  }
+
+  .v2-iris-archive__like-button:hover,
+  .v2-iris-archive__like-button.is-liked {
+    color: var(--v2-archive-gold);
+  }
+
+  .v2-iris-archive__like-button:disabled {
+    cursor: wait;
+    opacity: 0.52;
+  }
+
+  .v2-iris-archive__like-button svg {
+    width: 2.6rem;
+    height: 2.6rem;
+    display: block;
+    fill: currentColor;
+  }
+
+  .v2-iris-archive__like-button:active {
+    transform: scale(0.92);
+  }
+
+  .v2-iris-archive__like-count {
+    color: var(--v2-archive-text-soft);
+    font-size: 0.9rem;
+    line-height: 1;
+    letter-spacing: 0.04rem;
   }
 
   .v2-iris-archive__meta {
@@ -353,6 +423,57 @@
     var pageSize = 20;
     var fetchLimit = pageSize + 1;
     var defaultImage = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/P1.png?v=1769584244';
+    var likesEnabled = false;
+    var sessionToken = '';
+    var likeIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+
+    function escapeHtml(value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function readStoredSessionToken() {
+      try {
+        var raw = window.localStorage && window.localStorage.getItem('iris_account_session');
+        if (!raw) return '';
+        try {
+          return decodeURIComponent(raw);
+        } catch (error) {
+          return raw;
+        }
+      } catch (error) {
+        return '';
+      }
+    }
+
+    function appendSession(url) {
+      if (!sessionToken) return url;
+      return url + (url.indexOf('?') === -1 ? '?' : '&') + 'session=' + encodeURIComponent(sessionToken);
+    }
+
+    function checkAccountSession() {
+      sessionToken = readStoredSessionToken();
+
+      return fetch(appendSession('/apps/iris/v3/session'), {
+        headers: { Accept: 'application/json' },
+        cache: 'no-store',
+        credentials: 'same-origin'
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('bad_status');
+          return res.json();
+        })
+        .then(function (data) {
+          likesEnabled = !!(data && data.authenticated);
+        })
+        .catch(function () {
+          likesEnabled = false;
+        });
+    }
 
     function labelFromId(id) {
       if (!id) return '';
@@ -382,27 +503,62 @@
       return 'Activated: ' + formatDate(item && item.activated_at) + '\nGold content: ' + formatGold(item && item.weight_grams);
     }
 
+    function likeHtmlFromItem(item) {
+      if (!likesEnabled || item.like_count === undefined || item.like_count === null) return '';
+
+      var liked = !!item.liked_by_me;
+      var count = Number(item.like_count);
+      if (!isFinite(count)) count = 0;
+
+      return (
+        '<div class="v2-iris-archive__like">' +
+          '<button class="v2-iris-archive__like-button' + (liked ? ' is-liked' : '') + '" type="button" data-iris-like="' + escapeHtml(item.iris_id) + '" aria-pressed="' + (liked ? 'true' : 'false') + '" title="' + (liked ? 'Unlike' : 'Like') + ' ' + escapeHtml(labelFromId(item.display_iris_id || item.iris_id)) + '">' +
+            likeIcon +
+          '</button>' +
+          '<span class="v2-iris-archive__like-count">' + count + '</span>' +
+        '</div>'
+      );
+    }
+
+    function setLikeButtonState(button, liked, count) {
+      button.classList.toggle('is-liked', liked);
+      button.setAttribute('aria-pressed', liked ? 'true' : 'false');
+      button.setAttribute('title', liked ? 'Unlike' : 'Like');
+
+      var countEl = button.parentNode && button.parentNode.querySelector('.v2-iris-archive__like-count');
+      if (countEl) {
+        var safeCount = Number(count);
+        countEl.textContent = isFinite(safeCount) ? String(safeCount) : '0';
+      }
+    }
+
     function renderItems(items) {
       var html = items.map(function (item) {
         var href = '/pages/iris-passport?iris_id=' + encodeURIComponent(item.iris_id);
         var media = item.image_url
-          ? '<img src="' + item.image_url + '" alt="' + item.iris_id + '" loading="lazy">'
+          ? '<img src="' + escapeHtml(item.image_url) + '" alt="' + escapeHtml(item.iris_id) + '" loading="lazy">'
           : '<div class="v2-iris-archive__placeholder"></div>';
+        var label = labelFromId(item.display_iris_id || item.iris_id);
 
         return (
           '<li>' +
-            '<a class="v2-iris-archive__card" href="' + href + '">' +
-              '<div class="v2-iris-archive__media">' +
-                media +
-                '<div class="v2-iris-archive__overlay">' +
-                  '<div class="v2-iris-archive__overlay-meta">' + hoverMetaFromItem(item) + '</div>' +
+            '<div class="v2-iris-archive__card">' +
+              '<a class="v2-iris-archive__card-link" href="' + href + '">' +
+                '<div class="v2-iris-archive__media">' +
+                  media +
+                  '<div class="v2-iris-archive__overlay">' +
+                    '<div class="v2-iris-archive__overlay-meta">' + escapeHtml(hoverMetaFromItem(item)) + '</div>' +
+                  '</div>' +
                 '</div>' +
-              '</div>' +
+              '</a>' +
               '<div class="v2-iris-archive__body">' +
-                '<div class="v2-iris-archive__iris">' + labelFromId(item.display_iris_id || item.iris_id) + '</div>' +
-                '<div class="v2-iris-archive__meta">' + metaFromItem(item) + '</div>' +
+                '<div class="v2-iris-archive__body-top">' +
+                  '<a class="v2-iris-archive__iris" href="' + href + '">' + escapeHtml(label) + '</a>' +
+                  likeHtmlFromItem(item) +
+                '</div>' +
+                '<div class="v2-iris-archive__meta">' + escapeHtml(metaFromItem(item)) + '</div>' +
               '</div>' +
-            '</a>' +
+            '</div>' +
           '</li>'
         );
       }).join('');
@@ -424,13 +580,16 @@
       var url = '/apps/iris/seen-archive?limit=' + fetchLimit;
       if (cursor) url += '&cursor=' + encodeURIComponent(cursor);
       if (rarity && rarity !== 'all') url += '&rarity=' + encodeURIComponent(rarity);
+      url = appendSession(url);
 
-      fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store' })
+      fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store', credentials: 'same-origin' })
         .then(function (res) {
           if (!res.ok) throw new Error('bad_status');
           return res.json();
         })
         .then(function (data) {
+          if (data && data.likes_enabled === false) likesEnabled = false;
+
           var items = data && data.items ? data.items : [];
           if (!items.length && !cursor) {
             empty.hidden = false;
@@ -483,7 +642,58 @@
       });
     });
 
+    grid.addEventListener('click', function (event) {
+      var target = event.target;
+      var button = target && target.closest ? target.closest('[data-iris-like]') : null;
+      if (!button) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!likesEnabled || button.disabled) return;
+
+      var irisId = button.getAttribute('data-iris-like');
+      if (!irisId) return;
+
+      button.disabled = true;
+
+      fetch('/apps/iris/archive-like', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        cache: 'no-store',
+        credentials: 'same-origin',
+        body: JSON.stringify({
+          iris_id: irisId,
+          session: sessionToken
+        })
+      })
+        .then(function (res) {
+          if (res.status === 401) {
+            window.location.href = '/apps/iris/v3/account?return_to=' + encodeURIComponent('/pages/iris-archive');
+            throw new Error('not_authenticated');
+          }
+          if (!res.ok) throw new Error('bad_status');
+          return res.json();
+        })
+        .then(function (data) {
+          if (!data || data.status !== 'ok') throw new Error('bad_payload');
+          setLikeButtonState(button, !!data.liked, data.like_count);
+        })
+        .catch(function () {
+          button.classList.add('is-error');
+          window.setTimeout(function () {
+            button.classList.remove('is-error');
+          }, 900);
+        })
+        .finally(function () {
+          button.disabled = false;
+        });
+    });
+
     loadBtn.addEventListener('click', loadNext);
-    loadNext();
+    checkAccountSession().then(loadNext);
   })();
 </script>
