@@ -8,6 +8,15 @@
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
+      {%- assign menu_link_url = link.url | downcase -%}
+      {%- assign menu_link_title = link.title | downcase -%}
+      {%- if menu_link_url contains 'collaborate'
+        or menu_link_url contains 'iris-points'
+        or menu_link_title contains 'collaborate'
+        or menu_link_title contains 'partnership'
+      -%}
+        {%- continue -%}
+      {%- endif -%}
       <li>
         {%- if link.links != blank -%}
           <header-menu>
@@ -32,6 +41,15 @@
                 tabindex="-1"
               >
                 {%- for childlink in link.links -%}
+                  {%- assign menu_child_url = childlink.url | downcase -%}
+                  {%- assign menu_child_title = childlink.title | downcase -%}
+                  {%- if menu_child_url contains 'collaborate'
+                    or menu_child_url contains 'iris-points'
+                    or menu_child_title contains 'collaborate'
+                    or menu_child_title contains 'partnership'
+                  -%}
+                    {%- continue -%}
+                  {%- endif -%}
                   <li>
                     {%- if childlink.links == blank -%}
                       <a
@@ -58,6 +76,15 @@
                           class="header__submenu list-menu motion-reduce"
                         >
                           {%- for grandchildlink in childlink.links -%}
+                            {%- assign menu_grandchild_url = grandchildlink.url | downcase -%}
+                            {%- assign menu_grandchild_title = grandchildlink.title | downcase -%}
+                            {%- if menu_grandchild_url contains 'collaborate'
+                              or menu_grandchild_url contains 'iris-points'
+                              or menu_grandchild_title contains 'collaborate'
+                              or menu_grandchild_title contains 'partnership'
+                            -%}
+                              {%- continue -%}
+                            {%- endif -%}
                             <li>
                               <a
                                 id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
