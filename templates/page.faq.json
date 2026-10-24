@@ -107,6 +107,14 @@
             "row_content": "<p>Yes. You may resell your IRIS privately and transfer ownership through the IRIS account system.</p><p>An official IRIS marketplace is in development. It will be designed for verified listings and ownership transfers between collectors.</p><p>IRIS does not guarantee resale value or set market prices.</p>",
             "page": ""
           }
+        },
+        "faq_13": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "Can I return or exchange my piece?",
+            "row_content": "<p>Yes. Returns and exchanges may be requested within 14 days of delivery, provided the original IRIS packaging remains completely unopened, sealed, and undamaged. Once the seal is broken or the packaging is opened, the sale is final.</p>",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -121,7 +129,8 @@
         "faq_9",
         "faq_10",
         "faq_11",
-        "faq_12"
+        "faq_12",
+        "faq_13"
       ],
       "settings": {
         "image": "shopify://shop_images/faq-banner_cc53e7b7-e1d3-491a-b2a2-3b250664d555.png",
