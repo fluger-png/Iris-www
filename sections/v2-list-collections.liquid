@@ -595,7 +595,7 @@
     function updateActiveCount() {
       var countEl = root.querySelector('[data-active-count]');
       if (!countEl) return;
-      var total = root.querySelectorAll('[data-collection-card]').length;
+      var total = root.querySelectorAll('[data-collection-card]:not([hidden])').length;
       countEl.innerHTML = '<span>' + total + '</span> editions currently active';
     }
 
@@ -603,6 +603,41 @@
       var cards = root.querySelectorAll('[data-collection-card]');
       cards.forEach(function(card) {
         var handle = card.getAttribute('data-collection-handle');
+        if (handle) {
+          fetch('/apps/iris/collection-presentation?handle=' + encodeURIComponent(handle), {
+            headers: { Accept: 'application/json' }
+          })
+            .then(function(res) { return res.ok ? res.json() : null; })
+            .then(function(data) {
+              if (!data) return;
+              if (data.visible === false) {
+                card.hidden = true;
+                card.style.display = 'none';
+                updateActiveCount();
+                return;
+              }
+              var name = card.querySelector('.v2-collections__name-' + sectionId);
+              if (name && typeof data.display_name === 'string' && data.display_name) {
+                name.textContent = '\u201c' + data.display_name + '\u201d';
+              }
+              if (typeof data.banner_url !== 'string' || !/^https:\/\//.test(data.banner_url)) return;
+              var artwork = card.querySelector('.v2-collections__artwork-' + sectionId);
+              if (!artwork) return;
+              var image = artwork.querySelector('img');
+              if (!image) {
+                image = document.createElement('img');
+                image.className = 'v2-collections__artwork-media-' + sectionId;
+                image.loading = 'lazy';
+                artwork.appendChild(image);
+              }
+              image.removeAttribute('srcset');
+              image.src = data.banner_url;
+              image.alt = data.display_name || card.getAttribute('data-collection-title') || '';
+              var fallback = artwork.querySelector('.v2-collections__artwork-fallback-' + sectionId);
+              if (fallback) fallback.hidden = true;
+            })
+            .catch(function() {});
+        }
         var countEl = card.querySelector('[data-collection-count]');
         var fillEl = card.querySelector('[data-collection-fill]');
         var trackEl = fillEl ? fillEl.parentElement : null;
