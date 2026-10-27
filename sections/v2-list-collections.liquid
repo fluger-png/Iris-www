@@ -552,7 +552,8 @@
                 <div><dt>Price</dt><dd>{{ card_price | default: '—' }}</dd></div>
               </dl>
 
-              <div class="v2-collections__progress-{{ section.id }}">
+              {%- comment -%}Temporarily hide sales figures while keeping the counter ready to restore.{%- endcomment -%}
+              <div class="v2-collections__progress-{{ section.id }}" hidden>
                 <div class="v2-collections__progress-row-{{ section.id }}">
                   <span>Sold</span>
                   <strong data-collection-count>—</strong>
