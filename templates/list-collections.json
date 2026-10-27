@@ -14,9 +14,20 @@
       "settings": {
         "sort": "alphabetical"
       }
+    },
+    "archive": {
+      "type": "v2-archive-preview",
+      "settings": {
+        "eyebrow": "Revealed Archive",
+        "heading": "What others have <em>received</em>",
+        "items_to_show": 8,
+        "button_label": "View full archive",
+        "button_link": "shopify://pages/iris-archive"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "archive"
   ]
 }
