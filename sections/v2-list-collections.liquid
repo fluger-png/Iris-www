@@ -581,15 +581,26 @@
   -%}
   <div class="v2-collections__grid-wrap-{{ section.id }}">
     <div class="v2-collections__grid-{{ section.id }}" data-collections-grid>
+      {%- for collection_group in (1..2) -%}
       {%- for collection in sorted_collections limit: 30 -%}
+        {%- liquid
+          assign first_product = collection.products.first
+          assign archive_handle = first_product.handle | default: collection.handle
+          assign is_primary_collection = false
+          if archive_handle == 'iris-the-unseen-edition' or archive_handle == 'iris-collection' or archive_handle == 'iris'
+            assign is_primary_collection = true
+          endif
+          if collection_group == 1 and is_primary_collection == false
+            continue
+          elsif collection_group == 2 and is_primary_collection
+            continue
+          endif
+        -%}
         {%- unless excluded_handles contains collection.handle -%}
           {%- liquid
-            assign first_product = collection.products.first
             assign card_link = collection.url
-            assign archive_handle = collection.handle
             if first_product != blank
               assign card_link = first_product.url
-              assign archive_handle = first_product.handle
             endif
 
             assign display_title = collection.title
@@ -695,6 +706,7 @@
             </div>
           </a>
         {%- endunless -%}
+      {%- endfor -%}
       {%- endfor -%}
     </div>
 
