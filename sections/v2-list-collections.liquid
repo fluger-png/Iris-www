@@ -301,7 +301,7 @@
 
   .v2-collections__metrics-{{ section.id }} {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 2rem 1.6rem;
     margin: 0;
   }
@@ -428,6 +428,9 @@
       padding: 2rem;
     }
 
+    .v2-collections__metrics-{{ section.id }} { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .v2-collections__average-{{ section.id }} { grid-column: 1 / -1; }
+
   }
 
   @media screen and (max-width: 749px) {
@@ -550,6 +553,7 @@
               <dl class="v2-collections__metrics-{{ section.id }}">
                 <div><dt>Edition size</dt><dd data-collection-edition>—</dd></div>
                 <div><dt>Price</dt><dd>{{ card_price | default: '—' }}</dd></div>
+                <div class="v2-collections__average-{{ section.id }}"><dt title="Average gold weight of sold IRIS with a recorded weight">Avg. gold weight</dt><dd data-collection-average-weight>—</dd></div>
               </dl>
 
               {%- comment -%}Temporarily hide sales figures while keeping the counter ready to restore.{%- endcomment -%}
@@ -641,6 +645,7 @@
         var handle = card.getAttribute('data-collection-handle');
         var countEl = card.querySelector('[data-collection-count]');
         var editionEl = card.querySelector('[data-collection-edition]');
+        var averageWeightEl = card.querySelector('[data-collection-average-weight]');
         var fillEl = card.querySelector('[data-collection-fill]');
         var trackEl = card.querySelector('[data-collection-progress]');
         if (!handle) return;
@@ -658,6 +663,11 @@
             }
             var name = card.querySelector('.v2-collections__name-' + sectionId);
             if (name && typeof data.display_name === 'string' && data.display_name) name.textContent = data.display_name;
+
+            var averageWeight = data.average_sold_weight_grams;
+            if (averageWeightEl && typeof averageWeight === 'number' && Number.isFinite(averageWeight) && averageWeight > 0) {
+              averageWeightEl.textContent = averageWeight.toFixed(3) + ' g';
+            }
 
             var sold = data.sold_count;
             var editionSize = data.edition_size;
