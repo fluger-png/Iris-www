@@ -1,6 +1,4 @@
 {%- liquid
-  assign visible_collections = ''
-  assign active_count = 0
   assign excluded_handles = 'all,frontpage' | split: ','
 -%}
 
@@ -25,6 +23,7 @@
 
   .v2-collections-{{ section.id }} * {
     box-sizing: border-box;
+    letter-spacing: 0;
   }
 
   .v2-collections-{{ section.id }} {
@@ -80,7 +79,9 @@
   .v2-collections__header-{{ section.id }} {
     position: relative;
     z-index: 1;
-    padding: 6.4rem 5.6rem 5.2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6.4rem 2.4rem 5.2rem;
     border-bottom: 1px solid var(--v2c-border);
     display: flex;
     align-items: flex-end;
@@ -94,7 +95,7 @@
     opacity: 0.5;
     font-family: var(--font-body-family);
     font-size: 0.9rem;
-    letter-spacing: 0.4rem;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -102,10 +103,10 @@
     margin: 0;
     color: var(--v2c-text);
     font-family: var(--font-heading-family);
-    font-size: clamp(4.4rem, 5.5vw, 7.2rem);
+    font-size: 6.4rem;
     font-weight: 400;
     line-height: 0.95;
-    letter-spacing: -0.2rem;
+    letter-spacing: 0;
   }
 
   .v2-collections__title-{{ section.id }} em {
@@ -146,7 +147,7 @@
     color: var(--v2c-gold);
     font-family: var(--font-body-family);
     font-size: 1rem;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -154,7 +155,7 @@
     color: var(--v2c-muted);
     font-family: var(--font-body-family);
     font-size: 1.1rem;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0;
   }
 
   .v2-collections__count-{{ section.id }} span {
@@ -165,18 +166,21 @@
   .v2-collections__grid-wrap-{{ section.id }} {
     position: relative;
     z-index: 1;
-    padding: 4rem 5.6rem 8rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2.4rem 8rem;
   }
 
   .v2-collections__grid-{{ section.id }} {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.4rem;
   }
 
   .v2-collections__card-{{ section.id }} {
     display: flex;
     flex-direction: column;
+    min-width: 0;
     background: var(--v2c-card);
     border: 1px solid var(--v2c-border);
     color: inherit;
@@ -189,6 +193,14 @@
   .v2-collections__card-{{ section.id }}:hover {
     border-color: var(--v2c-gold-line);
   }
+
+  .v2-collections__card-{{ section.id }}:focus-visible {
+    outline: 2px solid var(--v2c-gold);
+    outline-offset: 4px;
+  }
+
+  .v2-collections__card-{{ section.id }}[hidden],
+  .v2-collections__empty-{{ section.id }}[hidden] { display: none; }
 
   .v2-collections__card-{{ section.id }}:nth-child(1) { animation-delay: 0.05s; }
   .v2-collections__card-{{ section.id }}:nth-child(2) { animation-delay: 0.12s; }
@@ -203,7 +215,7 @@
   }
 
   .v2-collections__artwork-{{ section.id }} {
-    aspect-ratio: 1;
+    aspect-ratio: 16 / 9;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -257,7 +269,7 @@
     border: 1px solid rgba(76, 175, 125, 0.18);
     font-family: var(--font-body-family);
     font-size: 0.8rem;
-    letter-spacing: 0.25rem;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -273,16 +285,47 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding: 2.4rem 2.6rem 2.6rem;
+    padding: 2.4rem;
   }
 
   .v2-collections__name-{{ section.id }} {
+    margin: 0;
     color: var(--v2c-text);
     font-family: var(--font-heading-family);
-    font-size: 2.2rem;
-    font-style: italic;
+    font-size: 2rem;
+    font-style: normal;
     font-weight: 400;
-    line-height: 1.1;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .v2-collections__metrics-{{ section.id }} {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 1.6rem;
+    margin: 0;
+  }
+
+  .v2-collections__metrics-{{ section.id }} dt {
+    font-family: var(--font-heading-family);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #a79e8b;
+    text-transform: uppercase;
+  }
+
+  .v2-collections__metrics-{{ section.id }} dd {
+    margin: 0.8rem 0 0;
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    line-height: 1.4;
+    color: #eabf50;
+    overflow-wrap: anywhere;
+  }
+
+  .v2-collections__progress-{{ section.id }} {
+    margin-top: auto;
+    padding-top: 0.4rem;
   }
 
   .v2-collections__progress-row-{{ section.id }} {
@@ -291,10 +334,11 @@
     align-items: center;
     gap: 1.2rem;
     margin-bottom: 0.8rem;
-    color: var(--v2c-muted);
-    font-family: var(--font-body-family);
-    font-size: 1rem;
-    letter-spacing: 0.1rem;
+    color: #a79e8b;
+    font-family: var(--font-heading-family);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -304,60 +348,48 @@
   }
 
   .v2-collections__track-{{ section.id }} {
-    height: 2px;
+    height: 3px;
     background: #1d1c1b;
     position: relative;
     transition: background 0.35s ease;
   }
 
   .v2-collections__fill-{{ section.id }} {
-    display: none;
+    display: block;
+    width: 0;
+    height: 100%;
+    background: var(--v2c-gold);
+    transition: width 0.35s ease;
   }
 
   .v2-collections__price-row-{{ section.id }} {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 1.6rem;
     padding-top: 1.6rem;
     border-top: 1px solid var(--v2c-border);
-  }
-
-  .v2-collections__price-{{ section.id }} {
-    color: var(--v2c-gold);
-    font-family: var(--font-heading-family);
-    font-size: 3rem;
-    line-height: 1;
-    letter-spacing: -0.04rem;
-  }
-
-  .v2-collections__price-label-{{ section.id }} {
-    margin-top: 0.3rem;
-    color: var(--v2c-muted);
-    font-family: var(--font-body-family);
-    font-size: 0.9rem;
-    letter-spacing: 0.2rem;
-    text-transform: uppercase;
   }
 
   .v2-collections__cta-{{ section.id }} {
     display: inline-flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem 2rem;
+    min-height: 5rem;
+    padding: 1.4rem 2rem;
+    justify-content: center;
     background: var(--v2c-gold);
     color: var(--v2c-black);
-    font-family: var(--font-body-family);
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.25rem;
+    font-family: var(--font-heading-family);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0;
     text-transform: uppercase;
     transition: all 0.2s ease;
   }
 
   .v2-collections__card-{{ section.id }}:hover .v2-collections__cta-{{ section.id }} {
     background: #e8c96a;
-    gap: 1.4rem;
   }
 
   .v2-collections__empty-{{ section.id }} {
@@ -388,22 +420,25 @@
       padding: 3.2rem 2.4rem 5.6rem;
     }
 
-    .v2-collections__grid-{{ section.id }} {
-      grid-template-columns: 1fr;
-    }
-
     .v2-collections__title-{{ section.id }} {
-      font-size: clamp(4rem, 10vw, 6rem);
+      font-size: 4.4rem;
     }
 
     .v2-collections__body-{{ section.id }} {
       padding: 2rem;
     }
 
-    .v2-collections__price-row-{{ section.id }} {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .v2-collections__header-{{ section.id }} { padding: 3.6rem 1.6rem 3.2rem; gap: 2.4rem; }
+    .v2-collections__title-{{ section.id }} { font-size: 3.2rem; }
+    .v2-collections__grid-wrap-{{ section.id }} { padding: 2.4rem 1.6rem 4.8rem; }
+    .v2-collections__grid-{{ section.id }} { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .v2-collections-{{ section.id }} *, .v2-collections-{{ section.id }} *::before { animation: none; transition: none; }
   }
 </style>
 
@@ -421,7 +456,6 @@
     assign sorted_collections = sorted_collections | reverse
   endif
 
-  assign active_total = 0
 -%}
 
 <div class="v2-collections-{{ section.id }}">
@@ -511,23 +545,24 @@
             </div>
 
             <div class="v2-collections__body-{{ section.id }}">
-              <div class="v2-collections__name-{{ section.id }}">&ldquo;{{ display_title }}&rdquo;</div>
+              <h2 class="v2-collections__name-{{ section.id }}">{{ display_title | escape }}</h2>
+
+              <dl class="v2-collections__metrics-{{ section.id }}">
+                <div><dt>Edition size</dt><dd data-collection-edition>—</dd></div>
+                <div><dt>Price</dt><dd>{{ card_price | default: '—' }}</dd></div>
+              </dl>
 
               <div class="v2-collections__progress-{{ section.id }}">
                 <div class="v2-collections__progress-row-{{ section.id }}">
-                  <span>Editions revealed</span>
+                  <span>Sold</span>
                   <strong data-collection-count>—</strong>
                 </div>
-                <div class="v2-collections__track-{{ section.id }}">
+                <div class="v2-collections__track-{{ section.id }}" data-collection-progress>
                   <div class="v2-collections__fill-{{ section.id }}" data-collection-fill data-empty="true"></div>
                 </div>
               </div>
 
               <div class="v2-collections__price-row-{{ section.id }}">
-                <div>
-                  <div class="v2-collections__price-{{ section.id }}">{{ card_price | default: '—' }}</div>
-                  <div class="v2-collections__price-label-{{ section.id }}">Current price</div>
-                </div>
                 <div class="v2-collections__cta-{{ section.id }}">Reveal →</div>
               </div>
             </div>
@@ -536,11 +571,9 @@
       {%- endfor -%}
     </div>
 
-    {%- if rendered_count == 0 -%}
-      <div class="v2-collections__empty-{{ section.id }}">
+      <div class="v2-collections__empty-{{ section.id }}" data-collections-empty{% if rendered_count > 0 %} hidden{% endif %}>
         <p>No collections are visible yet.</p>
       </div>
-    {%- endif -%}
   </div>
 </div>
 
@@ -597,81 +630,69 @@
       if (!countEl) return;
       var total = root.querySelectorAll('[data-collection-card]:not([hidden])').length;
       countEl.innerHTML = '<span>' + total + '</span> editions currently active';
+      var emptyEl = root.querySelector('[data-collections-empty]');
+      if (emptyEl) emptyEl.hidden = total > 0;
     }
 
     function hydrateCards() {
       var cards = root.querySelectorAll('[data-collection-card]');
       cards.forEach(function(card) {
         var handle = card.getAttribute('data-collection-handle');
-        if (handle) {
-          fetch('/apps/iris/collection-presentation?handle=' + encodeURIComponent(handle), {
-            headers: { Accept: 'application/json' }
-          })
-            .then(function(res) { return res.ok ? res.json() : null; })
-            .then(function(data) {
-              if (!data) return;
-              if (data.visible === false) {
-                card.hidden = true;
-                card.style.display = 'none';
-                updateActiveCount();
-                return;
-              }
-              var name = card.querySelector('.v2-collections__name-' + sectionId);
-              if (name && typeof data.display_name === 'string' && data.display_name) {
-                name.textContent = '\u201c' + data.display_name + '\u201d';
-              }
-              if (typeof data.banner_url !== 'string' || !/^https:\/\//.test(data.banner_url)) return;
-              var artwork = card.querySelector('.v2-collections__artwork-' + sectionId);
-              if (!artwork) return;
-              var image = artwork.querySelector('img');
-              if (!image) {
-                image = document.createElement('img');
-                image.className = 'v2-collections__artwork-media-' + sectionId;
-                image.loading = 'lazy';
-                artwork.appendChild(image);
-              }
-              image.removeAttribute('srcset');
-              image.src = data.banner_url;
-              image.alt = data.display_name || card.getAttribute('data-collection-title') || '';
-              var fallback = artwork.querySelector('.v2-collections__artwork-fallback-' + sectionId);
-              if (fallback) fallback.hidden = true;
-            })
-            .catch(function() {});
-        }
         var countEl = card.querySelector('[data-collection-count]');
+        var editionEl = card.querySelector('[data-collection-edition]');
         var fillEl = card.querySelector('[data-collection-fill]');
-        var trackEl = fillEl ? fillEl.parentElement : null;
-        if (!handle || !countEl || !fillEl) return;
+        var trackEl = card.querySelector('[data-collection-progress]');
+        if (!handle) return;
 
-        fetch('/apps/iris/seen-archive?limit=1&collection=' + encodeURIComponent(handle), {
+        fetch('/apps/iris/collection-presentation?handle=' + encodeURIComponent(handle), {
           headers: { Accept: 'application/json' }
         })
           .then(function(res) { return res.ok ? res.json() : null; })
           .then(function(data) {
-            var total = Number(data && data.total_count);
-            var editionSize = Number(data && data.collection && data.collection.edition_size);
-            if (!Number.isFinite(total) || total < 0) total = 0;
-            if (!Number.isFinite(editionSize) || editionSize <= 0) {
-              if (handle === 'iris-the-unseen-edition' || handle === 'iris-collection' || handle === 'iris') {
-                editionSize = 10000;
-              } else {
-                editionSize = total;
+            if (!data) return;
+            if (data.visible === false) {
+              card.hidden = true;
+              updateActiveCount();
+              return;
+            }
+            var name = card.querySelector('.v2-collections__name-' + sectionId);
+            if (name && typeof data.display_name === 'string' && data.display_name) name.textContent = data.display_name;
+
+            var sold = data.sold_count;
+            var editionSize = data.edition_size;
+            if (Number.isSafeInteger(editionSize) && editionSize > 0) {
+              if (editionEl) editionEl.textContent = formatNumber(editionSize);
+              if (Number.isSafeInteger(sold) && sold >= 0) {
+                if (countEl) countEl.textContent = formatNumber(sold) + ' of ' + formatNumber(editionSize);
+                if (fillEl) fillEl.style.width = Math.min(100, sold / editionSize * 100) + '%';
+                if (trackEl) {
+                  trackEl.setAttribute('role', 'progressbar');
+                  trackEl.setAttribute('aria-label', 'IRIS sold');
+                  trackEl.setAttribute('aria-valuemin', '0');
+                  trackEl.setAttribute('aria-valuemax', String(editionSize));
+                  trackEl.setAttribute('aria-valuenow', String(Math.min(sold, editionSize)));
+                  trackEl.setAttribute('aria-valuetext', formatNumber(sold) + ' of ' + formatNumber(editionSize) + ' sold');
+                }
               }
             }
-            countEl.textContent = formatNumber(total) + ' of ' + formatNumber(editionSize);
-            var progress = editionSize > 0 ? Math.min(100, (total / editionSize) * 100) : 0;
-            var visibleProgress = total > 0 ? Math.max(progress, 1) : 0;
-            if (trackEl) {
-              if (visibleProgress > 0) {
-                trackEl.style.background = 'linear-gradient(90deg, #c9a84c 0%, #c9a84c ' + visibleProgress + '%, #1d1c1b ' + visibleProgress + '%, #1d1c1b 100%)';
-              } else {
-                trackEl.style.background = '#1d1c1b';
-              }
+
+            if (typeof data.banner_url !== 'string' || !/^https:\/\//.test(data.banner_url)) return;
+            var artwork = card.querySelector('.v2-collections__artwork-' + sectionId);
+            if (!artwork) return;
+            var image = artwork.querySelector('img');
+            if (!image) {
+              image = document.createElement('img');
+              image.className = 'v2-collections__artwork-media-' + sectionId;
+              image.loading = 'lazy';
+              artwork.appendChild(image);
             }
+            image.removeAttribute('srcset');
+            image.src = data.banner_url;
+            image.alt = data.display_name || card.getAttribute('data-collection-title') || '';
+            var fallback = artwork.querySelector('.v2-collections__artwork-fallback-' + sectionId);
+            if (fallback) fallback.hidden = true;
           })
-          .catch(function() {
-            countEl.textContent = '—';
-          });
+          .catch(function() {});
       });
     }
 
