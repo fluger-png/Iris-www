@@ -41,41 +41,6 @@
     z-index: 0;
   }
 
-  .v2-collections__ticker-{{ section.id }} {
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 1.3rem 0;
-    border-top: 1px solid var(--v2c-border);
-    border-bottom: 1px solid var(--v2c-border);
-    background: var(--v2c-black);
-  }
-
-  .v2-collections__ticker-inner-{{ section.id }} {
-    display: inline-flex;
-    gap: 6.4rem;
-    animation: v2-collections-ticker-{{ section.id }} 28s linear infinite;
-  }
-
-  .v2-collections__ticker-item-{{ section.id }} {
-    flex-shrink: 0;
-    color: var(--v2c-muted);
-    font-family: var(--font-heading-family);
-    font-size: 1.3rem;
-    font-style: italic;
-  }
-
-  .v2-collections__ticker-dot-{{ section.id }} {
-    color: var(--v2c-gold);
-    opacity: 0.3;
-  }
-
-  @keyframes v2-collections-ticker-{{ section.id }} {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
   .v2-collections__header-{{ section.id }} {
     position: relative;
     z-index: 1;
@@ -556,21 +521,6 @@
 -%}
 
 <div class="v2-collections-{{ section.id }}">
-  <div class="v2-collections__ticker-{{ section.id }}">
-    <div class="v2-collections__ticker-inner-{{ section.id }}">
-      <span class="v2-collections__ticker-item-{{ section.id }}">Physical artwork <span class="v2-collections__ticker-dot-{{ section.id }}">◆</span></span>
-      <span class="v2-collections__ticker-item-{{ section.id }}">0.4g real gold inside every piece <span class="v2-collections__ticker-dot-{{ section.id }}">◆</span></span>
-      <span class="v2-collections__ticker-item-{{ section.id }}">NFC · permanent archive <span class="v2-collections__ticker-dot-{{ section.id }}">◆</span></span>
-      <span class="v2-collections__ticker-item-{{ section.id }}">Unknown until revealed <span class="v2-collections__ticker-dot-{{ section.id }}">◆</span></span>
-      <span class="v2-collections__ticker-item-{{ section.id }}">New York <span class="v2-collections__ticker-dot-{{ section.id }}">◆</span></span>
-      <span class="v2-collections__ticker-item-{{ section.id }}">Physical artwork <span class="v2-collections__ticker-dot-{{ section.id }}">◆</span></span>
-      <span class="v2-collections__ticker-item-{{ section.id }}">0.4g real gold inside every piece <span class="v2-collections__ticker-dot-{{ section.id }}">◆</span></span>
-      <span class="v2-collections__ticker-item-{{ section.id }}">NFC · permanent archive <span class="v2-collections__ticker-dot-{{ section.id }}">◆</span></span>
-      <span class="v2-collections__ticker-item-{{ section.id }}">Unknown until revealed <span class="v2-collections__ticker-dot-{{ section.id }}">◆</span></span>
-      <span class="v2-collections__ticker-item-{{ section.id }}">New York <span class="v2-collections__ticker-dot-{{ section.id }}">◆</span></span>
-    </div>
-  </div>
-
   <div class="v2-collections__header-{{ section.id }}">
     <div>
       <div class="v2-collections__eyebrow-{{ section.id }}">IRIS NYC</div>
