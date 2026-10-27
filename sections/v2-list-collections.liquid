@@ -589,11 +589,12 @@
               assign brand_name = 'IRIS NYC'
               assign brand_avatar = settings.logo
             endif
-            assign card_description = collection.description
-            if card_description == blank and first_product != blank
-              assign card_description = first_product.description | split: '</p>' | first
+            assign card_description = collection.description | strip_html | strip
+            if card_description == blank or card_description == '.'
+              if first_product != blank
+                assign card_description = first_product.description | split: '</p>' | first | strip_html | strip
+              endif
             endif
-            assign card_description = card_description | strip_html | strip
 
             assign card_price = nil
             if first_product != blank and first_product.price
