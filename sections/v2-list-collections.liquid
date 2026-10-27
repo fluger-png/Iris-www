@@ -529,7 +529,7 @@
     <div class="v2-collections__header-right-{{ section.id }}">
       <div class="v2-collections__gold-pill-{{ section.id }}" data-gold-pill>
         <div class="v2-collections__gold-dot-{{ section.id }}"></div>
-        <div class="v2-collections__gold-text-{{ section.id }}">Gold — / g · Min —</div>
+        <div class="v2-collections__gold-text-{{ section.id }}">Gold — / g</div>
       </div>
       <div class="v2-collections__count-{{ section.id }}" data-active-count></div>
     </div>
@@ -701,8 +701,7 @@
       } catch (_) {}
 
       function setValue(price) {
-        var minPrice = Math.ceil(((price * 0.4) + 20) * 1.5);
-        pill.textContent = 'Gold $' + price.toFixed(2) + ' / g · Min $' + minPrice;
+        pill.textContent = 'Gold $' + price.toFixed(2) + ' / g';
       }
 
       if (typeof cached === 'number') {
