@@ -361,6 +361,7 @@
   }
 
   .v2-collections__metrics-{{ section.id }} > div { flex: 0 0 auto; min-width: 0; }
+  .v2-collections__metrics-{{ section.id }} > div:not(:last-child) { margin-inline-end: auto; }
 
   .v2-collections__metrics-{{ section.id }} dt {
     font-family: var(--font-heading-family);
@@ -432,6 +433,7 @@
   .v2-collections__cta-{{ section.id }} {
     display: inline-flex;
     flex: 0 0 auto;
+    margin-inline-start: auto;
     align-items: center;
     gap: 1rem;
     min-height: 5rem;
