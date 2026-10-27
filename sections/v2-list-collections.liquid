@@ -279,6 +279,7 @@
   }
 
   .v2-collections__body-{{ section.id }} {
+    container-type: inline-size;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -356,11 +357,10 @@
   }
 
   .v2-collections__metrics-{{ section.id }} {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.2rem;
-    margin: auto 0 0;
+    display: contents;
   }
+
+  .v2-collections__metrics-{{ section.id }} > div { min-width: 0; }
 
   .v2-collections__metrics-{{ section.id }} dt {
     font-family: var(--font-heading-family);
@@ -422,12 +422,11 @@
   }
 
   .v2-collections__price-row-{{ section.id }} {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 1.6rem;
-    padding-top: 1.6rem;
-    border-top: 1px solid var(--v2c-border);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+    align-items: end;
+    gap: 1.6rem 1.2rem;
+    margin-top: auto;
   }
 
   .v2-collections__cta-{{ section.id }} {
@@ -449,6 +448,11 @@
 
   .v2-collections__card-{{ section.id }}:hover .v2-collections__cta-{{ section.id }} {
     background: #e8c96a;
+  }
+
+  @container (max-width: 440px) {
+    .v2-collections__price-row-{{ section.id }} { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .v2-collections__cta-{{ section.id }} { justify-self: end; padding-inline: 1.4rem; }
   }
 
   .v2-collections__empty-{{ section.id }} {
@@ -501,7 +505,7 @@
     .v2-collections__grid-wrap-{{ section.id }} { padding: 2.4rem 1.6rem 4.8rem; }
     .v2-collections__grid-{{ section.id }} { grid-template-columns: minmax(0, 1fr); }
     .v2-collections__body-{{ section.id }} { padding: 1.6rem; }
-    .v2-collections__metrics-{{ section.id }} { gap: 0.8rem; }
+    .v2-collections__price-row-{{ section.id }} { column-gap: 0.8rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -638,11 +642,14 @@
 
               <p class="v2-collections__description-{{ section.id }}" data-collection-description>{{ card_description | escape }}</p>
 
-              <dl class="v2-collections__metrics-{{ section.id }}">
-                <div><dt>Edition size</dt><dd data-collection-edition>—</dd></div>
-                <div><dt title="Average gold weight of sold IRIS with a recorded weight">Avg. gold</dt><dd data-collection-average-weight>—</dd></div>
-                <div><dt>Price</dt><dd>{{ card_price | default: '—' }}</dd></div>
-              </dl>
+              <div class="v2-collections__price-row-{{ section.id }}">
+                <dl class="v2-collections__metrics-{{ section.id }}">
+                  <div><dt>Edition size</dt><dd data-collection-edition>—</dd></div>
+                  <div><dt title="Average gold weight of sold IRIS with a recorded weight">Avg. gold</dt><dd data-collection-average-weight>—</dd></div>
+                  <div><dt>Price</dt><dd>{{ card_price | default: '—' }}</dd></div>
+                </dl>
+                <div class="v2-collections__cta-{{ section.id }}">Reveal →</div>
+              </div>
 
               {%- comment -%}Temporarily hide sales figures while keeping the counter ready to restore.{%- endcomment -%}
               <div class="v2-collections__progress-{{ section.id }}" hidden>
@@ -655,9 +662,6 @@
                 </div>
               </div>
 
-              <div class="v2-collections__price-row-{{ section.id }}">
-                <div class="v2-collections__cta-{{ section.id }}">Reveal →</div>
-              </div>
             </div>
           </a>
         {%- endunless -%}
