@@ -9,12 +9,34 @@
  */
 {
   "sections": {
+    "proof_top": {
+      "type": "v2-proof-bar",
+      "settings": {
+        "item_1": "<strong>10,000</strong> total works",
+        "item_2": "<strong>24K</strong> gold in every piece",
+        "item_3": "<strong>NFC</strong> activation confirms ownership",
+        "item_4": "<strong>Merkle proof</strong> secures rarity",
+        "item_5": "<strong>IRIS Passport</strong> reveals the full object"
+      }
+    },
     "main": {
       "type": "v2-what-is-iris-page",
       "settings": {}
+    },
+    "proof_bottom": {
+      "type": "v2-proof-bar",
+      "settings": {
+        "item_1": "<strong>10,000</strong> total works",
+        "item_2": "<strong>24K</strong> gold in every piece",
+        "item_3": "<strong>NFC</strong> activation confirms ownership",
+        "item_4": "<strong>Merkle proof</strong> secures rarity",
+        "item_5": "<strong>IRIS Passport</strong> reveals the full object"
+      }
     }
   },
   "order": [
-    "main"
+    "proof_top",
+    "main",
+    "proof_bottom"
   ]
 }

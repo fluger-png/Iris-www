@@ -55,40 +55,6 @@
     font-style: italic;
   }
 
-  .v2-what-is-iris__ticker-{{ section.id }} {
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 1.5rem 0;
-    border-top: 1px solid var(--wis-border);
-    border-bottom: 1px solid var(--wis-border);
-    background: var(--wis-black);
-  }
-
-  .v2-what-is-iris__ticker-inner-{{ section.id }} {
-    display: inline-flex;
-    gap: 5.2rem;
-    min-width: max-content;
-    animation: v2WhatIsIrisTicker-{{ section.id }} 28s linear infinite;
-  }
-
-  .v2-what-is-iris__ticker-item-{{ section.id }} {
-    color: var(--wis-muted);
-    font-family: var(--font-body-family);
-    font-size: 1rem;
-    letter-spacing: 0.22rem;
-    text-transform: uppercase;
-  }
-
-  .v2-what-is-iris__ticker-dot-{{ section.id }} {
-    color: var(--wis-gold);
-    opacity: 0.6;
-  }
-
-  @keyframes v2WhatIsIrisTicker-{{ section.id }} {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
   .v2-what-is-iris__hero-{{ section.id }} {
     min-height: 100vh;
     display: flex;
@@ -1094,19 +1060,6 @@
 
 <div class="v2-what-is-iris-{{ section.id }}">
   <div class="v2-what-is-iris__surface-{{ section.id }}">
-    <div class="v2-what-is-iris__ticker-{{ section.id }}">
-      <div class="v2-what-is-iris__ticker-inner-{{ section.id }}">
-        {%- for _ in (1..2) -%}
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">Physical artwork <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">0.4g real gold inside every piece <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">4 × 4 inches · hand-finished <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">NFC chip · permanent archive <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">Unknown until revealed <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">New York <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-        {%- endfor -%}
-      </div>
-    </div>
-
     <section class="v2-what-is-iris__hero-{{ section.id }}">
       <svg class="v2-what-is-iris__hero-eye-{{ section.id }}" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">
         <path d="M 10 140 Q 200 30 400 95 Q 600 30 790 140" stroke="#C9A84C" stroke-width="1"/>
@@ -1249,47 +1202,5 @@
       </div>
     </section>
 
-    <section class="v2-what-is-iris__collab-{{ section.id }}">
-      <div class="v2-what-is-iris__collab-shell-{{ section.id }}">
-        <div class="v2-what-is-iris__collab-copy-{{ section.id }}">
-          <div class="v2-what-is-iris__collab-header-{{ section.id }}">
-            <span class="v2-what-is-iris__label-{{ section.id }}">VI — An open platform</span>
-            <h2 class="v2-what-is-iris__section-title-{{ section.id }}">IRIS is a platform. Open to any artist.</h2>
-            <div class="v2-what-is-iris__copy-{{ section.id }}">
-              <p>Any artist, gallery, or brand can launch their own IRIS edition. The infrastructure, production, and distribution are ours. The artwork is yours.</p>
-            </div>
-          </div>
-
-          <div class="v2-what-is-iris__collab-cta-{{ section.id }}">
-            <a href="/pages/collaborate" class="v2-what-is-iris__button-gold-{{ section.id }}">Start your edition →</a>
-            <div class="v2-what-is-iris__collab-note-{{ section.id }}">Applications reviewed within 48 hours. No upfront cost for public editions.</div>
-          </div>
-        </div>
-
-        <div class="v2-what-is-iris__collab-visual-{{ section.id }} v2-what-is-iris__collab-visual-{{ section.id }}--bleed">
-          <div class="v2-what-is-iris__collab-image-frame-{{ section.id }} v2-what-is-iris__collab-image-frame-{{ section.id }}--bleed">
-            <img
-              class="v2-what-is-iris__collab-image-{{ section.id }} v2-what-is-iris__collab-image-{{ section.id }}--bleed"
-              src="https://cdn.shopify.com/s/files/1/0710/5239/4589/files/soft.png?v=1777362162"
-              alt="IRIS platform preview"
-              loading="lazy"
-            >
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="v2-what-is-iris__ticker-{{ section.id }}">
-      <div class="v2-what-is-iris__ticker-inner-{{ section.id }}">
-        {%- for _ in (1..2) -%}
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">Physical artwork <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">0.4g real gold inside every piece <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">4 × 4 inches · hand-finished <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">NFC chip · permanent archive <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">Unknown until revealed <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-          <span class="v2-what-is-iris__ticker-item-{{ section.id }}">New York <span class="v2-what-is-iris__ticker-dot-{{ section.id }}">◆</span></span>
-        {%- endfor -%}
-      </div>
-    </div>
   </div>
 </div>
