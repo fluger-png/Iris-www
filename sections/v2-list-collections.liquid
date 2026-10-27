@@ -452,11 +452,14 @@
   }
 
   @container (max-width: 440px) {
-    .v2-collections__price-row-{{ section.id }} { column-gap: 0.6rem; }
-    .v2-collections__metrics-{{ section.id }} dt { max-width: 6.8rem; }
     .v2-collections__metrics-{{ section.id }} dd { font-size: 1.6rem; }
     .v2-collections__cta-{{ section.id }} { padding-inline: 1rem; }
     .v2-collections__cta-arrow-{{ section.id }} { display: none; }
+  }
+
+  @container (max-width: 360px) {
+    .v2-collections__price-row-{{ section.id }} { column-gap: 0.6rem; }
+    .v2-collections__metrics-{{ section.id }} dt { max-width: 6.8rem; }
   }
 
   @container (max-width: 299px) {
