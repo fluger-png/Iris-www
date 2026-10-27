@@ -79,9 +79,8 @@
   .v2-collections__header-{{ section.id }} {
     position: relative;
     z-index: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 6.4rem 2.4rem 5.2rem;
+    width: 100%;
+    padding: 6.4rem 3.2rem 5.2rem;
     border-bottom: 1px solid var(--v2c-border);
     display: flex;
     align-items: flex-end;
@@ -166,14 +165,13 @@
   .v2-collections__grid-wrap-{{ section.id }} {
     position: relative;
     z-index: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2.4rem 8rem;
+    width: 100%;
+    padding: 4rem 3.2rem 8rem;
   }
 
   .v2-collections__grid-{{ section.id }} {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 2.4rem;
   }
 
@@ -299,19 +297,80 @@
     overflow-wrap: anywhere;
   }
 
+  .v2-collections__identity-{{ section.id }} {
+    display: grid;
+    grid-template-columns: 4.4rem minmax(0, 1fr);
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .v2-collections__avatar-{{ section.id }} {
+    display: grid;
+    place-items: center;
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--v2c-black);
+    border: 1px solid var(--v2c-gold-line);
+    color: var(--v2c-gold);
+    font-family: var(--font-heading-family);
+    font-size: 1.6rem;
+  }
+
+  .v2-collections__avatar-{{ section.id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .v2-collections__avatar-{{ section.id }} [hidden] { display: none; }
+  .v2-collections__avatar-{{ section.id }} img[data-brand-core] { object-fit: contain; padding: 0.5rem; }
+
+  .v2-collections__heading-{{ section.id }} {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    min-width: 0;
+  }
+
+  .v2-collections__byline-{{ section.id }} {
+    color: #a79e8b;
+    font-family: var(--font-body-family);
+    font-size: 1.6rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  .v2-collections__byline-{{ section.id }} span { color: var(--v2c-text); }
+
+  .v2-collections__description-{{ section.id }} {
+    margin: 0;
+    color: #a79e8b;
+    font-family: var(--font-body-family);
+    font-size: 1.6rem;
+    line-height: 1.6;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
+
   .v2-collections__metrics-{{ section.id }} {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2rem 1.6rem;
-    margin: 0;
+    gap: 1.2rem;
+    margin: auto 0 0;
   }
 
   .v2-collections__metrics-{{ section.id }} dt {
     font-family: var(--font-heading-family);
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: #a79e8b;
     text-transform: uppercase;
+    min-height: 3.2rem;
+    display: flex;
+    align-items: flex-end;
   }
 
   .v2-collections__metrics-{{ section.id }} dd {
@@ -320,7 +379,7 @@
     font-size: 2rem;
     line-height: 1.4;
     color: #eabf50;
-    overflow-wrap: anywhere;
+    white-space: nowrap;
   }
 
   .v2-collections__progress-{{ section.id }} {
@@ -405,6 +464,12 @@
     font-size: 1.4rem;
   }
 
+  @media screen and (max-width: 1199px) {
+    .v2-collections__grid-{{ section.id }} { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .v2-collections__body-{{ section.id }} { padding: 2rem; }
+    .v2-collections__metrics-{{ section.id }} dd { font-size: 1.6rem; }
+  }
+
   @media screen and (max-width: 989px) {
     .v2-collections__header-{{ section.id }} {
       padding: 4.8rem 2.4rem 4rem;
@@ -428,9 +493,6 @@
       padding: 2rem;
     }
 
-    .v2-collections__metrics-{{ section.id }} { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .v2-collections__average-{{ section.id }} { grid-column: 1 / -1; }
-
   }
 
   @media screen and (max-width: 749px) {
@@ -438,6 +500,8 @@
     .v2-collections__title-{{ section.id }} { font-size: 3.2rem; }
     .v2-collections__grid-wrap-{{ section.id }} { padding: 2.4rem 1.6rem 4.8rem; }
     .v2-collections__grid-{{ section.id }} { grid-template-columns: minmax(0, 1fr); }
+    .v2-collections__body-{{ section.id }} { padding: 1.6rem; }
+    .v2-collections__metrics-{{ section.id }} { gap: 0.8rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -519,6 +583,18 @@
 
             assign card_media_class = 'v2-collections__artwork-media-' | append: section.id
 
+            assign brand_name = first_product.vendor | default: shop.name
+            assign brand_avatar = nil
+            if archive_handle == 'iris-the-unseen-edition' or archive_handle == 'iris-collection' or archive_handle == 'iris'
+              assign brand_name = 'IRIS NYC'
+              assign brand_avatar = settings.logo
+            endif
+            assign card_description = collection.description
+            if card_description == blank and first_product != blank
+              assign card_description = first_product.description | split: '</p>' | first
+            endif
+            assign card_description = card_description | strip_html | strip
+
             assign card_price = nil
             if first_product != blank and first_product.price
               assign card_price = first_product.price | money_without_trailing_zeros
@@ -548,12 +624,23 @@
             </div>
 
             <div class="v2-collections__body-{{ section.id }}">
-              <h2 class="v2-collections__name-{{ section.id }}">{{ display_title | escape }}</h2>
+              <div class="v2-collections__identity-{{ section.id }}">
+                <div class="v2-collections__avatar-{{ section.id }}" aria-hidden="true">
+                  <span data-collection-brand-initial{% if brand_avatar != blank %} hidden{% endif %}>{{ brand_name | slice: 0 | upcase | escape }}</span>
+                  <img data-collection-brand-avatar width="44" height="44" alt=""{% if brand_avatar != blank %} src="{{ brand_avatar | image_url: width: 132 }}" data-brand-core{% else %} hidden{% endif %}>
+                </div>
+                <div class="v2-collections__heading-{{ section.id }}">
+                  <h2 class="v2-collections__name-{{ section.id }}">{{ display_title | escape }}</h2>
+                  <div class="v2-collections__byline-{{ section.id }}">By <span data-collection-brand-name>{{ brand_name | escape }}</span></div>
+                </div>
+              </div>
+
+              <p class="v2-collections__description-{{ section.id }}" data-collection-description>{{ card_description | escape }}</p>
 
               <dl class="v2-collections__metrics-{{ section.id }}">
                 <div><dt>Edition size</dt><dd data-collection-edition>—</dd></div>
+                <div><dt title="Average gold weight of sold IRIS with a recorded weight">Avg. gold</dt><dd data-collection-average-weight>—</dd></div>
                 <div><dt>Price</dt><dd>{{ card_price | default: '—' }}</dd></div>
-                <div class="v2-collections__average-{{ section.id }}"><dt title="Average gold weight of sold IRIS with a recorded weight">Avg. gold weight</dt><dd data-collection-average-weight>—</dd></div>
               </dl>
 
               {%- comment -%}Temporarily hide sales figures while keeping the counter ready to restore.{%- endcomment -%}
@@ -648,7 +735,16 @@
         var averageWeightEl = card.querySelector('[data-collection-average-weight]');
         var fillEl = card.querySelector('[data-collection-fill]');
         var trackEl = card.querySelector('[data-collection-progress]');
+        var brandNameEl = card.querySelector('[data-collection-brand-name]');
+        var brandInitialEl = card.querySelector('[data-collection-brand-initial]');
+        var brandAvatarEl = card.querySelector('[data-collection-brand-avatar]');
+        var descriptionEl = card.querySelector('[data-collection-description]');
         if (!handle) return;
+
+        if (brandAvatarEl) brandAvatarEl.addEventListener('error', function() {
+          brandAvatarEl.hidden = true;
+          if (brandInitialEl) brandInitialEl.hidden = false;
+        });
 
         fetch('/apps/iris/collection-presentation?handle=' + encodeURIComponent(handle), {
           headers: { Accept: 'application/json' }
@@ -663,6 +759,17 @@
             }
             var name = card.querySelector('.v2-collections__name-' + sectionId);
             if (name && typeof data.display_name === 'string' && data.display_name) name.textContent = data.display_name;
+
+            if (typeof data.brand_name === 'string' && data.brand_name.trim()) {
+              if (brandNameEl) brandNameEl.textContent = data.brand_name;
+              if (brandInitialEl) brandInitialEl.textContent = data.brand_name.trim().charAt(0).toUpperCase();
+            }
+            if (brandAvatarEl && typeof data.brand_avatar_url === 'string' && /^https:\/\//.test(data.brand_avatar_url)) {
+              brandAvatarEl.src = data.brand_avatar_url;
+              brandAvatarEl.hidden = false;
+              if (brandInitialEl) brandInitialEl.hidden = true;
+            }
+            if (descriptionEl && typeof data.description === 'string' && data.description.trim()) descriptionEl.textContent = data.description;
 
             var averageWeight = data.average_sold_weight_grams;
             if (averageWeightEl && typeof averageWeight === 'number' && Number.isFinite(averageWeight) && averageWeight > 0) {
