@@ -237,6 +237,9 @@
     transition: transform 0.5s ease;
   }
 
+  .v2-collections__artwork-media-{{ section.id }}[hidden],
+  .v2-collections__artwork-fallback-{{ section.id }}[hidden] { display: none; }
+
   .v2-collections__artwork-fallback-{{ section.id }} {
     position: relative;
     z-index: 1;
@@ -630,6 +633,18 @@
           >
             <div class="v2-collections__artwork-{{ section.id }}">
               <div class="v2-collections__artwork-bg-{{ section.id }}"></div>
+              <img
+                class="{{ card_media_class }}"
+                data-collection-banner
+                {% if card_image != blank %}data-fallback-src="{{ card_image | image_url: width: 1200 }}"{% endif %}
+                width="1200"
+                height="675"
+                loading="eager"
+                alt="{{ display_title | escape }}"
+                hidden
+              >
+              <div class="v2-collections__artwork-fallback-{{ section.id }}" hidden>{{ display_title }}</div>
+              <noscript>
               {%- if card_image != blank -%}
                 {{ card_image | image_url: width: 1200 | image_tag:
                   class: card_media_class,
@@ -639,6 +654,7 @@
               {%- else -%}
                 <div class="v2-collections__artwork-fallback-{{ section.id }}">{{ display_title }}</div>
               {%- endif -%}
+              </noscript>
               <div class="v2-collections__badge-{{ section.id }}"><span class="v2-collections__badge-dot-{{ section.id }}"></span>Active</div>
             </div>
 
@@ -758,7 +774,27 @@
         var brandInitialEl = card.querySelector('[data-collection-brand-initial]');
         var brandAvatarEl = card.querySelector('[data-collection-brand-avatar]');
         var descriptionEl = card.querySelector('[data-collection-description]');
+        var bannerEl = card.querySelector('[data-collection-banner]');
+        var bannerFallbackEl = card.querySelector('.v2-collections__artwork-fallback-' + sectionId);
+        var fallbackBannerUrl = bannerEl && bannerEl.getAttribute('data-fallback-src');
         if (!handle) return;
+
+        function loadBanner(url, label) {
+          if (!bannerEl) return;
+          bannerEl.hidden = true;
+          if (bannerFallbackEl) bannerFallbackEl.hidden = !!url;
+          if (!url) return;
+          bannerEl.alt = label || card.getAttribute('data-collection-title') || '';
+          bannerEl.onload = function() { bannerEl.hidden = false; };
+          bannerEl.onerror = function() {
+            if (fallbackBannerUrl && url !== fallbackBannerUrl) {
+              loadBanner(fallbackBannerUrl, label);
+            } else if (bannerFallbackEl) {
+              bannerFallbackEl.hidden = false;
+            }
+          };
+          bannerEl.src = url;
+        }
 
         if (brandAvatarEl) brandAvatarEl.addEventListener('error', function() {
           brandAvatarEl.hidden = true;
@@ -770,7 +806,10 @@
         })
           .then(function(res) { return res.ok ? res.json() : null; })
           .then(function(data) {
-            if (!data) return;
+            if (!data) {
+              loadBanner(fallbackBannerUrl);
+              return;
+            }
             if (data.visible === false) {
               card.hidden = true;
               updateActiveCount();
@@ -813,23 +852,11 @@
               }
             }
 
-            if (typeof data.banner_url !== 'string' || !/^https:\/\//.test(data.banner_url)) return;
-            var artwork = card.querySelector('.v2-collections__artwork-' + sectionId);
-            if (!artwork) return;
-            var image = artwork.querySelector('img');
-            if (!image) {
-              image = document.createElement('img');
-              image.className = 'v2-collections__artwork-media-' + sectionId;
-              image.loading = 'lazy';
-              artwork.appendChild(image);
-            }
-            image.removeAttribute('srcset');
-            image.src = data.banner_url;
-            image.alt = data.display_name || card.getAttribute('data-collection-title') || '';
-            var fallback = artwork.querySelector('.v2-collections__artwork-fallback-' + sectionId);
-            if (fallback) fallback.hidden = true;
+            var bannerUrl = typeof data.banner_url === 'string' && /^https:\/\//.test(data.banner_url)
+              ? data.banner_url : fallbackBannerUrl;
+            loadBanner(bannerUrl, data.display_name);
           })
-          .catch(function() {});
+          .catch(function() { loadBanner(fallbackBannerUrl); });
       });
     }
 
