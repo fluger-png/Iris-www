@@ -43,6 +43,10 @@
     },
     "customer-reviews": {
       "type": "apps",
+      "custom_css": [
+        ".jdgm-title { white-space: normal; text-overflow: clip; }",
+        "@media (max-width: 749px) { .jdgm-title { font-size: 28px; } }"
+      ],
       "blocks": {
         "judge_me_cart_reviews": {
           "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
