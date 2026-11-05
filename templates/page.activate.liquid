@@ -1168,6 +1168,7 @@
     if (box) box.hidden = false;
     if (dateEl) dateEl.textContent = formatActivationDate(data.activated_at);
     if (rarityEl) rarityEl.textContent = data.rarity_code || "—";
+    if (rarityEl) rarityEl.parentElement.style.display = data.rarity_code ? '' : 'none';
     if (weightEl) {
       var w = data.weight_grams;
       weightEl.textContent = w == null ? "—" : Number(w).toFixed(2);
@@ -1297,6 +1298,7 @@
     if (successIrisId) successIrisId.textContent = displayId;
     if (successActivatedAt) successActivatedAt.textContent = formatActivationDate(data.activated_at);
     if (successRarity) successRarity.textContent = data.rarity_code || "—";
+    if (successRarity) successRarity.parentElement.style.display = data.rarity_code ? '' : 'none';
     if (successWeight) {
       var w = data.weight_grams;
       successWeight.textContent = w == null ? "—" : Number(w).toFixed(2);

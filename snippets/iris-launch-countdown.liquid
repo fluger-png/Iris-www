@@ -1,0 +1,40 @@
+<div id="IrisLaunch-{{ section_id }}" class="iris-launch" data-launch-at="{{ launch_at | escape }}">
+  <p class="iris-launch__label">Launches November 20, 2026 &middot; 12:00 AM EST</p>
+  <div class="iris-launch__clock" role="timer" aria-label="Time until sales open">
+    <span><strong data-launch-days>--</strong><small>Days</small></span>
+    <span><strong data-launch-hours>--</strong><small>Hours</small></span>
+    <span><strong data-launch-minutes>--</strong><small>Minutes</small></span>
+    <span><strong data-launch-seconds>--</strong><small>Seconds</small></span>
+  </div>
+</div>
+<style>
+  #IrisLaunch-{{ section_id }} { margin: 28px 0 0; }
+  #IrisLaunch-{{ section_id }} .iris-launch__label { color: #a89f90; font-size: 16px; line-height: 1.5; margin: 0 0 16px; letter-spacing: 0; }
+  #IrisLaunch-{{ section_id }} .iris-launch__clock { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; max-width: 420px; }
+  #IrisLaunch-{{ section_id }} .iris-launch__clock > span { display: flex; flex-direction: column; gap: 4px; border-top: 1px solid rgba(201, 168, 76, .3); padding-top: 12px; min-width: 0; }
+  #IrisLaunch-{{ section_id }} strong { color: #dfbc30; font-family: var(--font-heading-family); font-size: 32px; font-style: italic; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.2; letter-spacing: 0; }
+  #IrisLaunch-{{ section_id }} small { color: #ede8df; font-size: 14px; line-height: 1.5; letter-spacing: 0; }
+</style>
+<script>
+  (function () {
+    var root = document.getElementById('IrisLaunch-{{ section_id }}');
+    if (!root) return;
+    var launch = Date.parse(root.getAttribute('data-launch-at'));
+    var interval;
+    function update() {
+      if (!root.isConnected) { clearInterval(interval); return; }
+      var remaining = Math.max(0, Math.ceil((launch - Date.now()) / 1000));
+      if (!remaining) {
+        clearInterval(interval);
+        root.querySelector('.iris-launch__clock').textContent = 'Sales are opening. Refresh to continue.';
+        return;
+      }
+      var values = [Math.floor(remaining / 86400), Math.floor(remaining / 3600) % 24, Math.floor(remaining / 60) % 60, remaining % 60];
+      ['days', 'hours', 'minutes', 'seconds'].forEach(function (unit, index) {
+        root.querySelector('[data-launch-' + unit + ']').textContent = String(values[index]).padStart(2, '0');
+      });
+    }
+    update();
+    interval = setInterval(update, 1000);
+  })();
+</script>

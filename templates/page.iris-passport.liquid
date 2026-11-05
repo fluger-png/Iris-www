@@ -815,6 +815,7 @@
           weightRow.style.display = 'none';
         }
         rarityEl.textContent = data.rarity_code || 'Hidden until activated';
+        rarityEl.parentElement.style.display = data.activated_at && !data.rarity_code ? 'none' : '';
         img.src = data.image_url || defaultImage;
         img.alt = data.iris_id || irisId;
         showLikeControl(data);

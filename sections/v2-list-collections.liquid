@@ -545,6 +545,9 @@
         {%- liquid
           assign first_product = collection.products.first
           assign archive_handle = first_product.handle | default: collection.handle
+          if archive_handle == 'the-art-of-adornment' or collection.handle == 'the-art-of-adornment'
+            continue
+          endif
           assign is_primary_collection = false
           if archive_handle == 'iris-the-unseen-edition' or archive_handle == 'iris-collection' or archive_handle == 'iris'
             assign is_primary_collection = true

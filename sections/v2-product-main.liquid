@@ -7,6 +7,14 @@
   assign main_image_id = 'V2ProductMainImage-' | append: section.id
   assign product_form_installment_id = 'v2-product-installment-' | append: section.id
   assign product_video_url = 'https://cdn.shopify.com/videos/c/o/v/85def793a74d4c2a8274b83784a0ba32.mp4'
+  assign upcoming_release = false
+  if product.handle == 'the-art-of-adornment'
+    assign release_time = '2026-11-20T00:00:00-05:00' | date: '%s' | plus: 0
+    assign current_time = 'now' | date: '%s' | plus: 0
+    if current_time < release_time
+      assign upcoming_release = true
+    endif
+  endif
   if display_media == blank
     assign display_media = product.featured_media
   endif
@@ -914,6 +922,10 @@
 
           <h1 class="v2-product-main__title-{{ section.id }}">{{ product.title }}</h1>
 
+          {%- if upcoming_release -%}
+            {%- render 'iris-launch-countdown', launch_at: '2026-11-20T00:00:00-05:00', section_id: section.id -%}
+          {%- endif -%}
+
           {%- if section.settings.subtitle != blank -%}
             <p class="v2-product-main__subtitle-{{ section.id }}">{{ section.settings.subtitle }}</p>
           {%- endif -%}
@@ -983,6 +995,7 @@
         </div>
 
         <div class="v2-product-main__actions-{{ section.id }}">
+          {%- unless upcoming_release -%}
           <button
             type="button"
             class="v2-product-main__button-{{ section.id }}"
@@ -1004,6 +1017,9 @@
               <span class="v2-product-main__button-label-{{ section.id }}">Sold out</span>
             {%- endif -%}
           </button>
+          {%- else -%}
+            <p class="v2-product-main__subtitle-{{ section.id }}">Available November 20 at 12:00 AM EST.</p>
+          {%- endunless -%}
           <p class="v2-product-main__error-{{ section.id }}" id="V2ProductError-{{ section.id }}" hidden></p>
         </div>
 
