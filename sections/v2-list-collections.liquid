@@ -554,6 +554,9 @@
       {%- for collection in sorted_collections -%}
         {%- liquid
           assign first_product = collection.products.first
+          if first_product == blank and collection.handle == 'the-art-of-adornment'
+            assign first_product = all_products['the-art-of-adornment']
+          endif
           assign archive_handle = first_product.handle | default: collection.handle
           assign is_upcoming = false
           if archive_handle == 'the-art-of-adornment'
