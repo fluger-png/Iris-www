@@ -8,11 +8,11 @@
   </div>
 </div>
 <style>
-  #IrisLaunch-{{ section_id }} { margin: 28px 0 0; }
-  #IrisLaunch-{{ section_id }} .iris-launch__label { color: #a89f90; font-size: 16px; line-height: 1.5; margin: 0 0 16px; letter-spacing: 0; }
+  #IrisLaunch-{{ section_id }} { margin: {% if compact %}16{% else %}28{% endif %}px 0 0; }
+  #IrisLaunch-{{ section_id }} .iris-launch__label { color: #a89f90; font-size: {% if compact %}14{% else %}16{% endif %}px; line-height: 1.5; margin: 0 0 16px; letter-spacing: 0; }
   #IrisLaunch-{{ section_id }} .iris-launch__clock { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; max-width: 420px; }
   #IrisLaunch-{{ section_id }} .iris-launch__clock > span { display: flex; flex-direction: column; gap: 4px; border-top: 1px solid rgba(201, 168, 76, .3); padding-top: 12px; min-width: 0; }
-  #IrisLaunch-{{ section_id }} strong { color: #dfbc30; font-family: var(--font-heading-family); font-size: 32px; font-style: italic; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.2; letter-spacing: 0; }
+  #IrisLaunch-{{ section_id }} strong { color: #dfbc30; font-family: var(--font-heading-family); font-size: {% if compact %}24{% else %}32{% endif %}px; font-style: italic; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.2; letter-spacing: 0; }
   #IrisLaunch-{{ section_id }} small { color: #ede8df; font-size: 14px; line-height: 1.5; letter-spacing: 0; }
 </style>
 <script>

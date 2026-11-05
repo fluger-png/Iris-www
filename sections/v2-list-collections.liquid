@@ -222,6 +222,12 @@
     transform: scale(1.04);
   }
 
+  .v2-collections__badge-{{ section.id }}.is-upcoming {
+    color: var(--v2c-gold);
+    background: var(--v2c-gold-dim);
+    border-color: var(--v2c-gold-line);
+  }
+
   .v2-collections__badge-{{ section.id }} {
     position: absolute;
     top: 1.4rem;
@@ -545,8 +551,13 @@
         {%- liquid
           assign first_product = collection.products.first
           assign archive_handle = first_product.handle | default: collection.handle
-          if archive_handle == 'the-art-of-adornment' or collection.handle == 'the-art-of-adornment'
-            continue
+          assign is_upcoming = false
+          if archive_handle == 'the-art-of-adornment'
+            assign launch_time = '2026-11-20T00:00:00-05:00' | date: '%s' | plus: 0
+            assign now_time = 'now' | date: '%s' | plus: 0
+            if now_time < launch_time
+              assign is_upcoming = true
+            endif
           endif
           assign is_primary_collection = false
           if archive_handle == 'iris-the-unseen-edition' or archive_handle == 'iris-collection' or archive_handle == 'iris'
@@ -578,6 +589,9 @@
             assign card_media_class = 'v2-collections__artwork-media-' | append: section.id
 
             assign brand_name = first_product.vendor | default: shop.name
+            if archive_handle == 'the-art-of-adornment'
+              assign brand_name = 'OKG Jewelry'
+            endif
             assign brand_avatar = nil
             if archive_handle == 'iris-the-unseen-edition' or archive_handle == 'iris-collection' or archive_handle == 'iris'
               assign brand_name = 'IRIS NYC'
@@ -628,7 +642,7 @@
                 <div class="v2-collections__artwork-fallback-{{ section.id }}">{{ display_title }}</div>
               {%- endif -%}
               </noscript>
-              <div class="v2-collections__badge-{{ section.id }}"><span class="v2-collections__badge-dot-{{ section.id }}"></span>Active</div>
+              <div class="v2-collections__badge-{{ section.id }}{% if is_upcoming %} is-upcoming{% endif %}"><span class="v2-collections__badge-dot-{{ section.id }}"></span>{% if is_upcoming %}Coming soon{% else %}Active{% endif %}</div>
             </div>
 
             <div class="v2-collections__body-{{ section.id }}">
@@ -643,6 +657,11 @@
                 </div>
               </div>
 
+              {%- if is_upcoming -%}
+                {%- assign countdown_id = section.id | append: '-collection-' | append: collection.id -%}
+                {%- render 'iris-launch-countdown', launch_at: '2026-11-20T00:00:00-05:00', section_id: countdown_id, compact: true -%}
+              {%- endif -%}
+
               <p class="v2-collections__description-{{ section.id }}" data-collection-description>{{ card_description | escape }}</p>
 
               <div class="v2-collections__price-row-{{ section.id }}">
@@ -651,7 +670,7 @@
                   <div><dt title="Average gold weight of sold IRIS with a recorded weight">Avg. gold</dt><dd data-collection-average-weight>—</dd></div>
                   <div><dt>Price</dt><dd>{{ card_price | default: '—' }}</dd></div>
                 </dl>
-                <div class="v2-collections__cta-{{ section.id }}"><span>Reveal</span><span class="v2-collections__cta-arrow-{{ section.id }}" aria-hidden="true">→</span></div>
+                <div class="v2-collections__cta-{{ section.id }}"><span>{% if is_upcoming %}Preview{% else %}Reveal{% endif %}</span><span class="v2-collections__cta-arrow-{{ section.id }}" aria-hidden="true">→</span></div>
               </div>
 
               {%- comment -%}Temporarily hide sales figures while keeping the counter ready to restore.{%- endcomment -%}
