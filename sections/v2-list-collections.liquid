@@ -26,6 +26,10 @@
     letter-spacing: 0;
   }
 
+  .v2-collections-{{ section.id }} [data-collections-pending] {
+    visibility: hidden;
+  }
+
   .v2-collections-{{ section.id }} {
     position: relative;
   }
@@ -545,9 +549,9 @@
     assign rendered_count = 0
   -%}
   <div class="v2-collections__grid-wrap-{{ section.id }}">
-    <div class="v2-collections__grid-{{ section.id }}" data-collections-grid>
-      {%- for collection_group in (1..2) -%}
-      {%- for collection in sorted_collections limit: 30 -%}
+    <noscript><style>.v2-collections-{{ section.id }} [data-collections-pending] { visibility: visible; }</style></noscript>
+    <div class="v2-collections__grid-{{ section.id }}" data-collections-grid data-collections-pending>
+      {%- for collection in sorted_collections -%}
         {%- liquid
           assign first_product = collection.products.first
           assign archive_handle = first_product.handle | default: collection.handle
@@ -559,21 +563,15 @@
               assign is_upcoming = true
             endif
           endif
-          assign is_primary_collection = false
-          if archive_handle == 'iris-the-unseen-edition' or archive_handle == 'iris-collection' or archive_handle == 'iris'
-            assign is_primary_collection = true
-          endif
-          if collection_group == 1 and is_primary_collection == false
-            continue
-          elsif collection_group == 2 and is_primary_collection
-            continue
-          endif
         -%}
         {%- unless excluded_handles contains collection.handle -%}
           {%- liquid
             assign card_link = collection.url
             if first_product != blank
               assign card_link = first_product.url
+            endif
+            if collection.handle == 'the-art-of-adornment' or archive_handle == 'the-art-of-adornment'
+              assign card_link = '/products/the-art-of-adornment'
             endif
 
             assign display_title = collection.title
@@ -615,6 +613,7 @@
             href="{{ card_link }}"
             class="v2-collections__card-{{ section.id }}"
             data-collection-card
+            data-shopify-collection-handle="{{ collection.handle | escape }}"
             data-collection-handle="{{ archive_handle | escape }}"
             data-collection-title="{{ display_title | escape }}"
           >
@@ -687,7 +686,6 @@
             </div>
           </a>
         {%- endunless -%}
-      {%- endfor -%}
       {%- endfor -%}
     </div>
 
@@ -802,11 +800,12 @@
               loadBanner(fallbackBannerUrl);
               return;
             }
-            if (data.visible === false) {
-              card.hidden = true;
+            var visible = card.hasAttribute('data-storefront-visible') ? card.getAttribute('data-storefront-visible') === 'true' : data.visible !== false;
+            card.hidden = !visible;
+            if (!visible) {
               updateActiveCount();
-              return;
             }
+            if (typeof data.product_url === 'string' && /^\/products\/[a-z0-9-]+$/.test(data.product_url)) card.setAttribute('href', data.product_url);
             var name = card.querySelector('.v2-collections__name-' + sectionId);
             if (name && typeof data.display_name === 'string' && data.display_name) name.textContent = data.display_name;
 
@@ -852,9 +851,38 @@
       });
     }
 
+    function updateCollectionOrder() {
+      var grid = root.querySelector('[data-collections-grid]');
+      if (!grid) return;
+      var controller = new AbortController();
+      var timeout = setTimeout(function() { controller.abort(); }, 5000);
+      fetch('/apps/iris/collections', { headers: { Accept: 'application/json' }, signal: controller.signal, cache: 'no-store' })
+        .then(function(res) { return res.ok ? res.json() : null; })
+        .then(function(data) {
+          if (!data || data.available !== true || !Array.isArray(data.collections)) return;
+          var cards = Array.from(grid.querySelectorAll('[data-collection-card]'));
+          data.collections.forEach(function(collection) {
+            var card = cards.find(function(item) {
+              var handle = item.getAttribute('data-collection-handle');
+              var shopifyHandle = item.getAttribute('data-shopify-collection-handle');
+              return handle === collection.handle || handle === collection.slug || shopifyHandle === collection.slug ||
+                (collection.slug === 'iris-the-unseen-edition' && ['iris', 'iris-collection'].indexOf(handle) !== -1);
+            });
+            if (!card) return;
+            card.setAttribute('data-storefront-visible', collection.visible === false ? 'false' : 'true');
+            card.hidden = collection.visible === false;
+            grid.appendChild(card);
+          });
+          updateActiveCount();
+        })
+        .catch(function() {})
+        .finally(function() { clearTimeout(timeout); grid.removeAttribute('data-collections-pending'); });
+    }
+
     updateGoldPill();
     updateActiveCount();
     hydrateCards();
+    updateCollectionOrder();
   })();
 </script>
 
