@@ -918,6 +918,9 @@
       <div class="v2-product-main__content-{{ section.id }}">
         <div class="v2-product-main__intro-{{ section.id }}">
           {%- assign product_vendor_display = product.vendor | default: 'IRIS NYC' -%}
+          {%- if product.handle == 'the-art-of-adornment' -%}
+            {%- assign product_vendor_display = 'OKG Jewelry' -%}
+          {%- endif -%}
           <p class="v2-product-main__eyebrow-{{ section.id }}">{{ product_vendor_display }} · Physical Collectible Art</p>
 
           <h1 class="v2-product-main__title-{{ section.id }}">{{ product.title }}</h1>
