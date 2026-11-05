@@ -1,3 +1,4 @@
+{%- assign iris_header_logo_url = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/IRISNYC-LOGO.svg?v=1793919322' -%}
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -208,7 +209,11 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if iris_header_logo_url != blank -%}
+          <div class="header__heading-logo-wrapper" style="aspect-ratio: {{ settings.logo.aspect_ratio | default: 1 }}; display: flex; align-items: center;">
+            <img class="header__heading-logo motion-reduce" src="{{ iris_header_logo_url }}" alt="{{ shop.name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 65.52 | divided_by: 71.15 | round }}" style="display: block; width: 100%; height: auto;" fetchpriority="high">
+          </div>
+        {%- elsif settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
             {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
@@ -251,7 +256,11 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if iris_header_logo_url != blank -%}
+          <div class="header__heading-logo-wrapper" style="aspect-ratio: {{ settings.logo.aspect_ratio | default: 1 }}; display: flex; align-items: center;">
+            <img class="header__heading-logo" src="{{ iris_header_logo_url }}" alt="{{ shop.name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 65.52 | divided_by: 71.15 | round }}" style="display: block; width: 100%; height: auto;" fetchpriority="high">
+          </div>
+        {%- elsif settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
             {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
