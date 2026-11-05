@@ -877,7 +877,7 @@
         <div class="iris-success-panel">
           <p class="iris-success-eyebrow">Activated Work</p>
           <h3 id="successIrisId" class="iris-success-panel__title">—</h3>
-          <div class="iris-success-panel__copy">
+          <div class="iris-success-panel__copy" id="successPassportCopy">
             This passport preview confirms the image, rarity, and gold content assigned to the activated work.
           </div>
 
@@ -1000,6 +1000,7 @@
 
   function normalize(v){
     if(!v) return "";
+    if(/^OKG\d{3}$/i.test(v)) return v.toUpperCase();
     if(/^IRIS-\d{4}$/i.test(v)) return v.toUpperCase();
     var match = v.match(/^(IRIS-\d{4})-(.+)$/i);
     if (match) {
@@ -1299,6 +1300,10 @@
     if (successActivatedAt) successActivatedAt.textContent = formatActivationDate(data.activated_at);
     if (successRarity) successRarity.textContent = data.rarity_code || "—";
     if (successRarity) successRarity.parentElement.style.display = data.rarity_code ? '' : 'none';
+    var successPassportCopy = document.getElementById('successPassportCopy');
+    if (successPassportCopy) successPassportCopy.textContent = data.rarity_code
+      ? 'This passport preview confirms the image, rarity, and gold content assigned to the activated work.'
+      : 'This passport preview confirms the image and gold content assigned to the activated work.';
     if (successWeight) {
       var w = data.weight_grams;
       successWeight.textContent = w == null ? "—" : Number(w).toFixed(2);

@@ -610,7 +610,7 @@
     <div class="v2-passport-head">
       <p class="v2-passport-eyebrow">Digital Passport</p>
       <h1 class="v2-passport-page__title">IRIS Passport</h1>
-      <p class="v2-passport-page__summary">
+      <p class="v2-passport-page__summary" id="iris-passport-summary">
         This passport confirms the image, rarity, and gold content assigned to the activated work.
       </p>
     </div>
@@ -816,6 +816,9 @@
         }
         rarityEl.textContent = data.rarity_code || 'Hidden until activated';
         rarityEl.parentElement.style.display = data.activated_at && !data.rarity_code ? 'none' : '';
+        if (data.activated_at && !data.rarity_code) {
+          document.getElementById('iris-passport-summary').textContent = 'This passport confirms the image and gold content assigned to the activated work.';
+        }
         img.src = data.image_url || defaultImage;
         img.alt = data.iris_id || irisId;
         showLikeControl(data);
