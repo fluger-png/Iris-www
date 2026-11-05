@@ -211,7 +211,7 @@
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
         {%- if iris_header_logo_url != blank -%}
           <div class="header__heading-logo-wrapper" style="aspect-ratio: {{ settings.logo.aspect_ratio | default: 1 }}; display: flex; align-items: center;">
-            <img class="header__heading-logo motion-reduce" src="{{ iris_header_logo_url }}" alt="{{ shop.name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 65.52 | divided_by: 71.15 | round }}" style="display: block; width: 100%; height: auto;" fetchpriority="high">
+            <img class="header__heading-logo motion-reduce" src="{{ iris_header_logo_url }}" alt="{{ shop.name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 65.52 | divided_by: 71.15 | round }}" style="display: block; width: {{ settings.logo_width }}px; height: auto;" fetchpriority="high">
           </div>
         {%- elsif settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
@@ -258,7 +258,7 @@
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
         {%- if iris_header_logo_url != blank -%}
           <div class="header__heading-logo-wrapper" style="aspect-ratio: {{ settings.logo.aspect_ratio | default: 1 }}; display: flex; align-items: center;">
-            <img class="header__heading-logo" src="{{ iris_header_logo_url }}" alt="{{ shop.name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 65.52 | divided_by: 71.15 | round }}" style="display: block; width: 100%; height: auto;" fetchpriority="high">
+            <img class="header__heading-logo" src="{{ iris_header_logo_url }}" alt="{{ shop.name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 65.52 | divided_by: 71.15 | round }}" style="display: block; width: {{ settings.logo_width }}px; height: auto;" fetchpriority="high">
           </div>
         {%- elsif settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
