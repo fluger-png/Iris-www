@@ -4,7 +4,8 @@
   display: inline-flex;
   align-items: center;
   flex-wrap: wrap;
-  column-gap: 1.2rem;
+  gap: 0.4rem;
+  vertical-align: middle;
   font-family: var(--font-body-family);
   font-size: 1.6rem;
   font-weight: 400;
@@ -15,12 +16,37 @@
 
 .iris-brand-links a {
   color: #c9a84c;
-  display: inline-block;
-  padding: 0.4rem 0;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
   text-decoration: none;
   white-space: nowrap;
 }
 
-.iris-brand-links a:hover { text-decoration: underline; }
+.iris-brand-links img { display: block; width: 24px; height: 24px; object-fit: contain; opacity: 0.85; }
+.iris-brand-links a:hover img, .iris-brand-links a:focus-visible img { opacity: 1; }
+.iris-brand-links a::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background: #111;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  color: #ede8df;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+.iris-brand-links a:hover::after, .iris-brand-links a:focus-visible::after { opacity: 1; visibility: visible; }
 .iris-brand-links a:focus-visible { outline: 1px solid #c9a84c; outline-offset: 3px; }
 .iris-brand-links[hidden], .iris-brand-links a[hidden] { display: none; }
