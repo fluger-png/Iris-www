@@ -1,4 +1,4 @@
-{%- assign iris_header_logo_url = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/IRISNYC-LOGO.svg?v=1793919322' -%}
+{%- assign iris_header_logo_url = 'https://cdn.shopify.com/s/files/1/0710/5239/4589/files/IRISNYC-LOGO-Microchip.svg?v=1793922934' -%}
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -211,7 +211,7 @@
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
         {%- if iris_header_logo_url != blank -%}
           <div class="header__heading-logo-wrapper" style="aspect-ratio: {{ settings.logo.aspect_ratio | default: 1 }}; display: flex; align-items: center;">
-            <img class="header__heading-logo motion-reduce" src="{{ iris_header_logo_url }}" alt="{{ shop.name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 65.52 | divided_by: 71.15 | round }}" style="display: block; width: {{ settings.logo_width }}px; height: auto;" fetchpriority="high">
+            <img class="header__heading-logo motion-reduce" src="{{ iris_header_logo_url }}" alt="{{ shop.name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 65.1 | divided_by: 71.15 | round }}" style="display: block; width: {{ settings.logo_width }}px; height: auto; transform: scale(0.8); transform-origin: center;" fetchpriority="high">
           </div>
         {%- elsif settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
@@ -258,7 +258,7 @@
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
         {%- if iris_header_logo_url != blank -%}
           <div class="header__heading-logo-wrapper" style="aspect-ratio: {{ settings.logo.aspect_ratio | default: 1 }}; display: flex; align-items: center;">
-            <img class="header__heading-logo" src="{{ iris_header_logo_url }}" alt="{{ shop.name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 65.52 | divided_by: 71.15 | round }}" style="display: block; width: {{ settings.logo_width }}px; height: auto;" fetchpriority="high">
+            <img class="header__heading-logo" src="{{ iris_header_logo_url }}" alt="{{ shop.name | escape }}" width="{{ settings.logo_width }}" height="{{ settings.logo_width | times: 65.1 | divided_by: 71.15 | round }}" style="display: block; width: {{ settings.logo_width }}px; height: auto; transform: scale(0.8); transform-origin: center;" fetchpriority="high">
           </div>
         {%- elsif settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
