@@ -20,6 +20,9 @@
   endif
 -%}
 
+{{ 'iris-brand-social-links.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'iris-brand-social-links.js' | asset_url }}" defer="defer"></script>
+
 {%- style -%}
   .v2-product-main-{{ section.id }} {
     --v2-product-gold: #c9a84c;
@@ -195,6 +198,8 @@
     letter-spacing: 0.42rem;
     font-size: 1.05rem;
   }
+
+  .v2-product-main__author-{{ section.id }} { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 1.6rem; }
 
   .v2-product-main__title-{{ section.id }} {
     margin: 0;
@@ -963,7 +968,10 @@
           {%- if product.handle == 'the-art-of-adornment' -%}
             {%- assign product_vendor_display = 'OKG Jewelry' -%}
           {%- endif -%}
-          <p class="v2-product-main__eyebrow-{{ section.id }}">{{ product_vendor_display }} · Physical Collectible Art</p>
+          <div class="v2-product-main__author-{{ section.id }}">
+            <p class="v2-product-main__eyebrow-{{ section.id }}"><span data-product-brand-name>{{ product_vendor_display | escape }}</span> · Physical Collectible Art</p>
+            {% render 'iris-brand-social-links' %}
+          </div>
 
           <h1 class="v2-product-main__title-{{ section.id }}">{{ product.title }}</h1>
 
@@ -1147,12 +1155,17 @@
     var minusBtn = root.querySelector('[data-quantity-minus]');
     var plusBtn = root.querySelector('[data-quantity-plus]');
 
-    if (root.hasAttribute('data-collection-product')) {
+    {
       var presentationHandle = {{ product.handle | json }};
       fetch('/apps/iris/collection-presentation?handle=' + encodeURIComponent(presentationHandle), { headers: { Accept: 'application/json' }, cache: 'no-store' })
         .then(function(response) { return response.ok ? response.json() : null; })
         .then(function(data) {
           if (!data) return;
+          var brandName = root.querySelector('[data-product-brand-name]');
+          if (brandName && typeof data.brand_name === 'string' && data.brand_name.trim()) brandName.textContent = data.brand_name;
+          var updateBrandLinks = function() { window.IRISBrandLinks.render(root, data.brand_links, data.brand_name); };
+          if (window.IRISBrandLinks) updateBrandLinks();
+          else document.addEventListener('iris:brand-links-ready', updateBrandLinks, { once: true });
           var banner = root.querySelector('[data-collection-product-banner]');
           if (banner && typeof data.banner_url === 'string' && /^https:\/\//.test(data.banner_url)) {
             var image = banner.querySelector('img');

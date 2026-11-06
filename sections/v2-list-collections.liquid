@@ -2,6 +2,9 @@
   assign excluded_handles = 'all,frontpage' | split: ','
 -%}
 
+{{ 'iris-brand-social-links.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'iris-brand-social-links.js' | asset_url }}" defer="defer"></script>
+
 <style>
   .v2-collections-{{ section.id }} {
     --v2c-gold: #c9a84c;
@@ -146,6 +149,7 @@
   }
 
   .v2-collections__card-{{ section.id }} {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -162,10 +166,13 @@
     border-color: var(--v2c-gold-line);
   }
 
-  .v2-collections__card-{{ section.id }}:focus-visible {
+  .v2-collections__name-link-{{ section.id }}:focus-visible::after {
     outline: 2px solid var(--v2c-gold);
     outline-offset: 4px;
   }
+
+  .v2-collections__name-link-{{ section.id }} { color: inherit; text-decoration: none; }
+  .v2-collections__name-link-{{ section.id }}::after { content: ''; position: absolute; inset: 0; z-index: 1; }
 
   .v2-collections__card-{{ section.id }}[hidden],
   .v2-collections__empty-{{ section.id }}[hidden] { display: none; }
@@ -258,6 +265,7 @@
   }
 
   .v2-collections__body-{{ section.id }} {
+    position: relative;
     container-type: inline-size;
     flex: 1;
     display: flex;
@@ -612,15 +620,14 @@
 
             assign rendered_count = rendered_count | plus: 1
           -%}
-          <a
-            href="{{ card_link }}"
+          <article
             class="v2-collections__card-{{ section.id }}"
             data-collection-card
             data-shopify-collection-handle="{{ collection.handle | escape }}"
             data-collection-handle="{{ archive_handle | escape }}"
             data-collection-title="{{ display_title | escape }}"
           >
-            <div class="v2-collections__artwork-{{ section.id }}">
+            <a class="v2-collections__artwork-{{ section.id }}" data-collection-media-link href="{{ card_link }}" tabindex="-1" aria-hidden="true">
               <div class="v2-collections__artwork-bg-{{ section.id }}"></div>
               <img
                 class="{{ card_media_class }}"
@@ -645,7 +652,7 @@
               {%- endif -%}
               </noscript>
               <div class="v2-collections__badge-{{ section.id }}{% if is_upcoming %} is-upcoming{% endif %}"><span class="v2-collections__badge-dot-{{ section.id }}"></span>{% if is_upcoming %}Coming soon{% else %}Active{% endif %}</div>
-            </div>
+            </a>
 
             <div class="v2-collections__body-{{ section.id }}">
               <div class="v2-collections__identity-{{ section.id }}">
@@ -654,8 +661,8 @@
                   <img data-collection-brand-avatar width="44" height="44" alt=""{% if brand_avatar != blank %} src="{{ brand_avatar | image_url: width: 132 }}" data-brand-core{% else %} hidden{% endif %}>
                 </div>
                 <div class="v2-collections__heading-{{ section.id }}">
-                  <h2 class="v2-collections__name-{{ section.id }}">{{ display_title | escape }}</h2>
-                  <div class="v2-collections__byline-{{ section.id }}">By <span data-collection-brand-name>{{ brand_name | escape }}</span></div>
+                  <h2 class="v2-collections__name-{{ section.id }}"><a class="v2-collections__name-link-{{ section.id }}" data-collection-link href="{{ card_link }}">{{ display_title | escape }}</a></h2>
+                  <div class="v2-collections__byline-{{ section.id }}">By <span data-collection-brand-name>{{ brand_name | escape }}</span> {% render 'iris-brand-social-links' %}</div>
                 </div>
               </div>
 
@@ -687,7 +694,7 @@
               </div>
 
             </div>
-          </a>
+          </article>
         {%- endunless -%}
       {%- endfor -%}
     </div>
@@ -808,14 +815,20 @@
             if (!visible) {
               updateActiveCount();
             }
-            if (typeof data.product_url === 'string' && /^\/products\/[a-z0-9-]+$/.test(data.product_url)) card.setAttribute('href', data.product_url);
-            var name = card.querySelector('.v2-collections__name-' + sectionId);
+            if (typeof data.product_url === 'string' && /^\/products\/[a-z0-9-]+$/.test(data.product_url)) {
+              card.querySelector('[data-collection-link]').setAttribute('href', data.product_url);
+              card.querySelector('[data-collection-media-link]').setAttribute('href', data.product_url);
+            }
+            var name = card.querySelector('[data-collection-link]');
             if (name && typeof data.display_name === 'string' && data.display_name) name.textContent = data.display_name;
 
             if (typeof data.brand_name === 'string' && data.brand_name.trim()) {
               if (brandNameEl) brandNameEl.textContent = data.brand_name;
               if (brandInitialEl) brandInitialEl.textContent = data.brand_name.trim().charAt(0).toUpperCase();
             }
+            var updateBrandLinks = function() { window.IRISBrandLinks.render(card, data.brand_links, data.brand_name); };
+            if (window.IRISBrandLinks) updateBrandLinks();
+            else document.addEventListener('iris:brand-links-ready', updateBrandLinks, { once: true });
             if (brandAvatarEl && typeof data.brand_avatar_url === 'string' && /^https:\/\//.test(data.brand_avatar_url)) {
               brandAvatarEl.src = data.brand_avatar_url;
               brandAvatarEl.hidden = false;
