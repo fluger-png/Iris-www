@@ -28,7 +28,7 @@
   white-space: nowrap;
 }
 
-.iris-brand-links img { display: block; width: 24px; height: 24px; object-fit: contain; opacity: 0.85; }
+.iris-brand-links img { display: block; width: 16.8px; height: 16.8px; object-fit: contain; opacity: 0.85; }
 .iris-brand-links a:hover img, .iris-brand-links a:focus-visible img { opacity: 1; }
 .iris-brand-links a::after {
   content: attr(data-tooltip);
