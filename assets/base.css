@@ -2942,6 +2942,14 @@ body.gradient {
   background: #000;
 }
 
+@media screen and (max-width: 749px) {
+  html.iris-footer-in-view .kl-teaser-UHp25t,
+  html.iris-footer-in-view .kl-teaser-UHp25t * {
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
 #MainContent {
   background: rgb(var(--color-background));
   background: var(--gradient-background);
