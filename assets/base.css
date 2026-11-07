@@ -2937,6 +2937,16 @@ details-disclosure > details {
   background-attachment: fixed;
 }
 
+/* Keep the browser canvas dark while preserving each page's content background. */
+body.gradient {
+  background: #000;
+}
+
+#MainContent {
+  background: rgb(var(--color-background));
+  background: var(--gradient-background);
+}
+
 @media screen and (forced-colors: active) {
   .icon {
     color: CanvasText;
