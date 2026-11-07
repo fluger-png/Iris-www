@@ -32,12 +32,13 @@
       var round = Math.round;
       var active = document.activeElement;
       panel.textContent = [
-        'IRIS footer v1 | ' + window.location.pathname,
-        'inner: ' + window.innerHeight + ' | client: ' + root.clientHeight,
-        'visual: ' + round(viewport ? viewport.height : window.innerHeight) + ' | offset: ' + round(visibleTop),
-        'scroll: ' + round(window.scrollY) + ' | pageTop: ' + round(viewport ? viewport.pageTop : window.scrollY),
+        'IRIS footer v2 | ' + window.location.pathname,
+        'width (layout / DOM): ' + root.clientWidth + ' / ' + root.scrollWidth,
+        'height (inner / layout): ' + window.innerHeight + ' / ' + root.clientHeight,
+        'visual: ' + round(viewport ? viewport.width : window.innerWidth) + ' x ' + round(viewport ? viewport.height : window.innerHeight) + ' @ ' + (viewport ? viewport.scale.toFixed(2) : '1.00'),
+        'scroll: ' + round(window.scrollY) + ' | visual Y: ' + round(viewport ? viewport.pageTop : window.scrollY),
         'document: ' + root.scrollHeight + ' | footer: ' + round(bounds.bottom + window.scrollY),
-        'DOM tail: ' + round(root.scrollHeight - bounds.bottom - window.scrollY) + ' | footer screen: ' + round(bounds.bottom),
+        'DOM tail: ' + round(root.scrollHeight - bounds.bottom - window.scrollY) + ' | visible gap: ' + round(Math.max(0, visibleBottom - bounds.bottom)),
         'focus: ' + (active ? active.tagName.toLowerCase() + (active.type ? ':' + active.type : '') : 'none')
       ].join('\n');
     }
